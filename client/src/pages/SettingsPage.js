@@ -156,6 +156,7 @@ export default function SettingsPage(){
 
                 console.log('userName = ' + dwm1[nextUserId].name )
 
+                testtests
                 if(index){
                     context.beginPath();
                     context.moveTo(centerX*(index+1), (secondCircleY + radiusOuter02 + lineLength) * (level-2) )
