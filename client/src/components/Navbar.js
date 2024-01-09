@@ -17,6 +17,9 @@ export default function Navbar () {
                 </div>
                 <ul>
                     <li>
+                        <Link to="/welding"><p>Сварка</p></Link>
+                    </li>
+                    <li>
                         <Link to="/document"><p>Документ</p></Link>
                     </li>
                     <li>
