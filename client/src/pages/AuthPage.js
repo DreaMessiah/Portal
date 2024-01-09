@@ -3,7 +3,7 @@ import {Link,useLocation} from 'react-router-dom';
 export default function AuthPage(){
 
     const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [password, setPassword] = useState(''); 
 
 
     const handleUsernameChange = (event) => {
