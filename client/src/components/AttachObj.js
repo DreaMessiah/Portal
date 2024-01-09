@@ -20,7 +20,7 @@ export default function AttachObj ({obj}){
             <div className='attach-title'><p>Приложения</p></div>
             <div className={showMore ? 'attaches autoheight' : 'attaches'}>
                 {Object.keys(obj).map((item,index) => (
-                    <Link to={obj[item].link}><div key={index} className={'img '+obj[item].type}></div><p>{obj[item].name + '.' + obj[item].type}</p></Link>
+                    <Link key={index} to={obj[item].link}><div className={'img '+obj[item].type}></div><p>{obj[item].name + '.' + obj[item].type}</p></Link>
                 ))}
             </div>
             { Object.keys(obj).length < 3 ? '' : (
