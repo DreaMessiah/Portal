@@ -8,6 +8,7 @@ import ChangeObj from "../components/ChangeObj";
 import WrapButtonsObj from "../components/WrapButtonsObj";
 import WorksTasksObj from "../components/WorkTasksObj";
 import AttachObj from "../components/AttachObj";
+import PerformersObj from "../components/PerformersObj";
 
 const mass_create = [
     {
@@ -115,6 +116,41 @@ const attach1 = {
         link:''
     }
 }
+const performers = {
+    main: {
+        name:'Романов Сергей Владимирович',
+        date:'12.09.2023 / 12:33',
+        job:'Зам. главного механика'
+    },
+    works: {
+        1:{
+            name: 'Ремонт техники',
+            link: '/'
+        },
+        2:{
+            name: 'Организация планирования процессов',
+            link: '/'
+        },
+        3:{
+            name: 'Разработка стратегического развития',
+            link: '/'
+        },
+        4:{
+            name: 'Расчет объема и стоимости материалов',
+            link: '/'
+        },
+    },
+    people: {
+        1:{
+            name: 'Труфанова Елена Васильевна',
+            job: 'Старший механик'
+        },
+        2:{
+            name: 'Григорьева Екатерина Васильевна',
+            job: 'Механик'
+        }
+    }
+}
 export default function DocumentPage(){
     return (
         <div className='container'>
@@ -139,8 +175,19 @@ export default function DocumentPage(){
                             <DocumentWay/>
                         </div>
                         <div className='right-box'>
-                            <WorksTasksObj obj={task1}/>
-                            <AttachObj obj={attach1}/>
+                            <div className='top-box-inside'>
+                                <div className='top-box-inside-left'>
+                                    <WorksTasksObj obj={task1}/>
+                                    <AttachObj obj={attach1}/>
+                                </div>
+                                <div className='top-box-inside-right'>
+                                    <PerformersObj obj={performers}/>
+                                </div>
+                            </div>
+                            <div className='bottom-box'>
+
+                            </div>
+
                         </div>
                     </div>
                 </div>

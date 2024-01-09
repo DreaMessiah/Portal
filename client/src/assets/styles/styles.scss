@@ -1324,18 +1324,78 @@ html{
       .right-box{
         width: 55%;
         padding-right: 30px;
+        .top-box-inside{
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          .top-box-inside-left{
+            width: 48%;
+          }
+          .top-box-inside-right{
+            width: 48%;
+          }
+        }
+        .bottom-box{
+
+        }
       }
     }
   }
 }
+.performers-obj{
+  width: 100%;
+  height: 100%;
+  border: 1px solid $blackColor;
+  display: flex;
+  flex-direction: column;
+  .title-performers {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    background-color: $wgreyColor;
+    p{
+
+    }
+  }
+  .info-box{
+    padding:0 20px;
+    p{
+      font-size: 0.8rem;
+      margin-top: 5px;
+    }
+    h3{
+      margin-top: 20px;
+    }
+    h4{
+      font-size: 0.9rem;
+      margin-top: 5px;
+    }
+    .list-button{
+      cursor: pointer;
+      color: $wblueColor;
+      text-transform: uppercase;
+      font-size: 0.6rem;
+      font-weight: 600;
+    }
+    .works-list{
+      display: none;
+    }
+  }
+  .people-list{
+    margin-top: 20px;
+  }
+}
 .attach-obj{
-  max-width: 50%;
+  width: 100%;
   border: 1px solid $blackColor;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 10px 0;
+  margin-top: 10px;
   .attach-title{
     width: 100%;
     display: flex;
@@ -1405,7 +1465,7 @@ html{
   }
 }
 .tasks-obj{
-  max-width: 50%;
+  max-width: 100%;
   border: 1px solid $blackColor;
   .top-box{
     display: flex;
