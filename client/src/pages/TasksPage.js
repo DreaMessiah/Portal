@@ -1,10 +1,9 @@
 import React, {useEffect, useRef} from "react";
 import Navbar from "../components/Navbar";
 import DocumentWay from "../components/DocumentWay";
-
 import SearchObj from "../components/SearchObj";
 import ChangeObj from "../components/ChangeObj";
-import Createobj from "../components/CreateObj";
+import CreateObj from "../components/CreateObj";
 import LeftMenuObj from "../components/LeftMenuObj";
 
 const mass_create = [
@@ -54,7 +53,7 @@ export default function TasksPage(){
             <Navbar/>
             <div id='DocumentPage' >
                 <div className='left_block'>
-                    <Createobj mass={mass_create} />
+                    <CreateObj mass={mass_create} />
                     <LeftMenuObj mass={menu_mass} />
                 </div>
                 <div className='right-block'>
