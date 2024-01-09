@@ -1,0 +1,10 @@
+{
+  "serverPort" : 5000,
+  "connectionLimit": 5,
+  "host": "",
+  "user": "",
+  "password": "",
+  "database": "",
+  "sqlport": 3306,
+  "jwtSecret": ""
+}
