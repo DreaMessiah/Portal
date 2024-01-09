@@ -3,6 +3,10 @@ export default function AttachObj ({obj}){
     return (
         <div className=''>
 
+
+
+
+            
         </div>
     )
 }
