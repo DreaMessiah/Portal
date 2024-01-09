@@ -1400,6 +1400,24 @@ html{
     margin-top: 20px;
   }
 }
+.results-obj{
+  margin-top: 30px !important;
+    .button-text{
+      font-size: 0.6rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: $wblueColor;
+      text-transform: uppercase;
+      display: flex;
+      justify-content: right;
+      padding-top: 4px;
+    }
+    .attaches{
+      a{
+        width: 17% !important;
+      }
+    }
+}
 .attach-obj{
   width: 100%;
   border: 1px solid $blackColor;
@@ -1463,6 +1481,11 @@ html{
       width: 59px;
       height: 56px;
       background-image: url("../images/jpgicon.svg");
+    }
+    .pdf{
+      width: 50px;
+      height: 48px;
+      background-image: url("../images/pdficon.svg");
     }
   }
   .button{

@@ -9,6 +9,7 @@ import WrapButtonsObj from "../components/WrapButtonsObj";
 import WorksTasksObj from "../components/WorkTasksObj";
 import AttachObj from "../components/AttachObj";
 import PerformersObj from "../components/PerformersObj";
+import ResultsObj from "../components/ResultsObj";
 
 const mass_create = [
     {
@@ -87,7 +88,7 @@ const attach1 = {
     },
     2:{
         name:'согласование',
-        type:'docx',
+        type:'pdf',
         link:'/'
     },
     3:{
@@ -151,6 +152,10 @@ const performers = {
         }
     }
 }
+const results = {
+    attaches:attach1,
+    text:'Поврежденную при теракте Киева левую часть Крымского моста отремонтировали на один день раньше заявленного срока. Об этом сообщил вице-премьер РФ Марат Хуснуллин. По его словам, движение транспорта полностью возобновлено. «На восстановление нам потребовалось всего 59 дней! На совещании у президента докладывали, что завершим работу к 15 сентября, и точно выдержали график, закончили даже на 1 день раньше!» — написал Хуснуллин в Telegram. Он отметил, что к восстановительным работам приступили уже в день теракта. «Теперь левая часть полностью готова принять поток автомобилей», — заключил Хуснуллин. Взрыв на Крымском мосту произошел в ночь на 17 июля. В результате ЧП обрушились два автомобильных пролета, четыре человека погибли. Национальный антитеррористический комитет (НАК) признал произошедшее терактом ВСУ.'
+}
 export default function DocumentPage(){
     return (
         <div className='container'>
@@ -185,7 +190,7 @@ export default function DocumentPage(){
                                 </div>
                             </div>
                             <div className='bottom-box'>
-
+                                <ResultsObj obj={results}/>
                             </div>
 
                         </div>
