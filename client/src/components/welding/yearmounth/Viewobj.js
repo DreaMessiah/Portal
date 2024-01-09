@@ -2,10 +2,7 @@ import React,{useState} from "react";
 import SearchObj from "../../SearchObj";
 import ChangeObj from "../../ChangeObj";
 import WrapButtonsObj from "../../WrapButtonsObj";
-import "./objs.scss";
-import ListObjs from "./ListObjs";
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
-import {Weldingmain} from "../../../pages/welding/Weldingmain";
+import "./viewobj.scss";
 
 const wrap_buttons = [
     {
@@ -59,7 +56,7 @@ const objs = [
     }
 ]
 
-export const Objs = () => {
+export const Viewobj = () => {
     return (
         <div className='right-block-objwelding'>
             <div className='top-box'>
@@ -72,7 +69,6 @@ export const Objs = () => {
                 </div>
             </div>
             <div className='next-box'>
-                <ListObjs mass={objs}/>
             </div>
         </div>
     )

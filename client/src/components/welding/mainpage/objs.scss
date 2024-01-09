@@ -43,6 +43,7 @@
     min-height: 222px;
     border: 1px solid #000;
     margin: 0 10px 10px 10px;
+    cursor: pointer;
   }
 
   .objs_list_item_header{
@@ -83,6 +84,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        cursor: cell;
       }
     }
 

@@ -1,9 +1,5 @@
 import React, {useEffect, useRef} from "react";
 import Navbar from "../../components/Navbar";
-import DocumentWay from "../../components/DocumentWay";
-
-import SearchObj from "../../components/SearchObj";
-import ChangeObj from "../../components/ChangeObj";
 import Createobj from "../../components/CreateObj";
 import LeftMenuObj from "../../components/LeftMenuObj";
 import {Objs} from "../../components/welding/mainpage/Objs";
@@ -63,7 +59,7 @@ export const Weldingmain = () => {
                                 <LeftMenuObj mass={menu_mass} />
                         </div>
 
-                                <Objs />
+                        <Objs />
 
                 </div>
 
