@@ -78,7 +78,43 @@ const task1 = {
         title:'Отремонтировать технику',
         text:'Первым этапом капитального ремонта является разборка и очистка двигателя. Затем нужно выполнить дефектовку, включающую в себя оценку выработки, измерение зазоров, проверку состояния головки блока цилиндров, блока цилиндров и определенных деталей на предмет наличия дефектов и износа, и т.д. После этого производится сравнение состояния деталей с заводскими допусками.'
     }
-
+const attach1 = {
+    1:{
+        name:'план',
+        type:'jpg',
+        link:'/'
+    },
+    2:{
+        name:'согласование',
+        type:'docx',
+        link:'/'
+    },
+    3:{
+        name:'расчеты',
+        type:'xlsx',
+        link:'/'
+    },
+    4:{
+        name:'приложение1',
+        type:'docx',
+        link:''
+    },
+    5:{
+        name:'приложение2',
+        type:'docx',
+        link:''
+    },
+    6:{
+        name:'статистика',
+        type:'xlsx',
+        link:''
+    },
+    7:{
+        name:'Зарплатa',
+        type:'xlsx',
+        link:''
+    }
+}
 export default function DocumentPage(){
     return (
         <div className='container'>
@@ -104,7 +140,7 @@ export default function DocumentPage(){
                         </div>
                         <div className='right-box'>
                             <WorksTasksObj obj={task1}/>
-                            <AttachObj obj={task1}/>
+                            <AttachObj obj={attach1}/>
                         </div>
                     </div>
                 </div>
