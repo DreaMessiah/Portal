@@ -10,7 +10,10 @@ import LkPage from "./pages/LkPage"
 import NewsPage from "./pages/NewsPage"
 import SelNewsPage from "./pages/SelNewsPage"
 import DocumentPage from "./pages/DocumentPage"
+
 import TasksPage from "./pages/TasksPage";
+
+import {Weldingmain} from "./pages/welding/Weldingmain";
 
 
 function App() {
@@ -22,7 +25,11 @@ function App() {
                   <Route path='/main' element={<MainPage/>} />
                   <Route path="/settings" element={<SettingsPage/>} />
                   <Route path="/document" element={<DocumentPage/>} />
+
                   <Route path="/tasks" element={<TasksPage/>} />
+
+                  <Route path="/welding" element={<Weldingmain />} />
+
                   <Route path="/lk" element={<LkPage/>} />
                   <Route path="/news" element={<NewsPage/>} />
                   <Route path="/selected_news/:id" element={<SelNewsPage/>} />
