@@ -6,6 +6,7 @@ import SearchObj from "../../components/SearchObj";
 import ChangeObj from "../../components/ChangeObj";
 import Createobj from "../../components/CreateObj";
 import LeftMenuObj from "../../components/LeftMenuObj";
+import {Objs} from "../../components/welding/mainpage/Objs";
 
 
 
@@ -61,9 +62,9 @@ export const Weldingmain = () => {
                                 <Createobj mass={mass_create} />
                                 <LeftMenuObj mass={menu_mass} />
                         </div>
-                        <div className='right-block'>
-                                
-                        </div>
+
+                                <Objs />
+
                 </div>
 
         </div>
