@@ -13,6 +13,7 @@ import DocumentPage from "./pages/DocumentPage"
 import TasksPage from "./pages/TasksPage"
 import {Weldingmain} from "./pages/welding/Weldingmain";
 import {Yearwelding} from "./pages/welding/Yearwelding";
+import {Tabel} from "./pages/welding/Tabel";
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
                   <Route path="/tasks" element={<TasksPage/>} />
                   <Route path="/welding" element={<Weldingmain />} />
                   <Route path="/obj/:id" element={<Yearwelding />} />
+                  <Route path="/tabelwelding" element={<Tabel />} />
                   <Route path="/lk" element={<MainPage/>} />
                   <Route path="/news" element={<NewsPage/>} />
                   <Route path="/selected_news/:id" element={<SelNewsPage/>} />

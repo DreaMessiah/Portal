@@ -1,5 +1,6 @@
 import React,{useState} from "react";
 import "./viewobj.scss";
+import {Link} from "react-router-dom";
 
 const arr_years = ['2024', '2023'];
 
@@ -140,10 +141,10 @@ export const Viewobj = () => {
                 <div className='ymwelding_years_body'>{  arr_tabel.map((mounth,index) => (
                     <div key={index}>
                         {year === mounth.year ?
-                        <div  className='ymwelding_years_body_mounth'>
+                        <Link key={index} to={`/tabelwelding`} className='ymwelding_years_body_mounth'>
                             <div className='ymwelding_years_body_mounth_text'>{mounth.mounth}</div>
-                            <div className='ymwelding_years_body_mounth_settings'> ... </div>
-                        </div>
+                            <Link key={index} to={`/tabelwelding/`} className='ymwelding_years_body_mounth_settings'> ... </Link>
+                        </Link>
                          : '' }
                     </div>
                         ))}
