@@ -27,6 +27,12 @@ const DynamicTextObj = () => {
         case '/obj':
             text = 'Обьект';
             break;
+        case '/lk':
+            text = 'Dashboard';
+            break;
+        case '/settings':
+            text = 'Настройки';
+            break;
         default:
             text = 'Корпоративный портал';
     }

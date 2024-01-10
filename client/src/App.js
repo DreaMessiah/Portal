@@ -26,10 +26,8 @@ function App() {
                   <Route path="/document" element={<DocumentPage/>} />
                   <Route path="/tasks" element={<TasksPage/>} />
                   <Route path="/welding" element={<Weldingmain />} />
-
                   <Route path="/obj/:id" element={<Yearwelding />} />
-
-                  <Route path="/lk" element={<LkPage/>} />
+                  <Route path="/lk" element={<MainPage/>} />
                   <Route path="/news" element={<NewsPage/>} />
                   <Route path="/selected_news/:id" element={<SelNewsPage/>} />
               </Routes>

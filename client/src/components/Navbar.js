@@ -8,7 +8,7 @@ export default function Navbar () {
             <nav>
                 <div className='head'>
                     <div id='logo'></div>
-                    <Link to="/news"><p className='textlogo'>Корпоративный</p>
+                    <Link to="/lk"><p className='textlogo'>Корпоративный</p>
                         <p className='textlogo'>портал</p>
                         <p className='span'>Сургутское РСУ</p>
                     </Link>
@@ -17,9 +17,6 @@ export default function Navbar () {
                     <Link to="/main"><DynamicTextObj/> / Барахтянский В.А.</Link>
                 </div>
                 <ul>
-                    <li>
-                        <Link to="/tasks"><p>Задачи</p></Link>
-                    </li>
                     <li>
                         <Link to="/welding"><p>Сварка</p></Link>
                     </li>
@@ -30,10 +27,10 @@ export default function Navbar () {
                         <Link to="/settings"><p>Настройки</p></Link>
                     </li>
                     <li>
-                        <Link to="/news"><p>Личный кабинет</p></Link>
+                        <Link to="/lk"><p>Личный кабинет</p></Link>
                     </li>
                     <li>
-                        <Link to='/news'><div className='post-icon'/></Link>
+                        <Link to='/lk'><div className='post-icon'/></Link>
                     </li>
                 </ul>
             </nav>
