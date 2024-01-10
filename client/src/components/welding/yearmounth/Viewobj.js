@@ -1,7 +1,7 @@
 import React,{useState} from "react";
 import "./viewobj.scss";
 
-const arr_years = ['2024', '2023', '2022', '2021'];
+const arr_years = ['2024', '2023'];
 
 const arr_tabel = [
     
@@ -135,15 +135,18 @@ export const Viewobj = () => {
             </div>
             <div className='ymwelding_slice'></div>
             {arr_years.map((year,index) => (
-
             <div key={index} className='ymwelding_years'>
                 <div className='ymwelding_years_head'>{year}</div>
-                <div className='ymwelding_years_body'>{  arr_tabel.map((mount,index) => (
-                            <div className='ymwelding_years_body_mounth'>
-                                <div className='ymwelding_years_body_mounth_text'>{mount.mounth}</div>
-                                <div className='ymwelding_years_body_mounth_settings'> ... </div>
-                            </div>))
-}
+                <div className='ymwelding_years_body'>{  arr_tabel.map((mounth,index) => (
+                    <div key={index}>
+                        {year === mounth.year ?
+                        <div  className='ymwelding_years_body_mounth'>
+                            <div className='ymwelding_years_body_mounth_text'>{mounth.mounth}</div>
+                            <div className='ymwelding_years_body_mounth_settings'> ... </div>
+                        </div>
+                         : '' }
+                    </div>
+                        ))}
                 </div>
             </div>
             ))
