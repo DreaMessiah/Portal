@@ -1,0 +1,94 @@
+.right-block-objwelding{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  .top-box{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    .left-box{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      width: 100%;
+      max-height: 100%;
+      .wrap-button{
+        max-height: 15px;
+      }
+      .wrap-buttons-obj{
+        min-width: 300px;
+        min-height: 50px;
+        max-width: 55%;
+        padding: 10px 0;
+      }
+    }
+
+    .right-box{
+      padding-right: 30px;
+    }
+  }
+}
+
+.objs_list{
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+
+  .objs_list_item{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    min-height: 222px;
+    border: 1px solid #000;
+    margin: 0 10px 10px 10px;
+    cursor: pointer;
+  }
+
+  .objs_list_item_header{
+    display: flex;
+    align-items: center;
+    height: 35px;
+    background: #617676;
+    color: #FFF;
+    span{
+      margin-left: 10px;
+    }
+  }
+  .objs_list_item_body{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    .objs_list_item_body_description{
+      width: 95%;
+      margin: 5px 0;
+    }
+    .objs_list_item_body_bottom{
+       display: flex;
+      height: 40px;
+      width: 95%;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      .objs_list_item_body_bottom_dateinto{
+
+      }
+      .objs_list_item_body_bottom_btn{
+          width: 50px;
+        height: 40px;
+        background: #CCC;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: cell;
+      }
+    }
+
+  }
+
+}
+
