@@ -50,7 +50,7 @@ export default function WorksTasksObj ({obj}){
                 </div>
                 <div className='right-box-info'>
                     <h3>{obj.title}</h3>
-                    <p className='text'>{showMore ? obj.text : `${displayText.split(' ').slice(0, 25).join(' ')}...`}</p>
+                    <p className={`text ${showMore ? 'expanded' : ''}`} >{showMore ? obj.text : `${displayText.split(' ').slice(0, 25).join(' ')}...`}</p>
                     <div className='button' onClick={handleToggle}>{showMore ? 'Скрыть' : 'Показать больше'}</div>
                 </div>
             </div>
