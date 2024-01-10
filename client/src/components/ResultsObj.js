@@ -20,6 +20,7 @@ export default function ResultsObj ({obj}){
     const handleToggle = () => {
         setShowMore(!showMore);
     };
+    const mass = [1,2,3,4,5]
 
     return (
         <div className='attach-obj results-obj performers-obj'>
@@ -36,7 +37,6 @@ export default function ResultsObj ({obj}){
                         <Link key={index} to={obj.attaches[item].link}><div className={'img '+obj.attaches[item].type}></div><p>{obj.attaches[item].name + '.' + obj.attaches[item].type}</p></Link>
                     ))}
                 </div>
-
             </div>
             { Object.keys(obj.attaches).length < 5 ? '' : (
                 <div onClick={handleToggleDocs} className='button'>{buttonText}</div>

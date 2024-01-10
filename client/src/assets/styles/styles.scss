@@ -696,7 +696,7 @@ html{
         height: 100%;
         width: 55%;
         font-weight: 600;
-        font-size: 1rem;
+        font-size: 0.85rem;
         text-transform: uppercase;
 
       }
@@ -707,13 +707,14 @@ html{
         align-items: center;
         justify-content: center;
         .num{
-          height: 65px;
+          height: 47px;
           display: flex;
           justify-content: center;
           align-items: center;
-          width: 65px;
+          width: 47px;
           border-radius: 50%;
-          font-size: 1.5rem;
+          font-size: 1.2rem;
+          font-weight: 600;
           background-color: $dgreyColor;
           color: $whiteColor;
         }
@@ -1387,6 +1388,7 @@ html{
     }
     .works-list{
       display: none;
+      transition: display 0.5s ease;
       p{
         cursor: pointer;
         color: $wblueColor;
@@ -1402,6 +1404,7 @@ html{
 }
 .results-obj{
   margin-top: 30px !important;
+  margin-bottom: 30px;
     .button-text{
       font-size: 0.6rem;
       font-weight: 600;
@@ -1413,8 +1416,10 @@ html{
       padding-top: 4px;
     }
     .attaches{
+      justify-content: center;
+
       a{
-        width: 17% !important;
+        width: 13% !important;
       }
     }
 }
@@ -1546,6 +1551,12 @@ html{
     }
     .text{
       font-size: 0.65rem;
+      max-height: 78px;
+      overflow: hidden;
+      transition: max-height 3s ease;
+    }
+    .text.expanded{
+      max-height: 1000px;
     }
     h3{
       font-size: 0.9rem;
