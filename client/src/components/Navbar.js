@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import DynamicTextObj from "./DinamicTextObj";
 
 export default function Navbar () {
     return (
@@ -13,7 +14,7 @@ export default function Navbar () {
                     </Link>
                 </div>
                 <div className='textlogo'>
-                    <Link to="/main">DASHBOARD / Барахтянский В.А.</Link>
+                    <Link to="/main"><DynamicTextObj/> / Барахтянский В.А.</Link>
                 </div>
                 <ul>
                     <li>
