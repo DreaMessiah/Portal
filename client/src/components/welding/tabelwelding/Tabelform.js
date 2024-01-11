@@ -45,7 +45,10 @@ export const Tabelform = () => {
             <TabelViewsWork />
             <div className="tabwelding_slice"></div>
             <div className="tabwelding_tabel">
-                <div className="tabwelding_tabel_upper"></div>
+                <div className="tabwelding_tabel_upper">
+                    <div className="tabwelding_tabel_upper_title">Табель</div>
+                    <div className="tabwelding_tabel_upper_plus">Добавить</div>
+                </div>
                 <TabelMans />
             </div>
         </div>

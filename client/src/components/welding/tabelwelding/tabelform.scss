@@ -443,3 +443,151 @@
   justify-content: center;
   align-items: center;
 }
+
+.tabwelding_tabel{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  .tabwelding_tabel_upper{
+    width: calc(236px * 2 + 20px);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    .tabwelding_tabel_upper_title{
+      font-weight: 600;
+    }
+    .tabwelding_tabel_upper_plus{
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 236px;
+      height: 40px;
+      background: #617676;
+      color: #FFF;
+    }
+
+  }
+  .tabwelding_tabel_tabelman{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    .tabwelding_tabel_tabelman_upper{
+      display: flex;
+      justify-content: flex-start;
+      width: 100%;
+      height: 20px;
+      .tabwelding_tabel_tabelman_upper_num{
+        width: 50px;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 10pt;
+        border-top: 1px solid #454545;
+        border-right: 0px;
+        border-left: 1px solid #454545;
+        border-bottom: 1px solid #454545;
+      }
+      .tabwelding_tabel_tabelman_upper_fio{
+        width: 250px;
+        height: 100%;
+        border-top: 1px solid #454545;
+        border-right: 0px;
+        border-left: 1px solid #454545;
+        border-bottom: 1px solid #454545;
+      }
+      .tabwelding_tabel_tabelman_upper_title{
+        width: 700px;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 10pt;
+        border-top: 1px solid #454545;
+        border-right: 0px;
+        border-left: 1px solid #454545;
+        border-bottom: 1px solid #454545;
+      }
+      .tabwelding_tabel_tabelman_upper_itogy{
+        width: 120px;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 10pt;
+        border-top: 1px solid #454545;
+        border-right: 1px solid #454545;
+        border-left: 1px solid #454545;
+        border-bottom: 1px solid #454545;
+      }
+    }
+    .tabwelding_tabel_tabelman_strock{
+      display: flex;
+      justify-content: flex-start;
+      width: 100%;
+      min-height: 40px;
+      //border-top: 1px solid #454545;
+      .tabwelding_tabel_tabelman_strock_num{
+        width: 50px;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 10pt;
+        border-top: 0px;
+        border-right: 0px;
+        border-left: 1px solid #454545;
+        border-bottom: 1px solid #454545;
+      }
+      .tabwelding_tabel_tabelman_strock_fio{
+        width: 240px;
+        height: 100%;
+        border-top: 0px;
+        border-right: 0px;
+        border-left: 1px solid #454545;
+        border-bottom: 1px solid #454545;
+        font-size: 10pt;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 5px;
+      }
+      .tabwelding_tabel_tabelman_strock_calendar{
+        width: 700px;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 10pt;
+        border-top: 0px;
+        border-right: 0px;
+        border-left: 1px solid #454545;
+        border-bottom: 1px solid #454545;
+        .tabwelding_tabel_tabelman_strock_calendar_column_day {
+          .tabwelding_tabel_tabelman_s_c_c_day_title{}
+          .tabwelding_tabel_tabelman_s_c_c_day_content{}
+        }
+      }
+      .tabwelding_tabel_tabelman_strock_itogy{
+        width: 120px;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 10pt;
+        border-top: 0px;
+        border-right: 1px solid #454545;
+        border-left: 1px solid #454545;
+        border-bottom: 1px solid #454545;
+      }
+    }
+  }
+
+}

@@ -18,7 +18,7 @@ export const TabelViewsWork = () => {
                                     <div className="tabwelding_viewswork_t_s_h_up_btns_delete">D</div>
                                 </div>
                             </div>
-                            <div className="tabwelding_viewswork_tabel_strock_head_fio">219 х 6 000-НПТ изм.3 Противопожарный водопровод надземно (сухотрубы).Гребенки площадкиПП</div>
+                            <div className="tabwelding_viewswork_tabel_strock_head_fio">219 х 6 000-НПТ изм.3 Противопожарный водопровод надземно (сухотрубы).Гребенки площадкиПП </div>
                         </div>
                         <div className="tabwelding_viewswork_tabel_strock_calendar">
                             <div className="tabwelding_viewswork_tabel_strock_calendar_up">Бр. Изомова С.Ш.</div>
