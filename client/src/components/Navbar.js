@@ -19,6 +19,9 @@ export default function Navbar () {
                 </div>
                 <ul>
                     <li>
+                        <Link to="/tasks"><p>Задачи</p></Link>
+                    </li>
+                    <li>
                         <Link to="/welding"><p>Сварка</p></Link>
                     </li>
                     <li>
