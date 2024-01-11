@@ -154,6 +154,7 @@
       width: 250px;
       min-height: 40px;
       display: flex;
+      flex-direction: column;
       border: 1px solid #000;
       margin-left: -1px;
 
@@ -162,17 +163,75 @@
         height: 30px;
         display: flex;
         justify-content: space-between;
+        border-bottom: 1px solid #454545;
       }
       .tabwelding_viewswork_tabel_strock_head_fio{
-
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     }
     .tabwelding_viewswork_tabel_strock_calendar{
       width: 700px;
       min-height: 40px;
       display: flex;
+      flex-direction: column;
       border: 1px solid #000;
       margin-left: -1px;
+
+      .tabwelding_viewswork_tabel_strock_calendar_up{
+        width: 100%;
+        height: 15px;
+        border-bottom: 1px solid #454545;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .tabwelding_viewswork_tabel_strock_calendar_days{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .border_b{
+          border-bottom: 1px solid #454545;
+        }
+        .tabwelding_viewswork_tabel_strock_calendar_days_16{
+          height: 100px;
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          .border-r{
+            border-right: 1px solid #454545;
+          }
+
+          .tabwelding_viewswork_tabel_strock_calendar_days__day{
+            height: 100%;
+            width: calc(100% / 16);
+            display: flex;
+            flex-direction: column;
+
+                .tabwelding_v_t_s_c_d_day_title{
+                  width: 100%;
+                  height: 14px;
+                  border-bottom: 1px solid #454545;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                }
+                .tabwelding_v_t_s_c_d_day_plan{
+                  width: 100%;
+                  height: calc((100% - 14px) / 2);
+                  border-bottom: 1px solid #454545;
+                }
+                .tabwelding_v_t_s_c_d_day_fact{
+                  width: 100%;
+                  height: 14px;
+                }
+          }
+        }
+      }
     }
     .tabwelding_viewswork_tabel_strock_itogy{
       width: 80px;
