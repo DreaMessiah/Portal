@@ -1570,3 +1570,26 @@ html{
     }
   }
 }
+
+.lk-form{
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  input{
+    width: 236px;
+    height: 40px;
+    padding: 5px;
+    border: 1px solid #000;
+    margin-bottom: 10px;
+  }
+  .button{
+    background: #617676;
+    width: 236px;
+    height: 40px;
+    color: #FFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+}

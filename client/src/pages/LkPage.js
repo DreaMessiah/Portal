@@ -1,8 +1,8 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {Link,useLocation} from 'react-router-dom';
 import Navbar from "../components/Navbar";
 import LeftMenuObj from "../components/LeftMenuObj";
 import CreateObj from "../components/CreateObj";
-
 
 const menu_mass = [
     {
@@ -46,19 +46,54 @@ const mass_create = [
     }
 ]
 export default function LkPage(){
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [passport, setPassport] = useState('');
+    const [tel, setTel] = useState('');
+    const [mail, setMail] = useState('');
+    const [snils, setSnils] = useState('');
+
+    const handleUsernameChange = (event) => {
+        setUsername(event.target.value);
+    };
+
+    const handlePasswordChange = (event) => {
+        setPassword(event.target.value);
+    };
+
+    const handleSubmit = (event) => {
+        //event.preventDefault();
+    }
     return (
-        <div>
+        <div className='container'>
             <Navbar/>
-            <div className='container'>
-                <div className='left_block'>
-                    <CreateObj mass={mass_create} />
-                    <LeftMenuObj mass={menu_mass} />
-                </div>
-                <div className='right-block'>
-                    123
+            <div className='personal-page'>
+                <div className='flex'>
+                    <div className='left_block'>
+                        <CreateObj mass={mass_create} />
+                        <LeftMenuObj mass={menu_mass} />
+                    </div>
+                    <div className='right-block'>
+                        <div className='lk-form'>
+                            <label>Имя пользователя</label>
+                            <input type="text" placeholder='Barahta' value={username} onChange={handleUsernameChange} autoComplete="off"/>
+                            <label>Изменить пароль</label>
+                            <input type="password" placeholder='Пароль' value={password} onChange={handlePasswordChange} autoComplete="off" />
+                            <input type="password" placeholder='Повторите пароль' value={password} onChange={handlePasswordChange} autoComplete="off" />
+                            <label>Паспортные данные</label>
+                            <input type="text" placeholder='7777 777777' value={passport} onChange={handleUsernameChange} autoComplete="off"/>
+                            <label>Снилс</label>
+                            <input type="text" placeholder='14339307656' value={snils} onChange={handleUsernameChange} autoComplete="off"/>
+                            <label>Электронная почта</label>
+                            <input type="text" placeholder='test@mail.ru' value={mail} onChange={handleUsernameChange} autoComplete="off"/>
+                            <label>Номер телефона</label>
+                            <input type="text" placeholder='+73462774850' value={tel} onChange={handleUsernameChange} autoComplete="off"/>
+
+                            <Link to="/" className='button' onClick={handleSubmit}>Обновить</Link>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-    );
-};
+    )
+}

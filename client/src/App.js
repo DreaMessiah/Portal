@@ -15,7 +15,6 @@ import {Weldingmain} from "./pages/welding/Weldingmain";
 import {Yearwelding} from "./pages/welding/Yearwelding";
 import {Tabel} from "./pages/welding/Tabel";
 
-
 function App() {
   return (
       <Router>
