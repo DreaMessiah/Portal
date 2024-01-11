@@ -13,6 +13,7 @@ export default function Navbar () {
                         <p className='span'>Сургутское РСУ</p>
                     </Link>
                 </div>
+                
                 <div className='textlogo'>
                     <Link to="/main"><DynamicTextObj/> / Барахтянский В.А.</Link>
                 </div>
