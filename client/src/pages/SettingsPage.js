@@ -8,7 +8,7 @@ export default function SettingsPage(){
         <div className=''>
             <Navbar/>
             <div className='container'>
-
+                <LeftIconsObj/>
             </div>
         </div>
     );

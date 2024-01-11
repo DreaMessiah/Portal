@@ -27,7 +27,7 @@ function App() {
                   <Route path="/tasks" element={<TasksPage/>} />
                   <Route path="/welding" element={<Weldingmain />} />
                   <Route path="/obj/:id" element={<Yearwelding />} />
-                  <Route path="/lk" element={<MainPage/>} />
+                  <Route path="/lk" element={<LkPage/>} />
                   <Route path="/news" element={<NewsPage/>} />
                   <Route path="/selected_news/:id" element={<SelNewsPage/>} />
               </Routes>
