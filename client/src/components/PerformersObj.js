@@ -8,7 +8,7 @@ export default function PerformersObj ({obj}){
 
     const handleWorks = () => {
         setDisplayWorks(!displayWorks);
-    };
+    }
 
     return (
         <div className='performers-obj' style={Object.keys(obj.people).length > 2 ? {paddingBottom:10} : {paddingBottom:0}}>

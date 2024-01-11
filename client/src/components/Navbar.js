@@ -28,9 +28,6 @@ export default function Navbar () {
                         <Link to="/document"><p>Документ</p></Link>
                     </li>
                     <li>
-                        <Link to="/settings"><p>Настройки</p></Link>
-                    </li>
-                    <li>
                         <Link to="/lk"><p>Личный кабинет</p></Link>
                     </li>
                     <li>
