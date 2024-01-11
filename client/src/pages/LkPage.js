@@ -45,6 +45,7 @@ const mass_create = [
         text:'Создать перемещение'
     }
 ]
+
 export default function LkPage(){
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -56,7 +57,18 @@ export default function LkPage(){
     const handleUsernameChange = (event) => {
         setUsername(event.target.value);
     };
-
+    const handleTelChange = (event) => {
+        setUsername(event.target.value);
+    };
+    const handleMailChange = (event) => {
+        setUsername(event.target.value);
+    };
+    const handlePassportChange = (event) => {
+        setUsername(event.target.value);
+    };
+    const handleSnilsChange = (event) => {
+        setUsername(event.target.value);
+    };
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
     };
@@ -81,13 +93,13 @@ export default function LkPage(){
                             <input type="password" placeholder='Пароль' value={password} onChange={handlePasswordChange} autoComplete="off" />
                             <input type="password" placeholder='Повторите пароль' value={password} onChange={handlePasswordChange} autoComplete="off" />
                             <label>Паспортные данные</label>
-                            <input type="text" placeholder='7777 777777' value={passport} onChange={handleUsernameChange} autoComplete="off"/>
+                            <input type="text" placeholder='7777 777777' value={passport} onChange={handlePassportChange} autoComplete="off"/>
                             <label>Снилс</label>
-                            <input type="text" placeholder='14339307656' value={snils} onChange={handleUsernameChange} autoComplete="off"/>
+                            <input type="text" placeholder='14339307656' value={snils} onChange={handleSnilsChange} autoComplete="off"/>
                             <label>Электронная почта</label>
-                            <input type="text" placeholder='test@mail.ru' value={mail} onChange={handleUsernameChange} autoComplete="off"/>
+                            <input type="text" placeholder='test@mail.ru' value={mail} onChange={handleMailChange} autoComplete="off"/>
                             <label>Номер телефона</label>
-                            <input type="text" placeholder='+73462774850' value={tel} onChange={handleUsernameChange} autoComplete="off"/>
+                            <input type="text" placeholder='+73462774850' value={tel} onChange={handleTelChange} autoComplete="off"/>
 
                             <Link to="/" className='button' onClick={handleSubmit}>Обновить</Link>
                         </div>
