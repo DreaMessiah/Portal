@@ -11,9 +11,8 @@ import NewsPage from "./pages/NewsPage"
 import SelNewsPage from "./pages/SelNewsPage"
 import DocumentPage from "./pages/DocumentPage"
 import TasksPage from "./pages/TasksPage"
-import {Weldingmain} from "./pages/welding/Weldingmain";
-import {Yearwelding} from "./pages/welding/Yearwelding";
-
+import {Weldingmain} from "./pages/welding/Weldingmain"
+import {Yearwelding} from "./pages/welding/Yearwelding"
 
 function App() {
   return (
