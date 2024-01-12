@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {Link,useLocation} from 'react-router-dom';
 import Navbar from "../components/Navbar";
-import LeftMenuObj from "../components/LeftMenuObj";
-import CreateObj from "../components/CreateObj";
+import LeftMenuObj from "../components/leftbar/LeftMenuObj";
+import CreateObj from "../components/leftbar/CreateObj";
+import BridgeLeftBar from "../components/leftbar/ BridgeLeftBar";
 
 const menu_mass = [
     {
@@ -81,10 +82,7 @@ export default function LkPage(){
             <Navbar/>
             <div className='personal-page'>
                 <div className='flex'>
-                    <div className='left_block'>
-                        <CreateObj mass={mass_create} />
-                        <LeftMenuObj mass={menu_mass} />
-                    </div>
+                    <BridgeLeftBar arrcreate={mass_create} arrmenu={menu_mass}/>
                     <div className='right-block'>
                         <div className='lk-form'>
                             <label>Имя пользователя</label>

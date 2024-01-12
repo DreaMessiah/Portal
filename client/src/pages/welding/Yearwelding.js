@@ -1,8 +1,9 @@
 import React, {useEffect, useRef} from "react";
 import Navbar from "../../components/Navbar";
-import Createobj from "../../components/CreateObj";
-import LeftMenuObj from "../../components/LeftMenuObj";
+import Createobj from "../../components/leftbar/CreateObj";
+import LeftMenuObj from "../../components/leftbar/LeftMenuObj";
 import {Viewobj} from "../../components/welding/yearmounth/Viewobj";
+import BridgeLeftBar from "../../components/leftbar/ BridgeLeftBar";
 
 
 
@@ -54,10 +55,7 @@ export const Yearwelding = () => {
         <div className='container'>
             <Navbar/>
             <div id='DocumentPage' >
-                <div className='left_block'>
-                    <Createobj mass={mass_create} />
-                    <LeftMenuObj mass={menu_mass} />
-                </div>
+                <BridgeLeftBar arrcreate={mass_create} arrmenu={menu_mass}/>
 
                 <Viewobj/>
 

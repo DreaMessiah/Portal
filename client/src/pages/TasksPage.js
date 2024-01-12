@@ -3,13 +3,14 @@ import Navbar from "../components/Navbar";
 import DocumentWay from "../components/DocumentWay";
 import SearchObj from "../components/SearchObj";
 import ChangeObj from "../components/ChangeObj";
-import CreateObj from "../components/CreateObj";
-import LeftMenuObj from "../components/LeftMenuObj";
+import CreateObj from "../components/leftbar/CreateObj";
+import LeftMenuObj from "../components/leftbar/LeftMenuObj";
 import WrapButtonsObj from "../components/WrapButtonsObj";
 import WorksTasksObj from "../components/WorkTasksObj";
 import AttachObj from "../components/AttachObj";
 import PerformersObj from "../components/PerformersObj";
 import ResultsObj from "../components/ResultsObj";
+import BridgeLeftBar from "../components/leftbar/ BridgeLeftBar";
 
 const task1 = {
     status:3,
@@ -269,10 +270,7 @@ export default function TasksPage(){
         <div className='container'>
             <Navbar/>
             <div id='DocumentPage' >
-                <div className='left_block'>
-                    <CreateObj mass={mass_create} />
-                    <LeftMenuObj mass={menu_mass} />
-                </div>
+                <BridgeLeftBar arrcreate={mass_create} arrmenu={menu_mass}/>
                 <div className='right-block'>
                     <div className='top-box'>
                         <div className='left-box'>

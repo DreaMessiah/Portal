@@ -1,15 +1,16 @@
 import {useState} from "react";
 
 import Navbar from "../components/Navbar"
-import CreateObj from "../components/CreateObj"
+import CreateObj from "../components/leftbar/CreateObj"
 import GraphObj from "../components/GraphObj"
 import SelectMonth from "../components/SelectMonth"
 import CalendarObj from "../components/CalendarObj"
 import WorksObj from "../components/WorksObj"
 import WorksDocObj from "../components/WorksDocObj"
 import WorksTmcObj from "../components/WorksTmcObj"
-import LeftMenuObj from "../components/LeftMenuObj"
+import LeftMenuObj from "../components/leftbar/LeftMenuObj"
 import BlocksObj from "../components/BlocksObj"
+import BridgeLeftBar from "../components/leftbar/ BridgeLeftBar";
 
 const mass_blocks = [
     {
@@ -254,10 +255,7 @@ export default function MainPage(){
         <div className='container'>
             <Navbar/>
             <div className='flex'>
-                <div className='left_block'>
-                    <CreateObj mass={mass_create} />
-                    <LeftMenuObj mass={menu_mass} />
-                </div>
+                <BridgeLeftBar arrcreate={mass_create} arrmenu={menu_mass}/>
                 <div className='right_block'>
                     <div className='stroka'>
                         <BlocksObj mass={mass_blocks} />

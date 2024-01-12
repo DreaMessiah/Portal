@@ -1,8 +1,8 @@
 import React, {useEffect, useRef} from "react";
 import Navbar from "../components/Navbar";
 import DocumentWay from "../components/DocumentWay";
-import Createobj from "../components/CreateObj";
-import LeftMenuObj from "../components/LeftMenuObj";
+import Createobj from "../components/leftbar/CreateObj";
+import LeftMenuObj from "../components/leftbar/LeftMenuObj";
 import SearchObj from "../components/SearchObj";
 import ChangeObj from "../components/ChangeObj";
 import WrapButtonsObj from "../components/WrapButtonsObj";
@@ -10,6 +10,7 @@ import WorksTasksObj from "../components/WorkTasksObj";
 import AttachObj from "../components/AttachObj";
 import PerformersObj from "../components/PerformersObj";
 import ResultsObj from "../components/ResultsObj";
+import BridgeLeftBar from "../components/leftbar/ BridgeLeftBar";
 
 const mass_create = [
     {
@@ -447,10 +448,7 @@ export default function DocumentPage(){
         <div className='container'>
             <Navbar/>
             <div id='DocumentPage' >
-                <div className='left_block'>
-                    <Createobj mass={mass_create} />
-                    <LeftMenuObj mass={menu_mass} />
-                </div>
+                <BridgeLeftBar arrcreate={mass_create} arrmenu={menu_mass}/>
                 <div className='right-block'>
                     <div className='top-box'>
                         <div className='left-box'>
