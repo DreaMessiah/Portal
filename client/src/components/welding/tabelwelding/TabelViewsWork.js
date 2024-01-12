@@ -20,6 +20,7 @@ export const TabelViewsWork = () => {
                             </div>
                             <div className="tabwelding_viewswork_tabel_strock_head_fio">219 х 6 000-НПТ изм.3 Противопожарный водопровод надземно (сухотрубы).Гребенки площадкиПП </div>
                         </div>
+
                         <div className="tabwelding_viewswork_tabel_strock_calendar">
                             <div className="tabwelding_viewswork_tabel_strock_calendar_up">Бр. Изомова С.Ш.</div>
                             <div className="tabwelding_viewswork_tabel_strock_calendar_days">
@@ -311,8 +312,9 @@ export const TabelViewsWork = () => {
                                 </div>
                             </div>
                         </div>
+
                         <div className="tabwelding_viewswork_tabel_strock_itogy">
-                            <div className="tabwelding_viewswork_tabel_strock_title">Итого за<br/>
+                            <div className="tabwelding_viewswork_tabel_strock_title open-flex">Итого за<br/>
                                 месяц</div>
                             <div className="tabwelding_viewswork_tabel_strock_ii">
                                 <div className="tabwelding_viewswork_tabel_strock_ii_pf_t">
@@ -324,6 +326,9 @@ export const TabelViewsWork = () => {
                                     <div className="tabwelding_viewswork_tabel_strock_ii_res_fact">945</div>
                                 </div>
                             </div>
+                        </div>
+                        <div className="tabwelding_viewswork_tabel_strock_btnitogy">
+                            <div  className="tabwelding_viewswork_tabel_strock_btnitogy_title">Итоги</div>
                         </div>
                         <div className="tabwelding_viewswork_tabel_strock_project">
                             <div className="tabwelding_viewswork_tabel_strock_title">по<br/>

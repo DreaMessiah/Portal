@@ -1,5 +1,8 @@
 import React,{useState} from "react";
 import "./tabelform.scss";
+import "./tabviewwork1920.scss";
+import "./tabviewwork1550.scss";
+import "./tabviewwork1080.scss";
 import {TabelViewsWork} from "./TabelViewsWork";
 import {TabelMans} from "./TabelMans";
 
@@ -43,8 +46,12 @@ export const Tabelform = () => {
                 </div>
             </div>
             <TabelViewsWork />
+            <TabelViewsWork />
+            <TabelViewsWork />
+            <TabelViewsWork />
+            <TabelViewsWork />
             <div className="tabwelding_slice"></div>
-            <div className="tabwelding_tabel">
+            <div className="tabwelding_tabel none-dis">
                 <div className="tabwelding_tabel_upper">
                     <div className="tabwelding_tabel_upper_title">Табель</div>
                     <div className="tabwelding_tabel_upper_plus">Добавить</div>

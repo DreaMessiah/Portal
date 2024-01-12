@@ -1,0 +1,356 @@
+@media screen and (min-width: 1079px) and (max-width: 1549px) {
+  .tabwelding_viewswork_tabel {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 5px;
+    overflow: visible;
+
+    .tabwelding_viewswork_tabel_strock {
+      width: 100%;
+      display: flex;
+      justify-content: start;
+
+      .tabwelding_viewswork_tabel_strock_btnitogy {
+        width: 60px;
+        height: calc(100% - 0px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        //border: 1px solid #000;
+        border-radius: 0 5px 5px 0;
+        background: #617676;
+        margin-left: -1px;
+        color: #FFF;
+        cursor: pointer;
+        .tabwelding_viewswork_tabel_strock_btnitogy_title{
+          transform: rotate(-90deg);
+        }
+      }
+
+      .tabwelding_viewswork_tabel_strock_head {
+        width: 180px;
+        height: calc(100% - 2px);
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #000;
+        margin-left: -1px;
+
+        .tabwelding_viewswork_tabel_strock_head_up {
+          width: 100%;
+          height: 30px;
+          display: flex;
+          justify-content: space-between;
+          border-bottom: 1px solid #454545;
+          align-items: center;
+
+          .tabwelding_viewswork_t_s_h_up_num {
+            margin: 0 0 0 10px;
+            font-size: 10pt;
+          }
+
+          .tabwelding_viewswork_t_s_h_up_btns {
+            display: flex;
+            justify-content: flex-start;
+            width: 70%;
+            height: 100%;
+            font-size: 10pt;
+
+            .tabwelding_viewswork_t_s_h_up_btns_submit {
+              width: 70%;
+              height: 100%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              background: #74A94C;
+              color: #FFF;
+              cursor: pointer;
+              transition: 0.2s;
+            }
+
+            .tabwelding_viewswork_t_s_h_up_btns_submit:hover {
+              opacity: 0.8;
+              transition: 0.2s;
+            }
+
+            .tabwelding_viewswork_t_s_h_up_btns_delete {
+              width: 30%;
+              height: 100%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              background: #4CC4C5;
+              cursor: pointer;
+              transition: 0.2s;
+            }
+
+            .tabwelding_viewswork_t_s_h_up_btns_delete:hover {
+              opacity: 0.8;
+              transition: 0.2s;
+            }
+          }
+        }
+
+        .tabwelding_viewswork_tabel_strock_head_fio {
+          width: calc(100% - 10px);
+          height: calc(100% - 31px);
+          padding: 0 10px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 10pt;
+        }
+      }
+
+      .tabwelding_viewswork_tabel_strock_calendar {
+        max-width: 600px;
+        min-height: 40px;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #000;
+        margin-left: -1px;
+
+        .tabwelding_viewswork_tabel_strock_calendar_up {
+          width: 100%;
+          height: 15px;
+          border-bottom: 1px solid #454545;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: #D9D9D9;
+          font-size: 10pt;
+        }
+
+        .tabwelding_viewswork_tabel_strock_calendar_days {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          .border_b {
+            border-bottom: 1px solid #454545;
+          }
+
+          .tabwelding_viewswork_tabel_strock_calendar_days_16 {
+            height: 100px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+
+            .border-r {
+              border-right: 1px solid #454545;
+            }
+
+            .tabwelding_viewswork_tabel_strock_calendar_days__day {
+              height: 100%;
+              width: calc(100% / 16);
+              display: flex;
+              flex-direction: column;
+
+              .tabwelding_v_t_s_c_d_day_title {
+                width: 100%;
+                height: 14px;
+                border-bottom: 1px solid #454545;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 10pt;
+                font-weight: 600;
+                background: #D9D9D9;
+              }
+
+              .tabwelding_v_t_s_c_d_day_plan {
+                width: 100%;
+                height: calc((100% - 14px) / 2);
+                border-bottom: 1px solid #454545;
+
+                .tabwelding_v_t_s_c_d_day_plan_input {
+                  width: 100%;
+                  height: calc(100%);
+                  border: none;
+                  text-align: center;
+                }
+
+                .tabwelding_v_t_s_c_d_day_plan_input:hover, :active, :focus {
+                  outline: 0;
+                  outline-offset: 0;
+                }
+
+              }
+
+              .tabwelding_v_t_s_c_d_day_fact {
+                width: 100%;
+                height: calc((100% - 14px) / 2);
+
+                .tabwelding_v_t_s_c_d_day_plan_input {
+                  width: 100%;
+                  height: calc(100%);
+                  border: none;
+                  text-align: center;
+                }
+
+                .tabwelding_v_t_s_c_d_day_plan_input:hover, :active, :focus {
+                  outline: 0;
+                  outline-offset: 0;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .tabwelding_viewswork_tabel_strock_itogy {
+        width: 80px;
+        min-height: 40px;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #000;
+        margin-left: -1px;
+
+        .tabwelding_viewswork_tabel_strock_ii {
+          width: 100%;
+          height: calc(100% - 31px);
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          .tabwelding_viewswork_tabel_strock_ii_pf_t {
+            width: 100%;
+            height: calc(100% / 2 + 16px);
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #454545;
+            background: #D9D9D9;
+
+            .tabwelding_viewswork_tabel_strock_ii_plan {
+              width: 50%;
+              height: 100%;
+              font-size: 10px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              border-right: 1px solid #454545;
+            }
+
+            .tabwelding_viewswork_tabel_strock_ii_fact {
+              width: 50%;
+              height: 100%;
+              font-size: 10px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+          }
+
+          .tabwelding_viewswork_tabel_strock_ii_pf_res {
+            width: 100%;
+            height: 50%;
+            display: flex;
+            justify-content: space-between;
+
+            .tabwelding_viewswork_tabel_strock_ii_res_plan {
+              width: 50%;
+              height: 100%;
+              font-size: 10px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              border-right: 1px solid #454545;
+            }
+
+            .tabwelding_viewswork_tabel_strock_ii_res_fact {
+              width: 50%;
+              height: 100%;
+              font-size: 10px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+          }
+        }
+      }
+
+      .tabwelding_viewswork_tabel_strock_project {
+        width: 70px;
+        min-height: 40px;
+        display: none;
+        flex-direction: column;
+        border: 1px solid #000;
+        margin-left: -1px;
+      }
+
+      .tabwelding_viewswork_tabel_strock_start {
+        width: 70px;
+        min-height: 40px;
+        display: none;
+        flex-direction: column;
+        border: 1px solid #000;
+        margin-left: -1px;
+      }
+
+      .tabwelding_viewswork_tabel_strock_delta {
+        width: 60px;
+        min-height: 40px;
+        display: none;
+        flex-direction: column;
+        border: 1px solid #000;
+        margin-left: -1px;
+      }
+
+      .tabwelding_viewswork_tabel_strock_norma {
+        width: 90px;
+        min-height: 40px;
+        display: none;
+        flex-direction: column;
+        border: 1px solid #000;
+        margin-left: -1px;
+      }
+
+      .tabwelding_viewswork_tabel_strock_cover {
+        width: 60px;
+        min-height: 40px;
+        display: none;
+        flex-direction: column;
+        border: 1px solid #000;
+        margin-left: -1px;
+      }
+
+      .tabwelding_viewswork_tabel_strock_complite {
+        width: 60px;
+        min-height: 40px;
+        display: none;
+        flex-direction: column;
+        border: 1px solid #000;
+        margin-left: -1px;
+        border-radius: 0 0 15px 0;
+      }
+
+      .tabwelding_viewswork_tabel_strock_title {
+        width: 100%;
+        height: 30px;
+        border-bottom: 1px solid #454545;
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 10px;
+        background: #D9D9D9;
+      }
+
+      .open-flex{
+        display: flex;
+      }
+    }
+  }
+}
+
+.tabwelding_viewswork_tabel_strock_res{
+  width: 100%;
+  height: calc(100% - 31px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10pt;
+}
