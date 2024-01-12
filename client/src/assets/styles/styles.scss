@@ -218,7 +218,6 @@ html{
       display: flex;
       //justify-content: space-between;
       flex-wrap: wrap;
-
       .stroka{
         width: 100%;
         display: flex;
@@ -1190,9 +1189,9 @@ html{
 
 }
 #search{
-  width:20%;
-  min-width: 240px;
-  margin: 20px;
+  width:33%;
+  min-width: 250px;
+  margin: 15px;
   display: flex;
   max-height: 53px;
   flex-direction: row;
@@ -1271,8 +1270,8 @@ html{
   }
  }
 .wrap-buttons-obj{
-  max-width: 600px;
-  width: 80%;
+  max-width: 516px;
+  width: 100%;
   min-width: 30%;
   display: flex;
   flex-wrap: wrap;
@@ -1316,6 +1315,7 @@ html{
         flex-direction: row;
         justify-content: space-between;
         flex-wrap: wrap;
+        width: 100%;
       }
       .right-box{
         padding-right: 30px;
@@ -1324,14 +1324,14 @@ html{
     .next-box{
       display: flex;
       flex-direction: row;
-      justify-content: space-between;
+      justify-content: space-around;
       flex-wrap: wrap;
+      width: 100%;
       .left-box{
-
+        width: 50%;
       }
       .right-box{
-        width: 55%;
-        padding-right: 30px;
+        width: 50%;
         .top-box-inside{
           width: 100%;
           display: flex;
@@ -1352,6 +1352,7 @@ html{
   }
 }
 .performers-obj{
+  min-width: 320px;
   width: 100%;
   height: 100%;
   border: 1px solid $blackColor;
@@ -1427,6 +1428,7 @@ html{
 }
 .attach-obj{
   width: 100%;
+  min-width: 320px;
   border: 1px solid $blackColor;
   display: flex;
   flex-direction: column;
@@ -1509,6 +1511,7 @@ html{
 }
 .tasks-obj{
   max-width: 100%;
+  min-width: 320px;
   border: 1px solid $blackColor;
   .top-box{
     display: flex;
