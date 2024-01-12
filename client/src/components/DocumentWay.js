@@ -1,45 +1,41 @@
-import React, {useEffect, useRef} from "react";
+import React, {useEffect, useLayoutEffect, useRef} from "react";
 import Navbar from "./Navbar";
 import TitleObj from "./TitleObj";
 
-
-const COLORS = {
-    1 : 'rgba(76,196,196,1)',
-    2 : 'rgba(196,76,155,1)',
-    3 : 'rgba(102, 7, 223, 1)',
-    4 : 'rgba(206, 17, 51, 1)',
-    5 : 'rgba(170, 7, 173, 1)',
-    6 : 'rgba(49, 150, 14, 1)',
-    7 : 'rgba(111, 0, 7, 1)'
-}
-
-const textColor = 'rgba(11, 11, 11, 1)'
-const backColor = 'rgba(246, 246, 246, 0.4)'
-const backPage = 'rgba(246, 246, 246, 1)'
-
-// Настройки для первого круга
-const centerX = 100;
-const centerY = 100;
-const radiusB = 35;
-const radiusS = 25;
-const dRadius = radiusB - radiusS
-const lineHeight = 80
-const lineWidth = 5;
-
-const KDS = {
-    x:centerX,
-    y:centerY
-}
-let OverKDS = {}
-let tempH = lineHeight
-
-let lastUser
-
-let textsKds = []
-let textsUsers = []
-
-
 export default function DocumentWay({dwm1}){
+    const COLORS = {
+        1 : 'rgba(76,196,196,1)',
+        2 : 'rgba(196,76,155,1)',
+        3 : 'rgba(102, 7, 223, 1)',
+        4 : 'rgba(206, 17, 51, 1)',
+        5 : 'rgba(170, 7, 173, 1)',
+        6 : 'rgba(49, 150, 14, 1)',
+        7 : 'rgba(111, 0, 7, 1)'
+    }
+
+    const textColor = 'rgba(11, 11, 11, 1)'
+    const backColor = 'rgba(246, 246, 246, 0.4)'
+
+    const centerX = 100;
+    const centerY = 100;
+    const radiusB = 35;
+    const radiusS = 25;
+    const dRadius = radiusB - radiusS
+    const lineHeight = 80
+    const lineWidth = 5;
+
+    const KDS = {
+        x:centerX,
+        y:centerY
+    }
+    let OverKDS = {}
+    let tempH = lineHeight
+
+    let lastUser
+
+    let textsKds = []
+    let textsUsers = []
+
     const canvasRef = useRef(null)
 
     const elementWidth = 90;
@@ -66,6 +62,7 @@ export default function DocumentWay({dwm1}){
 
         canvas.width = canvasWidth*0.8
         canvas.height = canvasHeight*0.6
+
         // Очищаем холст
         context.clearRect(0, 0, canvas.width, canvas.height);
         context.scale(0.6, 0.6);
@@ -107,6 +104,11 @@ export default function DocumentWay({dwm1}){
                 container.style.cursor = 'grab';
             }
         });
+
+        return () => {
+            // Код, который будет выполнен при размонтировании компонента
+            context.clearRect(0, 0, canvas.width, canvas.height);
+        };
     },[])
 
     function drawLevels(context, user, level = 1, kds){
