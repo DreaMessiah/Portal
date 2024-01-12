@@ -1,10 +1,9 @@
 {
   "serverPort" : 5000,
-  "connectionLimit": 5,
-  "host": "192.168.0.19",
-  "user": "postgres",
-  "password": "sever-2022",
-  "database": "portal",
-  "sqlport": 5432,
+  "DB_NAME" : "portal",
+  "DB_USER": "postgres",
+  "DB_PASSWORD": "1234qwer",
+  "DB_HOST": "192.168.0.19",
+  "DB_PORT": 5432,
   "jwtSecret": "barahta"
 }

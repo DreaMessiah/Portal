@@ -1,7 +1,7 @@
 const sequelize = require('../db')
 const {DataTypes} = require('sequelize')
 
-const User = sequelize.define('user',{
+const User = sequelize.define('users',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     full_name:{type:DataTypes.STRING},
     login:{type:DataTypes.STRING},
@@ -12,3 +12,6 @@ const User = sequelize.define('user',{
     inn:{type:DataTypes.DATE},
     kdolg:{type:DataTypes.INTEGER}
 })
+module.exports = {
+    User
+}

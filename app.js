@@ -1,6 +1,7 @@
 const express = require('express')
 const config = require('config')
 const cors = require('cors')
+const sequelize = require('./db')
 const app = express()
 const PORT = config.get('serverPort')
 
@@ -17,7 +18,12 @@ const start = async () => {
         app.listen(PORT,() => {
             console.log('Server started on port : ', PORT)
         })
+
+        await sequelize.authenticate()
+        await sequelize.sync()
+        console.log('connect to DB')
     }catch (e){
+        console.log(e)
     }
 }
 

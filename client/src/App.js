@@ -2,6 +2,7 @@ import React from "react"
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom"
 
 import './assets/styles/styles.scss'
+import './assets/styles/media1550.scss'
 
 import MainPage from "./pages/MainPage"
 import AuthPage from "./pages/AuthPage"
