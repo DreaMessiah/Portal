@@ -18,7 +18,6 @@ $orangeColor:#FEAA2D;
 $blueColor:#00E4E4;
 $greenColor:#04B800;
 $yellowColor:rgba(255, 255, 0, 1);
-
 $transBlackColor:rgba(30,30,30,0.8);
 $transwBlackColor:rgba(30,30,30,0.6);
 $transBlueColor: rgba(2, 24, 68, 0.7);
@@ -1131,28 +1130,42 @@ html{
     .next-box{
       display: flex;
       flex-direction: row;
-      justify-content: space-around;
+      justify-content: space-between;
       flex-wrap: wrap;
       width: 100%;
       .left-box{
-        width: 50%;
+        width: 40%;
+        //min-width: 470px;
       }
       .right-box{
-        width: 50%;
+        margin-top: 20px;
+        padding-right: 30px;
+        width: calc(60% - 30px);
         .top-box-inside{
           width: 100%;
           display: flex;
           flex-direction: row;
           justify-content: space-between;
+          flex-wrap: wrap;
           .top-box-inside-left{
             width: 48%;
+            min-width: 320px;
+            margin-bottom: 10px;
+            margin-left: 10px;
           }
           .top-box-inside-right{
             width: 48%;
+            min-width: 320px;
+            margin-bottom: 10px;
+            margin-left: 10px;
           }
         }
         .bottom-box{
 
+        }
+
+        .dis-none{
+          display: none;
         }
       }
     }
@@ -1382,7 +1395,6 @@ html{
     }
   }
 }
-
 .lk-form{
   display: flex;
   flex-direction: column;
