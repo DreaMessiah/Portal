@@ -44,6 +44,10 @@ $worksHeight:220px;
 }
 }
 
+.rotate180{
+  color: red;
+}
+
 @media screen and (max-width: 1650px){
   .left_block{
     //flex: 0 0 calc(20% - 21px);
@@ -72,7 +76,7 @@ $worksHeight:220px;
         background: $whiteColor;
         border-radius: 0 0 10px 0;
         z-index: 1001;
-        display: none;  // flex
+        display: flex;  // flex
         justify-content: center;
         cursor: pointer;
         //align-items: center;

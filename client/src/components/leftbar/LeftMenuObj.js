@@ -1,12 +1,40 @@
 import {Link} from "react-router-dom";
+import {useEffect, useState} from "react";
 
 
 export default function LeftMenuObj ({mass_create, mass_menu}) {
 
-    const rotatePlus = e => {
-        console.log(e);
-        // e.target.lastChild.innerHTML = 'хуй'
+    useEffect(() => {
+        const allStrocks = document.querySelectorAll('.allstrocks_menu');
+        allStrocks.forEach(strock => {
+
+
+
+
+    //         strock.addEventListener('mouseenter', ()=>{
+    //             console.log(strock.firstChild.nextSibling.firstChild.firstChild.nextSibling)
+    //             strock.firstChild.nextSibling.firstChild.firstChild.nextSibling.classlist.toggle('')
+    //         })
+        })
+    }, [])
+
+    const handleMouseEnter = (index) => {
+        setActive((prev) => {
+            let prevActive = [...prev]
+            prevActive[index] = true
+            return prevActive
+        })
     }
+    const handleMouseLeave = (index) => {
+        setActive((prev) => {
+            let prevActive = [...prev]
+            prevActive[index] = false
+            return prevActive
+        })
+    }
+
+    const [active, setActive] = useState([])
+
 
     return (
 
@@ -18,7 +46,7 @@ export default function LeftMenuObj ({mass_create, mass_menu}) {
                 <div className="menu_burger">
                     <div className='createobj'>
                         {mass_create.map( (item,index) => (
-                            <div key={index} onMouseEnter={(e) => rotatePlus(e.target.lastChild)}> <Link to={item.link} ><p>{item.text}<span>+</span></p></Link> </div>
+                            <div key={index} onMouseEnter={() => handleMouseEnter(index)} onMouseLeave={() => handleMouseLeave(index)} className="allstrocks_menu"> <Link to={item.link} ><p>{item.text}<span className={active[index]?"rotate180":""}>+</span></p></Link> </div>
                         ))}
                     </div>
                 </div>
