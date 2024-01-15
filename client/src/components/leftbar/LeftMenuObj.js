@@ -2,6 +2,12 @@ import {Link} from "react-router-dom";
 
 
 export default function LeftMenuObj ({mass_create, mass_menu}) {
+
+    const rotatePlus = e => {
+        console.log(e);
+        // e.target.lastChild.innerHTML = 'хуй'
+    }
+
     return (
 
         <div className='leftmenuobj'>
@@ -11,9 +17,8 @@ export default function LeftMenuObj ({mass_create, mass_menu}) {
                 <div style={{backgroundColor: "#DC7700"}} />
                 <div className="menu_burger">
                     <div className='createobj'>
-
                         {mass_create.map( (item,index) => (
-                            <div key={index}> <Link to={item.link}><p>{item.text}<span>+</span></p></Link> </div>
+                            <div key={index} onMouseEnter={(e) => rotatePlus(e.target.lastChild)}> <Link to={item.link} ><p>{item.text}<span>+</span></p></Link> </div>
                         ))}
                     </div>
                 </div>
