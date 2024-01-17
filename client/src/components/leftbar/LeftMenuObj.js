@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 
 export default function LeftMenuObj ({mass_create, mass_menu}) {
 
+
     useEffect(() => {
         const allStrocks = document.querySelectorAll('.allstrocks_menu');
         allStrocks.forEach(strock => {
@@ -33,17 +34,34 @@ export default function LeftMenuObj ({mass_create, mass_menu}) {
         })
     }
 
-    const [active, setActive] = useState([])
+    const installDisplayNone = (result) => {
+        setOpenBurger(() => {
+            const newDisplay = !result
+            const menuBurger = document.getElementById('menu_burger')
+            console.log(menuBurger)
+            console.log(newDisplay)
+            if(newDisplay){
+                menuBurger.style.display = 'flex'
+            } else {
+                menuBurger.style.display = 'none'
+            }
+            return newDisplay
+        })
 
+    }
+
+    const [active, setActive] = useState([])
+    const [openBurger, setOpenBurger] = useState(false)
 
     return (
 
         <div className='leftmenuobj'>
-            <div className='burger dis-none1920'>
+            {/*<div className='burger dis-none1920' onClick = {() => { installDisplayNone() }}>*/}
+            <div className='burger dis-none1920' onClick = {() => { installDisplayNone(openBurger) }}>
                 <div style={{backgroundColor: "#03AEAE"}}/>
                 <div style={{backgroundColor: "#3C8801"}} />
                 <div style={{backgroundColor: "#DC7700"}} />
-                <div className="menu_burger">
+                <div className="menu_burger" id="menu_burger">
                     <div className='createobj'>
                         {mass_create.map( (item,index) => (
                             <div key={index}
@@ -52,7 +70,7 @@ export default function LeftMenuObj ({mass_create, mass_menu}) {
                                  className="allstrocks_menu">
                                 <Link to={item.link} ><p>{item.text}<span className={active[index]?"rotate180":""}>+</span></p></Link>
                             </div>
-                        ))} 
+                        ))}
                     </div>
                 </div>
             </div>

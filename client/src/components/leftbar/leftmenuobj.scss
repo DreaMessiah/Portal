@@ -69,14 +69,14 @@ $worksHeight:220px;
 
       .menu_burger{
         width: 30%;
-        min-height: 70%;
+        min-height: 99%;
         position: absolute;
         left: 104px;
         margin-top: -10px;
         background: $whiteColor;
         border-radius: 0 0 10px 0;
         z-index: 1001;
-        display: flex;  // flex
+        display: none;  // flex
         justify-content: center;
         cursor: pointer;
         //align-items: center;
