@@ -46,8 +46,13 @@ export default function LeftMenuObj ({mass_create, mass_menu}) {
                 <div className="menu_burger">
                     <div className='createobj'>
                         {mass_create.map( (item,index) => (
-                            <div key={index} onMouseEnter={() => handleMouseEnter(index)} onMouseLeave={() => handleMouseLeave(index)} className="allstrocks_menu"> <Link to={item.link} ><p>{item.text}<span className={active[index]?"rotate180":""}>+</span></p></Link> </div>
-                        ))}
+                            <div key={index}
+                                 onMouseEnter={() => handleMouseEnter(index)}
+                                 onMouseLeave={() => handleMouseLeave(index)}
+                                 className="allstrocks_menu">
+                                <Link to={item.link} ><p>{item.text}<span className={active[index]?"rotate180":""}>+</span></p></Link>
+                            </div>
+                        ))} 
                     </div>
                 </div>
             </div>
