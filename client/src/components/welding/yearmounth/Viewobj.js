@@ -141,9 +141,9 @@ export const Viewobj = () => {
                 <div className='ymwelding_years_body'>{  arr_tabel.map((mounth,index) => (
                     <div key={index}>
                         {year === mounth.year ?
-                        <Link key={index} to={`/tabelwelding`} className='ymwelding_years_body_mounth'>
+                        <Link key={index} to={`/tabelwelding/?id=${index}`} className='ymwelding_years_body_mounth'>
                             <div className='ymwelding_years_body_mounth_text'>{mounth.mounth}</div>
-                            <Link key={index} to={`/tabelwelding/`} className='ymwelding_years_body_mounth_settings'> ... </Link>
+                            <div className='ymwelding_years_body_mounth_settings'> ... </div>
                         </Link>
                          : '' }
                     </div>
