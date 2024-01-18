@@ -11,7 +11,7 @@ import LkPage from "./pages/LkPage"
 import NewsPage from "./pages/NewsPage"
 import SelNewsPage from "./pages/SelNewsPage"
 import DocumentPage from "./pages/DocumentPage"
-import TasksPage from "./pages/TasksPage"
+import TasksPage from "./pages/tasks/TasksPage"
 import {Weldingmain} from "./pages/welding/Weldingmain";
 import {Yearwelding} from "./pages/welding/Yearwelding";
 import {Tabel} from "./pages/welding/Tabel";
