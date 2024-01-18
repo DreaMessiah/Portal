@@ -1,18 +1,14 @@
 import React, {useContext} from "react";
-import { DataContext } from '../context/DataContext';
-import Navbar from "../components/Navbar";
-import DocumentWay from "../components/DocumentWay";
-import SearchObj from "../components/SearchObj";
-import ChangeObj from "../components/ChangeObj";
-import WrapButtonsObj from "../components/WrapButtonsObj";
-import WorksTasksObj from "../components/WorkTasksObj";
-import AttachObj from "../components/AttachObj";
-import PerformersObj from "../components/PerformersObj";
-import ResultsObj from "../components/ResultsObj";
-import BridgeLeftBar from "../components/leftbar/ BridgeLeftBar";
+import {DataContext} from "../../context/DataContext";
+import Navbar from "../../components/Navbar";
+import SearchObj from "../../components/SearchObj";
+import ChangeObj from "../../components/ChangeObj";
+import WrapButtonsObj from "../../components/WrapButtonsObj";
+import BridgeLeftBar from "../../components/leftbar/ BridgeLeftBar";
 
-export default function DocumentPage(){
-    const { mass_create, menu_mass, wrap_buttons, task1, attach1, performers, results, dwm1} = useContext(DataContext)
+
+export default function CreateTaskPage(){
+    const {mass_create,menu_mass,wrap_buttons} = useContext(DataContext)
     return (
         <div className='container'>
             <Navbar/>
@@ -28,29 +24,28 @@ export default function DocumentPage(){
                             <ChangeObj/>
                         </div>
                     </div>
+
                     <div className='next-box'>
                         <div className='left-box'>
-                            <DocumentWay dwm1={dwm1}/>
+
                         </div>
                         <div className='right-box'>
                             <div className='top-box-inside'>
                                 <div className='top-box-inside-left'>
-                                    <WorksTasksObj obj={task1}/>
-                                    <AttachObj obj={attach1}/>
+
                                 </div>
                                 <div className='top-box-inside-right'>
-                                    <PerformersObj obj={performers}/>
+
                                 </div>
                             </div>
                             <div className='bottom-box'>
-                                <ResultsObj obj={results}/>
+
                             </div>
 
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     )
 }
