@@ -1,7 +1,5 @@
 import React, {useEffect, useRef} from "react";
 import Navbar from "../../components/Navbar";
-import Createobj from "../../components/leftbar/CreateObj";
-import LeftMenuObj from "../../components/leftbar/LeftMenuObj";
 import {Tabelform} from "../../components/welding/tabelwelding/Tabelform";
 import BridgeLeftBar from "../../components/leftbar/ BridgeLeftBar";
 

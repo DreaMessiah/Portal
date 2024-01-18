@@ -1,51 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useState} from "react";
 import {Link,useLocation} from 'react-router-dom';
 import Navbar from "../components/Navbar";
 import LeftMenuObj from "../components/leftbar/LeftMenuObj";
 import CreateObj from "../components/leftbar/CreateObj";
 import BridgeLeftBar from "../components/leftbar/ BridgeLeftBar";
-
-const menu_mass = [
-    {
-        link:'/main',
-        text:'Входящие документы',
-        img:'menuimg1',
-        num:4
-    },{
-        link:'/main',
-        text:'Проект (Обновления)',
-        img:'menuimg2',
-        num:1
-    },{
-        link:'/main',
-        text:'Отчеты',
-        img:'menuimg3',
-        num:0
-    },{
-        link:'/main',
-        text:'Статистика',
-        img:'menuimg4',
-        num:0
-    },
-]
-const mass_create = [
-    {
-        link:'/',
-        text:'Создать задачу'
-    },
-    {
-        link:'/',
-        text:'Создать документ'
-    },
-    {
-        link:'/',
-        text:'Создать Проект'
-    },
-    {
-        link:'/',
-        text:'Создать перемещение'
-    }
-]
+import {DataContext} from "../context/DataContext";
 
 export default function LkPage(){
     const [username, setUsername] = useState('');
@@ -55,20 +14,22 @@ export default function LkPage(){
     const [mail, setMail] = useState('');
     const [snils, setSnils] = useState('');
 
+    const {menu_mass,mass_create} = useContext(DataContext)
+
     const handleUsernameChange = (event) => {
         setUsername(event.target.value);
     };
     const handleTelChange = (event) => {
-        setUsername(event.target.value);
+        setTel(event.target.value);
     };
     const handleMailChange = (event) => {
-        setUsername(event.target.value);
+        setMail(event.target.value);
     };
     const handlePassportChange = (event) => {
-        setUsername(event.target.value);
+        setPassport(event.target.value);
     };
     const handleSnilsChange = (event) => {
-        setUsername(event.target.value);
+        setSnils(event.target.value);
     };
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);

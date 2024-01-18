@@ -1,66 +1,21 @@
-import React, {useEffect, useRef} from "react";
+import React, {useContext} from "react";
 import Navbar from "../../components/Navbar";
 import Createobj from "../../components/leftbar/CreateObj";
 import LeftMenuObj from "../../components/leftbar/LeftMenuObj";
 import {Viewobj} from "../../components/welding/yearmounth/Viewobj";
 import BridgeLeftBar from "../../components/leftbar/ BridgeLeftBar";
-
-
+import {DataContext} from "../../context/DataContext";
 
 export const Yearwelding = () => {
-
-    const mass_create = [
-        {
-            link:'/',
-            text:'Создать задачу'
-        },
-        {
-            link:'/',
-            text:'Создать документ'
-        },
-        {
-            link:'/',
-            text:'Создать Проект'
-        },
-        {
-            link:'/',
-            text:'Создать перемещение'
-        }
-    ]
-    const menu_mass = [
-        {
-            link:'/main',
-            text:'Входящие документы',
-            img:'menuimg1',
-            num:4
-        },{
-            link:'/main',
-            text:'Проект (Обновления)',
-            img:'menuimg2',
-            num:1
-        },{
-            link:'/main',
-            text:'Отчеты',
-            img:'menuimg3',
-            num:0
-        },{
-            link:'/main',
-            text:'Статистика',
-            img:'menuimg4',
-            num:0
-        },
-    ]
+    const {mass_create,menu_mass} = useContext(DataContext)
 
     return (
         <div className='container'>
             <Navbar/>
             <div id='DocumentPage' >
                 <BridgeLeftBar arrcreate={mass_create} arrmenu={menu_mass}/>
-
                 <Viewobj/>
-
             </div>
-
         </div>
     )
 }

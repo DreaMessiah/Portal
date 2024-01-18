@@ -17,30 +17,32 @@ import {Weldingmain} from "./pages/welding/Weldingmain";
 import {Yearwelding} from "./pages/welding/Yearwelding";
 import {Tabel} from "./pages/welding/Tabel";
 
-
+import { DataProvider } from './context/DataContext';
 
 function App() {
-  return (
-      <Router>
-          <div className="App">
-              <Routes>
-                  <Route path='/' element={<AuthPage/>} />
-                  <Route path='/main' element={<MainPage/>} />
-                  <Route path="/settings" element={<SettingsPage/>} />
-                  <Route path="/document" element={<DocumentPage/>} />
-                  <Route path="/tasks" element={<TasksPage/>} />
-                  <Route path="/welding" element={<Weldingmain />} />
-                  <Route path="/createtask" element={<CreateTaskPage />} />
-                  <Route path="/obj/:id" element={<Yearwelding />} />
-                  <Route path="/lk" element={<LkPage/>} />
-                  <Route path="/tabelwelding" element={<Tabel/>} />
-                  <Route path="/lk" element={<MainPage/>} />
-                  <Route path="/news" element={<NewsPage/>} />
-                  <Route path="/selected_news/:id" element={<SelNewsPage/>} />
-              </Routes>
-          </div>
-      </Router>
-  )
+    return (
+        <DataProvider>
+            <Router>
+                <div className="App">
+                    <Routes>
+                        <Route path='/' element={<AuthPage/>} />
+                        <Route path='/main' element={<MainPage/>} />
+                        <Route path="/settings" element={<SettingsPage/>} />
+                        <Route path="/document" element={<DocumentPage/>} />
+                        <Route path="/tasks" element={<TasksPage/>} />
+                        <Route path="/welding" element={<Weldingmain />} />
+                        <Route path="/createtask" element={<CreateTaskPage />} />
+                        <Route path="/obj/:id" element={<Yearwelding />} />
+                        <Route path="/lk" element={<LkPage/>} />
+                        <Route path="/tabelwelding" element={<Tabel/>} />
+                        <Route path="/lk" element={<MainPage/>} />
+                        <Route path="/news" element={<NewsPage/>} />
+                        <Route path="/selected_news/:id" element={<SelNewsPage/>} />
+                    </Routes>
+                </div>
+            </Router>
+        </DataProvider>
+    )
 }
 
 export default App
