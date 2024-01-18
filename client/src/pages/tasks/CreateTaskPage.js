@@ -149,7 +149,7 @@ const results = {
 }
 const mass_create = [
     {
-        link:'/createtask',
+        link:'/',
         text:'Создать задачу'
     },
     {
@@ -269,7 +269,8 @@ const dwm2 =
             next:null
         }
     }
-export default function TasksPage(){
+
+export default function CreateTaskPage(){
     return (
         <div className='container'>
             <Navbar/>
@@ -285,22 +286,22 @@ export default function TasksPage(){
                             <ChangeObj/>
                         </div>
                     </div>
+
                     <div className='next-box'>
                         <div className='left-box'>
-                            <DocumentWay dwm1={dwm2}/>
+
                         </div>
                         <div className='right-box'>
                             <div className='top-box-inside'>
                                 <div className='top-box-inside-left'>
-                                    <WorksTasksObj obj={task1}/>
-                                    <AttachObj obj={attach1}/>
+
                                 </div>
                                 <div className='top-box-inside-right'>
-                                    <PerformersObj obj={performers}/>
+
                                 </div>
                             </div>
                             <div className='bottom-box'>
-                                <ResultsObj obj={results}/>
+
                             </div>
 
                         </div>

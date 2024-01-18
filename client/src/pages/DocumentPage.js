@@ -14,7 +14,7 @@ import BridgeLeftBar from "../components/leftbar/ BridgeLeftBar";
 
 const mass_create = [
     {
-        link:'/',
+        link:'/createtask',
         text:'Создать задачу'
     },
     {
@@ -56,19 +56,23 @@ const menu_mass = [
 const wrap_buttons = [
     {
         text:'Создать задачу',
-        icon:'fa-regular fa-plus'
+        icon:'fa-regular fa-plus',
+        url:'/createtask'
     },
     {
         text:'Полученные задания',
-        icon:'fa-solid fa-arrow-left'
+        icon:'fa-solid fa-arrow-left',
+        url:''
     },
     {
         text:'Ежедневник',
-        icon:'fa-regular fa-calendar-days'
+        icon:'fa-regular fa-calendar-days',
+        url:''
     },
     {
         text:'Направленные задания',
-        icon:'fa-solid fa-arrow-right'
+        icon:'fa-solid fa-arrow-right',
+        url:'',
     },
 ]
 const task1 = {

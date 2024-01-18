@@ -40,7 +40,7 @@ const mass_blocks = [
 ]
 const mass_create = [
     {
-        link:'/',
+        link:'/createtask',
         text:'Создать задачу'
     },
     {
@@ -105,7 +105,6 @@ const calendarmass = [
         text:'Сдать отчет по оптимизации бизнес процессов'
     }
 ]
-
 const works1mass = [
     {
         datestart:'27.12.2023',

@@ -12,9 +12,12 @@ import NewsPage from "./pages/NewsPage"
 import SelNewsPage from "./pages/SelNewsPage"
 import DocumentPage from "./pages/DocumentPage"
 import TasksPage from "./pages/tasks/TasksPage"
+import CreateTaskPage from "./pages/tasks/CreateTaskPage";
 import {Weldingmain} from "./pages/welding/Weldingmain";
 import {Yearwelding} from "./pages/welding/Yearwelding";
 import {Tabel} from "./pages/welding/Tabel";
+
+
 
 function App() {
   return (
@@ -27,6 +30,7 @@ function App() {
                   <Route path="/document" element={<DocumentPage/>} />
                   <Route path="/tasks" element={<TasksPage/>} />
                   <Route path="/welding" element={<Weldingmain />} />
+                  <Route path="/createtask" element={<CreateTaskPage />} />
                   <Route path="/obj/:id" element={<Yearwelding />} />
                   <Route path="/lk" element={<LkPage/>} />
                   <Route path="/tabelwelding" element={<Tabel/>} />
