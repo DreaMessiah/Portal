@@ -18,6 +18,7 @@ import {Yearwelding} from "./pages/welding/Yearwelding";
 import {Tabel} from "./pages/welding/Tabel";
 
 import { DataProvider } from './context/DataContext';
+import TestTaskPage from "./pages/tasks/TestTaskPage";
 
 function App() {
     return (
@@ -32,6 +33,7 @@ function App() {
                         <Route path="/tasks" element={<TasksPage/>} />
                         <Route path="/welding" element={<Weldingmain />} />
                         <Route path="/createtask" element={<CreateTaskPage />} />
+                        <Route path="/testtaskpage/:params" element={<TestTaskPage />} />
                         <Route path="/obj/:id" element={<Yearwelding />} />
                         <Route path="/lk" element={<LkPage/>} />
                         <Route path="/tabelwelding" element={<Tabel/>} />

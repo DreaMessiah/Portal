@@ -1405,16 +1405,21 @@ html{
     }
   }
 }
+
 .lk-form{
   display: flex;
   flex-direction: column;
   margin: 10px;
-  input{
+  input,select{
     width: 236px;
     height: 40px;
     padding: 5px;
     border: 1px solid #000;
     margin-bottom: 10px;
+  }
+  input{
+    width: 225px;
+    height: 28px;
   }
   .button{
     background: #617676;
@@ -1428,6 +1433,46 @@ html{
   }
 }
 
-.bg-wgreyColor{
-  background-color: $wgreyColor;
-}
+
+.bg-wgreyColor {
+          background-color: $wgreyColor;
+        }
+.form {
+          display: flex;
+          flex-direction: column;
+          margin: 10px;
+
+          textarea {
+            min-height: 100px;
+            resize: none;
+            border: 1px solid #000;
+          }
+
+          input, select {
+            width: 100%;
+            height: 40px;
+            padding: 5px;
+            border: 1px solid #000;
+            margin-bottom: 10px;
+          }
+
+          input {
+            width: calc(100% - 12px);
+            height: 28px;
+          }
+
+          .file-input {
+            background-color: $wwhiteColor;
+          }
+
+          .button {
+            background: #617676;
+            height: 40px;
+            color: #FFF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+          }
+
+        }
