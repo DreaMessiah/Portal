@@ -1,0 +1,71 @@
+.table_list {
+  margin-top: 10px;
+  width: 95%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  .table_list_cap{
+    width: 100%;
+    height: 30px;
+    border-radius: 5px 5px 0 0;
+    background: #03AEAE;
+  }
+
+  .table_list_strock{
+    width: calc(100% - 2px);
+    min-height: 50px;
+    border: 1px solid #454545;
+    display: flex;
+    justify-content: flex-start;
+    .table_list_strock_datein{
+      width: 7.95%;
+      min-height: 50px;
+      border-right: 1px solid #454545;
+    }
+    .table_list_strock_dateto{
+      width: 7.95%;
+      min-height: 50px;
+      border-right: 1px solid #454545;
+    }
+    .table_list_strock_title{
+      width: 28.3%;
+      min-height: 50px;
+      border-right: 1px solid #454545;
+    }
+    .table_list_strock_icon{
+      width: 4.15%;
+      min-height: 50px;
+      border-right: 1px solid #454545;
+    }
+    .table_list_strock_performance{
+      width: 16.7%;
+      min-height: 50px;
+      border-right: 1px solid #454545;
+    }
+    .table_list_strock_status{
+      width: 7%;
+      min-height: 50px;
+      border-right: 1px solid #454545;
+    }
+    .table_list_strock_category{
+      width: 7.65%;
+      min-height: 50px;
+      border-right: 1px solid #454545;
+    }
+    .table_list_strock_priority{
+      width: 12.6%;
+      min-height: 50px;
+      border-right: 1px solid #454545;
+    }
+    .table_list_strock_edit{
+      width: 3.85%;
+      min-height: 50px;
+      border-right: 1px solid #454545;
+    }
+    .table_list_strock_close{
+      width: 3.85%;
+      min-height: 50px;
+    }
+  }
+}

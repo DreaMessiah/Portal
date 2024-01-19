@@ -668,6 +668,188 @@ export const DataProvider = ({ children }) => {
         }
     ]
 
+    const list_titletasks = [
+        {
+            id: '1',
+            datestart:'11.09.2023 16:30',
+            dateend:'13.09.2023 11:32',
+            title:'Подготовить тех документацию по SpaceX',
+            navigation:'0',
+            percent: '100',
+            time: ['69', '50'],
+            status: 'Завершена',
+            group: 'Сбор информации',
+            priority:'1',
+            project:'386',
+            content:'Содержание задания'
+        },
+
+        {
+            id: '2',
+            datestart:'11.09.2023 16:30',
+            dateend:'13.09.2023 11:32',
+            title:'Отремонтировать трубоукладчик 3шт',
+            navigation:'1',
+            percent: '100',
+            time: ['69', '50'],
+            status: 'Завершена',
+            group: 'Сбор информации',
+            priority:'1',
+            project:'386',
+            content:'Содержание задания'
+        },
+
+        {
+            id: '3',
+            datestart:'11.09.2023 16:30',
+            dateend:'13.09.2023 11:32',
+            title:'Подготовить тех документацию по SpaceX',
+            navigation:'0',
+            percent: '100',
+            time: ['69', '50'],
+            status: 'Завершена',
+            group: 'Сбор информации',
+            priority:'1',
+            project:'386',
+            content:'Содержание задания'
+        },
+
+        {
+            id: '4',
+            datestart:'11.09.2023 16:30',
+            dateend:'13.09.2023 11:32',
+            title:'Подготовить тех документацию по SpaceX',
+            navigation:'0',
+            percent: '100',
+            time: ['69', '50'],
+            status: 'Завершена',
+            group: 'Сбор информации',
+            priority:'1',
+            project:'386',
+            content:'Содержание задания'
+        },
+
+        {
+            id: '5',
+            datestart:'11.09.2023 16:30',
+            dateend:'13.09.2023 11:32',
+            title:'Подготовить тех документацию по SpaceX',
+            navigation:'0',
+            percent: '100',
+            time: ['69', '50'],
+            status: 'Завершена',
+            group: 'Сбор информации',
+            priority:'1',
+            project:'386',
+            content:'Содержание задания'
+        },
+
+        {
+            id: '6',
+            datestart:'11.09.2023 16:30',
+            dateend:'13.09.2023 11:32',
+            title:'Подготовить тех документацию по SpaceX',
+            navigation:'0',
+            percent: '100',
+            time: ['69', '50'],
+            status: 'Завершена',
+            group: 'Сбор информации',
+            priority:'1',
+            project:'386',
+            content:'Содержание задания'
+        },
+
+        {
+            id: '7',
+            datestart:'11.09.2023 16:30',
+            dateend:'13.09.2023 11:32',
+            title:'Подготовить тех документацию по SpaceX',
+            navigation:'0',
+            percent: '100',
+            time: ['69', '50'],
+            status: 'Завершена',
+            group: 'Сбор информации',
+            priority:'1',
+            project:'386',
+            content:'Содержание задания'
+        },
+
+        {
+            id: '8',
+            datestart:'11.09.2023 16:30',
+            dateend:'13.09.2023 11:32',
+            title:'Подготовить тех документацию по SpaceX',
+            navigation:'0',
+            percent: '100',
+            time: ['69', '50'],
+            status: 'Завершена',
+            group: 'Сбор информации',
+            priority:'1',
+            project:'386',
+            content:'Содержание задания'
+        },
+
+        {
+            id: '9',
+            datestart:'11.09.2023 16:30',
+            dateend:'13.09.2023 11:32',
+            title:'Подготовить тех документацию по SpaceX',
+            navigation:'0',
+            percent: '100',
+            time: ['69', '50'],
+            status: 'Завершена',
+            group: 'Сбор информации',
+            priority:'1',
+            project:'386',
+            content:'Содержание задания'
+        },
+
+        {
+            id: '10',
+            datestart:'11.09.2023 16:30',
+            dateend:'13.09.2023 11:32',
+            title:'Подготовить тех документацию по SpaceX',
+            navigation:'0',
+            percent: '100',
+            time: ['69', '50'],
+            status: 'Завершена',
+            group: 'Сбор информации',
+            priority:'1',
+            project:'386',
+            content:'Содержание задания'
+        },
+
+        {
+            id: '11',
+            datestart:'11.09.2023 16:30',
+            dateend:'13.09.2023 11:32',
+            title:'Подготовить тех документацию по SpaceX',
+            navigation:'0',
+            percent: '100',
+            time: ['69', '50'],
+            status: 'Завершена',
+            group: 'Сбор информации',
+            priority:'1',
+            project:'386',
+            content:'Содержание задания'
+        },
+
+        {
+            id: '12',
+            datestart:'11.09.2023 16:30',
+            dateend:'13.09.2023 11:32',
+            title:'Подготовить тех документацию по SpaceX',
+            navigation:'0',
+            percent: '100',
+            time: ['69', '50'],
+            status: 'Завершена',
+            group: 'Сбор информации',
+            priority:'1',
+            project:'386',
+            content:'Содержание задания'
+        }
+    ]
+
     return (
         <DataContext.Provider value={{
             mass_create_bridge,
@@ -689,7 +871,8 @@ export const DataProvider = ({ children }) => {
             calendarmass,
             works1mass,
             works2mass,
-            works3mass
+            works3mass,
+            list_titletasks
         }}>
             {children}
         </DataContext.Provider>
