@@ -5,6 +5,7 @@ import "./tabviewwork1550.scss";
 import "./tabviewwork1080.scss";
 import {TabelViewsWork} from "./TabelViewsWork";
 import {TabelMans} from "./TabelMans";
+import {ModalWin} from "../../modalwin/ModalWin";
 
 
 
@@ -46,7 +47,6 @@ export const Tabelform = () => {
                 </div>
             </div>
             <TabelViewsWork />
-            <TabelViewsWork />
             <div className="tabwelding_slice"></div>
             <div className="tabwelding_tabel">
                 <div className="tabwelding_tabel_upper">
@@ -55,6 +55,9 @@ export const Tabelform = () => {
                 </div>
                 <TabelMans />
             </div>
+
+            {/*<ModalWin />*/}
+
         </div>
     )
 }

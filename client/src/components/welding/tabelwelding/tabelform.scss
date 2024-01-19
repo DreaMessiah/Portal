@@ -309,9 +309,10 @@
       justify-content: flex-start;
       width: 100%;
       height: 108px;
+      margin-top: 1px;
 
       .tabwelding_tabel_tabelman_strock_num{
-        width: 50px;
+        width: 40px;
         height: 100%;
         display: flex;
         justify-content: center;
@@ -323,7 +324,7 @@
         border-bottom: 1px solid #454545;
       }
       .tabwelding_tabel_tabelman_strock_fio{
-        width: 240px;
+        width: 200px;
         height: 100%;
         border-top: 1px solid #454545;
         border-right: 0px;
@@ -336,7 +337,7 @@
         padding: 0 5px;
       }
       .tabwelding_tabel_tabelman_strock_calendar{
-        width: 700px;
+        width: 550px;
         height: 108px;
         display: flex;
         justify-content: flex-start;
@@ -347,23 +348,28 @@
         border-left: 1px solid #454545;
         border-bottom: 1px solid #454545;
         .tabwelding_tabel_tabelman_strock_calendar_s{
-          width: 100%;
-          height: 108px;
+          //width: 100%;
+          //height: 108px;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
+
+          .tabwelding_tabel_tabelman_strock_calendar_column{
+            width: 100%;
+            height: 108px;
+          }
           //align-items: center;
           .tabwelding_tabel_tabelman_strock_calendar_column_day {
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            width: 100%;
+            width: calc(550px / 16);
             height: 54px;
             .tabwelding_tabel_tabelman_s_c_c_day_title{
               display: flex;
               justify-content: center;
               align-items: center;
-              width: calc(100% / 16);
+              width: calc(100%);
               height: 14px;
               border-top: 0px;
               border-right: 1px solid #454545;
@@ -374,12 +380,27 @@
               display: flex;
               justify-content: center;
               align-items: center;
-              width: calc(100% / 16);
+              width: calc(100% - 1px);
               height: calc((100% - 14px));
               border-top: 0px;
               border-right: 1px solid #454545;
-              border-left: 0px;
+              border-left: 1px solid #454545;
               border-bottom: 0px;
+              text-align: center;
+
+            }
+
+            .no-left-border{
+              border-left: 0px;
+              width: calc(100%);
+            }
+
+            .top-border-1px{
+              border-top: 1px solid #454545;
+              margin-top: -1px;
+            }
+            .tabwelding_tabel_tabelman_s_c_c_day_content:hover, active, focus{
+              outline: none;
             }
             .border-b{
               border-bottom: 1px solid #454545;
@@ -392,13 +413,30 @@
         width: 120px;
         height: 100%;
         display: flex;
-        justify-content: center;
-        align-items: center;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
         font-size: 10pt;
         border-top: 1px solid #454545;
         border-right: 1px solid #454545;
         border-left: 1px solid #454545;
         border-bottom: 1px solid #454545;
+
+        .tabwelding_tabel_tabelman_strock_itogy-header{
+          width: 100%;
+          height: 15px;
+          border-bottom: 1px solid #454545;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .tabwelding_tabel_tabelman_strock_itogy-sum{
+          width: 100%;
+          height: calc(100% - 15px);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
       }
     }
 
