@@ -1447,13 +1447,33 @@ html{
             resize: none;
             border: 1px solid #000;
           }
+  select{
+    width: 100%;
+    height: 40px;
+    padding: 5px;
+    border: 1px solid #000;
+    margin-bottom: 10px;
+    border-radius: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 
-          input, select {
+  }
+  input{
             width: 100%;
             height: 40px;
             padding: 5px;
             border: 1px solid #000;
             margin-bottom: 10px;
+            border-radius: 0;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            option{
+              background-color: #fff;  // Цвет фона опции
+              color: #333;            // Цвет текста опции
+              padding: 8px;
+            }
           }
 
           input {

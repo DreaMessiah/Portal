@@ -1,4 +1,5 @@
 import React, {useContext, useState} from "react";
+import Select from 'react-select'
 import {DataContext} from "../../context/DataContext";
 import Navbar from "../../components/Navbar";
 import SearchObj from "../../components/SearchObj";
@@ -14,6 +15,12 @@ export default function CreateTaskPage(){
     const [task,setTask] = useState('')
     const [aboutTask,setAboutTask] = useState('')
     const [params,setParams] = useState('')
+
+    const options = [
+        { value: '1', label: 'Проект №774655/22' },
+        { value: '2', label: 'Проект №865309/23' },
+        { value: '2', label: 'Проект №778611/24' }
+    ]
 
     const handleNameChange = (event) => {
         setName(event.target.value);
@@ -55,12 +62,8 @@ export default function CreateTaskPage(){
                                 <label>Описание задачи</label>
                                 <textarea placeholder='' value={aboutTask} onChange={handleAboutChange} autoComplete="off"/>
                                 <label>Привязать к проекту</label>
-                                <select>
-                                    <option value="">Выберите проект</option>
-                                    <option value="1">Проэкт №774655\22</option>
-                                    <option value="2">Проэкт №865309\23</option>
-                                    <option value="3">Проэкт №778611\24</option>
-                                </select>
+
+                                <Select className='select' options={options}/>
                                 <label>Закончить до</label>
                                 <input type="date" placeholder='' autoComplete="off"/>
                                 <label>Прикрепить файл</label>
