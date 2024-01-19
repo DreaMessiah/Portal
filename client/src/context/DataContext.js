@@ -3,9 +3,11 @@ import React, { createContext, useState } from 'react';
 export const DataContext = createContext('')
 
 export const DataProvider = ({ children }) => {
-    const mass_create = [
+
+
+    const mass_create_bridge = [
         {
-            link:'/createtask',
+            link:'/',
             text:'Создать задачу'
         },
         {
@@ -21,10 +23,54 @@ export const DataProvider = ({ children }) => {
             text:'Создать перемещение'
         }
     ]
-    const menu_mass = [
+    const menu_mass_bridge = [
         {
             link:'/main',
             text:'Входящие документы',
+            img:'menuimg1',
+            num:4
+        },{
+            link:'/main',
+            text:'Проект (Обновления)',
+            img:'menuimg2',
+            num:1
+        },{
+            link:'/main',
+            text:'Отчеты',
+            img:'menuimg3',
+            num:0
+        },{
+            link:'/main',
+            text:'Статистика',
+            img:'menuimg4',
+            num:0
+        },
+    ]
+
+
+
+    const mass_create = [
+        {
+            link:'/createtask',
+            text:'Создать задачу'
+        },
+        {
+            link:'/createtask',
+            text:'Создать документ'
+        },
+        {
+            link:'/createtask',
+            text:'Создать Проект'
+        },
+        {
+            link:'/createtask',
+            text:'Создать перемещение'
+        }
+    ]
+    const menu_mass = [
+        {
+            link:'/docpasslist',
+            text:'Документо оборот',
             img:'menuimg1',
             num:4
         },{
@@ -626,6 +672,8 @@ export const DataProvider = ({ children }) => {
 
     return (
         <DataContext.Provider value={{
+            mass_create_bridge,
+            menu_mass_bridge,
             mass_create,
             menu_mass,
             wrap_buttons,
