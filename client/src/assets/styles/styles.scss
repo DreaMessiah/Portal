@@ -1476,3 +1476,25 @@ html{
           }
 
         }
+.docbuttons{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 40px;
+  .button{
+    display: flex;
+    justify-content: center;
+    background-color: $wgreyColor;
+    height: 40px;
+    width: 30%;
+    align-items: center;
+    cursor: pointer;
+    p{
+      text-transform: uppercase;
+      font-weight: 500;
+      font-size: 0.7rem;
+    }
+  }
+}

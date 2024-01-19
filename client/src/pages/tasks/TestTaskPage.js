@@ -99,6 +99,11 @@ export default function TestTaskPage(){
                             </div>
                             <div className='bottom-box'>
                                 <ResultsObj obj={results}/>
+                                <div className='docbuttons'>
+                                    <div className='button'><p>Подписать/Направить</p></div>
+                                    <div className='button'><p>Вернуть на доработку</p></div>
+                                    <div className='button'><p>Закрыть</p></div>
+                                </div>
                             </div>
                         </div>
                     </div>
