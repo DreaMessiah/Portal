@@ -39,7 +39,7 @@ export default function WorksObj ({mass}) { // получается массив
 
             <div className='scrollOffset' style={{transform: `translateX(${-scrollOffset}px)`}}>
                 {mass.map( (item,index) => (
-                        <div className='work' key={index}>
+                        <div className='work br_grey' key={index}>
                             <div className='top-block'>
                                 <div className={classesDates[index]}> <p>{item.datestart}</p></div>
                                 <div className={classesLevel[index]}><p>Уровень: {item.level}</p></div>

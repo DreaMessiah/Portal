@@ -507,7 +507,7 @@ export const DataProvider = ({ children }) => {
             date:'27.12.2023',
             status:'1',
             title:'Задача №17',
-            text:'Забрать картриджы в ДНС'
+            text:'Забрать картриджи в ДНС'
         }, {
             date:'17.12.2023',
             status:'2',
@@ -523,7 +523,7 @@ export const DataProvider = ({ children }) => {
             level:'повышенный',
             link:'/',
             title:'Задача №17',
-            text:'Забрать картриджы в ДНС'
+            text:'Забрать картриджи в ДНС'
         }, {
             datestart:'27.12.2023',
             dateend:'10.01.2024',
@@ -592,7 +592,7 @@ export const DataProvider = ({ children }) => {
             direction:'0',
             level:'средний',
             link:'/main',
-            title:'Картриджы',
+            title:'Картриджи',
             text:'Краткое описание, краткое описание...',
             status:'в пути'
         }, {

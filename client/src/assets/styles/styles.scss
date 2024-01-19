@@ -455,9 +455,11 @@ html{
 
     }
     .work{
+
       width: $workswidth;
       flex-shrink: 0;
       margin: 10px;
+      background: #FFF;
       .top-block{
         display: flex;
         justify-content: space-between;
@@ -488,6 +490,7 @@ html{
         }
       }
       .info2{
+        height: 100%;
         justify-content: center !important;
         background-color: white !important;
         flex-wrap: nowrap !important;
@@ -562,7 +565,14 @@ html{
         }
       }
     }
+    
+    .br_grey{
+      background: $wgreyColor;
+      padding: 0px;
+    }
   }
+
+
 
   .buttonsBlock2{
     height: $worksHeight !important;
@@ -570,7 +580,7 @@ html{
   .buttonsBlock{
     width: 100%;
     margin-top: - $worksHeight;
-    height: calc($worksHeight - 20px);
+    height: calc($worksHeight - 0px);
     display: flex;
     justify-content: space-between;
     z-index: 1001;
@@ -1416,4 +1426,8 @@ html{
     align-items: center;
     margin-bottom: 10px;
   }
+}
+
+.bg-wgreyColor{
+  background-color: $wgreyColor;
 }
