@@ -1518,3 +1518,33 @@ html{
     }
   }
 }
+
+.intoIcon{
+  background-image: url("../images/intoIcon.svg");
+  width: 80%;
+  height: 80%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.outIcon{
+  background-image: url("../images/outIcon.svg");
+  width: 80%;
+  height: 80%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.edit_task_list_icon{
+  background-image: url("../images/edittask.svg");
+  width: 80%;
+  height: 80%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.del_task_list_icon{
+  background-image: url("../images/deltask.svg");
+  width: 80%;
+  height: 80%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}

@@ -18,6 +18,14 @@
     border: 1px solid #454545;
     display: flex;
     justify-content: flex-start;
+    margin-top: -1px;
+    font-size: 10pt;
+    cursor: pointer;
+    .flex_center{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
     .table_list_strock_datein{
       width: 7.95%;
       min-height: 50px;
@@ -42,6 +50,42 @@
       width: 16.7%;
       min-height: 50px;
       border-right: 1px solid #454545;
+      font-size: 10px;
+      justify-content: space-between;
+      .table_list_strock_p_indicate{
+        width: 131px;
+        height: 14px;
+        border: 1px solid #CCC;
+        border-radius: 4px;
+        margin-left: 5px;
+        .table_list_strock_p_indicate_bluegreen{
+          width: 96%;
+          height: 70%;
+          border: 1px solid #03AEAE;
+          border-radius: 3px;
+          .table_list_strock_p_indicate_bg_indicate{
+            //width: 96%;
+            height: 90%;
+            border: none;
+            border-radius: 3px;
+            background-image: url("../../assets/images/indicate.svg");
+            background-size: cover;
+            background-repeat: no-repeat;
+          }
+        }
+      }
+      .table_list_strock_p_percent{
+        width: 40px;
+      }
+      .table_list_strock_p_time{
+        width: 60px;
+        min-height: 60%;
+        margin-right: 5px;
+        border: 1px solid #454545;
+        border-radius: 4px;
+        background: #FFF;
+        padding: 5px;
+      }
     }
     .table_list_strock_status{
       width: 7%;
@@ -52,6 +96,7 @@
       width: 7.65%;
       min-height: 50px;
       border-right: 1px solid #454545;
+      font-size: 10px;
     }
     .table_list_strock_priority{
       width: 12.6%;
@@ -62,10 +107,23 @@
       width: 3.85%;
       min-height: 50px;
       border-right: 1px solid #454545;
+      transition: .2s;
+    }
+    .table_list_strock_edit:hover{
+      background: #03AEAE;
+      transition: .1s;
     }
     .table_list_strock_close{
       width: 3.85%;
       min-height: 50px;
+      transition: .2s;
     }
+    .table_list_strock_close:hover {
+      background: #DC7700;
+      transition: .1s;
+    }
+  }
+  .table_list_strock:hover{
+    background: #D9FFE3;
   }
 }
