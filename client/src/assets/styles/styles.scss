@@ -214,6 +214,8 @@ html{
     border-radius: 10px;
     text-align: center;
     display: flex;
+    align-items: center;
+    justify-content: center;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
     p{
       font-size: 0.8rem;
@@ -1405,7 +1407,6 @@ html{
     }
   }
 }
-
 .lk-form{
   display: flex;
   flex-direction: column;
@@ -1432,8 +1433,6 @@ html{
     margin-bottom: 10px;
   }
 }
-
-
 .bg-wgreyColor {
           background-color: $wgreyColor;
         }
@@ -1517,7 +1516,6 @@ html{
     }
   }
 }
-
 .intoIcon{
   background-image: url("../images/intoIcon.svg");
   width: 80%;
@@ -1546,4 +1544,108 @@ html{
   height: 80%;
   background-repeat: no-repeat;
   background-position: center center;
+}
+
+#ObjectPage{
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  height: 100%;
+
+  .right-block {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+
+    .top-box {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+
+      .left-box {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        width: 100%;
+        .button{
+          align-items: center;
+          margin: 10px 5px 5px 10px ;
+          min-width:200px;
+          width: calc(20% - 100px);
+          height: 20px;
+          border: 1px solid $blackColor;
+          border-radius: 4px;
+          display: flex;
+          justify-content: space-between;
+          padding: 10px 10px 10px 10px;
+          cursor: pointer;
+          p{
+            color: $blackColor;
+            font-size: 0.8rem;
+          }
+          i{
+            font-size: 1rem;
+          }
+        }
+      }
+
+      .right-box {
+        padding-right: 30px;
+      }
+    }
+
+    .next-box {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      width: 100%;
+
+      .left-box {
+        width: 40%;
+        //min-width: 470px;
+      }
+
+      .right-box {
+        margin-top: 20px;
+        padding-right: 30px;
+        width: calc(60% - 30px);
+
+        .top-box-inside {
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          flex-wrap: wrap;
+
+          .top-box-inside-left {
+            width: 48%;
+            min-width: 320px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+          }
+
+          .top-box-inside-right {
+            width: 48%;
+            min-width: 320px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+          }
+        }
+
+        .bottom-box {
+
+        }
+
+        .dis-none {
+          display: none;
+        }
+      }
+    }
+
+
+  }
 }
