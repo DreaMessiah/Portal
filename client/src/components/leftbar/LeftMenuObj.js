@@ -8,10 +8,6 @@ export default function LeftMenuObj ({mass_create, mass_menu}) {
     useEffect(() => {
         const allStrocks = document.querySelectorAll('.allstrocks_menu');
         allStrocks.forEach(strock => {
-
-
-
-
     //         strock.addEventListener('mouseenter', ()=>{
     //             console.log(strock.firstChild.nextSibling.firstChild.firstChild.nextSibling)
     //             strock.firstChild.nextSibling.firstChild.firstChild.nextSibling.classlist.toggle('')
@@ -68,16 +64,15 @@ export default function LeftMenuObj ({mass_create, mass_menu}) {
                                  onMouseEnter={() => handleMouseEnter(index)}
                                  onMouseLeave={() => handleMouseLeave(index)}
                                  className="allstrocks_menu">
-                                <Link to={item.link} ><p>{item.text}<span className={active[index]?"rotate180":""}>+</span></p></Link>
+                                <Link to={item.link} ><p>{item.text}<span className={active[index]?"rotate180":""}>{item.icon}</span></p></Link>
                             </div>
                         ))}
                     </div>
                 </div>
             </div>
             <div className='createobj dis-none'>
-
                 {mass_create.map( (item,index) => (
-                    <div key={index}> <Link to={item.link}><p>{item.text}<span>+</span></p></Link> </div>
+                    <div key={index}> <Link to={item.link}><p>{item.text}<span>{item.icon}</span></p></Link> </div>
                 ))}
             </div>
             {mass_menu.map((item,index) => (

@@ -20,6 +20,8 @@ import {Tabel} from "./pages/welding/Tabel";
 import { DataProvider } from './context/DataContext';
 import TestTaskPage from "./pages/tasks/TestTaskPage";
 import {ListTasks} from "./pages/listtasks/ListTasks";
+import ObjectsPage from "./pages/objects/ObjectsPage";
+import AdminDashboardPage from "./pages/administrator/AdminDashboardPage";
 
 function App() {
     return (
@@ -42,6 +44,8 @@ function App() {
                         <Route path="/news" element={<NewsPage/>} />
                         <Route path="/selected_news/:id" element={<SelNewsPage/>} />
                         <Route path="/docpasslist" element={<ListTasks/>} />
+                        <Route path="/objects" element={<ObjectsPage/>} />
+                        <Route path="/dashboard" element={<AdminDashboardPage/>} />
                     </Routes>
                 </div>
             </Router>
