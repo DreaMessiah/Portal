@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useContext, useState} from "react";
 import "./tabelform.scss";
 import "./tabviewwork1920.scss";
 import "./tabviewwork1550.scss";
@@ -6,11 +6,21 @@ import "./tabviewwork1080.scss";
 import {TabelViewsWork} from "./TabelViewsWork";
 import {TabelMans} from "./TabelMans";
 import {ModalWin} from "../../modalwin/ModalWin";
+import {NewCrewModal} from "./modalactive/NewCrewModal";
+import {DataContext} from "../../../context/DataContext";
 
 
 
 export const Tabelform = () => {
+    const {weldingCrews} = useContext(DataContext)
+
     const [crew, setCrew] = useState(false)
+
+    const [select, setSelect] = useState('отсутствует')
+
+    const handleSelect = e => {
+        setSelect(e.target.value)
+    }
 
     return (
         <div className='right-block-tabwelding'>
@@ -21,10 +31,11 @@ export const Tabelform = () => {
                     <div className="tabwelding_header_upper_controlbtn">Контроль</div>
                 </div>
                 <div className="tabwelding_header_newcrewblock">
-                    <select className="tabwelding_header_newcrewblock_select">
-                        <option value="">1</option>
-                        <option value="">2</option>
-                        <option value="">3</option>
+                    <select className="tabwelding_header_newcrewblock_select" onChange={handleSelect}>
+                        <option></option>
+                        {weldingCrews.map( (item,index) =>(
+                        <option value={item.crew} key={index}>{item.crew}</option>
+                    ))}
                     </select>
                     <div className="tabwelding_header_newcrewblock_plusbtn" onClick={() => setCrew(!crew)}>Добавить звено</div>
                 </div>
@@ -59,7 +70,7 @@ export const Tabelform = () => {
             </div>
 
 
-            <ModalWin data={''} active={crew} setActive={setCrew}/>
+            <ModalWin data={<NewCrewModal sel={select} active={crew} setActive={setCrew}/>} active={crew} setActive={setCrew}/>
         </div>
     )
 }
