@@ -10,6 +10,8 @@ import {ModalWin} from "../../modalwin/ModalWin";
 
 
 export const Tabelform = () => {
+    const [crew, setCrew] = useState(false)
+
     return (
         <div className='right-block-tabwelding'>
             <div className="tabwelding_header">
@@ -24,7 +26,7 @@ export const Tabelform = () => {
                         <option value="">2</option>
                         <option value="">3</option>
                     </select>
-                    <div className="tabwelding_header_newcrewblock_plusbtn">Добавить звено</div>
+                    <div className="tabwelding_header_newcrewblock_plusbtn" onClick={() => setCrew(!crew)}>Добавить звено</div>
                 </div>
             </div>
             <div className="tabwelding_slice"></div>
@@ -56,8 +58,8 @@ export const Tabelform = () => {
                 <TabelMans />
             </div>
 
-            {/*<ModalWin />*/}
 
+            <ModalWin data={''} active={crew} setActive={setCrew}/>
         </div>
     )
 }

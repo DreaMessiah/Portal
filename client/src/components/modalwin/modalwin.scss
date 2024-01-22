@@ -1,10 +1,14 @@
+.modal_active{
+  display: flex !important;
+}
+
 .modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
 }
@@ -15,11 +19,10 @@
   width: 100vw;
   height: 100vh;
   background: #454545;
-  opacity: 0.5;
+  opacity: 0.7;
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
 .modal_win_wight{
@@ -32,26 +35,40 @@
   border-radius: 3px;
   opacity: 1;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   z-index: 1000;
+  padding: 10px;
   //margin-top: -80%;
-}
+  .modal_win_wight_up{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    .modal_win_wight_krest{
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      background: #DC7700;
+      border: none;
+      border-radius: 3px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .del_icon_white{
+        width: 30px;
+        height: 30px;
+        background-image: url("../../assets/images/delwhite.svg");
+        background-position: center center;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+      .modal_win_wight_krest:hovel{
 
-.modal_win_wight_krest{
-  width: 130px;
-  height: 50px;
-  border: 1px solid #FFF;
-  border-radius: 3px;
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: #454545;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  .krestik{
-
+      }
+    }
   }
+  .modal_win_wight_main{}
+  .modal_win_wight_bottom{}
 }
+
