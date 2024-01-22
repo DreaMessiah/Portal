@@ -28,6 +28,7 @@ export default function DocumentPage(){
                             <ChangeObj/>
                         </div>
                     </div>
+
                     <div className='next-box'>
                         <div className='left-box'>
                             <DocumentWay dwm1={dwm1}/>

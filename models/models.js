@@ -22,6 +22,7 @@ const User = sequelize.define('users',{
     snils:{type:DataTypes.STRING},
     unit:{type:DataTypes.INTEGER}
 })
+
 const T13 = sequelize.define('t13', {
     id:{type:DataTypes.INTEGER,primaryKey: true,autoIncrement:true},
     name:{type:DataTypes.STRING},
@@ -351,6 +352,7 @@ const NumberObjects = sequelize.define('number_objects',{
     dop2:{type:DataTypes.INTEGER},
     prior:{type:DataTypes.INTEGER}
 })
+
 const Objects = sequelize.define('objects',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     shifr:{type:DataTypes.STRING},
@@ -361,6 +363,7 @@ const Objects = sequelize.define('objects',{
     inn:{type:DataTypes.STRING},
     login:{type:DataTypes.STRING}
 })
+
 const ObjectsSV = sequelize.define('obj_sv',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     shifr:{type:DataTypes.STRING},
