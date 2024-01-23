@@ -1,41 +1,84 @@
 import React, { useEffect, useState } from "react";
 import "./myobjs.scss";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
+import {useContext} from "react";
+import {DataContext} from "../../context/DataContext";
 
-export default function MyObjs({mass, page}){
 
-        let percent = 30;
- 
 
-        useEffect(() => {
-        
+export default function MyObjs({mass, page}) {
 
-            const objBlocks = document.querySelectorAll('.objs_list_item')
-            objBlocks.forEach(block=>{
-                block.addEventListener('click', () => {
-                setTimeout(()=>{
-                     const params = window
-                    .location
-                    .search
-                    .replace('?','')
-                    .split('=')
-                    const myObj = document.getElementById(`id_my_obj_${params[1]}`)
-                    // makeKrasivo(myObj)
-                
-                        
+    const {btns_modules} = useContext(DataContext)
+
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+
+    let getId = searchParams.get('id');
+
+
+    if(getId === null){
+        getId = ''
+        console.log(getId)
+    }
+    const btnsModals = document.querySelectorAll('.btns_module')
+    useEffect(()=>{
+        const bottomParams = document.querySelectorAll('.objs_list_item_body_bottom')
+        const allObjs = document.querySelectorAll('.objs_list_item')
+        if(getId){
+
+            allObjs.forEach(obj => {
+
+                if(obj.id !== `this_obg_${getId}`){
+                    obj.style.display = 'none'
+                } else {
+
+                    bottomParams.forEach(strock=>{
+                        strock.style.display = 'none'
                     })
-                })
-                
-            })
-        },[])
 
-    
+                    obj.classList = 'objs_list_item open_obj_anim'
+
+                    const blockIntoBtns = document.getElementById(`btns_module_${getId}`)
+                    
+                    if(btnsModals){
+                        btnsModals.forEach(block => {
+                            btnsModals.innerHTML = ''
+                        })
+
+                    }
+                    {btns_modules.map((btn,index) => (
+                        blockIntoBtns.insertAdjacentHTML('beforeend', `
+                        fdsf
+                    `)
+                    ))}
+                    console.log(obj.id)
+                }
+
+            })
+        } else {
+            allObjs.forEach(obj => {
+                obj.classList = 'objs_list_item'
+                obj.style.width = '30%'
+                obj.style.minHeight = '222px'
+                obj.style.display = 'flex'
+
+
+                    btnsModals.forEach(block => {
+                        btnsModals.innerHTML = ''
+                    })
+
+                bottomParams.forEach(strock=>{
+                    strock.style.display = 'flex'
+                })
+            })
+        }
+    })
+
+
     return (
         <div className='objs_list'>
-            {/* <p>value of count: {count}</p> */}
-
             {mass.map((item,index) => (
-                <Link key={index} to={`/${page}${page === 'objects' ? '?id=' + item.id : '/' + item.id}`} className='objs_list_item' id={`id_my_obj_${item.id}`}>
+                <Link key={index} to={`/${page}${page === 'objects' ? '?id=' + item.id : '/' + item.id}`} className='objs_list_item' id={`this_obg_${item.id}`}>
                     <div className="objs_list_item_header"><span>{item.name}</span></div>
                     <div className="objs_list_item_body">
                         <div className="objs_list_item_body_description">
@@ -45,6 +88,9 @@ export default function MyObjs({mass, page}){
                             <div className="objs_list_item_body_bottom_dateinto">Последнее изменение: {item.dateinto}</div>
                             <div className="objs_list_item_body_bottom_btn">. . .</div>
                         </div>
+                    </div>
+                    <div id={`btns_module_${item.id}`} className='btns_module'>
+
                     </div>
                 </Link>
             ))}

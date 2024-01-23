@@ -1125,6 +1125,40 @@ export const DataProvider = ({ children }) => {
         }
     ]
 
+    const btns_modules = [
+        //табеля
+        {
+            name: 'tabel',
+            title: 'Табеля',
+            url: '/tabel'
+        },
+        // документооборот
+        {
+            name: 'documents',
+            title: 'Документо оборот',
+            url: '/docpasslist'
+        },
+        // ТМЦ
+        {
+            name: 'goods',
+            title: 'ТМЦ',
+            url: '/goods'
+        },
+        // сварщики
+        {
+            name: 'welding',
+            title: 'Сварщки',
+            url: '/obj'
+        },
+        // персонал
+        {
+            name: 'humanresource',
+            title: 'Персонал',
+            url: '/personal'
+        }
+
+    ]
+
     return (
         <DataContext.Provider value={{
             mass_blocks_admin,
@@ -1151,7 +1185,8 @@ export const DataProvider = ({ children }) => {
             works3mass,
             list_titletasks,
             weldingCrews,
-            my_objs
+            my_objs,
+            btns_modules
         }}>
             {children}
         </DataContext.Provider>

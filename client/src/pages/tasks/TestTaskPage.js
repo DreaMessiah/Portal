@@ -23,7 +23,6 @@ export default function TestTaskPage(){
     const about = searchParams.get('about');
 
     console.log(about)
-    
 
     const taskmass =  {
         status:3,
