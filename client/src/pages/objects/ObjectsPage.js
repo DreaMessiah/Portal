@@ -5,6 +5,7 @@ import SearchObj from "../../components/SearchObj";
 import ChangeObj from "../../components/ChangeObj";
 import BridgeLeftBar from "../../components/leftbar/ BridgeLeftBar";
 import MyObjs from "../../components/objs/MyObjs";
+import {Link} from "react-router-dom";
 
 export default function ObjectsPage(){
     const { mass_create, menu_mass, my_objs} = useContext(DataContext)
@@ -19,8 +20,11 @@ export default function ObjectsPage(){
                 <div className='right-block'>
                     <div className='top-box'>
                         <div className='left-box'>
-                            <div className='button'><p>Добавить обьект</p> <i className='fa-regular fa-plus'></i></div>
-                            <SearchObj/>
+                            <div className='obj_block_button'>
+                                <div className='button'><p>Добавить обьект</p> <i className='fa-regular fa-plus'></i></div>
+                                <Link to={`/objects`}><div className='button'><p>Назад</p> <i className='fa-solid fa-rotate-left'></i></div></Link>
+                            </div>
+                                <SearchObj/>
                         </div>
                         <div className='right-box'>
                             <ChangeObj/>

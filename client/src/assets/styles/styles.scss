@@ -1570,6 +1570,11 @@ html{
         justify-content: space-between;
         flex-wrap: wrap;
         width: 100%;
+
+        .obj_block_button{
+          display: flex;
+        }
+
         .button{
           align-items: center;
           margin: 10px 5px 5px 10px ;
