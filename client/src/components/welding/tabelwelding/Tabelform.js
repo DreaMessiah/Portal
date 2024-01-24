@@ -23,6 +23,17 @@ export const Tabelform = () => {
         setSelect(e.target.value)
     }
 
+    const activetedCrew = button => {
+        console.log(button)
+        const btnsNameCrews = document.querySelectorAll('.tabwelding_crews_block')
+        button.addEventListener('click', () => {
+            btnsNameCrews.forEach(btn => {
+                btn.classList = 'tabwelding_crews_block'
+            })
+            button.classList = 'tabwelding_crews_block action'
+        })
+
+    }
     return (
         <div className='right-block-tabwelding'>
             <div className="tabwelding_header">
@@ -44,7 +55,7 @@ export const Tabelform = () => {
             <div className="tabwelding_slice"></div>
             <div className="tabwelding_crews">
                 {weldingCrews.map( (item,index) =>(
-                <div className="tabwelding_crews_block">{item.crew}</div>
+                <div className="tabwelding_crews_block" key={index} onClick={e => {activetedCrew(e.target)}}>{item.crew}</div>
                 ))}
             </div>
             <div className="tabwelding_slice"></div>
