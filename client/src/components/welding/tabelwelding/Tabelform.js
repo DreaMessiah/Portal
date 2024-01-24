@@ -1,4 +1,4 @@
-import React,{useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import "./tabelform.scss";
 import "./tabviewwork1920.scss";
 import "./tabviewwork1550.scss";
@@ -19,21 +19,28 @@ export const Tabelform = () => {
 
     const [select, setSelect] = useState('отсутствует')
 
+    const [views, setViews] = useState([])
+
     const handleSelect = e => {
         setSelect(e.target.value)
     }
+    let btnsNameCrews
+    const activetedCrew = (button, crew) => {
+        btnsNameCrews = document.querySelectorAll('.tabwelding_crews_block')
 
-    const activetedCrew = button => {
-        console.log(button)
-        const btnsNameCrews = document.querySelectorAll('.tabwelding_crews_block')
-        button.addEventListener('click', () => {
+            button.classList = 'tabwelding_crews_block bgactive'
             btnsNameCrews.forEach(btn => {
-                btn.classList = 'tabwelding_crews_block'
+                if(button != btn) {
+                    btn.classList = 'tabwelding_crews_block'
+                }
             })
-            button.classList = 'tabwelding_crews_block action'
-        })
+    setViews(crew.types)
 
     }
+
+    useEffect(() => {
+        console.log(views)
+    })
     return (
         <div className='right-block-tabwelding'>
             <div className="tabwelding_header">
@@ -55,7 +62,7 @@ export const Tabelform = () => {
             <div className="tabwelding_slice"></div>
             <div className="tabwelding_crews">
                 {weldingCrews.map( (item,index) =>(
-                <div className="tabwelding_crews_block" key={index} onClick={e => {activetedCrew(e.target)}}>{item.crew}</div>
+                <div className="tabwelding_crews_block" key={index} onClick={e => {activetedCrew(e.target, item)}}>{item.crew}</div>
                 ))}
             </div>
             <div className="tabwelding_slice"></div>
@@ -66,7 +73,7 @@ export const Tabelform = () => {
                     <div className="tabwelding_viewswork_upper_date">сегодня: 01-01-2024</div>
                 </div>
             </div>
-            <TabelViewsWork />
+            <TabelViewsWork crew={weldingCrews}/>
             <div className="tabwelding_slice"></div>
             <div className="tabwelding_tabel">
                 <div className="tabwelding_tabel_upper">
