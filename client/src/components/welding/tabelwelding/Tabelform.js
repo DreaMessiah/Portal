@@ -14,6 +14,7 @@ import {DataContext} from "../../../context/DataContext";
 export const Tabelform = () => {
     const {weldingCrews} = useContext(DataContext)
 
+
     const [crew, setCrew] = useState(false)
 
     const [select, setSelect] = useState('отсутствует')
@@ -42,14 +43,9 @@ export const Tabelform = () => {
             </div>
             <div className="tabwelding_slice"></div>
             <div className="tabwelding_crews">
-                <div className="tabwelding_crews_block bgactive">Бр. Изомова С.Ш.</div>
-                <div className="tabwelding_crews_block">Бр. Изомова С.Ш.</div>
-                <div className="tabwelding_crews_block">Бр. Изомова С.Ш.</div>
-                <div className="tabwelding_crews_block">Бр. Изомова С.Ш.</div>
-                <div className="tabwelding_crews_block">Бр. Изомова С.Ш.</div>
-                <div className="tabwelding_crews_block">Бр. Изомова С.Ш.</div>
-                <div className="tabwelding_crews_block">Бр. Изомова С.Ш.</div>
-                <div className="tabwelding_crews_block">Бр. Изомова С.Ш.</div>
+                {weldingCrews.map( (item,index) =>(
+                <div className="tabwelding_crews_block">{item.crew}</div>
+                ))}
             </div>
             <div className="tabwelding_slice"></div>
             <div className="tabwelding_viewswork">
