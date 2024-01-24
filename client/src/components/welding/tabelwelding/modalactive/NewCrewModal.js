@@ -12,24 +12,27 @@ export const NewCrewModal = ({sel, active, setActive}) => {
     } else {
         message = `Желаете добавить новое звено ${sel} в табель?`
     }
-    useEffect(() => {
-        if(sel === '' || sel === 'отсутствует'){
-            btnPlus.style.display = 'none'
-            btnCancel.innerHTML = 'Закрыть'
-        } else {
-            btnPlus.style.display = 'flex'
-            btnCancel.innerHTML = 'Отмена'
-        }
-    }, [])
+    // useEffect(() => {
+    //     if(sel === '' || sel === 'отсутствует'){
+    //         btnPlus.style.display = 'none'
+    //         btnCancel.innerHTML = 'Закрыть'
+    //     } else {
+    //         btnPlus.style.display = 'flex'
+    //         btnCancel.innerHTML = 'Отмена'
+    //     }
+    // }, [])
 
     return (
         <div className='modal_crew'>
             <div className='modal_crew_message'>{message}</div>
 
             <div className='modal_crew_btns'>
-                <div className='modal_crew_btns_plus'>Добавить</div>
+                <div className='modal_crew_btns_plus' style={sel === '' || sel === 'отсутствует' ? {display:"none"}:{display:"flex"}}>Добавить</div>
                 <div className='modal_crew_btns_cancel' onClick={() => setActive(false)}>Отмена</div>
             </div>
         </div>
+
+
+
     )
 }
