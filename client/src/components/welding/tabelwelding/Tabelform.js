@@ -69,7 +69,7 @@ export const Tabelform = () => {
                 <TabelMans />
             </div>
 
-
+            {/*<NewCrewModal sel={select} active={crew} setActive={setCrew}/>*/}
             <ModalWin data={<NewCrewModal sel={select} active={crew} setActive={setCrew}/>} active={crew} setActive={setCrew}/>
         </div>
     )

@@ -53,6 +53,7 @@ $worksHeight:220px;
     //flex: 0 0 calc(20% - 21px);
     //width:calc(20% - 21px);
     width: 100px;
+    height: 100%;
     margin: 10px;
     padding: 0;
     padding: 0;
@@ -70,7 +71,7 @@ $worksHeight:220px;
 
       .menu_burger{
         width: 30%;
-        min-height: 10%;
+        min-height: 100%;
         position: absolute;
         left: 104px;
         margin-top: -10px;

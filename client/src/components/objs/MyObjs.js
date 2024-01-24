@@ -21,41 +21,62 @@ export default function MyObjs({mass, page}) {
         console.log(getId)
     }
     const btnsModals = document.querySelectorAll('.btns_module')
-    useEffect(()=>{
+
+    const linkPage = link => {
+
+    }
+
+    console.log(btnsModals)
+    useEffect(()=> {
+        btnsModals.forEach(block => {
+            block.innerHTML = ''
+        })
         const bottomParams = document.querySelectorAll('.objs_list_item_body_bottom')
         const allObjs = document.querySelectorAll('.objs_list_item')
-        if(getId){
+        if (getId) {
 
             allObjs.forEach(obj => {
 
-                if(obj.id !== `this_obg_${getId}`){
+                if (obj.id !== `this_obg_${getId}`) {
                     obj.style.display = 'none'
                 } else {
 
-                    bottomParams.forEach(strock=>{
+                    bottomParams.forEach(strock => {
                         strock.style.display = 'none'
                     })
 
                     obj.classList = 'objs_list_item open_obj_anim'
 
                     const blockIntoBtns = document.getElementById(`btns_module_${getId}`)
-                    
-                    if(btnsModals){
+
+
                         btnsModals.forEach(block => {
-                            btnsModals.innerHTML = ''
+                            block.innerHTML = ''
                         })
 
-                    }
-                    {btns_modules.map((btn,index) => (
-                        blockIntoBtns.insertAdjacentHTML('beforeend', `
-                        fdsf
-                    `)
-                    ))}
+
+
+                        btns_modules.map((btn,indexBtn) => {
+                            let indicate
+                            switch (btn.toid) {
+                                case 0:
+                                    indicate = ''
+                                    break
+                                case 1:
+                                    indicate = getId
+                                    break
+                            }
+                            blockIntoBtns.insertAdjacentHTML('beforeend', `
+                           <div class="btn_on_object" key=${indexBtn} onClick=" window.location.href = '${btn.url}/${indicate}'">${btn.title}</div>
+                           
+                            `)
+                        })
+
                     console.log(obj.id)
                 }
 
             })
-        } else {
+        }else {
             allObjs.forEach(obj => {
                 obj.classList = 'objs_list_item'
                 obj.style.width = '30%'
@@ -64,7 +85,7 @@ export default function MyObjs({mass, page}) {
 
 
                     btnsModals.forEach(block => {
-                        btnsModals.innerHTML = ''
+                        block.innerHTML = ''
                     })
 
                 bottomParams.forEach(strock=>{

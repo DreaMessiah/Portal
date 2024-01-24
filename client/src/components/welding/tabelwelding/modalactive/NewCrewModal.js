@@ -1,25 +1,26 @@
 import "./newcrewmodal.scss";
+import {useEffect} from "react";
 
 export const NewCrewModal = ({sel, active, setActive}) => {
+    let message
     const btnPlus = document.querySelector('.modal_crew_btns_plus')
     const btnCancel = document.querySelector('.modal_crew_btns_cancel')
-    let message
+
     if(sel === '' || sel === 'отсутствует'){
         sel = 'отсутствует'
-
-        btnPlus.style.display = 'none'
-        btnCancel.innerHTML = 'Закрыть'
         message = `Выберете звено для добавления`
     } else {
-        sel = sel
-        btnPlus.style.display = 'flex'
-        btnCancel.innerHTML = 'Отмена'
         message = `Желаете добавить новое звено ${sel} в табель?`
     }
-
-
-
-
+    useEffect(() => {
+        if(sel === '' || sel === 'отсутствует'){
+            btnPlus.style.display = 'none'
+            btnCancel.innerHTML = 'Закрыть'
+        } else {
+            btnPlus.style.display = 'flex'
+            btnCancel.innerHTML = 'Отмена'
+        }
+    }, [])
 
     return (
         <div className='modal_crew'>
@@ -27,7 +28,7 @@ export const NewCrewModal = ({sel, active, setActive}) => {
 
             <div className='modal_crew_btns'>
                 <div className='modal_crew_btns_plus'>Добавить</div>
-                <div className='modal_crew_btns_cancel'  onClick={() => setActive(false)}>Отмена</div>
+                <div className='modal_crew_btns_cancel' onClick={() => setActive(false)}>Отмена</div>
             </div>
         </div>
     )

@@ -499,7 +499,7 @@ export const DataProvider = ({ children }) => {
             text: 'Файловый менеджер'
         },
         {
-            link: '/',
+            link: '/objects',
             text: 'Управление проектами'
         },
         {
@@ -1130,31 +1130,37 @@ export const DataProvider = ({ children }) => {
         {
             name: 'tabel',
             title: 'Табеля',
-            url: '/tabel'
+            url: '/tabel',
+            toid: 0
         },
         // документооборот
         {
             name: 'documents',
             title: 'Документо оборот',
-            url: '/docpasslist'
+            url: '/docpasslist',
+            toid: 0
         },
         // ТМЦ
         {
             name: 'goods',
             title: 'ТМЦ',
-            url: '/goods'
+            url: '/goods',
+            toid: 0
+
         },
         // сварщики
         {
             name: 'welding',
             title: 'Сварщки',
-            url: '/obj'
+            url: '/obj',
+            toid: 1
         },
         // персонал
         {
             name: 'humanresource',
             title: 'Персонал',
-            url: '/personal'
+            url: '/personal',
+            toid: 0
         }
 
     ]
