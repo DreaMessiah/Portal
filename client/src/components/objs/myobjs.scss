@@ -171,4 +171,29 @@
     color: #FFF;
     transition: 0.3s;
   }
+
+
+  .block_obj_anim{
+    animation-direction: alternate;
+    animation-duration: 1s;
+    animation-name: blockobj;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+  }
+  
+  @keyframes blockobj {
+    0% {
+      opacity: 0;
+    }
+  
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+
+
 }
