@@ -67,7 +67,7 @@ export default function MyObjs({mass, page}) {
                                     break
                             }
                             blockIntoBtns.insertAdjacentHTML('beforeend', `
-                           <div class="btn_on_object block_obj_anim" key=${indexBtn} onClick=" window.location.href = '${btn.url}/${indicate}'">${btn.title}</div>
+                           <div class="btn_on_object block_obj_anim" key=${indexBtn} onClick=" window.location.href = '${btn.url}/${indicate}?id=${getId}'">${btn.title}</div>
                            
                             `)
                         })

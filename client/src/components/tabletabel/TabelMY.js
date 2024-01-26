@@ -1,6 +1,8 @@
-import React,{useState} from "react";
-import "./viewobj.scss";
-import {Link} from "react-router-dom";
+import "./tabel.scss";
+import "../welding/yearmounth/viewobj.scss";
+import {Link, useLocation} from "react-router-dom";
+import {useContext} from "react";
+import {DataContext} from "../../context/DataContext";
 
 
 const arr_welding_tabel = [
@@ -120,12 +122,33 @@ const arr_welding_tabel = [
 ];
 
 
-export const Viewobj = () => {
+export const TabelMY = () => {
+
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+
+    let getId = searchParams.get('id');
+
+    const {my_objs} = useContext(DataContext)
+
+    const new_arr = my_objs.filter(obj => {
+        if(parseInt(getId) === parseInt(obj.id)){
+            return true
+        } else {
+            return false
+        }
+    })[0]
+        
+    console.log(getId)
+    console.log(new_arr)
+
+
+
     return (
         <div className='right-block-ymwelding'>
             <div className='ymwelding_head'>
                 <div className='ymwelding_head_btnlast'>Назад к объектам</div>
-                <div className='ymwelding_head_nameobj'><span>386</span>        РВСП 20000м3 №3 ЛПДС "Южный Балык". Нефтеюганское УМН. Техническое перевооружение"</div>
+                <div className='ymwelding_head_nameobj'><span>{new_arr.name}</span>        {new_arr.description}</div>
                 <div className='ymwelding_head_passobj'>Передать</div>
             </div>
             <div className='ymwelding_controller'>
@@ -152,7 +175,7 @@ export const Viewobj = () => {
                 <div className='ymwelding_years_head'>{year.year}</div>
                 <div className='ymwelding_years_body'>{  year.months.map((month,index) => (
                     <div key={index}>
-                        <Link key={index} to={`/tabelwelding/?id=${index}&shifr=${month.shifr}&month=${month.month}&year=${month.year}`} className='ymwelding_years_body_month'>
+                        <Link key={index} to={`/table-tabel/?id=${index}&shifr=${month.shifr}&month=${month.month}&year=${month.year}`} className='ymwelding_years_body_month'>
                             <div className='ymwelding_years_body_month_text'>{month.month}</div>
                             <div className='ymwelding_years_body_month_settings'> ... </div>
                         </Link>

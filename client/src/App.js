@@ -16,7 +16,8 @@ import CreateTaskPage from "./pages/tasks/CreateTaskPage";
 import {Weldingmain} from "./pages/welding/Weldingmain";
 import {Yearwelding} from "./pages/welding/Yearwelding";
 import {Tabel} from "./pages/welding/Tabel";
-
+import {TabelObj} from "./pages/tabel/Tabel";
+import {TableTabel} from "./pages/tabel/TableTabel";
 import { DataProvider } from './context/DataContext';
 import TestTaskPage from "./pages/tasks/TestTaskPage";
 import {ListTasks} from "./pages/listtasks/ListTasks";
@@ -46,6 +47,8 @@ function App() {
                         <Route path="/docpasslist" element={<ListTasks/>} />
                         <Route path="/objects" element={<ObjectsPage/>} />
                         <Route path="/dashboard" element={<AdminDashboardPage/>} />
+                        <Route path="/tabel" element={<TabelObj/>} />
+                        <Route path="/table-tabel" element={<TableTabel/>} />
                     </Routes>
                 </div>
             </Router>
