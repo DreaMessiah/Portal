@@ -39,7 +39,11 @@ export const Tabelform = () => {
 
     const [views, setViews] = useState([])
 
+    const [mans, setMans] = useState([])
+
     const [tabelView,setTabelView] = useState([])
+
+    const [tabMans,setTabelMans] = useState([])
     // const [tabelWork, ]
 
     const handleSelect = e => {
@@ -55,6 +59,7 @@ export const Tabelform = () => {
                 }
             })
     setViews(crew.tabel)
+    setMans(crew.peoples)
     setCrewName(crew.crew)
     }
 
@@ -64,6 +69,7 @@ export const Tabelform = () => {
         views.forEach(tabel => {
             if(tabel.year === getYear && tabel.month === getMonth) {
                 setTabelView(tabel.types)
+                setTabelMans(tabel.peoples)
             }
         })
         console.log(tabelView)
@@ -107,7 +113,7 @@ export const Tabelform = () => {
                     <div className="tabwelding_tabel_upper_title">Табель</div>
                     <div className="tabwelding_tabel_upper_plus">Добавить</div>
                 </div>
-                <TabelMans />
+                <TabelMans  peoples={tabMans} active={crewName} idobj={getId} shifr={getShifr} month={getMonth} year={getYear}/>
             </div>
 
             {/*<NewCrewModal sel={select} active={crew} setActive={setCrew}/>*/}
