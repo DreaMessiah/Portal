@@ -1,3 +1,336 @@
 .tabel{
     margin: 20px;
 }
+
+.tab_tabel{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    .tab_tabel_upper{
+        width: calc(236px * 2 + 20px);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        .tab_tabel_upper_title{
+            font-weight: 600;
+        }
+        .tab_tabel_upper_plus{
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 236px;
+            height: 40px;
+            background: #617676;
+            color: #FFF;
+        }
+
+    }
+
+
+    .tab_tabel_tabelman{
+        width: 100%;
+        //min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+
+        .tab_tabel_tabelman_strock{
+            display: flex;
+            justify-content: flex-start;
+            width: 100%;
+            height: 108px;
+            margin-top: 1px;
+
+            .tab_tabel_tabelman_strock_num{
+                width: 40px;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 10pt;
+                border-top: 1px solid #454545;
+                border-right: 0px;
+                border-left: 1px solid #454545;
+                border-bottom: 1px solid #454545;
+            }
+            .tab_tabel_tabelman_strock_fio{
+                width: 200px;
+                height: 100%;
+                border-top: 1px solid #454545;
+                border-right: 0px;
+                border-left: 1px solid #454545;
+                border-bottom: 1px solid #454545;
+                font-size: 10pt;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0 5px;
+            }
+            .tab_tabel_tabelman_strock_calendar{
+                width: 550px;
+                height: 108px;
+                display: flex;
+                justify-content: flex-start;
+                //align-items: flex-start;
+                font-size: 10pt;
+                border-top: 1px solid #454545;
+                border-right: 0px;
+                border-left: 1px solid #454545;
+                border-bottom: 1px solid #454545;
+                .tab_tabel_tabelman_strock_calendar_s{
+                    //width: 100%;
+                    //height: 108px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+
+                    .tab_tabel_tabelman_strock_calendar_column{
+                        width: 100%;
+                        height: 108px;
+                    }
+                    //align-items: center;
+                    .tab_tabel_tabelman_strock_calendar_column_day {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: flex-start;
+                        width: calc(550px / 16);
+                        height: 54px;
+                        .tab_tabel_tabelman_s_c_c_day_title{
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            width: calc(100%);
+                            height: 14px;
+                            border-top: 0px;
+                            border-right: 1px solid #454545;
+                            border-left: 0px;
+                            border-bottom: 1px solid #454545;
+                        }
+                        .tab_tabel_tabelman_s_c_c_day_content{
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            width: calc(100% - 1px);
+                            height: calc((100% - 14px));
+                            border-top: 0px;
+                            border-right: 1px solid #454545;
+                            border-left: 1px solid #454545;
+                            border-bottom: 0px;
+                            text-align: center;
+
+                        }
+
+                        .no-left-border{
+                            border-left: 0px;
+                            width: calc(100%);
+                        }
+
+                        .top-border-1px{
+                            border-top: 1px solid #454545;
+                            margin-top: -1px;
+                        }
+                        .tab_tabel_tabelman_s_c_c_day_content:focus{
+                            outline: none;
+                            outline: 0;
+                            outline-offset: 0;
+                        }
+                        .border-b{
+                            border-bottom: 1px solid #454545;
+                        }
+                    }
+                }
+
+            }
+
+
+            .tab_tabel_tabelman_strock_dop{
+                width: calc(550px / 12);
+                height: 108px;
+                display: flex;
+                justify-content: flex-start;
+                //align-items: flex-start;
+                font-size: 10pt;
+                border-top: 1px solid #454545;
+                border-right: 0px;
+                border-left: 0px solid #454545;
+                border-bottom: 1px solid #454545;
+                .tab_tabel_tabelman_strock_calendar_s{
+                    //width: 100%;
+                    //height: 108px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+
+                    .tab_tabel_tabelman_strock_calendar_column{
+                        width: 100%;
+                        height: 108px;
+                    }
+                    //align-items: center;
+                    .tab_tabel_tabelman_strock_calendar_column_day {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: flex-start;
+                        width: calc(550px / 12);
+                        height: 54px;
+                        .tab_tabel_tabelman_s_c_c_day_title{
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            width: calc(100%);
+                            height: 14px;
+                            border-top: 0px;
+                            border-right: 1px solid #454545;
+                            border-left: 0px;
+                            border-bottom: 1px solid #454545;
+                        }
+                        .tab_tabel_tabelman_s_c_c_day_content{
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            width: 100%;
+                            height: calc((100% - 14px));
+                            border-top: 0px;
+                            border-right: 1px solid #454545;
+                            border-left: 1px solid #454545;
+                            border-bottom: 0px;
+                            text-align: center;
+                            margin: 0 -1px -1px -1px;
+                        }
+
+                        .no-left-border{
+                            border-left: 0px;
+                            width: calc(100%);
+                        }
+
+                        .top-border-1px{
+                            border-top: 1px solid #454545;
+                            margin-top: -1px;
+                        }
+                        .tab_tabel_tabelman_s_c_c_day_content:focus{
+                            outline: none;
+                            outline: 0;
+                            outline-offset: 0;
+                        }
+                        .border-b{
+                            border-bottom: 1px solid #454545;
+                        }
+                    }
+                }
+
+            }
+
+            .tab_tabel_tabelman_strock_shifrtransport{
+                width: calc(550px / 4);
+                height: 108px;
+                display: flex;
+                justify-content: flex-start;
+                //align-items: flex-start;
+                font-size: 10pt;
+                border-top: 1px solid #454545;
+                border-right: 0px;
+                border-left: 0px solid #454545;
+                border-bottom: 1px solid #454545;
+                .tab_tabel_tabelman_strock_calendar_s{
+                    //width: 100%;
+                    //height: 108px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+
+                    .tab_tabel_tabelman_strock_calendar_column{
+                        width: 100%;
+                        height: 108px;
+                    }
+                    //align-items: center;
+                    .tab_tabel_tabelman_strock_calendar_column_day {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: flex-start;
+                        width: calc(550px / 4);
+                        height: 54px;
+                        .tab_tabel_tabelman_s_c_c_day_title{
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            width: calc(100%);
+                            height: 14px;
+                            border-top: 0px;
+                            border-right: 1px solid #454545;
+                            border-left: 0px;
+                            border-bottom: 1px solid #454545;
+                        }
+                        .tab_tabel_tabelman_s_c_c_day_content{
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            width: calc(100% - 1px);
+                            height: calc((100% - 14px));
+                            border-top: 0px;
+                            border-right: 1px solid #454545;
+                            border-left: 0px solid #454545;
+                            border-bottom: 0px;
+                            text-align: center;
+                            margin: 0 -1px -1px 1px;
+                        }
+
+                        .no-left-border{
+                            border-left: 0px;
+                            width: calc(100%);
+                        }
+
+                        .top-border-1px{
+                            border-top: 1px solid #454545;
+                            margin-top: -1px;
+                        }
+                        .tab_tabel_tabelman_s_c_c_day_content:focus{
+                            outline: none;
+                            outline: 0;
+                            outline-offset: 0;
+                        }
+                        .border-b{
+                            border-bottom: 1px solid #454545;
+                        }
+                    }
+                }
+
+            }
+
+            .tab_tabel_tabelman_strock_itogy{
+                width: 60px;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+                font-size: 10pt;
+                border-top: 1px solid #454545;
+                border-right: 1px solid #454545;
+                border-left: 1px solid #454545;
+                border-bottom: 1px solid #454545;
+
+                .tab_tabel_tabelman_strock_itogy-header{
+                    width: 100%;
+                    height: 14px;
+                    border-bottom: 1px solid #454545;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                .tab_tabel_tabelman_strock_itogy-sum{
+                    width: 100%;
+                    height: calc(100% - 14px);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+        }
+
+    }
+
+}
