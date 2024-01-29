@@ -23,6 +23,7 @@ import TestTaskPage from "./pages/tasks/TestTaskPage";
 import {ListTasks} from "./pages/listtasks/ListTasks";
 import ObjectsPage from "./pages/objects/ObjectsPage";
 import AdminDashboardPage from "./pages/administrator/AdminDashboardPage";
+import {Controll} from "./pages/controll/Controll";
 
 function App() {
     return (
@@ -49,6 +50,7 @@ function App() {
                         <Route path="/dashboard" element={<AdminDashboardPage/>} />
                         <Route path="/tabel" element={<TabelObj/>} />
                         <Route path="/table-tabel" element={<TableTabel/>} />
+                        <Route path="/controll" element={<Controll />} />
                     </Routes>
                 </div>
             </Router>

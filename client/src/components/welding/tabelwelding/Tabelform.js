@@ -8,7 +8,7 @@ import {TabelMans} from "./TabelMans";
 import {ModalWin} from "../../modalwin/ModalWin";
 import {NewCrewModal} from "./modalactive/NewCrewModal";
 import {DataContext} from "../../../context/DataContext";
-import {useLocation} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 
 
 
@@ -80,7 +80,7 @@ export const Tabelform = () => {
                 <div className="tabwelding_header_upper">
                     <div className="tabwelding_header_upper_backbtn">Назад</div>
                     <div className="tabwelding_header_upper_title"><span>{getShifr}</span> {getMonth} {getYear}</div>
-                    <div className="tabwelding_header_upper_controlbtn">Контроль</div>
+                    <Link to='/controll' className="tabwelding_header_upper_controlbtn">Контроль</Link>
                 </div>
                 <div className="tabwelding_header_newcrewblock">
                     <select className="tabwelding_header_newcrewblock_select" onChange={handleSelect}>
