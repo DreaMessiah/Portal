@@ -341,7 +341,7 @@ const Days = sequelize.define('days',{
     total:{type:DataTypes.STRING},
     tn:{type:DataTypes.STRING}
 })
-const NumberObjects = sequelize.define('number_objects',{
+const Objects = sequelize.define('number_objects',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     shifr_number:{type:DataTypes.STRING},
     shifr_name:{type:DataTypes.STRING},
@@ -353,7 +353,7 @@ const NumberObjects = sequelize.define('number_objects',{
     prior:{type:DataTypes.INTEGER}
 })
 
-const Objects = sequelize.define('objects',{
+const NumberObjects = sequelize.define('objects',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     shifr:{type:DataTypes.STRING},
     nameobject:{type:DataTypes.STRING},

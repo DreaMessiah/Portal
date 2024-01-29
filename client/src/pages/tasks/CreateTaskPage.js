@@ -5,7 +5,7 @@ import Navbar from "../../components/Navbar";
 import SearchObj from "../../components/SearchObj";
 import ChangeObj from "../../components/ChangeObj";
 import WrapButtonsObj from "../../components/WrapButtonsObj";
-import BridgeLeftBar from "../../components/leftbar/ BridgeLeftBar";
+import BridgeLeftBar from "../../components/leftbar/BridgeLeftBar";
 import {Link} from "react-router-dom";
 
 export default function CreateTaskPage(){
