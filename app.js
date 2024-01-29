@@ -11,8 +11,7 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use('/api/',require('./routes/bd.routes'))
 
-//*******************************************************
-
+//*******************************************************\
 const start = async () => {
     try{
         app.listen(PORT,() => {

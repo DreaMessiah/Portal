@@ -3,6 +3,7 @@ import "./objs.scss";
 import {Link} from "react-router-dom";
 
 export default function ListObjs({mass}){
+    
     return (
         <div className='objs_list'>
             {mass.map((item,index) => (
