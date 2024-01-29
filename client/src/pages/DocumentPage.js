@@ -9,7 +9,7 @@ import WorksTasksObj from "../components/WorkTasksObj";
 import AttachObj from "../components/AttachObj";
 import PerformersObj from "../components/PerformersObj";
 import ResultsObj from "../components/ResultsObj";
-import BridgeLeftBar from "../components/leftbar/ BridgeLeftBar";
+import BridgeLeftBar from "../components/leftbar/BridgeLeftBar";
 
 export default function DocumentPage(){
     const { mass_create, menu_mass, wrap_buttons, task1, attach1, performers, results, dwm1} = useContext(DataContext)

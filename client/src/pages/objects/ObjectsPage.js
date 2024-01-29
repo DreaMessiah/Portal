@@ -3,7 +3,7 @@ import { DataContext } from '../../context/DataContext';
 import Navbar from "../../components/Navbar";
 import SearchObj from "../../components/SearchObj";
 import ChangeObj from "../../components/ChangeObj";
-import BridgeLeftBar from "../../components/leftbar/ BridgeLeftBar";
+import BridgeLeftBar from "../../components/leftbar/BridgeLeftBar";
 import MyObjs from "../../components/objs/MyObjs";
 import {Link} from "react-router-dom";
 

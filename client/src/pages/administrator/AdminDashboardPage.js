@@ -3,7 +3,7 @@ import { DataContext } from '../../context/DataContext';
 import Navbar from "../../components/Navbar";
 import SearchObj from "../../components/SearchObj";
 import ChangeObj from "../../components/ChangeObj";
-import BridgeLeftBar from "../../components/leftbar/ BridgeLeftBar";
+import BridgeLeftBar from "../../components/leftbar/BridgeLeftBar";
 import ListObjs from "../../components/welding/mainpage/ListObjs";
 import BlocksObj from "../../components/BlocksObj";
 

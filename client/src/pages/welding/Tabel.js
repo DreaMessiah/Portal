@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from "react";
 import Navbar from "../../components/Navbar";
 import {Tabelform} from "../../components/welding/tabelwelding/Tabelform";
-import BridgeLeftBar from "../../components/leftbar/ BridgeLeftBar";
+import BridgeLeftBar from "../../components/leftbar/BridgeLeftBar";
 
 
 

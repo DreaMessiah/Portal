@@ -9,7 +9,7 @@ import WorksTasksObj from "../../components/WorkTasksObj";
 import AttachObj from "../../components/AttachObj";
 import PerformersObj from "../../components/PerformersObj";
 import ResultsObj from "../../components/ResultsObj";
-import BridgeLeftBar from "../../components/leftbar/ BridgeLeftBar";
+import BridgeLeftBar from "../../components/leftbar/BridgeLeftBar";
 import {useLocation} from "react-router-dom";
 
 export default function TestTaskPage(){

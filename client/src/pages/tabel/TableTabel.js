@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import Navbar from "../../components/Navbar";
-import BridgeLeftBar from "../../components/leftbar/ BridgeLeftBar";
+import BridgeLeftBar from "../../components/leftbar/BridgeLeftBar";
 import {DataContext} from "../../context/DataContext";
 import {TimeSheep} from "../../components/tabletabel/TimeSheep";
 
