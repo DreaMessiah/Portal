@@ -20,5 +20,26 @@ class TokenService{
         }
         return await Token.create({user_id:userId,device_token:deviceToken,refresh_token:refreshToken})
     }
+    async removeToken(refreshToken){
+        return await Token.destroy({ where: {refresh_token: refreshToken} })
+    }
+    async findToken(refreshToken){
+        return await Token.findOne({ where: {refresh_token: refreshToken} })
+    }
+    validateAccessToken(token){
+        try{
+            return jwt.verify(token, config.get('jwtAccessSecret'))
+        }catch (e){
+            return null
+        }
+    }
+    validateRefreshToken(token){
+        try{
+            return jwt.verify(token, config.get('jwtRefreshSecret'))
+        }catch (e){
+            return null
+        }
+    }
+
 }
 module.exports = new TokenService()
