@@ -80,7 +80,7 @@ export const Tabelform = () => {
                 <div className="tabwelding_header_upper">
                     <div className="tabwelding_header_upper_backbtn">Назад</div>
                     <div className="tabwelding_header_upper_title"><span>{getShifr}</span> {getMonth} {getYear}</div>
-                    <Link to='/controll' className="tabwelding_header_upper_controlbtn">Контроль</Link>
+                    <Link to={`/controll?id=${getId}&shifr=${getShifr}&month=${getMonth}&year=${getYear}`} className="tabwelding_header_upper_controlbtn">Контроль</Link>
                 </div>
                 <div className="tabwelding_header_newcrewblock">
                     <select className="tabwelding_header_newcrewblock_select" onChange={handleSelect}>

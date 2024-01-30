@@ -1,0 +1,21 @@
+.new_controll{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: calc(100% - 40px);
+  height: calc(100% - 100px);
+  margin-top: 20px;
+  padding: 20px;
+  overflow-y: auto;
+  overflow-x: unset;
+  .new_controll_form{
+
+  }
+  .new_controll_list{
+
+  }
+  .new_controll_btns{
+
+  }
+}
