@@ -75,43 +75,47 @@ function NewsPage(){
     };
 
     return (
-        <div>
+        <div className='thispage'>
             <div className='newspage'>
-                <NewsNavbar/>
-                <div className='new_back'>
-                    <div className='info_news'>
-                        <div className='info between'>
-                            <Link className='button' to='/main'>Корпоративный Портал</Link>
-                            <Link className='button' to='/news'>Расчетный лист</Link>
-                            <Link className='button' to='/news'>Телефонный справочник</Link>
-                        </div>
-                        <div className='polosa'></div>
-                        <div className='info'>
-                            <p>ФИО: Барахтянский Владимир Алексеевич</p>
-                            <p>Должность: Разрабочик ПО</p>
-                            <p>Подразделение: Отдел управления инновационной деятельностью</p>
-                            <p>Внутренний телефон: 116</p>
-                            <p>Стаж работы: 2 года 5 месяцев</p>
-                        </div>
-                    </div>
-                    <div className='rows_news'>
-                        {news.map( (item,index) => (
-                            <div key={index} className='news'>
-                                <div style={imageStiles[index]} className='news_img'></div>
-                                <div className='news_text'>
-                                    <div className='info'>
-                                        <div className='title'><p>{item.title}</p></div>
-                                        <div className='text'>{shortTexts[index]}</div>
-                                    </div>
-                                    <div className='buttom_block'><Link to={`/selected_news/${index}`}>Открыть</Link></div>
-                                </div>
+                <div className='main_path'>
+                    <NewsNavbar/>
+                    <div className='new_back'>
+                        <div className='info_news'>
+                            <div className='info between'>
+                                <Link className='button' to='/main'>Корпоративный Портал</Link>
+                                <Link className='button' to='/paylist'>Расчетный лист</Link>
+                                <Link className='button' to='/news'>Телефонный справочник</Link>
                             </div>
+                            <div className='polosa'></div>
+                            <div className='info'>
+                                <p>ФИО: Барахтянский Владимир Алексеевич</p>
+                                <p>Должность: Разрабочик ПО</p>
+                                <p>Подразделение: Отдел управления инновационной деятельностью</p>
+                                <p>Внутренний телефон: 116</p>
+                                <p>Стаж работы: 2 года 5 месяцев</p>
+                            </div>
+                        </div>
+                        <div className='rows_news'>
+                            {news.map( (item,index) => (
+                                <div key={index} className='news'>
+                                    <div style={imageStiles[index]} className='news_img'></div>
+                                    <div className='news_text'>
+                                        <div className='info'>
+                                            <div className='title'><p>{item.title}</p></div>
+                                            <div className='text'>{shortTexts[index]}</div>
+                                        </div>
+                                        <div className='buttom_block'><Link to={`/selected_news/${index}`}>Открыть</Link></div>
+                                    </div>
+                                </div>
 
-                        ))}
+                            ))}
+                        </div>
                     </div>
                 </div>
-                <NewsFooter/>
+
+
             </div>
+            <NewsFooter/>
             <div className='backimg'>
                 <div className='backcol'></div>
             </div>
