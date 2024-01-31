@@ -34,7 +34,7 @@ function Navbar () {
                         <Link to="/lk"><p>Личный кабинет</p></Link>
                     </li>
                     <li>
-                        <Link to='/'>Выйти</Link>
+                        <Link to='/'><p>Выйти</p></Link>
                     </li>
                 </ul>
             </nav>
