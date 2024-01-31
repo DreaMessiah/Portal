@@ -9,9 +9,11 @@ const router = require('./routes/index')
 const mailService = require('./service/mail.service')
 const errorMiddlewere = require('./middleware/error.middlewere')
 
-
 app.use(cookieParser())
-app.use(cors())
+app.use(cors({
+    credentials: true,
+    origin: config.get('client_url')
+}))
 app.use(express.json({ extended: true }))
 app.use(express.urlencoded({ extended: true }))
 app.use('/api', router)

@@ -1,7 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import {useContext} from "react";
+import {Context} from "../index";
+import {observer} from "mobx-react-lite";
 
-export default function NewsNavbar () {
+function NewsNavbar () {
+    const {store} = useContext(Context)
     return (
         <div className='newsnavbar'>
             <nav>
@@ -12,8 +16,8 @@ export default function NewsNavbar () {
                     </Link>
                 </div>
                 <div className='rhead'>
-                    <p>Барахтянский Владимир Алексеевич</p>
-                    <Link to='/' className='button'>Выйти</Link>
+                    <p>{store.user.full_name}</p>
+                    <div onClick={() => store.logout()} className='button'>Выйти</div>
                 </div>
 
             </nav>
@@ -21,4 +25,5 @@ export default function NewsNavbar () {
         </div>
 
     )
-};
+}
+export default observer(NewsNavbar)

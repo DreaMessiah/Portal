@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-
+import React, {useState, useEffect, useContext} from 'react';
 import NewsNavbar from "../components/NewsNavbar"
 import {Link,useLocation} from "react-router-dom";
 import NewsFooter from "../components/NewsFooter";
+import {observer} from "mobx-react-lite";
+import {Context} from "../index";
 
 const news = [
     {
@@ -43,7 +44,8 @@ const news = [
 
 ]
 
-export default function NewsPage(){
+function NewsPage(){
+    const {store} = useContext(Context)
     let shortTexts = []
     let imageStiles = []
     function truncateText(text, maxLength) {
@@ -116,3 +118,4 @@ export default function NewsPage(){
         </div>
     )
 }
+export default observer(NewsPage)

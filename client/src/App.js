@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useContext, useEffect} from "react"
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom"
 
 import './assets/styles/styles.scss'
@@ -23,14 +23,37 @@ import TestTaskPage from "./pages/tasks/TestTaskPage";
 import {ListTasks} from "./pages/listtasks/ListTasks";
 import ObjectsPage from "./pages/objects/ObjectsPage";
 import AdminDashboardPage from "./pages/administrator/AdminDashboardPage";
+import {Context} from "./index";
+import {observer} from "mobx-react-lite";
 
 function App() {
+    const {store} = useContext(Context)
+    useEffect(() => {
+        if(localStorage.getItem('token')){
+            store.checkAuth()
+        }
+    },[])
+
+    if(store.isLoading){
+        return <div>Загрузка...</div>
+    }
+
+    if(!store.isAuth) return (
+        <Router>
+            <div className="App">
+                <Routes>
+                    <Route path='/' element={<AuthPage/>} />
+                </Routes>
+            </div>
+        </Router>
+    )
+
     return (
         <DataProvider>
             <Router>
                 <div className="App">
                     <Routes>
-                        <Route path='/' element={<AuthPage/>} />
+                        <Route path="/" element={<NewsPage/>} />
                         <Route path='/main' element={<MainPage/>} />
                         <Route path="/settings" element={<SettingsPage/>} />
                         <Route path="/document" element={<DocumentPage/>} />
@@ -42,7 +65,6 @@ function App() {
                         <Route path="/lk" element={<LkPage/>} />
                         <Route path="/tabelwelding" element={<Tabel/>} />
                         <Route path="/lk" element={<MainPage/>} />
-                        <Route path="/news" element={<NewsPage/>} />
                         <Route path="/selected_news/:id" element={<SelNewsPage/>} />
                         <Route path="/docpasslist" element={<ListTasks/>} />
                         <Route path="/objects" element={<ObjectsPage/>} />
@@ -56,4 +78,4 @@ function App() {
     )
 }
 
-export default App
+export default observer(App)
