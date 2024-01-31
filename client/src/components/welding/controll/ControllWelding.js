@@ -24,8 +24,8 @@ export const ControllWelding = () => {
                 </div>
 
             </div>
-            <div className="controll_welding_list">
-                <div className="controll_welding_list_strock">
+            <div className="controll_welding_list" id="controll_welding_list">
+                <div className="controll_welding_list_strock" id="list_strock">
                     <div className="controll_welding_list_strock_pp">п/п</div>
                     <div className="controll_welding_list_strock_num">Заявка</div>
                     <div className="controll_welding_list_strock_date">Дата</div>
@@ -53,7 +53,7 @@ export const ControllWelding = () => {
                 </div>
             </div>
             {/*<ModalBigWin data={<NewCrewModal sel={select} active={crew} setActive={setCrew}/>} active={crew} setActive={setCrew}/>*/}
-            <ModalBigWin plusform={<NewControll />} active={active} setActive={setActive}/>
+            <ModalBigWin plusform={<NewControll list={document.getElementById('list_strock')} active={active} setActive={setActive}/>} active={active} setActive={setActive}/>
         </div>
     )
 }

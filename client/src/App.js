@@ -74,6 +74,7 @@ function App() {
                         <Route path="/tabel" element={<TabelObj/>} />
                         <Route path="/table-tabel" element={<TableTabel/>} />
                         <Route path="/controll" element={<Controll />} />
+
                     </Routes>
                 </div>
             </Router>
