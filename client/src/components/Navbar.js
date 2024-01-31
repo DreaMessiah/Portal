@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Link } from 'react-router-dom';
 import DynamicTextObj from "./DinamicTextObj";
+import {observer} from "mobx-react-lite";
+import {Context} from "../index";
 
-export default function Navbar () {
+function Navbar () {
+    const {store} = useContext(Context)
     return (
         <div className='navbar'>
             <nav>
@@ -15,7 +18,7 @@ export default function Navbar () {
                 </div>
                 
                 <div className='textlogo'>
-                    <Link to="/main"><DynamicTextObj/> / Барахтянский В.А.</Link>
+                    <Link to="/main"><DynamicTextObj/> / {store.user.full_name}</Link>
                 </div>
                 <ul>
                     <li>
@@ -31,7 +34,7 @@ export default function Navbar () {
                         <Link to="/lk"><p>Личный кабинет</p></Link>
                     </li>
                     <li>
-                        <Link to='/lk'><div className='post-icon'/></Link>
+                        <Link to='/'>Выйти</Link>
                     </li>
                 </ul>
             </nav>
@@ -39,4 +42,5 @@ export default function Navbar () {
         </div>
 
     )
-};
+}
+export default observer(Navbar)

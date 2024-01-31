@@ -22,7 +22,6 @@ export const useHttp = () => {
             })
 
             const data = await responce.json()
-
             if(!data){
                 setError(data.message)
             }
