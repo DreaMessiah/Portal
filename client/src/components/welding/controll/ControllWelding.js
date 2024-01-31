@@ -6,6 +6,8 @@ import {NewControll} from "./modal/NewControll";
 
 export const ControllWelding = () => {
 
+
+
     const [active, setActive] = useState(false);
 
     return (
