@@ -1,0 +1,47 @@
+
+  .toback{
+    background-color: #929292;
+    padding: 15px;
+    margin: 10px;
+    color: #FFF;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 1rem;
+    border-right: 5px;
+  }
+
+  .payslip_right{
+    height: 100%;
+    background-color: #329DD9;
+    padding: 15px;
+    //margin: 10px;
+    color: #FFF;
+    font-size: 1rem;
+    border-right: 5px;
+  }
+  .select_block {
+    width: calc(100% - 20px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    margin: 10px;
+    .select_block_title{
+
+    }
+    .select {
+      width: 80%;
+      height: 40px;
+      margin: 0;
+      padding: 0;
+      input{
+        border-radius: 0;
+      }
+    }
+  }
+
+    .between {
+      background-color: transparent;
+      justify-content: space-between;
+    }
+
