@@ -91,7 +91,7 @@ html{
 #root {
   height: 100%;
   .App{
-    height: calc(100% - $headerHeight);
+    min-height: calc(100% - $headerHeight);
     .navbar{
       nav {
         display: flex;
@@ -807,65 +807,100 @@ html{
     }
   }
 }
-.newspage{
-    height: 100vh;
+
+.thispage{
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.newspage {
+  min-height: calc(100vh - $headerHeight - 65px);
+  //width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .footer {
     width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    height: $newsheaderHeight;
+    background-color: $transdBlueColor;
+    justify-content: space-between;
+    //position: relative;
+    //margin-top: 30px;
+  }
+  .main_path {
+    min-height: calc(100vh - $headerHeight  - 65px);
+    width: 100%;
+
+
+
     .new_back {
       width: 100%;
 
       display: flex;
       align-items: center;
       flex-direction: column;
-      .info_news{
+
+      .info_news {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         min-width: 60%;
         margin-top: 20px;
-        .polosa{
+
+        .polosa {
           width: 0;
           border: 1px solid $whiteColor;
           height: 100%;
           background-color: $whiteColor;
           margin-right: 10px;
         }
-        .info{
+
+        .info {
           display: flex;
           flex-direction: column;
           justify-content: center;
-          width: calc( 50% - 30px);
+          width: calc(50% - 30px);
           margin: 0 15px;
           background-color: $whiteColor;
           border-right: 5px;
-          p{
+
+          p {
             margin-left: 25px;
             font-size: 0.8rem;
             margin-bottom: 15px;
           }
-          .button{
+
+          .button {
             background-color: $wblueColor;
             padding: 15px;
             margin: 10px;
             color: $whiteColor;
             text-transform: uppercase;
             text-align: center;
-            font-size:1rem;
+            font-size: 1rem;
             border-right: 5px;
           }
         }
-        .between{
+
+        .between {
           background-color: transparent;
           justify-content: space-between;
         }
       }
-      .rows_news{
+
+      .rows_news {
         width: 60%;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
       }
-      .news{
+
+      .news {
         width: 100%;
         display: flex;
         flex-direction: row;
@@ -874,33 +909,39 @@ html{
         height: 320px;
 
         margin-top: 40px;
-        .news_img{
-          min-width:50%;
+
+        .news_img {
+          min-width: 50%;
           height: 100%;
           background-size: cover;
         }
-        .news_text{
+
+        .news_text {
           background-color: $whiteColor;
           height: 100%;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
-          .title{
+
+          .title {
             margin: 20px;
             font-weight: 800;
             font-size: 1.1rem;
           }
-          .text{
-            margin:0 20px;
+
+          .text {
+            margin: 0 20px;
             display: flex;
             flex-direction: column;
             justify-content: start;
 
           }
-          .buttom_block{
+
+          .buttom_block {
             display: flex;
             justify-content: flex-end;
-            a{
+
+            a {
               background-color: $wblueColor;
               padding: 10px 60px;
               margin: 20px;
@@ -913,6 +954,7 @@ html{
         }
       }
     }
+  }
 }
 .one_news_block{
   min-height: calc(100% - $newsheaderHeight - $newsheaderHeight - 50px);
@@ -992,9 +1034,11 @@ html{
 
 
   }
+
 }
 .footer{
   width: 100%;
+  height: 80px;
   display: flex;
   align-items: center;
   height:$newsheaderHeight;
