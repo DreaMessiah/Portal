@@ -318,6 +318,8 @@ html{
     }
   }
 }
+
+
 .calendarobj{
   width: $calendarwidth;
   height: $calendarwidth;
@@ -863,7 +865,7 @@ html{
           display: flex;
           flex-direction: column;
           justify-content: center;
-          width: calc(50% - 30px);
+          width: calc(50% - 40px);
           margin: 0 15px;
           background-color: $whiteColor;
           border-right: 5px;
