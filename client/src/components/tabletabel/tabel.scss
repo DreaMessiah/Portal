@@ -124,19 +124,28 @@
                             display: flex;
                             justify-content: center;
                             align-items: center;
-                            width: calc(100% - 1px);
+                            width: calc(100% + 1px);
                             height: calc((100% - 14px));
                             border-top: 0px;
                             border-right: 1px solid #454545;
                             border-left: 1px solid #454545;
                             border-bottom: 0px;
                             text-align: center;
-
+                            -webkit-appearance: none;
+                            -moz-appearance: none;
+                            -o-appearance: none;
+                            appearance: none;
+                            margin-left: 0px;
                         }
 
                         .no-left-border{
                             border-left: 0px;
                             width: calc(100%);
+                        }
+
+                        .no-left-border_sel{
+                            border-left: 0px;
+                            //border-right: 1px solid #454545;
                         }
 
                         .top-border-1px{
