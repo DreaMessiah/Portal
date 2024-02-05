@@ -22,7 +22,6 @@ export const Tabelform = () => {
     let getMonth = searchParams.get('month');
     let getYear = searchParams.get('year');
 
-    //let tabelView = []
     let tabelMans = []
 
     console.log(getId)
@@ -72,6 +71,8 @@ export const Tabelform = () => {
                 setTabelMans(tabel.peoples)
             }
         })
+
+
         console.log(tabelView)
     },[views])
     return (
