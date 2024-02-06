@@ -12,6 +12,7 @@ import {NewCrewModal} from "../tabelwelding/modalactive/NewCrewModal";
 import {Context} from "../../../index";
 import {observer} from "mobx-react-lite";
 import {CreateObjModal} from "./CreateObjModal";
+import WeldingService from "../../../services/WeldingService";
 
 const wrap_buttons = [
     {
@@ -21,6 +22,8 @@ const wrap_buttons = [
 ]
 
 function Objs() {
+    let objsLoList = [];
+
 
     const  {store} = useContext(Context)
 
@@ -65,7 +68,7 @@ function Objs() {
             <div className='next-box'>
                 <ListObjs mass={objs}/>
             </div>
-            <ModalWin data={<CreateObjModal inn={inn}/>} active={modal} setActive={setModal}/>
+            <ModalWin data={<CreateObjModal inn={inn} arr={objsLoList}/>} active={modal} setActive={setModal}/>
             {/*<ModalWin data={<NewCrewModal sel={select} active={crew} setActive={setCrew}/>} active={modal} setActive={setCrew}/>*/}
         </div>
     )
