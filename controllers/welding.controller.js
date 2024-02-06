@@ -5,9 +5,9 @@ class WeldingController {
     async getListObjs(req,res,next) {
          try{
             const inn = req.body.inn
-             const list = WeldingService.getObjects(inn)
-             //console.log(list)
-            return res.status(200).json(list)
+             const list = await WeldingService.getObjects(inn)
+             console.log(list)
+            return res.json(list)
 
         }catch (e){
             console.log(e.message)

@@ -1,11 +1,12 @@
 import './objs.scss'
 import WeldingService from "../../../services/WeldingService";
+import axios from "axios";
 
 export const CreateObjModal = ({inn}) => {
     const readInn = async () => {
         console.log(inn)
-        const responce = await WeldingService.getObjs({inn})
-        console.log(responce.data)
+        const response = await WeldingService.getObjs({inn})
+        console.log(response.data)
     }
 
     return (

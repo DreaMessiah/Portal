@@ -7,7 +7,7 @@ class WeldingService{
 
         // const listDto = new ObjsDto(listObjs)
         // const req = listObjs.map(obj => Object(obj[0]))
-        console.log(listObjs)
+        //console.log(listObjs)
         return listObjs
     }
 
