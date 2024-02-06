@@ -26,6 +26,7 @@ import AdminDashboardPage from "./pages/administrator/AdminDashboardPage";
 import {Controll} from "./pages/controll/Controll";
 import {Context} from "./index";
 import {observer} from "mobx-react-lite";
+import PhonebookPage from "./pages/PhonebookPage";
 
 
 function App() {
@@ -44,7 +45,7 @@ function App() {
         <Router>
             <div className="App">
                 <Routes>
-                    <Route path='/' element={<AuthPage/>} />
+                    <Route path='*' element={<AuthPage />} />
                 </Routes>
             </div>
         </Router>
@@ -58,6 +59,7 @@ function App() {
                         <Route path="/" element={<NewsPage/>} />
                         <Route path='/main' element={<MainPage/>} />
                         <Route path="/settings" element={<SettingsPage/>} />
+                        <Route path="/phonebook" element={<PhonebookPage/>} />
                         <Route path="/document" element={<DocumentPage/>} />
                         <Route path="/tasks" element={<TasksPage/>} />
                         <Route path="/welding" element={<Weldingmain />} />
@@ -74,7 +76,6 @@ function App() {
                         <Route path="/tabel" element={<TabelObj/>} />
                         <Route path="/table-tabel" element={<TableTabel/>} />
                         <Route path="/controll" element={<Controll />} />
-
                     </Routes>
                 </div>
             </Router>

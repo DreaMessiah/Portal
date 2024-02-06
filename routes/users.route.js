@@ -23,6 +23,4 @@ router.get('/users',authMiddlewere,usersController.refresh)
 //Запрос выполниться только для авторизованных пользователей !
 ////////////////////////////////////////////////////////////////
 
-
-
 module.exports = router

@@ -928,24 +928,7 @@ html{
     justify-content: center;
     align-items: center;
   }
-  .back_button{
-    position: fixed;
-    top:160px;
-    left:20px;
-    background-color: $wblueColor;
-    width: 200px;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: $whiteColor;
-    font-size: 1rem;
-    text-transform: uppercase;
-    i{
-      margin-right: 10px;
-      font-size: 1.4rem;
-    }
-  }
+
   .info_new{
     .title{
       font-weight: 800;
@@ -1553,7 +1536,24 @@ html{
   background-repeat: no-repeat;
   background-position: center center;
 }
-
+.back_button{
+  position: fixed;
+  top:130px;
+  left:20px;
+  background-color: $wblueColor;
+  width: 200px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $whiteColor;
+  font-size: 1rem;
+  text-transform: uppercase;
+  i{
+    margin-right: 10px;
+    font-size: 1.4rem;
+  }
+}
 #ObjectPage{
   display: flex;
   flex-direction: row;
@@ -1595,6 +1595,7 @@ html{
           justify-content: space-between;
           padding: 10px 10px 10px 10px;
           cursor: pointer;
+
           p{
             color: $blackColor;
             font-size: 0.8rem;
@@ -1661,4 +1662,124 @@ html{
 
 
   }
+}
+
+.phonebook{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  .phonebook-box{
+    width: 80%;
+    margin-top: 100px;
+    .table-container {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 10px;
+      overflow: hidden;
+      background-color: $whiteColor;
+      textarea,input{
+        background-color: transparent;
+        border: none;
+        opacity: 0.8;
+        color: #333333;
+        resize: none;
+        overflow-y: hidden;
+        width: calc(100% - 20px);
+      }
+      textarea:disabled {
+        opacity: 1;
+        color: #333333;
+      }
+      .table-row {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px solid #ccc;
+        font-size: 0.8rem;
+        &.header {
+          font-weight: bold;
+          border-bottom: 2px solid #000;
+          //background-color: $wblueColor;
+          color: #454545;
+        }
+        >div {
+          flex: 1;
+        }
+        .small{
+        }
+        .standart{
+          flex-basis: auto;
+        }
+      }
+    }
+    .new{
+      width: calc(100% - 26px);
+      border: 3px solid $wgreyColor !important;
+      padding: 5px;
+      font-size: 0.8rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .new:focus{
+      border: 3px solid $greyColor !important;
+      box-shadow: none !important;
+      outline: none !important;
+    }
+    .title{
+      font-size: 1.2rem;
+      width: calc(100% - 16px) !important;
+    }
+  }
+  .buttons-box{
+    position: fixed;
+    top:130px;
+    padding: 0 20px;
+    width: calc(100% - 40px);
+    display: flex;
+    justify-content: space-between;
+    .box{
+      display: flex;
+    }
+    .left {
+      justify-content: left;
+    }
+    .right {
+      justify-content: right;
+    }
+
+    .button{
+      cursor: pointer;
+      background-color: $wblueColor;
+      height: 60px;
+      padding: 0 20px;
+      margin: 0 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $whiteColor;
+      font-size: 1rem;
+      text-transform: uppercase;
+      transition: transform 0.3s ease;
+      opacity: 1;
+
+      i{
+        margin-right: 10px;
+        font-size: 1.4rem;
+      }
+      p{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+    .none{
+      opacity: 0;
+    }
+
+  }
+
 }

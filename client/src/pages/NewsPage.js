@@ -82,8 +82,8 @@ function NewsPage(){
                     <div className='info_news'>
                         <div className='info between'>
                             <Link className='button' to='/main'>Корпоративный Портал</Link>
-                            <Link className='button' to='/news'>Расчетный лист</Link>
-                            <Link className='button' to='/news'>Телефонный справочник</Link>
+                            <Link className='button' to='/'>Расчетный лист</Link>
+                            <Link className='button' to='/phonebook'>Телефонный справочник</Link>
                         </div>
                         <div className='polosa'></div>
                         <div className='info'>

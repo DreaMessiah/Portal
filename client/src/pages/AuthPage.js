@@ -11,7 +11,7 @@ function AuthPage(){
 
     const handleSubmit = (event) => {
         //event.preventDefault();
-    };
+    }
     return (
             <div className='auth'>
                 <div className='auth_back'>

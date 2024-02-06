@@ -61,7 +61,7 @@ export default function SelNewsPage(){
                 <NewsNavbar/>
                 <div className='one_news_block'>
                     <div className='block'>
-                        <Link className='back_button' to='/news'><i className="fa-solid fa-caret-left"></i>Вернуться</Link>
+                        <Link className='back_button' to='/'><i className="fa-solid fa-caret-left"></i>Вернуться</Link>
                         <div className='info_new'>
                             <div className='title'><p>{news[id].title}</p></div>
                             <div className='text'>{news[id].text}</div>
