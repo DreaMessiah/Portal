@@ -58,6 +58,7 @@ const T13 = sequelize.define('t13', {
     method:{type:DataTypes.TEXT},
     month:{type:DataTypes.STRING},
     years:{type:DataTypes.INTEGER},
+    birth:{type:DataTypes.STRING},
     inn:{type:DataTypes.STRING},
     d1:{type:DataTypes.STRING},
     d2:{type:DataTypes.STRING},
@@ -367,7 +368,6 @@ const Objects = sequelize.define('objects',{
     dop2:{type:DataTypes.INTEGER},
     prior:{type:DataTypes.INTEGER}
 })
-
 const NumberObjects = sequelize.define('number_objects',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     shifr:{type:DataTypes.STRING},
@@ -378,10 +378,10 @@ const NumberObjects = sequelize.define('number_objects',{
     inn:{type:DataTypes.STRING},
     login:{type:DataTypes.STRING}
 })
-
 const ObjectsSV = sequelize.define('obj_sv',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     shifr:{type:DataTypes.STRING},
+    shifrid:{type:DataTypes.INTEGER},
     nameobject:{type:DataTypes.STRING},
     user:{type:DataTypes.STRING},
     papa:{type:DataTypes.STRING},
@@ -389,8 +389,30 @@ const ObjectsSV = sequelize.define('obj_sv',{
     inn:{type:DataTypes.STRING},
     login:{type:DataTypes.STRING}
 })
+const Positions = sequelize.define('positions',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    name:{type:DataTypes.STRING},
+    rules:{type:DataTypes.INTEGER}
+})
+const Jobs = sequelize.define('positions',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    name:{type:DataTypes.STRING},
+    rules:{type:DataTypes.INTEGER}
+})
+const Phonebook = sequelize.define('phonebook',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    name:{type:DataTypes.STRING},
+    position:{type:DataTypes.TEXT},
+    job:{type:DataTypes.TEXT},
+    mobile_phone:{type:DataTypes.TEXT},
+    city_phone:{type:DataTypes.TEXT},
+    ats:{type:DataTypes.STRING},
+    email:{type:DataTypes.STRING},
+    order:{type:DataTypes.INTEGER},
+    heading:{type:DataTypes.BOOLEAN}
+})
 
 module.exports = {
-    User,Token,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Files
+    User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Files,Positions,Token,Phonebook,Jobs
 }
 

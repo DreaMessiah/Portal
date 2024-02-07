@@ -5,7 +5,7 @@ import {useState} from "react";
 
 export const CreateObjModal = ({inn, active, setActive, title, setTitle}) => {
 
-    // const [title, setTitle] = useState('Добавить объект')
+    const [thisobj, setThisobj] = useState(0)
 
     const [objList, setObjList] = useState([]);
 
@@ -19,7 +19,7 @@ export const CreateObjModal = ({inn, active, setActive, title, setTitle}) => {
     const viewTitle = e => {
         let newTitle;
         console.log(e.target.value)
-
+        setThisobj(e.target.value)
         console.log(e.target.selectedOptions[0].innerHTML)
         objList.forEach(obj=>{
             if(obj.id === +e.target.value){
@@ -30,9 +30,25 @@ export const CreateObjModal = ({inn, active, setActive, title, setTitle}) => {
         setTitle(newTitle)
     }
 
-    const insertObj = () => {
+    const insertObj = async () => {
+        console.log(thisobj)
+        if(thisobj !== 0) {
+            let myObj;
+
+            objList.forEach(elem => {
+                if(elem.id == thisobj){
+                    myObj = elem
+                    console.log(myObj)
+                }
+            })
+            const listobj = await WeldingService.insertObjs(myObj)
+
+            setActive(!active)
+        }
+        // console.log(listobj.data)
         console.log(title)
-        setActive(!active)
+
+
     }
 
 
