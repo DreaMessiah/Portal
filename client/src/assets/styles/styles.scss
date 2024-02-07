@@ -11,6 +11,7 @@ $wwgreyColor:rgba(240,240,240,1);
 $dgreyColor:rgba(97,118,118,1);
 $darkGreyColor:rgba(80,80,80,1);
 $redColor:rgba(215,26,0,1);
+$dredColor:rgba(215,26,0,0.5);
 $dblueColor:rgba(30,74,139,1);
 $wblueColor:rgba(50,157,217,1);
 $purpleColor:rgba(147, 112, 219, 1);
@@ -19,6 +20,7 @@ $blueColor:#00E4E4;
 $greenColor:#04B800;
 $yellowColor:rgba(255, 255, 0, 1);
 $transBlackColor:rgba(30,30,30,0.8);
+$transwwBlackColor:rgba(60,60,60,0.5);
 $transwBlackColor:rgba(30,30,30,0.6);
 $transBlueColor: rgba(2, 24, 68, 0.7);
 $transdBlueColor:rgba(13,17,52,0.81);
@@ -972,24 +974,7 @@ html{
     justify-content: center;
     align-items: center;
   }
-  .back_button{
-    position: fixed;
-    top:160px;
-    left:20px;
-    background-color: $wblueColor;
-    width: 200px;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: $whiteColor;
-    font-size: 1rem;
-    text-transform: uppercase;
-    i{
-      margin-right: 10px;
-      font-size: 1.4rem;
-    }
-  }
+
   .info_new{
     .title{
       font-weight: 800;
@@ -1599,7 +1584,24 @@ html{
   background-repeat: no-repeat;
   background-position: center center;
 }
-
+.back_button{
+  position: fixed;
+  top:130px;
+  left:20px;
+  background-color: $wblueColor;
+  width: 200px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $whiteColor;
+  font-size: 1rem;
+  text-transform: uppercase;
+  i{
+    margin-right: 10px;
+    font-size: 1.4rem;
+  }
+}
 #ObjectPage{
   display: flex;
   flex-direction: row;
@@ -1641,6 +1643,7 @@ html{
           justify-content: space-between;
           padding: 10px 10px 10px 10px;
           cursor: pointer;
+
           p{
             color: $blackColor;
             font-size: 0.8rem;
@@ -1704,7 +1707,198 @@ html{
         }
       }
     }
+  }
+}
+.phonebook{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  .modal_win_wight_krest{
+    background-color: $wblueColor !important;
+  }
+  .phone-modal{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    .text{
+      margin: 0 40px 60px 40px;
+      p{
+        font-size: 1.2rem;
+      }
+    }
+    .buttons{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      .button{
+        cursor: pointer;
+        background-color: $wblueColor;
+        height: 40px;
+        padding: 0 50px;
+        margin: 0 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: $whiteColor;
+        font-size: 1rem;
+        text-transform: uppercase;
+        transition: transform 0.3s ease;
+        opacity: 1;
+      }
+      .button.da{
+        background-color: $dredColor;
+      }
+    }
+  }
+  .phonebook-box{
+    width: 80%;
+    margin-top: 100px;
+    .table-container {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 10px;
+      background-color: $whiteColor;
+      textarea,input{
+        background-color: transparent;
+        border: none;
+        opacity: 0.8;
+        color: #333333;
+        resize: none;
+        overflow-y: hidden;
+        width: calc(100% - 20px);
+      }
+      textarea:disabled {
+        opacity: 1;
+        color: #333333;
+      }
+      .table-row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px solid #ccc;
+        font-size: 0.8rem;
+        position: relative;
+        .ctrl{
+          flex: auto;
+          position: absolute;
+          width: 70px;
+          right: -80px;
+          display: flex;
+          justify-content: left;
+          align-items: center;
+          i{
+            //position: absolute;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: $transwwBlackColor;
+            margin-left: 6px;
+          }
+          i.s1{
 
+          }
+          i.s2{
+
+          }
+          i.s3{
+            position: absolute;
+            left: 40px;
+            font-size: 1.4rem;
+            color: $dredColor;
+          }
+        }
+        &.header {
+
+          font-weight: bold;
+          border-bottom: 2px solid #000;
+          //background-color: $wblueColor;
+          color: #454545;
+        }
+        >div {
+          flex: 1;
+        }
+        .small{
+
+        }
+        .standart{
+          flex-basis: auto;
+        }
+      }
+      .title{
+        width: calc(100%) !important;
+        input{
+          text-transform: uppercase;
+          font-weight: 600;
+          text-align: center;
+          font-size: 0.8rem;
+        }
+      }
+    }
+    .new{
+      width: calc(100% - 26px);
+      border: 3px solid $wgreyColor !important;
+      padding: 5px;
+      font-size: 0.8rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .new:focus{
+      border: 3px solid $greyColor !important;
+      box-shadow: none !important;
+      outline: none !important;
+    }
 
   }
+  .buttons-box{
+    position: fixed;
+    top:130px;
+    padding: 0 20px;
+    width: calc(100% - 40px);
+    display: flex;
+    justify-content: space-between;
+    .box{
+      display: flex;
+    }
+    .left {
+      justify-content: left;
+    }
+    .right {
+      justify-content: right;
+    }
+
+    .button{
+      cursor: pointer;
+      background-color: $wblueColor;
+      height: 60px;
+      padding: 0 20px;
+      margin: 0 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $whiteColor;
+      font-size: 1rem;
+      text-transform: uppercase;
+      transition: transform 0.3s ease;
+      opacity: 1;
+
+      i{
+        margin-right: 10px;
+        font-size: 1.4rem;
+      }
+      p{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+    .none{
+      opacity: 0;
+    }
+
+  }
+
 }

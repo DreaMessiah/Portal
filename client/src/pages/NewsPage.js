@@ -84,7 +84,7 @@ function NewsPage(){
                             <div className='info between'>
                                 <Link className='button' to='/main'>Корпоративный Портал</Link>
                                 <Link className='button' to='/paylist'>Расчетный лист</Link>
-                                <Link className='button' to='/news'>Телефонный справочник</Link>
+                                <Link className='button' to='/phonebook'>Телефонный справочник</Link>
                             </div>
                             <div className='polosa'></div>
                             <div className='info'>
@@ -107,17 +107,14 @@ function NewsPage(){
                                         <div className='buttom_block'><Link to={`/selected_news/${index}`}>Открыть</Link></div>
                                     </div>
                                 </div>
-
                             ))}
                         </div>
                     </div>
                 </div>
-
-
-            </div>
-            <NewsFooter/>
-            <div className='backimg'>
-                <div className='backcol'></div>
+                <NewsFooter/>
+                <div className='backimg'>
+                    <div className='backcol'></div>
+                </div>
             </div>
         </div>
     )

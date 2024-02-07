@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react';
+import {ToastContainer} from "react-toastify";
 
 
 export const DataContext = createContext('')
@@ -7234,6 +7235,7 @@ export const DataProvider = ({ children }) => {
             table_tabel
         }}>
             {children}
+            <ToastContainer />
         </DataContext.Provider>
     );
 };
