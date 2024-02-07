@@ -24,7 +24,7 @@ const wrap_buttons = [
 function Objs() {
     let objsLoList = [];
 
-
+    const [title, setTitle] = useState('Добавить объект')
     const  {store} = useContext(Context)
 
     console.log(store.user.inn)
@@ -39,6 +39,7 @@ function Objs() {
     const activeModal = active => {
         if(active === false){
             setModal(!active)
+            setTitle('Добавить объект')
             console.log(modal)
         } else {
             setModal(!active)
@@ -68,7 +69,7 @@ function Objs() {
             <div className='next-box'>
                 <ListObjs mass={objs}/>
             </div>
-            <ModalWin data={<CreateObjModal inn={inn} arr={objsLoList}/>} active={modal} setActive={setModal}/>
+            <ModalWin data={<CreateObjModal inn={inn} arr={objsLoList} title={title} setTitle={setTitle} active={modal} setActive={setModal}/>} active={modal} setActive={setModal}/>
             {/*<ModalWin data={<NewCrewModal sel={select} active={crew} setActive={setCrew}/>} active={modal} setActive={setCrew}/>*/}
         </div>
     )
