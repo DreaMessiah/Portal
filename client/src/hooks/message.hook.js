@@ -5,7 +5,9 @@ import 'react-toastify/dist/ReactToastify.css';
 export const useMessage = () => {
     return useCallback(text => {
         if(text){
-            toast(text);
+            toast(text,{
+                theme: "dark",
+            });
         }
     },[])
 }

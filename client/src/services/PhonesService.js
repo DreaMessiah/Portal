@@ -7,4 +7,10 @@ export default class PhonesService{
     static fetchPhones(){
         return $api.get('/phones/get')
     }
+    static changePhones(id,name,mobile_phone,city_phone,ats,email,position,job,order){
+        return $api.post('/phones/change',{id,name,mobile_phone,city_phone,ats,email,position,job,order})
+    }
+    static deletePhones(id){
+        return $api.post('/phones/delete',{id})
+    }
 }

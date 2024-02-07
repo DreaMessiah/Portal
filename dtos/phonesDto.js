@@ -1,4 +1,5 @@
 module.exports = class PhonesDto{
+    id
     name
     mobile_phone
     city_phone
@@ -9,6 +10,7 @@ module.exports = class PhonesDto{
     order
     heading
     constructor(model) {
+        this.id = model.id
         this.name = model.name
         this.mobile_phone = model.mobile_phone
         this.city_phone = model.city_phone

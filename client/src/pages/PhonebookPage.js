@@ -6,6 +6,7 @@ import {observer} from "mobx-react-lite";
 import {Context} from "../index";
 import {useMessage} from "../hooks/message.hook";
 import PhonesService from "../services/PhonesService";
+import {ModalWin} from "../components/modalwin/ModalWin";
 
 function PhonebookPage(){
     const {store} = useContext(Context)
@@ -20,25 +21,34 @@ function PhonebookPage(){
     const [mobile,setMobile] = useState('')
     const [ats,setAts] = useState('')
     const [email,setEmail] = useState('')
-    const [order,setOrder] = useState()
+    const [title,setTitle] = useState('')
+    const [activeM,setActiveM] = useState(false)
+    const [indexM,setIndexM] = useState()
     const [on,setOn] = useState()
 
     const [contacts,setContacts] = useState([])
+    const [reserve,setReserve] = useState([])
 
     const rule = 3
 
     useEffect( () => {
         autoResize()
-
-        const pr = loadingHandler()
+        loadingHandler()
     },[])
 
     const loadingHandler = async () => {
-        const response = await PhonesService.fetchPhones()
-        if(response.data.length){
-            setContacts(response.data)
+        try{
+            const response = await PhonesService.fetchPhones()
+            if(response.data.length){
+                setContacts(response.data.map(item => ({ ...item })));
+                setReserve(response.data.map(item => ({ ...item })));
+                return response.data
+            }
+        }catch (e){
+            message(e.message+': Проблема загрузки контактов')
         }
     }
+
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') { setPhone(phone + '\\n');}
     };
@@ -49,24 +59,134 @@ function PhonebookPage(){
         })
     }
     const createContactHandler = async() => {
-        message('123123')
-
-        setOnCreateContact(!onCreateContact)
         if(onCreateContact){
-            const response = await PhonesService.add(name,mobile,phone,ats,email,position,'dop',1,false)
-            console.log(response.data)
-            setContacts([...contacts,response.data.phones])
-            setName('')
-            setPosition('')
-            setPhone('')
-            setMobile('')
-            setAts('')
-            setEmail('')
+            if(position.length >= 3){
+                if(name.length >= 3){
+                    if(phone || mobile || ats || email){
+                        const response = await PhonesService.add(name,mobile,phone,ats,email,position,'dop',contacts.length+1,false)
+                        setContacts([...contacts,response.data.phones])
+                        setReserve([...reserve,response.data.phones])
+                        clearInputs()
+                        message('Контакт добавлен')
+                        setOnCreateContact(false)
+                    }else{
+                        message('Заполните контакные данные!')
+                    }
+                }else{
+                    message('Заполните ФИО!')
+                }
+            }else{
+                message('Заполните должность!')
+            }
+        }else{
+            setOnCreateContact(true)
         }
     }
     const createTitleHandler = async () => {
-        setOnCreateTitle(!onCreateTitle)
-        //const response = await PhonesService.add()
+        if(onCreateTitle){
+            if(title.length >= 3){
+                const response = await PhonesService.add(title,'','','','','','dop',contacts.length+2,true)
+                const updatedContacts = [...contacts,response.data.phones];
+                setContacts(updatedContacts.map(item => ({ ...item })))
+                setReserve(updatedContacts.map(item => ({ ...item })))
+                clearInputs()
+                setOnCreateTitle(false)
+                message('Заголовок добавлен')
+            }else{
+                message('Введите название заголовка')
+            }
+        }else{
+            setOnCreateTitle(true)
+        }
+    }
+    const cancelHandler = () => {
+        clearInputs()
+        setOnCreateContact(false)
+        setOnCreateTitle(false)
+    }
+    const cancelAllHandler = () => {
+        cancelHandler()
+        setChange(!change)
+        setContacts(reserve.map(item => ({ ...item })))
+    }
+    const clearInputs = () => {
+        setName('')
+        setPosition('')
+        setPhone('')
+        setMobile('')
+        setAts('')
+        setEmail('')
+        setTitle('')
+    }
+    const changeContactHandler = (e,index,name) => {
+        const updatedContacts = [...contacts];
+        updatedContacts[index][name] = e.target.value
+        setContacts(updatedContacts.map(item => ({ ...item })))
+    }
+    const saveChangesHandler = () => {
+        if(change) {
+            contacts.map(async (item, index) => {
+                const response = await PhonesService.changePhones(item.id, item.name, item.mobile_phone, item.city_phone, item.ats, item.email, item.position, item.job, item.order)
+                console.log(response.data)
+                setChange(false)
+            })
+            if(title && onCreateTitle ) createTitleHandler()
+            if(name && position && onCreateContact ) createContactHandler()
+        }else {
+            setChange(true)
+        }
+    }
+
+    const arrowUpHandler = (index) => {
+        const updatedContacts = [...contacts];
+        [updatedContacts[index], updatedContacts[index-1]] = [updatedContacts[index-1], updatedContacts[index]]
+        contacts[index].order = contacts[index].order - 1
+        setContacts(updatedContacts)
+    }
+    const arrowDownHandler = (index) => {
+        const updatedContacts = [...contacts];
+        [updatedContacts[index], updatedContacts[index+1]] = [updatedContacts[index+1], updatedContacts[index]]
+        contacts[index].order = contacts[index].order + 1
+        setContacts(updatedContacts)
+    }
+    const deleteHandler = async (index) => {
+        try{
+            const response = await PhonesService.deletePhones(contacts[index].id)
+            message(response.data.message)
+            setActiveM(false)
+            const updatedContacts = [...contacts]
+            updatedContacts.splice(index, 1);
+            setContacts(updatedContacts.map(item => ({ ...item })))
+            setReserve(updatedContacts.map(item => ({ ...item })))
+        }catch (e){
+            message('Ошибка при удалении..')
+        }
+    }
+    const modalHandler = (index) => {
+        setActiveM(!activeM)
+        setIndexM(index)
+    }
+    function Ctrl({index}){
+        return (
+            <div className='ctrl'>
+                {index ? <i onClick={() => arrowUpHandler(index)} className='s1 fa-solid fa-arrow-up'></i> : ''}
+                {index !== contacts.length-1 ? <i onClick={() => arrowDownHandler(index)} className='s2 fa-solid fa-arrow-down'></i> : ''}
+                <i onClick={() => modalHandler(index)} className='s3 fa-solid fa-remove'></i>
+            </div>
+        )
+    }
+    function Inmodal({index}) {
+        return(
+            <div className='phone-modal'>
+                <div className='text'>
+                    <p>{`Вы уверены, что хотите удалить запись ${contacts[index] ? contacts[index].name : ''}?`}</p>
+                </div>
+                <div className='buttons'>
+                    <div onClick={() => deleteHandler(index)} className='button da'>Да</div>
+                    <div onClick={(e) => setActiveM(false)} className='button'>Нет</div>
+                </div>
+            </div>
+        )
     }
     return (
         <div>
@@ -76,12 +196,13 @@ function PhonebookPage(){
                         <div className='buttons-box'>
                             <div className='left box'>
                                 <Link className='button' to='/'><i className="fa-solid fa-caret-left"></i>Вернуться</Link>
-                                {change ? <div onClick={() => createTitleHandler()} className='button'>{onCreateTitle ? <p><i className="fa-solid fa-save"/>Сохранить заголовок</p> : <p><i className="fa-solid fa-plus"/>Добавить заголовок</p>}</div> : ''}
-                                {change ? <div onClick={() => createContactHandler()} className='button'>{onCreateContact ? <p><i className="fa-solid fa-save"/>Сохранить контакт</p> : <p><i className="fa-solid fa-plus"/>Добавить контакт</p>}</div> : ''}
+                                {change && !onCreateContact ? <div onClick={() => createTitleHandler()} className='button'>{onCreateTitle ? <p><i className="fa-solid fa-save"/>Сохранить заголовок</p> : <p><i className="fa-solid fa-plus"/>Добавить заголовок</p>}</div> : ''}
+                                {change && !onCreateTitle ? <div onClick={() => createContactHandler()} className='button'>{onCreateContact ? <p><i className="fa-solid fa-save"/>Сохранить контакт</p> : <p><i className="fa-solid fa-plus"/>Добавить контакт</p>}</div> : ''}
+                                {change && (onCreateContact || onCreateTitle) ? <div onClick={() => cancelHandler()} className='button'><p><i className="fa-solid fa-cancel"/>Отменить изменения</p></div> : ''}
                             </div>
                             <div className='right box'>
-                                {change ? <div onClick={(e) => setChange(!change)} className='button'><i className="fa-solid fa-cancel"></i>Отменить</div> : ''}
-                                {rule === 3 ? <div onClick={(e) => setChange(!change)} className='button'><i className="fa-solid fa-gears"></i>{change ? 'Сохранить' : 'Редактировать' }</div> : ''}
+                                {change ? <div onClick={() => cancelAllHandler()} className='button'><i className="fa-solid fa-cancel"></i>Отменить</div> : ''}
+                                {rule === 3 ? <div onClick={() => saveChangesHandler()} className='button'><i className="fa-solid fa-gears"></i>{change ? 'Сохранить' : 'Редактировать' }</div> : ''}
                             </div>
                         </div>
                         <div className='phonebook-box'>
@@ -98,18 +219,20 @@ function PhonebookPage(){
                                     {contacts.map((row, rowIndex) => {
                                         if(!row.heading) return (
                                             <div key={rowIndex} className="table-row">
-                                                <div><textarea value={row.position} onInput={(e) => autoResize(e)} className='text' disabled={change ? false : true}>{row.position}</textarea></div>
-                                                <div><textarea value={row.name} onInput={() => autoResize()} className='text' disabled={change ? false : true}>{row.name}</textarea></div>
-                                                <div><textarea value={row.city_phone} onInput={() => autoResize()} className='text' disabled={change ? false : true}>{row.city_phone}</textarea></div>
-                                                <div><textarea value={row.mobile_phone} onInput={() => autoResize()} className='text' disabled={change ? false : true}>{row.mobile_phone}</textarea></div>
-                                                <div className='small'><textarea value={row.ats} onInput={() => autoResize()} className='text' disabled={change ? false : true}>{row.ats}</textarea></div>
-                                                <div><textarea value={row.email} onInput={() => autoResize()} className='text' disabled={change ? false : true}>{row.email}</textarea></div>
+                                                <div><textarea value={row.position} onChange={(e) => changeContactHandler(e,rowIndex,'position')} onInput={(e) => autoResize(e)} className='text' disabled={change ? false : true}>{row.position}</textarea></div>
+                                                <div><textarea value={row.name} onChange={(e) => changeContactHandler(e,rowIndex,'name')} onInput={() => autoResize()} className='text' disabled={change ? false : true}>{row.name}</textarea></div>
+                                                <div><textarea value={row.city_phone} onChange={(e) => changeContactHandler(e,rowIndex,'city_phone')} onInput={() => autoResize()} className='text' disabled={change ? false : true}>{row.city_phone}</textarea></div>
+                                                <div><textarea value={row.mobile_phone} onChange={(e) => changeContactHandler(e,rowIndex,'mobile_phone')} onInput={() => autoResize()} className='text' disabled={change ? false : true}>{row.mobile_phone}</textarea></div>
+                                                <div className='small'><textarea value={row.ats} onChange={(e) => changeContactHandler(e,rowIndex,'ats')} onInput={() => autoResize()} className='text' disabled={change ? false : true}>{row.ats}</textarea></div>
+                                                <div><textarea value={row.email} onChange={(e) => changeContactHandler(e,rowIndex,'email')} onInput={() => autoResize()} className='text' disabled={change ? false : true}>{row.email}</textarea></div>
+                                                {change ? <Ctrl index={rowIndex} /> : ''}
                                             </div>
                                         )
                                         else{
                                             return (
-                                                <div key={rowIndex} className="table-row">
-                                                    <input value={row.name} disabled={change ? false : true} type='text'/>
+                                                <div key={rowIndex} className="table-row title">
+                                                    <input value={row.name} onChange={e => changeContactHandler(e,rowIndex,'name')} disabled={change ? false : true} type='text'/>
+                                                    {change ? <Ctrl index={rowIndex} /> : ''}
                                                 </div>
                                             )
                                         }
@@ -128,7 +251,7 @@ function PhonebookPage(){
                                     }
                                     { (onCreateTitle && change) ?
                                         <div className="table-row">
-                                            <div><input type='text' autoFocus={true} className='title new'></input></div>
+                                            <div><input type='text' value={title} onChange={e => setTitle(e.target.value)} autoFocus={true} className='title new'></input></div>
                                         </div>
                                         : ''
                                     }
@@ -136,11 +259,13 @@ function PhonebookPage(){
                                 </div>
                             </div>
                         </div>
+                        <ModalWin data={<Inmodal index={indexM}/>} active={activeM} setActive={setActiveM}/>
                     </div>
             </div>
             <div className='backimg'>
                 <div className='backcol'></div>
             </div>
+
         </div>
     )
 }
