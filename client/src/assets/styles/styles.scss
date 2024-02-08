@@ -726,6 +726,9 @@ html{
   }
 }
 .newsnavbar{
+  position: fixed;
+  width: 100%;
+  z-index: 999999999;
   nav{
     display: flex;
     align-items: center;
@@ -816,10 +819,11 @@ html{
   display: flex;
   flex-direction: column;
   min-height: 100%;
+
 }
 
 .newspage {
-  min-height: calc(100vh - $headerHeight - 65px);
+  //min-height: calc(100vh - $headerHeight - 65px);
   //width: 100%;
   display: flex;
   flex-direction: column;
@@ -843,7 +847,7 @@ html{
 
     .new_back {
       width: 100%;
-
+      margin-top: 110px;
       display: flex;
       align-items: center;
       flex-direction: column;
@@ -1569,7 +1573,6 @@ html{
   background-repeat: no-repeat;
   background-position: center center;
 }
-
 .edit_task_list_icon{
   background-image: url("../images/edittask.svg");
   width: 80%;
@@ -1713,6 +1716,8 @@ html{
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-top: 110px;
+  margin-bottom: 100px;
   .modal_win_wight_krest{
     background-color: $wblueColor !important;
   }
@@ -1754,6 +1759,7 @@ html{
   .phonebook-box{
     width: 80%;
     margin-top: 100px;
+
     .table-container {
       display: flex;
       flex-direction: column;
@@ -1860,6 +1866,7 @@ html{
     width: calc(100% - 40px);
     display: flex;
     justify-content: space-between;
+    z-index: 199999;
     .box{
       display: flex;
     }

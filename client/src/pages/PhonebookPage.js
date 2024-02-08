@@ -85,7 +85,7 @@ function PhonebookPage(){
     const createTitleHandler = async () => {
         if(onCreateTitle){
             if(title.length >= 3){
-                const response = await PhonesService.add(title,'','','','','','dop',contacts.length+2,true)
+                const response = await PhonesService.add(title,'','','','','','dop',contacts.length+1,true)
                 const updatedContacts = [...contacts,response.data.phones];
                 setContacts(updatedContacts.map(item => ({ ...item })))
                 setReserve(updatedContacts.map(item => ({ ...item })))
@@ -127,7 +127,6 @@ function PhonebookPage(){
         if(change) {
             contacts.map(async (item, index) => {
                 const response = await PhonesService.changePhones(item.id, item.name, item.mobile_phone, item.city_phone, item.ats, item.email, item.position, item.job, item.order)
-                console.log(response.data)
                 setChange(false)
             })
             if(title && onCreateTitle ) createTitleHandler()
@@ -139,14 +138,35 @@ function PhonebookPage(){
 
     const arrowUpHandler = (index) => {
         const updatedContacts = [...contacts];
-        [updatedContacts[index], updatedContacts[index-1]] = [updatedContacts[index-1], updatedContacts[index]]
-        contacts[index].order = contacts[index].order - 1
+        const tempIndex = index-1
+
+        const temp1 = updatedContacts[index].order - 1
+        const temp2 = updatedContacts[tempIndex].order + 1
+
+        updatedContacts[index].order = temp1
+        updatedContacts[tempIndex].order = temp2
+
+        let tempObject = updatedContacts[index];
+        updatedContacts[index] = updatedContacts[tempIndex]
+        updatedContacts[tempIndex] = tempObject
+
         setContacts(updatedContacts)
     }
     const arrowDownHandler = (index) => {
         const updatedContacts = [...contacts];
-        [updatedContacts[index], updatedContacts[index+1]] = [updatedContacts[index+1], updatedContacts[index]]
-        contacts[index].order = contacts[index].order + 1
+
+        const tempIndex = index+1
+
+        const temp1 = updatedContacts[index].order + 1
+        const temp2 = updatedContacts[tempIndex].order - 1
+
+        console.log(temp1)
+        console.log(temp2)
+
+        let tempObject = updatedContacts[index];
+        updatedContacts[index] = updatedContacts[tempIndex]
+        updatedContacts[tempIndex] = tempObject
+
         setContacts(updatedContacts)
     }
     const deleteHandler = async (index) => {
@@ -261,6 +281,7 @@ function PhonebookPage(){
                         </div>
                         <ModalWin data={<Inmodal index={indexM}/>} active={activeM} setActive={setActiveM}/>
                     </div>
+                <NewsFooter />
             </div>
             <div className='backimg'>
                 <div className='backcol'></div>
