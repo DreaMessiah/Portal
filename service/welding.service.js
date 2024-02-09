@@ -10,15 +10,25 @@ class WeldingService{
         return listObjs
     }
 
-    // async pushObj(obj, inn, user){
-    //     const searchObj = await ObjectsSV.findOne({ where: {shifrid:obj.id, inn:obj.inn} })
-    //     if(searchObj) {
-    //
-    //     } else {
-    //         return await ObjectsSV.create({shifr:obj.shifr,shifrid:obj.id,nameobject:ren,user:ren,papa:ren,burn:ren,inn:inn,login:user})
-    //     }
-    //
-    // }
+    async pushObj(obj){
+        console.log(obj.myObj.id)
+        const searchObj = await ObjectsSV.findOne({ where: {shifrid:obj.myObj.id, inn:obj.myObj.inn} })
+        console.log("obj.myObj.id!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        let message = {};
+        if(searchObj) {
+            console.log('такой уже есть!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+            message = {message: 'объект уже в работе'}
+            return {searchObj, message}
+        } else {
+        console.log('смотри')
+            message = {message: 'объект добавлен'}
+            console.log('Write...............')
+            const created = await ObjectsSV.create({shifr:obj.myObj.shifr,nameobject:obj.myObj.nameobject,user:obj.user,papa:obj.user,inn:obj.myObj.inn,login:obj.user,shifrid:obj.myObj.id})
+            console.log(created)
+            return {created, message}
+        }
+
+    }
 
 
 

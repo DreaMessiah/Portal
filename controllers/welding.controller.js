@@ -17,18 +17,19 @@ class WeldingController {
 
     async pushObjWelding(req,res,next) {
         try{
-            console.log(req)
+//            console.log(req)
             const obj = req.body  // получаем объект
-            // const objsList = await WeldingService.pushObj(obj)
+ //           console.log(obj)
+            const objsList = await WeldingService.pushObj(obj)
 
             // выполняем действия
-            console.log('здесь начало')
-            console.log(obj)
-            // return res.json(objsList)
+           console.log('здесь начало')
+           console.log(objsList.created)
+            return res.json(objsList.created)
 
         }catch (e){
-            console.log(e.message)
             console.log('здесь творится какое-то блядство...')
+            console.log(e.message)
             next(e)
         }
     }

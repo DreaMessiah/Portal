@@ -3,7 +3,7 @@ import WeldingService from "../../../services/WeldingService";
 import axios from "axios";
 import {useState} from "react";
 
-export const CreateObjModal = ({inn, active, setActive, title, setTitle}) => {
+export const CreateObjModal = ({inn, user, active, setActive, title, setTitle}) => {
 
     const [thisobj, setThisobj] = useState(0)
 
@@ -41,15 +41,16 @@ export const CreateObjModal = ({inn, active, setActive, title, setTitle}) => {
                     console.log(myObj)
                 }
             })
-            const listobj = await WeldingService.insertObjs(myObj)
-
+            const listobj = await WeldingService.insertObjs({myObj, user})
+            // await WeldingService.insertObjs({myObj, user})
+            console.log(listobj.data)
             setActive(!active)
         }
         // console.log(listobj.data)
         console.log(title)
 
 
-    }
+  }
 
 
     ///// itle по умолчанию

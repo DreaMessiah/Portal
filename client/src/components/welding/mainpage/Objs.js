@@ -30,6 +30,7 @@ function Objs() {
     console.log(store.user.inn)
 
     const inn = store.user.inn
+    const login = store.user.login
 
 
     const [modal, setModal] = useState(false)
@@ -69,7 +70,7 @@ function Objs() {
             <div className='next-box'>
                 <ListObjs mass={objs}/>
             </div>
-            <ModalWin data={<CreateObjModal inn={inn} arr={objsLoList} title={title} setTitle={setTitle} active={modal} setActive={setModal}/>} active={modal} setActive={setModal}/>
+            <ModalWin data={<CreateObjModal inn={inn} user={login} arr={objsLoList} title={title} setTitle={setTitle} active={modal} setActive={setModal}/>} active={modal} setActive={setModal}/>
             {/*<ModalWin data={<NewCrewModal sel={select} active={crew} setActive={setCrew}/>} active={modal} setActive={setCrew}/>*/}
         </div>
     )
