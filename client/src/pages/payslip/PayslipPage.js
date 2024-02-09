@@ -1,13 +1,27 @@
-import './paylist.scss'
+import './payslip.scss'
 import React, {useState, useEffect, useContext} from 'react';
 import NewsNavbar from "../../components/NewsNavbar"
 import {Link,useLocation} from "react-router-dom";
 import NewsFooter from "../../components/NewsFooter";
 import Select from 'react-select'
+import {DataContext} from "../../context/DataContext";
 
 
-export const PayList = () => {
+export const PayslipPage = () => {
     const addLeadingZero = (number) => (number < 10 ? '0' : '') + number;
+
+    const {getMonthName,optionsMonth} = useContext(DataContext)
+
+    const getNowMonthName = () => {
+        const currentDate = new Date();
+        const currentMonth = currentDate.getMonth()
+
+        return getMonthName(currentMonth)
+    }
+    const getNowMonthNum = () => {
+        const currentDate = new Date();
+        return currentDate.getMonth()
+    }
 
     const mandays = {
         1: 0,
@@ -41,37 +55,18 @@ export const PayList = () => {
         29: 1,
         30: 1,
         31: 1,
-
-
     }
 
     const toBack = () => {
         window.history.back()
     }
 
-    const optionsMonth = [
-        { value: '1', label: 'январь' },
-        { value: '2', label: 'февраль' },
-        { value: '3', label: 'март' },
-        { value: '4', label: 'апрель' },
-        { value: '5', label: 'май' },
-        { value: '6', label: 'июнь' },
-        { value: '7', label: 'июль' },
-        { value: '8', label: 'август' },
-        { value: '9', label: 'сентябрь' },
-        { value: '10', label: 'октябрь' },
-        { value: '11', label: 'ноябрь' },
-        { value: '12', label: 'декабрь' }
-    ]
-
     const optionsYear = [
-        { value: '1', label: '2024' },
-        { value: '2', label: '2025' },
-        { value: '3', label: '2026' }
+        { value: '1', label: '2023' },
+        { value: '2', label: '2024' },
+        { value: '3', label: '2025' }
     ]
 
-
-    const months = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь']
     const fullDaysArray = [];
     function getSixWeeksArray() {
         const today = new Date();
@@ -92,7 +87,7 @@ export const PayList = () => {
     }
     function getCurrentMouth(){
         const today = new Date();
-        const monthName = months[today.getMonth()];
+        const monthName = getNowMonthName();
         const year = today.getFullYear();
         return `${monthName} ${year}`;
     }
@@ -106,8 +101,6 @@ export const PayList = () => {
 
     const resultArray = getSixWeeksArray();
     let classname = []
-    let titles = []
-    let texts = []
 
     fullDaysArray.map( function (item,index){
         if(item === getToday()){
@@ -117,22 +110,7 @@ export const PayList = () => {
         }
     })
 
-    setTimeout(() => {
-        let classname = 0
-        const clueElement = document.querySelectorAll('.clue')
-        clueElement.forEach( (item) => {
-            item.addEventListener('mouseover', function(event) {
-                const modalElement = item.querySelector('.modal_clue');
-                modalElement.style.display = 'block';
-                item.addEventListener('mouseleave', function(event) {
-                    const modalElement = item.querySelector('.modal_clue');
-                    modalElement.style.display = 'none';
-                });
-            });
-        })
-    },0)
-
-
+    const monthNow = getNowMonthNum()
     let startItem = false
     let styleee = `dayview0`
     return (
@@ -146,12 +124,12 @@ export const PayList = () => {
                                 <Link className='toback' onClick={()=>toBack()}>НАЗАД</Link>
                                 <div className="select_block">
                                     <div className="select_block_title">МЕСЯЦ</div>
-                                    <Select className='select' options={optionsMonth}/>
+                                    <Select className='select' defaultValue={optionsMonth[monthNow]} options={optionsMonth}/>
                                 </div>
 
                                 <div className="select_block">
                                     <div className="select_block_title">ГОД</div>
-                                    <Select className='select' options={optionsYear}/>
+                                    <Select className='select' defaultValue={optionsYear[1]} options={optionsYear}/>
                                 </div>
                             </div>
                             {/*<div className='polosa'></div>*/}
@@ -169,15 +147,13 @@ export const PayList = () => {
                                     <h4>{getCurrentMouth()}</h4>
                                     <div className='dates'>
                                         {
-
                                             resultArray.map( (item,index) => {
-
                                                 if(item === 1){
                                                     startItem = !startItem
                                                 }
                                                 startItem ? styleee = `dayview${mandays[item]}` : styleee = `dayview0`
                                                 return (
-                                                <div key={index} className={classname[index]+' '+ styleee}><p>{item}</p><div className={`modal_clue n-${index%7}`}><h5>{titles[index]}</h5><p>{texts[index]}</p></div></div>
+                                                <div key={index} className={classname[index]+' '+ styleee}><p>{item}</p></div>
                                         )})}
                                     </div>
                                 </div>

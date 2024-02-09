@@ -381,6 +381,7 @@ const NumberObjects = sequelize.define('number_objects',{
 const ObjectsSV = sequelize.define('obj_sv',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     shifr:{type:DataTypes.STRING},
+    shifrid:{type:DataTypes.INTEGER},
     nameobject:{type:DataTypes.STRING},
     user:{type:DataTypes.STRING},
     papa:{type:DataTypes.STRING},
@@ -410,8 +411,21 @@ const Phonebook = sequelize.define('phonebook',{
     order:{type:DataTypes.INTEGER},
     heading:{type:DataTypes.BOOLEAN}
 })
-
+const Payslip = sequelize.define('payslip',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    mouth:{type:DataTypes.STRING},
+    name:{type:DataTypes.STRING},
+    cost:{type:DataTypes.STRING},
+    days:{type:DataTypes.STRING},
+    uchet:{type:DataTypes.STRING},
+    stazh:{type:DataTypes.TEXT},
+    inn:{type:DataTypes.STRING},
+    held:{type:DataTypes.STRING},
+    payments:{type:DataTypes.STRING},
+    total:{type:DataTypes.STRING},
+    tn:{type:DataTypes.STRING},
+})
 module.exports = {
-    User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Files,Positions,Token,Phonebook,Jobs
+    User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Files,Positions,Token,Phonebook,Jobs,Payslip
 }
 

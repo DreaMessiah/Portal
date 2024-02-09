@@ -26,7 +26,7 @@ import AdminDashboardPage from "./pages/administrator/AdminDashboardPage";
 import {Controll} from "./pages/controll/Controll";
 import {Context} from "./index";
 import {observer} from "mobx-react-lite";
-import {PayList} from "./pages/payslip/PayList";
+import {PayslipPage} from "./pages/payslip/PayslipPage";
 import PhonebookPage from "./pages/PhonebookPage";
 
 
@@ -60,7 +60,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={<NewsPage/>} />
                         <Route path='/main' element={<MainPage/>} />
-                        <Route path="/paylist" element={<PayList/>} />
+                        <Route path="/paylist" element={<PayslipPage/>} />
                         <Route path="/settings" element={<SettingsPage/>} />
                         <Route path="/phonebook" element={<PhonebookPage/>} />
                         <Route path="/document" element={<DocumentPage/>} />
