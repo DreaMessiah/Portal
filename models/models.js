@@ -381,6 +381,7 @@ const NumberObjects = sequelize.define('number_objects',{
 const ObjectsSV = sequelize.define('obj_sv',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     shifr:{type:DataTypes.STRING},
+    shifrid:{type:DataTypes.INTEGER},
     nameobject:{type:DataTypes.STRING},
     user:{type:DataTypes.STRING},
     papa:{type:DataTypes.STRING},

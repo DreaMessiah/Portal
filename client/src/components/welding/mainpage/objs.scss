@@ -92,3 +92,53 @@
 
 }
 
+.new_obj{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .new_obj_title{
+    margin-bottom: 10px;
+    text-align: center;
+    min-height: 70px;
+  }
+
+  select {
+    width: 300px;
+    height: 40px;
+    border-radius: 2px;
+    border: 1px solid #454545;
+    margin-bottom: 10px;
+  }
+
+  select:focus{
+    outline: none;
+  }
+
+  select:active{
+    outline: none;
+  }
+
+  .new_obj_btn{
+    width: 300px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+    background-color: #454545;
+    color: #FFF;
+    cursor: pointer;
+  }
+  .new_obj_btn:hover{
+    opacity: 0.9;
+  }
+  .new_obj_btn:active{
+    background: darkgreen;
+  }
+}
+
+
+
