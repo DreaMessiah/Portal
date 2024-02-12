@@ -1,9 +1,17 @@
 import './objs.scss'
 import WeldingService from "../../../services/WeldingService";
-import axios from "axios";
+// import axios from "axios";
 import {useState} from "react";
+import {useMessage} from "../../../hooks/message.hook";
 
 export const CreateObjModal = ({inn, user, active, setActive, title, setTitle}) => {
+
+
+    const plusObjOnDisplay = () => {
+
+    }
+
+    const message = useMessage()
 
     const [thisobj, setThisobj] = useState(0)
 
@@ -30,6 +38,8 @@ export const CreateObjModal = ({inn, user, active, setActive, title, setTitle}) 
         setTitle(newTitle)
     }
 
+
+
     const insertObj = async () => {
         console.log(thisobj)
         if(thisobj !== 0) {
@@ -43,6 +53,7 @@ export const CreateObjModal = ({inn, user, active, setActive, title, setTitle}) 
             })
             const listobj = await WeldingService.insertObjs({myObj, user})
             // await WeldingService.insertObjs({myObj, user})
+            message('Объект ' + listobj.data.shifr + ' успешно добавлен')
             console.log(listobj.data)
             setActive(!active)
         }

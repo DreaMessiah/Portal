@@ -24,6 +24,13 @@ const wrap_buttons = [
 function Objs() {
     let objsLoList = [];
 
+    // {
+    //     id:1,
+    //         name:'390',
+    //     description:'"Участок магистрального нефтепровода "Нижневартовск-Курган-Куйбышев" 284км. - 332км. Ду1200. Замена трубы на ППМТ 294км. р.М.Балык (пойма/русло). Нефтеюганское УМН. Реконструкция"',
+    //     dateinto: '16-04-2024'
+    // },
+
     const [title, setTitle] = useState('Добавить объект')
     const  {store} = useContext(Context)
 
@@ -31,6 +38,22 @@ function Objs() {
 
     const inn = store.user.inn
     const login = store.user.login
+
+    const [listObjs, setListObjs] = useState([])
+
+    const viewAllObjs = async (e) => {
+
+            const viewList = await WeldingService.listObjsSV({inn, login})
+
+        setListObjs(viewList.data)
+     }
+    //
+    //viewAllObjs()
+    useEffect(() => {
+        viewAllObjs()
+        console.log(listObjs)
+    },[])
+
 
 
     const [modal, setModal] = useState(false)
@@ -68,7 +91,7 @@ function Objs() {
                 </div>
             </div>
             <div className='next-box'>
-                <ListObjs mass={objs}/>
+                <ListObjs mass={listObjs} stateMass={setListObjs}/>
             </div>
             <ModalWin data={<CreateObjModal inn={inn} user={login} arr={objsLoList} title={title} setTitle={setTitle} active={modal} setActive={setModal}/>} active={modal} setActive={setModal}/>
             {/*<ModalWin data={<NewCrewModal sel={select} active={crew} setActive={setCrew}/>} active={modal} setActive={setCrew}/>*/}

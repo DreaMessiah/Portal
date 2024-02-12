@@ -10,6 +10,16 @@ class WeldingService{
         return listObjs
     }
 
+    async viewObjSV(params){
+
+        console.log(params)
+        const listObjs = await ObjectsSV.findAll({where: {inn:params.inn, user:params.login}}) //взять все строки
+
+        //  await Objects.    - взять модель таблицы из которой будем выгружать значения (т.е. определяем из какой таблицы берем)
+        //  where: {inn:inn}  - прописываем условия
+        return listObjs
+    }
+
     async pushObj(obj){
         console.log(obj.myObj.id)
         const searchObj = await ObjectsSV.findOne({ where: {shifrid:obj.myObj.id, inn:obj.myObj.inn} })

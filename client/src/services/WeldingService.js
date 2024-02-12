@@ -9,4 +9,8 @@ export default class WeldingService{
         return $api.post(`/welding/pushnewobjwelding`, objs)
     }
 
+    static async listObjsSV(inn){
+        return $api.post(`/welding/viewobjssv`, inn)
+    }
+
 }
