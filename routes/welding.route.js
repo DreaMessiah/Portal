@@ -8,5 +8,6 @@ const weldingController = require('../controllers/welding.controller')
 router.post('/getlistobjs', weldingController.getListObjs)
 router.post('/pushnewobjwelding', weldingController.pushObjWelding)
 router.post('/viewobjssv', weldingController.viewObjSV)
+router.post('/getym', weldingController.getYM)
 
 module.exports = router

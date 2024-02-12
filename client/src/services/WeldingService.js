@@ -13,4 +13,7 @@ export default class WeldingService{
         return $api.post(`/welding/viewobjssv`, inn)
     }
 
+    static async getYM(innAndId){
+        return $api.post(`/welding/getym`, innAndId)
+    }
 }

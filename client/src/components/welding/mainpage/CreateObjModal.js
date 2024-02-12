@@ -4,10 +4,11 @@ import WeldingService from "../../../services/WeldingService";
 import {useState} from "react";
 import {useMessage} from "../../../hooks/message.hook";
 
-export const CreateObjModal = ({inn, user, active, setActive, title, setTitle}) => {
+export const CreateObjModal = ({inn, user, active, setActive, title, setTitle, listObj, stateMass}) => {
 
 
-    const plusObjOnDisplay = () => {
+    const plusObjOnDisplay = (obj) => {
+        const newList = listObj.push(obj)
 
     }
 
@@ -53,8 +54,9 @@ export const CreateObjModal = ({inn, user, active, setActive, title, setTitle}) 
             })
             const listobj = await WeldingService.insertObjs({myObj, user})
             // await WeldingService.insertObjs({myObj, user})
-            message('Объект ' + listobj.data.shifr + ' успешно добавлен')
+            message('Объект "' + listobj.data.shifr + '" успешно добавлен')
             console.log(listobj.data)
+            plusObjOnDisplay(listobj.data)
             setActive(!active)
         }
         // console.log(listobj.data)

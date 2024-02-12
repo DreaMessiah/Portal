@@ -134,8 +134,8 @@ const YmSvarka = sequelize.define('ym_svarka',{
     id:{type:DataTypes.INTEGER,primaryKey: true,autoIncrement:true},
     indicator:{type:DataTypes.STRING},
     shifr:{type:DataTypes.STRING},
-    year:{type:DataTypes.STRING},
-    month:{type:DataTypes.STRING},
+    year:{type:DataTypes.INTEGER},
+    month:{type:DataTypes.INTEGER},
     inn:{type:DataTypes.STRING}
 })
 const TabelSv = sequelize.define('tabel_sv',{

@@ -84,16 +84,16 @@ function Objs() {
                         ))}
                     </div>
                     {/*<WrapButtonsObj mass={wrap_buttons}/>*/}
-                    <SearchObj/>
+                    {/*<SearchObj/>*/}
                 </div>
                 <div className='right-box'>
-                    <ChangeObj/>
+                    {/*<ChangeObj/>*/}
                 </div>
             </div>
             <div className='next-box'>
                 <ListObjs mass={listObjs} stateMass={setListObjs}/>
             </div>
-            <ModalWin data={<CreateObjModal inn={inn} user={login} arr={objsLoList} title={title} setTitle={setTitle} active={modal} setActive={setModal}/>} active={modal} setActive={setModal}/>
+            <ModalWin data={<CreateObjModal inn={inn} user={login} arr={objsLoList} title={title} setTitle={setTitle} active={modal} setActive={setModal} listObj={listObjs} stateMass={setListObjs}/>} active={modal} setActive={setModal}/>
             {/*<ModalWin data={<NewCrewModal sel={select} active={crew} setActive={setCrew}/>} active={modal} setActive={setCrew}/>*/}
         </div>
     )

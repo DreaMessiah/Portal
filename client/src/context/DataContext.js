@@ -1039,7 +1039,7 @@ export const DataProvider = ({ children }) => {
             tabel: [
                 {
                     year: '2024',
-                    month: 'январь',
+                    month: '0',
                     types:[
                         {
                             name:'Сварка 1',
@@ -1363,7 +1363,7 @@ export const DataProvider = ({ children }) => {
                 },
                 {
                     year: '2024',
-                    month: 'февраль',
+                    month: '1',
                     types:[
                         {
                             name:'vid raboty #1',
@@ -1687,7 +1687,7 @@ export const DataProvider = ({ children }) => {
                 },
                 {
                     year: '2024',
-                    month: 'март',
+                    month: '2',
                     types:[
                         {
                             name:'vid raboty #1',
@@ -2053,7 +2053,7 @@ export const DataProvider = ({ children }) => {
             tabel: [
                 {
                     year: '2024',
-                    month: 'январь',
+                    month: '0',
                     types:[
                         {
                             name:'Сварка 4',
@@ -2377,7 +2377,7 @@ export const DataProvider = ({ children }) => {
                 },
                 {
                     year: '2024',
-                    month: 'февраль',
+                    month: '1',
                     types:[
                         {
                             name:'vid raboty #1',
@@ -2701,7 +2701,7 @@ export const DataProvider = ({ children }) => {
                 },
                 {
                     year: '2024',
-                    month: 'март',
+                    month: '2',
                     types:[
                         {
                             name:'vid raboty #1',
@@ -3078,7 +3078,7 @@ export const DataProvider = ({ children }) => {
             tabel: [
                 {
                     year: '2024',
-                    month: 'январь',
+                    month: '0',
                     types:[
                         {
                             name:'Сварка 7',
@@ -3402,7 +3402,7 @@ export const DataProvider = ({ children }) => {
                 },
                 {
                     year: '2024',
-                    month: 'февраль',
+                    month: '1',
                     types:[
                         {
                             name:'vid raboty #1',
@@ -3726,7 +3726,7 @@ export const DataProvider = ({ children }) => {
                 },
                 {
                     year: '2024',
-                    month: 'март',
+                    month: '2',
                     types:[
                         {
                             name:'vid raboty #1',

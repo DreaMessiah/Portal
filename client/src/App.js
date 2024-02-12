@@ -68,7 +68,7 @@ function App() {
                         <Route path="/welding" element={<Weldingmain />} />
                         <Route path="/createtask" element={<CreateTaskPage />} />
                         <Route path="/testtaskpage/:params" element={<TestTaskPage />} />
-                        <Route path="/obj/:id" element={<Yearwelding />} />
+                        <Route path="/obj" element={<Yearwelding />} />
                         <Route path="/lk" element={<LkPage/>} />
                         <Route path="/tabelwelding" element={<Tabel/>} />
                         <Route path="/lk" element={<MainPage/>} />

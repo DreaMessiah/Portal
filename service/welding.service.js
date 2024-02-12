@@ -1,4 +1,4 @@
-const {Objects, ObjectsSV} = require('../models/models')
+const {Objects, ObjectsSV, YmSvarka} = require('../models/models')
 const ObjsDto = require('../dtos/objsDto')
 const ApiError = require('../exceptions/api.error')
 class WeldingService{
@@ -12,7 +12,7 @@ class WeldingService{
 
     async viewObjSV(params){
 
-        console.log(params)
+
         const listObjs = await ObjectsSV.findAll({where: {inn:params.inn, user:params.login}}) //взять все строки
 
         //  await Objects.    - взять модель таблицы из которой будем выгружать значения (т.е. определяем из какой таблицы берем)
@@ -21,25 +21,29 @@ class WeldingService{
     }
 
     async pushObj(obj){
-        console.log(obj.myObj.id)
+
         const searchObj = await ObjectsSV.findOne({ where: {shifrid:obj.myObj.id, inn:obj.myObj.inn} })
-        console.log("obj.myObj.id!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+
         let message = {};
         if(searchObj) {
-            console.log('такой уже есть!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+
             message = {message: 'объект уже в работе'}
             return {searchObj, message}
         } else {
         console.log('смотри')
             message = {message: 'объект добавлен'}
-            console.log('Write...............')
+
             const created = await ObjectsSV.create({shifr:obj.myObj.shifr,nameobject:obj.myObj.nameobject,user:obj.user,papa:obj.user,inn:obj.myObj.inn,login:obj.user,shifrid:obj.myObj.id})
-            console.log(created)
+
             return {created, message}
         }
 
     }
 
+    async getYM(innId){
+        const listYM = await YmSvarka.findAll({where: {inn:innId.inn, shifr:innId.idstore}, order: [['year', 'DESC'],['month', 'ASC']]})
+        return listYM
+    }
 
 
 }
