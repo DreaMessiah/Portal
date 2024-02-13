@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import DynamicTextObj from "./DinamicTextObj";
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
+import {Menu} from "./Menu";
 
 function Navbar () {
     const {store} = useContext(Context)
@@ -38,7 +39,8 @@ function Navbar () {
                     </li>
                 </ul>
             </nav>
-            <hr />
+            {/*<hr />*/}
+            <Menu />
         </div>
 
     )
