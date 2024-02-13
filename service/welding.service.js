@@ -45,6 +45,27 @@ class WeldingService{
         return listYM
     }
 
+    async getObgForHook(id){
+        const thisObj = await Objects.findOne({where: {id:id}})
+
+        console.log('"')
+        console.log('"')
+        console.log('"')
+        console.log('"')
+        console.log('"')
+        console.log('ВОТ это в сервисе БЭК')
+        console.log('"')
+        console.log(thisObj)
+        console.log('"')
+        console.log('"')
+        console.log('"')
+        console.log('"')
+        console.log('"')
+
+
+        return thisObj
+    }
+
 
 }
 module.exports = new WeldingService()

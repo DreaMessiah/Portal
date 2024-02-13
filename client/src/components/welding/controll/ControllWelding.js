@@ -1,14 +1,42 @@
 import "./constrollwelding.scss"
 import {ModalBigWin} from "../../modalwin/ModaBiglWin";
 import {NewCrewModal} from "../tabelwelding/modalactive/NewCrewModal";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {NewControll} from "./modal/NewControll";
+import WeldingService from "../../../services/WeldingService";
+import {useLocation} from "react-router-dom";
+import {useMonth} from "../../../hooks/month.hook";
 
 export const ControllWelding = () => {
 
 
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+
+
+    const thisMonth = useMonth()
+
+    let getId = searchParams.get('id');
+    let getShifr = searchParams.get('shifr');
+    let getMonth = searchParams.get('month');
+    let getYear = searchParams.get('year');
+
 
     const [active, setActive] = useState(false);
+
+
+
+    const [thisobj, setThisobj] = useState({})
+
+    const getParamObj = async (e) =>{
+        const response = await WeldingService.getObgForHook({getShifr})
+        console.log(response.data)
+        setThisobj(response.data)
+    }
+
+    useEffect(()=>{
+        getParamObj()
+    }, [])
 
     return (
         <div className="controll_welding">
@@ -19,8 +47,8 @@ export const ControllWelding = () => {
                     <div className="controll_welding_cap_controller_filter"></div>
                 </div>
                 <div className="controll_welding_cap_title">
-                    <div className="controll_welding_cap_title_text">365</div>
-                    <div className="controll_welding_cap_title_ym">январь 2024</div>
+                    <div className="controll_welding_cap_title_text">{thisobj.shifr}</div>
+                    <div className="controll_welding_cap_title_ym">{thisMonth(getMonth)} {getYear}</div>
                 </div>
 
             </div>

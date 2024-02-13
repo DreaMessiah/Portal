@@ -16,4 +16,9 @@ export default class WeldingService{
     static async getYM(innAndId){
         return $api.post(`/welding/getym`, innAndId)
     }
+
+    static async getObgForHook(id){
+        return $api.post(`/welding/getobjhook`, id)
+    }
+
 }

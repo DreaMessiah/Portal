@@ -17,8 +17,16 @@ import WeldingService from "../../../services/WeldingService";
 const wrap_buttons = [
     {
         text:'Добавить объект',
-        icon:'fa-regular fa-plus'
+        icon:'fa-regular fa-plus',
+        link:''
+    },
+
+    {
+        text:'Звенья / Бригады',
+        icon:'',
+        link:'crews'
     }
+
 ]
 
 function Objs() {
@@ -79,9 +87,10 @@ function Objs() {
             <div className='top-box'>
                 <div className='left-box'>
                     <div className='wrap-buttons-obj'>
-                        {wrap_buttons.map((item,index) => (
-                            <div key={index} className='wrap-button' onClick={()=>{activeModal(modal)}}> <p>{item.text}</p> <i className={item.icon}></i></div>
-                        ))}
+
+                        <div className='wrap-button' onClick={()=>{activeModal(modal)}}> <p>Добавить объект</p> <i className='fa-regular fa-plus'></i></div>
+                        <Link className='wrap-button' to='/crews'> <p>Звенья / Бригады</p> </Link>
+
                     </div>
                     {/*<WrapButtonsObj mass={wrap_buttons}/>*/}
                     {/*<SearchObj/>*/}

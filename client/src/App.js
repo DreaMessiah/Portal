@@ -28,6 +28,7 @@ import {Context} from "./index";
 import {observer} from "mobx-react-lite";
 import {PayList} from "./pages/payslip/PayList";
 import PhonebookPage from "./pages/PhonebookPage";
+import {CrewsPage} from "./pages/welding/CrewsPage";
 
 
 
@@ -66,9 +67,11 @@ function App() {
                         <Route path="/document" element={<DocumentPage/>} />
                         <Route path="/tasks" element={<TasksPage/>} />
                         <Route path="/welding" element={<Weldingmain />} />
+                        <Route path="/crews" element={<CrewsPage />} />
+                        <Route path="/obj" element={<Yearwelding />} />
+                        <Route path="/controll" element={<Controll />} />
                         <Route path="/createtask" element={<CreateTaskPage />} />
                         <Route path="/testtaskpage/:params" element={<TestTaskPage />} />
-                        <Route path="/obj" element={<Yearwelding />} />
                         <Route path="/lk" element={<LkPage/>} />
                         <Route path="/tabelwelding" element={<Tabel/>} />
                         <Route path="/lk" element={<MainPage/>} />
@@ -78,7 +81,6 @@ function App() {
                         <Route path="/dashboard" element={<AdminDashboardPage/>} />
                         <Route path="/tabel" element={<TabelObj/>} />
                         <Route path="/table-tabel" element={<TableTabel/>} />
-                        <Route path="/controll" element={<Controll />} />
                     </Routes>
                 </div>
             </Router>

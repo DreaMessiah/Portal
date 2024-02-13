@@ -9,6 +9,9 @@ import {ModalWin} from "../../modalwin/ModalWin";
 import {NewCrewModal} from "./modalactive/NewCrewModal";
 import {DataContext} from "../../../context/DataContext";
 import {Link, useLocation} from "react-router-dom";
+import {useObjects} from "../../../hooks/objects.hook";
+import WeldingService from "../../../services/WeldingService";
+import {useMonth} from "../../../hooks/month.hook";
 
 
 
@@ -17,12 +20,23 @@ export const Tabelform = () => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
 
+
+    const thisMonth = useMonth()
+
     let getId = searchParams.get('id');
     let getShifr = searchParams.get('shifr');
     let getMonth = searchParams.get('month');
     let getYear = searchParams.get('year');
 
     let tabelMans = []
+
+    const [thisobj, setThisobj] = useState({})
+
+    const getParamObj = async (e) =>{
+        const response = await WeldingService.getObgForHook({getShifr})
+        console.log(response.data)
+        setThisobj(response.data)
+    }
 
     console.log(getId)
     console.log(getMonth)
@@ -71,7 +85,7 @@ export const Tabelform = () => {
                 setTabelMans(tabel.peoples)
             }
         })
-
+        getParamObj()
 
         console.log(tabelView)
     },[views])
@@ -80,7 +94,7 @@ export const Tabelform = () => {
             <div className="tabwelding_header">
                 <div className="tabwelding_header_upper">
                     <div className="tabwelding_header_upper_backbtn">Назад</div>
-                    <div className="tabwelding_header_upper_title"><span>{getShifr}</span> {getMonth} {getYear}</div>
+                    <div className="tabwelding_header_upper_title"><span>{thisobj.shifr}</span> {thisMonth(getMonth)} {getYear}</div>
                     <Link to={`/controll?id=${getId}&shifr=${getShifr}&month=${getMonth}&year=${getYear}`} className="tabwelding_header_upper_controlbtn">Контроль</Link>
                 </div>
                 <div className="tabwelding_header_newcrewblock">

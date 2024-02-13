@@ -44,6 +44,33 @@ class WeldingController {
             next(e)
         }
     }
+
+    async getObgForHook(req,res,next) {
+        try{
+
+            const id = req.body.getShifr
+            console.log(id)
+            console.log('-------------------------'+id+'------------------------------')
+            const list = await WeldingService.getObgForHook(id)
+            return res.json(list.dataValues)
+        }catch (e){
+
+            console.log('---------------------{ХРЕНЬ}----------------------------')
+            console.log('---------------------{ХРЕНЬ}----------------------------')
+            console.log('---------------------{ХРЕНЬ}----------------------------')
+            console.log('---------------------{ХРЕНЬ}----------------------------')
+            console.log('---------------------{ХРЕНЬ}----------------------------')
+            console.log('---------------------{ХРЕНЬ}----------------------------')
+            console.log('---------------------{ХРЕНЬ}----------------------------')
+            console.log('---------------------{ХРЕНЬ}----------------------------')
+            console.log('---------------------{ХРЕНЬ}----------------------------')
+            console.log('---------------------{ХРЕНЬ}----------------------------')
+            next(e)
+        }
+    }
+
+
+
 }
 // pushObjWelding
 module.exports = new WeldingController()
