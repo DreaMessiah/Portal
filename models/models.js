@@ -422,6 +422,6 @@ const Payslip = sequelize.define('payslip',{
 })
 
 module.exports = {
-    User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Files,Positions,Token,Phonebook,Jobs,Payslip
+    User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Files,Token,Phonebook,Jobs,Payslip
 }
 
