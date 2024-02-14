@@ -33,7 +33,7 @@ export default function MyObjs({mass, page}) {
 
     const linkPage = link => {
 
-    }
+    }  
 
     const [modal, setModal] = useState(false)
     const [listObjs, setListObjs] = useState({})
