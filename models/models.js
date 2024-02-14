@@ -389,11 +389,6 @@ const ObjectsSV = sequelize.define('obj_sv',{
     inn:{type:DataTypes.STRING},
     login:{type:DataTypes.STRING}
 })
-const Positions = sequelize.define('positions',{
-    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
-    name:{type:DataTypes.STRING},
-    rules:{type:DataTypes.INTEGER}
-})
 const Jobs = sequelize.define('positions',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     name:{type:DataTypes.STRING},
