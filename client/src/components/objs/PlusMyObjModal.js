@@ -2,12 +2,13 @@ import '../welding/mainpage/objs.scss'
 // import WeldingService from "../../../services/WeldingService";
 // import axios from "axios";
 import {useState} from "react";
+import ObjsService from "../../services/ObjsService";
 // import {useMessage} from "../../../hooks/message.hook";
 
-export const PlusMyObjModal = ({inn, login, list}) => {
+export const PlusMyObjModal = ({inn, login, list, active, setActive, setViewMyObjs}) => {
 
     const [title, setTitle] = useState('Добавить объект')
-
+    const [thisobj, setThisobj] = useState(0)
     // export const PlusMyObjModal = ({inn, user, active, setActive, title, setTitle, listObj, stateMass}) => {
 
     // const plusObjOnDisplay = (obj) => {
@@ -17,7 +18,6 @@ export const PlusMyObjModal = ({inn, login, list}) => {
 
     // const message = useMessage()
 
-    // const [thisobj, setThisobj] = useState(0)
     //
 
     // const readInn = async (e) => {
@@ -41,6 +41,20 @@ export const PlusMyObjModal = ({inn, login, list}) => {
         setTitle(newTitle)
     }
 
+    const createObj = async () => {
+        try{
+            console.log(thisobj)
+            console.log(login)
+            console.log(inn)
+            const idobj = thisobj
+            const thisObj = await ObjsService.insertObjs({idobj, login, inn})
+            setActive(!active)
+            setViewMyObjs(thisObj.data)
+        } catch {
+
+        }
+
+    }
 
 
   //   const insertObj = async () => {
@@ -76,7 +90,7 @@ export const PlusMyObjModal = ({inn, login, list}) => {
         <div className="new_obj">
             <div className="new_obj_title" id="new_obj_title">{title}</div>
             {/*<div className="new_obj_title" id="new_obj_title">{title}</div>*/}
-            <select onChange={e =>{viewTitle(e)}} id="select_obj">
+            <select onChange={e =>{setThisobj(e.target.value)}} id="select_obj">
                 {/*<select onFocus={e =>{readInn()}} onChange={e =>{viewTitle(e)}} id="select_obj">*/}
                 <option value={''} ></option>
                 {list.map((obj, index) => (
@@ -84,8 +98,8 @@ export const PlusMyObjModal = ({inn, login, list}) => {
                 ))}
 
             </select>
-            {/*<div onClick={()=>insertObj()} className="new_obj_btn">Добавить</div>*/}
-            <div  className="new_obj_btn">Добавить</div>
+            {/*<div onClick={()=>createObj()} className="new_obj_btn">Добавить</div>*/}
+            <div onClick={()=>createObj()} className="new_obj_btn">Добавить</div>
         </div>
     )
 }

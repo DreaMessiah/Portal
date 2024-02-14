@@ -9,7 +9,7 @@ import ObjsService from "../../services/ObjsService";
 import {Context} from "../../index";
 
 export default function MyObjs({mass, page}) {
-
+    console.log(mass)
     let objsLoList = [];
 
     const  {store} = useContext(Context)
@@ -36,7 +36,8 @@ export default function MyObjs({mass, page}) {
     }  
 
     const [modal, setModal] = useState(false)
-    const [listObjs, setListObjs] = useState({})
+    const [listObjs, setListObjs] = useState([])
+    const [viewMyObjs, setViewMyObjs] = useState([])
     const [title, setTitle] = useState('Добавить объект')
     const activeModal = active => {
         if(active === false){
@@ -50,7 +51,6 @@ export default function MyObjs({mass, page}) {
 
     }
 
-    ////////// Пробный запрос с выводом в консоль фронта
     const viewAllObjs = async (e) => {
 
         const viewList = await ObjsService.getObjs({inn})
@@ -59,10 +59,18 @@ export default function MyObjs({mass, page}) {
         // setListObjs(viewList.data)
     }
 
+    const getMyObjs = async (e) => {
+
+        const viewList = await ObjsService.listObjsSV({inn, login})
+        setViewMyObjs(viewList.data)
+        console.log(viewList.data)
+    }
+
 
 
     useEffect(() => {
         viewAllObjs()
+        getMyObjs()
     }, [])
 
     console.log(listObjs)
@@ -154,7 +162,7 @@ export default function MyObjs({mass, page}) {
 
             <div className='next-box'>
                 <div className='objs_list'>
-                    {mass.map((item,index) => (
+                    {viewMyObjs.map((item,index) => (
                         <Link key={index} to={`/${page}${page === 'objects' ? '?id=' + item.id : '/' + item.id}`} className='objs_list_item' id={`this_obg_${item.id}`}>
                             <div className="objs_list_item_header"><span>{item.name}</span></div>
                             <div className="objs_list_item_body">
@@ -172,7 +180,7 @@ export default function MyObjs({mass, page}) {
                         </Link>
                     ))}
                     {/*<ModalWin data={<CreateObjModal inn={inn} user={login} arr={objsLoList} title={title} setTitle={setTitle} active={modal} setActive={setModal} listObj={listObjs} stateMass={setListObjs}/>} active={modal} setActive={setModal}/>*/}
-                    <ModalWin data={<PlusMyObjModal inn={inn} login={login} list={listObjs}/>} active={modal} setActive={setModal}/>
+                    <ModalWin data={<PlusMyObjModal inn={inn} login={login} list={listObjs} active={modal} setActive={setModal} setViewMyObjs={setViewMyObjs}/>} active={modal} setActive={setModal}/>
                     {/*<ModalWin data={<PlusMyObjModal inn={inn} user={login} arr={objsLoList} title={title} setTitle={setTitle} active={modal} setActive={setModal} listObj={listObjs} stateMass={setListObjs}/>} active={modal} setActive={setModal}/>*/}
 
                 </div>
