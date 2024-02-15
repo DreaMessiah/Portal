@@ -24,7 +24,6 @@ class UsersService{
         const tokens = tokenService.generateTokens({...userDto})
         await tokenService.saveToken(userDto.id, tokens.refreshToken)
         //console.log(await bcrypt.hash(password,15))
-
         return {...tokens,user: userDto}
     }
 

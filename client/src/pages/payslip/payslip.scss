@@ -28,6 +28,38 @@
     color: #FFF;
     font-size: 1rem;
     border-right: 5px;
+    p{
+
+      line-height: 18px;
+    }
+    h5{
+      margin: 10px 0;
+      span{
+        text-transform: uppercase;
+        text-decoration: underline;
+      }
+    }
+    .button-next{
+      display: flex;
+      align-items: flex-start;
+      justify-content:right;
+
+      .link{
+        cursor: pointer;
+        text-decoration: underline;
+        margin: 20px;
+        font-size: 0.8rem !important;
+        color: rgba(255,255,255,0.6);
+      }.link:hover{
+         text-decoration: none;
+         color: rgba(255,255,255,1);
+      }
+      i{
+        margin-left:5px;
+        font-size: 0.7rem;
+
+      }
+    }
   }
   .select_block {
     width: calc(100% - 20px);
@@ -67,7 +99,7 @@
   }
 
   .calendar_content_payslip{
-    width: calc(100% - 60px);
+    //width: calc(100% - 60px);
     height: calc(100% - 60px);
     max-height: 300px;
     //padding: 10px;
@@ -97,9 +129,6 @@
           text-align: center;
           font-size: 0.7rem;
         }
-
-
-
         .modal_clue{
           position: fixed;
           //margin-left: -25px;
@@ -123,11 +152,13 @@
 
       }
       div.hov:hover{
-
         background-color: rgba(217,217,217,1);
       }
+      .dayview2{
+        background: rgba(170,170,170,1);
+      }
       .dayview0{
-        background: transparent;
+        background: rgba(217,217,217,1);
       }
       .dayview1{
         background: #329DD9;
@@ -135,7 +166,7 @@
         color: #FFF;
       }
       .today{
-        background-color: rgba(217,217,217,1)r;
+        //background-color: rgba(217,217,217,1);
       }
       .over{
         background-color: red;

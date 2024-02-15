@@ -370,7 +370,7 @@ const Objects = sequelize.define('objects',{
 })
 const NumberObjects = sequelize.define('number_objects',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
-    object_id:{type:DataTypes.INTEGER, ref: 'objects'},
+    object_id:{type:DataTypes.INTEGER,ref:'objects'},
     nameobject:{type:DataTypes.STRING},
     user_id:{type:DataTypes.INTEGER,ref:'users'},
     papa:{type:DataTypes.STRING},

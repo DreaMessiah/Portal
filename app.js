@@ -30,34 +30,6 @@ const start = async () => {
         await sequelize.sync({ alter: true })
         console.log('connect to DB')
 
-
-
-
-        const O = 12300
-        const K = 2.2
-        const NDFL = 0.87
-        const ZP = 85700
-
-        const OKLDNDFL = O*K
-
-        let ZPNDFL = ZP / NDFL
-        let NUM = ZPNDFL - OKLDNDFL
-        let PREM = NUM / K
-
-        console.log((PREM+O)*K *NDFL)
-
-        const RK = 0.7
-        const SN = 0.5
-
-        let SUMMRK = ( O + PREM) * RK
-        let SUMMSN = ( O + PREM) * SN
-
-        let PROV = (SUMMSN + SUMMRK + O + PREM) * NDFL
-
-
-
-        console.log(PROV)
-
     }catch (e){
         console.log(e)
 

@@ -550,8 +550,6 @@ export const DataProvider = ({ children }) => {
             text: 'Пользователи'
         }
     ]
-
-
     const titlegraph1 = 'Задачи'
     const graphmass1 = [
         {
@@ -959,7 +957,6 @@ export const DataProvider = ({ children }) => {
             dateinto: '24-04-2024'
         }
     ]
-
     const my_objs = [
         {
             id:11,
@@ -980,7 +977,6 @@ export const DataProvider = ({ children }) => {
             dateinto: '24-04-2024'
         }
     ]
-
     const weldingCrews = [
         {
             id: 1,
@@ -4052,7 +4048,6 @@ export const DataProvider = ({ children }) => {
             ]
         }
     ]
-
     const btns_modules = [
         //табеля
         {
@@ -4092,7 +4087,6 @@ export const DataProvider = ({ children }) => {
         }
 
     ]
-
     const table_tabel = [
         {
             id:1,
@@ -7204,8 +7198,33 @@ export const DataProvider = ({ children }) => {
 
     ]
 
+    const getMonthName = (monthIndex) => {
+        const monthNames = [
+            "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
+            "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"
+        ];
+        return monthNames[monthIndex];
+    }
+
+    const optionsMonth = [
+        { value: '0', label: 'январь' },
+        { value: '1', label: 'февраль' },
+        { value: '2', label: 'март' },
+        { value: '3', label: 'апрель' },
+        { value: '4', label: 'май' },
+        { value: '5', label: 'июнь' },
+        { value: '6', label: 'июль' },
+        { value: '7', label: 'август' },
+        { value: '8', label: 'сентябрь' },
+        { value: '9', label: 'октябрь' },
+        { value: '10', label: 'ноябрь' },
+        { value: '11', label: 'декабрь' }
+    ]
+
     return (
         <DataContext.Provider value={{
+            getMonthName,
+            optionsMonth,
             mass_blocks_admin,
             objs,
             mass_create_bridge,
