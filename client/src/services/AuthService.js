@@ -10,4 +10,7 @@ export default class AuthService{
     static async logout(){
         return $api.post('/auth/logout')
     }
+    static async get13(userid){
+        return $api.post('/t13/get',{userid})
+    }
 }

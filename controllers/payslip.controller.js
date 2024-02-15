@@ -1,17 +1,50 @@
-const PhonesService = require('../service/phones.service')
-const {validationResult} = require('express-validator')
-const ApiError = require('../exceptions/api.error')
+const PayslipService = require('../service/payslip.service')
+const T13Service = require('../service/t13.service')
 class PayslipController {
-    async get(req,res,next) {
+    async getDays(req,res,next) {
         try{
-            const errors = validationResult(req)
-            if(!errors.isEmpty()) next(ApiError.BadRequest('Ошибка при чтении адресной книги',errors.array()))
-            const phonesData = await PhonesService.get()
-            return res.json(phonesData)
+            const daysData = await PayslipService.getdays()
+            return res.json(daysData)
         }catch (e){
             next(e)
         }
     }
-
+    async getInfo(req,res,next) {
+        try{
+            const infoData = await PayslipService.getinfo()
+            return res.json(infoData)
+        }catch (e){
+            next(e)
+        }
+    }
+    async getKtu(req,res,next) {
+        try{
+            const ktuData = await PayslipService.getktu()
+            return res.json(ktuData)
+        }catch (e){
+            next(e)
+        }
+    }
+    async getData(req,res,next) {
+        try{
+            console.log(req.body)
+            const {tn,month,year} = req.body
+            const info = await PayslipService.getinfo(tn,month,year)
+            const DaysToPayslip = await PayslipService.getdays(tn,month,year)
+            const T13 = await T13Service.getMonthForUser(tn,month,year)
+            const ktu = await PayslipService.getktu(tn,month,year)
+            const days = {}
+            if(DaysToPayslip){
+                for (let i = 1;i <= 31;i++){
+                    const key = 'd' + i
+                    if(T13[key].length) days[i] = 2
+                    else days[i] = +DaysToPayslip[key]
+                }
+            }
+            return res.status(200).json({info,days,ktu})
+        }catch (e) {
+            next(e)
+        }
+    }
 }
 module.exports = new PayslipController()

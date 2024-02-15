@@ -88,11 +88,10 @@ function NewsPage(){
                             </div>
                             <div className='polosa'></div>
                             <div className='info'>
-                                <p>ФИО: Барахтянский Владимир Алексеевич</p>
-                                <p>Должность: Разрабочик ПО</p>
-                                <p>Подразделение: Отдел управления инновационной деятельностью</p>
-                                <p>Внутренний телефон: 116</p>
-                                <p>Стаж работы: 2 года 5 месяцев</p>
+                                <p>ФИО: {store.user.full_name}</p>
+                                <p>Должность: {store.t13.developer}</p>
+                                <p>Подразделение: {store.t13.branch}</p>
+                                <p>Стаж работы: {store.onboard}</p>
                             </div>
                         </div>
                         <div className='rows_news'>

@@ -26,7 +26,7 @@ import AdminDashboardPage from "./pages/administrator/AdminDashboardPage";
 import {Controll} from "./pages/controll/Controll";
 import {Context} from "./index";
 import {observer} from "mobx-react-lite";
-import {PayslipPage} from "./pages/payslip/PayslipPage";
+import PayslipPage from "./pages/payslip/PayslipPage";
 import PhonebookPage from "./pages/PhonebookPage";
 
 
