@@ -1,8 +1,10 @@
 import "./tabel.scss";
 import "../welding/yearmounth/viewobj.scss";
 import {Link, useLocation} from "react-router-dom";
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import {DataContext} from "../../context/DataContext";
+import ObjsService from "../../services/ObjsService";
+import {Context} from "../../index";
 
 
 const arr_welding_tabel = [
@@ -126,8 +128,17 @@ export const TabelMY = () => {
 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
-
     let getId = searchParams.get('id');
+    const  {store} = useContext(Context)
+    const inn = store.user.inn
+    const login = store.user.login
+
+    const viewAllTabels = async (e) => {
+
+        const viewList = await ObjsService.getAllTabels({inn})
+        // setListObjs(viewList.data)
+        console.log(viewList.data)
+    }
 
     const {my_objs} = useContext(DataContext)
 
@@ -142,6 +153,9 @@ export const TabelMY = () => {
     console.log(getId)
     console.log(new_arr)
 
+    useEffect(()=>{
+        viewAllTabels()
+    },)
 
 
     return (

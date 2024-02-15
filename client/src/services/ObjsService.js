@@ -13,4 +13,9 @@ export default class ObjsService{
     static async insertObjs(obj){
         return $api.post(`/objects/insertobj`, obj)
     }
+
+    static async getAllTabels(inn){
+        return $api.post(`/objects/getalltabels`, inn)
+    }
+
 }

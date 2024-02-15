@@ -6,6 +6,14 @@ class ObjsService{
         const listObjs = await Objects.findAll({where: {inn:inn}, order: [['shifr', 'ASC']]})
         return listObjs
     }
+
+    async getAllTabels(inn){
+        // const listObjs = await Objects.findAll({where: {inn:inn}, order: [['shifr', 'ASC']]})
+        // return listObjs
+    }
+
+
+
     async showObjects(user){
         const newArr = []
         const newList = []

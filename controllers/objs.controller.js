@@ -12,6 +12,20 @@ class ObjsController {
             next(e)
         }
     }
+
+    async getAllTabels(req,res,next) {
+        try{
+            const inn = req.body.inn
+            console.log(inn)
+            const list = await ObjsService.getAllTabels(inn)
+            // return res.json(list)
+
+        }catch (e){
+            next(e)
+        }
+    }
+
+
         async showObjs(req,res,next) {
             try{
 
