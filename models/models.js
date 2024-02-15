@@ -325,7 +325,7 @@ const TableTabel = sequelize.define('tabletabel',{
     dop30:{type:DataTypes.STRING},
     dop31:{type:DataTypes.STRING}
 })
-const TableZayavka = sequelize.define('table-zayavka',{
+const TableZayavka = sequelize.define('tablezayavka',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     year:{type:DataTypes.STRING},
     month:{type:DataTypes.STRING},
@@ -370,7 +370,7 @@ const Objects = sequelize.define('objects',{
 })
 const NumberObjects = sequelize.define('number_objects',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
-    shifr:{type:DataTypes.STRING},
+    object_id:{type:DataTypes.INTEGER, ref: 'objects'},
     nameobject:{type:DataTypes.STRING},
     user_id:{type:DataTypes.INTEGER,ref:'users'},
     papa:{type:DataTypes.STRING},
@@ -467,6 +467,23 @@ const Ymshifr = sequelize.define('ymshifr',{
     ras:{type:DataTypes.INTEGER},
     inn:{type:DataTypes.STRING},
 })
+const Ktulist = sequelize.define('ktulist',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    name:{type:DataTypes.STRING},
+    tn:{type:DataTypes.STRING},
+    number_doc:{type:DataTypes.INTEGER},
+    inn:{type:DataTypes.STRING},
+    month:{type:DataTypes.STRING},
+    year:{type:DataTypes.STRING},
+    developer:{type:DataTypes.STRING},
+    shifr:{type:DataTypes.STRING},
+    object_id:{type:DataTypes.INTEGER,ref:'objects'},
+    ktudate:{type:DataTypes.DATE},
+    content:{type:DataTypes.TEXT},
+    ktuman:{type:DataTypes.STRING},
+    ktu:{type:DataTypes.FLOAT},
+    percent:{type:DataTypes.INTEGER},
+})
 module.exports = {
-    User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Files,Token,Phonebook,Jobs,Payslip,Ymshifr
+    User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Files,Token,Phonebook,Jobs,Payslip,Ymshifr,Ktulist
 }

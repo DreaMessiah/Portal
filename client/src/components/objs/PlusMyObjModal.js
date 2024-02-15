@@ -9,23 +9,7 @@ export const PlusMyObjModal = ({inn, login, list, active, setActive, setViewMyOb
 
     const [title, setTitle] = useState('Добавить объект')
     const [thisobj, setThisobj] = useState(0)
-    // export const PlusMyObjModal = ({inn, user, active, setActive, title, setTitle, listObj, stateMass}) => {
 
-    // const plusObjOnDisplay = (obj) => {
-    //     const newList = listObj.push(obj)
-    //
-    // }
-
-    // const message = useMessage()
-
-    //
-
-    // const readInn = async (e) => {
-    //     console.log(inn)
-    //     const response = await WeldingService.getObjs({inn})
-    //     console.log(response.data)
-    //     setObjList(response.data)
-    // }
 
     const viewTitle = e => {
         let newTitle;
@@ -56,35 +40,6 @@ export const PlusMyObjModal = ({inn, login, list, active, setActive, setViewMyOb
 
     }
 
-
-  //   const insertObj = async () => {
-  //       console.log(thisobj)
-  //       if(thisobj !== 0) {
-  //           let myObj;
-  //
-  //           objList.forEach(elem => {
-  //               if(elem.id == thisobj){
-  //                   myObj = elem
-  //                   console.log(myObj)
-  //               }
-  //           })
-  //           const listobj = await WeldingService.insertObjs({myObj, user})
-  //           // await WeldingService.insertObjs({myObj, user})
-  //           message('Объект "' + listobj.data.shifr + '" успешно добавлен')
-  //           console.log(listobj.data)
-  //           plusObjOnDisplay(listobj.data)
-  //           setActive(!active)
-  //       }
-  //       // console.log(listobj.data)
-  //       console.log(title)
-  //
-  //
-  // }
-
-
-    ///// itle по умолчанию
-
-    ///
 
     return (
         <div className="new_obj">
