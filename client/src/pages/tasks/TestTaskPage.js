@@ -11,10 +11,12 @@ import PerformersObj from "../../components/PerformersObj";
 import ResultsObj from "../../components/ResultsObj";
 import BridgeLeftBar from "../../components/leftbar/BridgeLeftBar";
 import {useLocation} from "react-router-dom";
+import {observer} from "mobx-react-lite";
+import {Context} from "../../index";
 
-export default function TestTaskPage(){
+function TestTaskPage(){
     const {mass_create,menu_mass,wrap_buttons,dwm2,attach1,performers,results} = useContext(DataContext)
-
+    const {store} = useContext(Context)
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
 
@@ -22,12 +24,22 @@ export default function TestTaskPage(){
     const task = searchParams.get('task');
     const about = searchParams.get('about');
 
-    console.log(about)
+    const currentDate = new Date();
 
+// Получаем компоненты даты и времени
+    const day = currentDate.getDate().toString().padStart(2, '0'); // День
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Месяц (нумерация начинается с 0)
+    const year = currentDate.getFullYear(); // Год
+    const hours = currentDate.getHours().toString().padStart(2, '0'); // Часы
+    const minutes = currentDate.getMinutes().toString().padStart(2, '0'); // Минуты
+
+// Формируем строку в нужном формате
+    const formattedDate = `${day}.${month}.${year} / ${hours}:${minutes}`;
+    const formattedDateTo = `${+day+4}.${month}.${year} / ${hours}:${minutes}`;
     const taskmass =  {
         status:3,
-        datestart:'19.01.2024',
-        dateend:'25.01.2024',
+        datestart:`${formattedDate}`,
+        dateend:`${formattedDateTo}`,
         key:'1044-5',
         level:3,
         link:'/',
@@ -37,7 +49,7 @@ export default function TestTaskPage(){
     const performersmass = {
         main: {
             name:name,
-            date:'12.09.2023 / 12:33',
+            date:`${formattedDate}`,
             job:'Зам. главного механика'
         },
         works: {
@@ -53,15 +65,15 @@ export default function TestTaskPage(){
     }
     const dwm = {
         1: {
-            name: 'Мое Имя Пользователя',
-            date: '12.09.2023 / 12:33',
-            job: 'Моя должность',
+            name: store.user.full_name,
+            date: `${formattedDate}`,
+            job: store.t13.developer,
             status: 'Поставлена задача',
             next: [2]
         },
         2: {
             name: name,
-            date: '12.09.2023 / 12:33',
+            date: `${formattedDateTo}`,
             job: 'Механик',
             status: 'Ожидание',
             next: null
@@ -112,3 +124,4 @@ export default function TestTaskPage(){
         </div>
     )
 }
+export default observer(TestTaskPage)

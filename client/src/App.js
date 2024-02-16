@@ -22,6 +22,7 @@ import { DataProvider } from './context/DataContext';
 import TestTaskPage from "./pages/tasks/TestTaskPage";
 import {ListTasks} from "./pages/listtasks/ListTasks";
 import ObjectsPage from "./pages/objects/ObjectsPage";
+import DocumentsPage from "./pages/documents/DocumentsPage";
 import Thisproject from "./pages/objects/Thisproject";
 import AdminDashboardPage from "./pages/administrator/AdminDashboardPage";
 import {Controll} from "./pages/controll/Controll";
@@ -40,11 +41,9 @@ function App() {
             store.checkAuth()
         }
     },[])
-
     if(store.isLoading){
         return <div>Загрузка...</div>
     }
-
     if(!store.isAuth) return (
         <Router>
             <div className="App">
@@ -54,8 +53,8 @@ function App() {
             </div>
         </Router>
     )
-
     return (
+
         <DataProvider>
             <Router>
                 <div className="App">
@@ -63,6 +62,7 @@ function App() {
                         <Route path="/" element={<NewsPage/>} />
                         <Route path='/main' element={<MainPage/>} />
                         <Route path="/paylist" element={<PayslipPage/>} />
+                        <Route path="/documents" element={<DocumentsPage/>} />
                         <Route path="/settings" element={<SettingsPage/>} />
                         <Route path="/phonebook" element={<PhonebookPage/>} />
                         <Route path="/document" element={<DocumentPage/>} />

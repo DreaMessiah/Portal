@@ -1,5 +1,6 @@
 import React from "react";
 import '../assets/styles/styles.scss'
+import {Link} from "react-router-dom";
 
 export const Menu = () => {
     return (
@@ -8,7 +9,7 @@ export const Menu = () => {
                 <ul>
                     <li>Объекты</li>
                     <li>Сварка</li>
-                    <li>Файлы</li>
+                    <li><Link to='/documents'>Файлы</Link></li>
                 </ul>
             </li>
             <li className="nav_main_menu_item">Производственный учет
@@ -18,8 +19,8 @@ export const Menu = () => {
                 </ul></li>
             <li className="nav_main_menu_item">Документы
                 <ul>
-                    <li>Документооборот</li>
-                    <li>Файловый менеджер</li>
+                    <li><Link to='/documents'>Документооборот</Link></li>
+                    <li><Link to='/documents'>Файловый менеджер</Link></li>
                 </ul></li>
             <li className="nav_main_menu_item">Задачи
                 <ul>

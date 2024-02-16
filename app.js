@@ -29,11 +29,8 @@ const start = async () => {
         await sequelize.authenticate()
         await sequelize.sync({ alter: true })
         console.log('connect to DB')
-
     }catch (e){
         console.log(e)
-
-
     }
 }
 

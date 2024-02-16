@@ -970,7 +970,7 @@ html{
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 130px;
   width: 100%;
   .block{
     width: 60%;
@@ -1558,6 +1558,10 @@ html{
       font-size: 0.7rem;
     }
   }
+  .button:hover{
+    background-color: $greyColor;
+    color: $whiteColor;
+  }
 }
 .intoIcon{
   background-image: url("../images/intoIcon.svg");
@@ -1946,7 +1950,7 @@ html{
       width: 100%;
       min-height: 60px;
       top: 120px;
-      left: 0px;
+      left: 0;
       background: rgb(0,0,0);
       background: rgba(0,0,0,0.7);
       backdrop-filter: blur(5px);
@@ -1955,6 +1959,9 @@ html{
       li {
         padding: 20px 30px 10px 30px;
         height: 100%;
+        a{
+          color: #FFF;
+        }
       }
       li:hover{
         text-decoration: underline;
