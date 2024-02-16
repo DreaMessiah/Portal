@@ -15,14 +15,29 @@ class ObjsController {
 
     async getAllTabels(req,res,next) {
         try{
-            const inn = req.body.inn
-            console.log(inn)
-            const list = await ObjsService.getAllTabels(inn)
-            return res.status(200).json('ok')
+            const search = req.body
+            console.log(search)
+            const list = await ObjsService.getAllTabels(search)
+            return res.status(200).json(list)
         }catch (e){
             next(e)
         }
     }
+
+    async createTabels(req,res,next) {
+        try{
+
+            const tabel = req.body
+
+            const list = await ObjsService.createTabels(tabel)
+            return res.status(200).json(list)
+
+        }catch (e){
+            next(e)
+        }
+    }
+
+
 
 
         async showObjs(req,res,next) {

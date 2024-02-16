@@ -28,16 +28,6 @@ const Token = sequelize.define('token',{
     device_token:{type:DataTypes.TEXT},
     refresh_token:{type:DataTypes.TEXT,require:true}
 })
-const Files = sequelize.define('files',{
-    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
-    name:{type:DataTypes.STRING},
-    type:{type:DataTypes.STRING},
-    size:{type:DataTypes.STRING},
-    access_link:{type:DataTypes.TEXT},
-    user_id:{type:DataTypes.INTEGER,ref:'users'},
-    object_id:{type:DataTypes.INTEGER,ref:'objects'},
-    parent_id:{type:DataTypes.INTEGER}
-})
 const T13 = sequelize.define('t13', {
     id:{type:DataTypes.INTEGER,primaryKey: true,autoIncrement:true},
     name:{type:DataTypes.TEXT},
@@ -484,6 +474,17 @@ const Ktulist = sequelize.define('ktulist',{
     ktu:{type:DataTypes.FLOAT},
     percent:{type:DataTypes.INTEGER},
 })
+const Files = sequelize.define('files',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    name:{type:DataTypes.STRING},
+    type:{type:DataTypes.STRING},
+    size:{type:DataTypes.INTEGER,default:0},
+    access_link:{type:DataTypes.TEXT},
+    path:{type:DataTypes.TEXT,default: ''},
+    user_id:{type:DataTypes.INTEGER,ref:'users'},
+    parent_id:{type:DataTypes.INTEGER,ref:'files'},
+    child_id:{type:DataTypes.ARRAY(DataTypes.INTEGER), ref:'files'}
+})
 module.exports = {
-    User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Files,Token,Phonebook,Jobs,Payslip,Ymshifr,Ktulist
+    User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Ktulist,Files
 }

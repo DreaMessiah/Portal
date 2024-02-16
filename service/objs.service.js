@@ -1,18 +1,29 @@
-const {Objects, NumberObjects} = require('../models/models')
+const {Objects, NumberObjects, Ymshifr} = require('../models/models')
 const ObjsDto = require('../dtos/objsDto')
 const ApiError = require('../exceptions/api.error')
+const {DataTypes} = require("sequelize");
 class ObjsService{
     async getObjects(inn){
         const listObjs = await Objects.findAll({where: {inn:inn}, order: [['shifr', 'ASC']]})
         return listObjs
     }
 
-    async getAllTabels(inn){
-        // const listObjs = await Objects.findAll({where: {inn:inn}, order: [['shifr', 'ASC']]})
-        // return listObjs
+    async getAllTabels(search){
+        console.log(search)
+        const listObjs = await Ymshifr.findAll({where: {object_id:search.getId, inn:search.inn}, order: [['year', 'DESC']]})
+        return listObjs
     }
 
+    async createTabels(tabel){
+        console.log(tabel)
+        const idobj = parseInt(tabel.getId)
+        await Ymshifr.create({object_id:idobj, shifr:idobj, month:tabel.selMonth, year:tabel.selYear, inn:tabel.inn})
+        const list = await Ymshifr.findAll({where: {object_id:tabel.getId, inn:tabel.inn}, order: [['year', 'DESC']]})
 
+
+
+        return list
+    }
 
     async showObjects(user){
         const newArr = []
