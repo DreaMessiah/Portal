@@ -485,7 +485,10 @@ const Files = sequelize.define('files',{
     parent_id:{type:DataTypes.INTEGER,ref:'files'},
     child_id:{type:DataTypes.ARRAY(DataTypes.INTEGER), ref:'files'}
 })
+<<<<<<< HEAD
 
+=======
+>>>>>>> tabels
 module.exports = {
     User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Ktulist,Files
 }

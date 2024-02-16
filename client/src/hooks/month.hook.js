@@ -3,7 +3,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export const useMonth = () => {
     return useCallback(num => {
-
+        num = parseInt(num)
         const mounths = {
             0: 'январь',
             1: 'февраль',
