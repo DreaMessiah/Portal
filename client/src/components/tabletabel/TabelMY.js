@@ -123,7 +123,6 @@ const arr_welding_tabel = [
     
 ];
 
-
 export const TabelMY = () => {
 
     const location = useLocation();
@@ -134,11 +133,12 @@ export const TabelMY = () => {
     const login = store.user.login
 
     const viewAllTabels = async (e) => {
-
         const viewList = await ObjsService.getAllTabels({inn})
+
         // setListObjs(viewList.data)
         console.log(viewList.data)
     }
+
 
     const {my_objs} = useContext(DataContext)
 

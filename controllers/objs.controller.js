@@ -18,8 +18,7 @@ class ObjsController {
             const inn = req.body.inn
             console.log(inn)
             const list = await ObjsService.getAllTabels(inn)
-            // return res.json(list)
-
+            return res.status(200).json('ok')
         }catch (e){
             next(e)
         }

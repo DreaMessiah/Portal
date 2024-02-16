@@ -54,7 +54,6 @@ class WeldingController {
             const list = await WeldingService.getObgForHook(id)
             return res.json(list.dataValues)
         }catch (e){
-
             console.log('---------------------{ХРЕНЬ}----------------------------')
             console.log('---------------------{ХРЕНЬ}----------------------------')
             console.log('---------------------{ХРЕНЬ}----------------------------')

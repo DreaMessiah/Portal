@@ -30,13 +30,7 @@ class PayslipService {
         if(!ktu) return []
         return ktu
     }
-    async getdata() {
-        //const book = await Phonebook.findAll({order:[['order', 'ASC']]})
-        //if(!book) throw ApiError.BadRequest('База с контактами пуста')
-        //const phonesDto = new PhonesDto(book)
-        //console.log(book)
-        return
-    }
+
 
 }
 module.exports = new PayslipService()
