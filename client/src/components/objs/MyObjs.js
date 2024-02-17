@@ -77,6 +77,8 @@ export default function MyObjs({mass, page}) {
 
 
 
+
+
     const openShifrBlock = (putId) => {
 
         setThisURL(putId)

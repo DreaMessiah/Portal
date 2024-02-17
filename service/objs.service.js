@@ -1,4 +1,4 @@
-const {Objects, NumberObjects, Ymshifr} = require('../models/models')
+const {Objects, NumberObjects, Ymshifr, T13, TableTabel} = require('../models/models')
 const ObjsDto = require('../dtos/objsDto')
 const ApiError = require('../exceptions/api.error')
 const {DataTypes} = require("sequelize");
@@ -65,6 +65,17 @@ class ObjsService{
         const listObjs = await NumberObjects.findAll({where: {inn:obj.inn, login:obj.login}, order: [['id', 'DESC']]})
         return listObjs
     }
+
+    async getT13(params){
+        const listMan = await T13.findAll({where: {inn:params.inn, month:params.month, year:params.year}, order: [['name', 'ASC']]})
+        return listMan
+    }
+
+    async listTabelMans(params){
+        const listTabel = await TableTabel.findAll({where: {inn:params.inn, object_id:params.shifre, month:params.month, year:params.year}, order: [['name', 'ASC']]})
+        return listTabel
+    }
+
 
 
 }
