@@ -22,4 +22,16 @@ export default class ObjsService{
         return $api.post(`/objects/createtabel`, tabel)
     }
 
+    static async getT13(params){
+        console.log(params)
+        return $api.post(`/objects/gett13`, params)
+    }
+
+    static async listTabelMans(params){
+        console.log(params)
+        return $api.post(`/objects/listtabel`, params)
+    }
+
+
+
 }

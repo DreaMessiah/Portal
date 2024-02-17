@@ -67,5 +67,29 @@ class ObjsController {
     }
 
 
+    async getT13(req,res,next) {
+        try{
+            const params = req.body
+            const list = await ObjsService.getT13(params)
+            return res.json(list)
+
+        }catch (e){
+            next(e)
+        }
+    }
+
+    async listTabelMans(req,res,next) {
+        try{
+            const params = req.body
+            const list = await ObjsService.listTabelMans(params)
+            return res.json(list)
+
+        }catch (e){
+            next(e)
+        }
+    }
+
+
+
 }
 module.exports = new ObjsController()
