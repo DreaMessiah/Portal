@@ -1924,6 +1924,11 @@ html{
   align-items: center;
   color: #FFF;
   list-style-position: outside;
+  li{
+    a{
+      color: #FFF;
+    }
+  }
   li:hover ul {
     display: flex;
     justify-content: center;
@@ -1959,9 +1964,7 @@ html{
       li {
         padding: 20px 30px 10px 30px;
         height: 100%;
-        a{
-          color: #FFF;
-        }
+
       }
       li:hover{
         text-decoration: underline;

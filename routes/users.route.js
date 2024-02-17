@@ -20,6 +20,7 @@ router.post('/registration',
 
 ///////////////////////////////////////////////////////////////
 router.get('/users',authMiddlewere,usersController.refresh)
+router.get('/get',authMiddlewere,usersController.get)
 //Запрос выполниться только для авторизованных пользователей !
 ////////////////////////////////////////////////////////////////
 

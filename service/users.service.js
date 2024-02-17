@@ -44,5 +44,11 @@ class UsersService{
 
         return {...tokens,user: userDto}
     }
+
+    async get() {
+        const users = await User.findAll({order: [['id', 'ASC']], limit: 30})
+        if(!users) throw ApiError.BadRequest('Ошибка получения списка пользователей')
+        return {users}
+    }
 }
 module.exports = new UsersService()

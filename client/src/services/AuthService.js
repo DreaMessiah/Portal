@@ -13,4 +13,7 @@ export default class AuthService{
     static async get13(userid){
         return $api.post('/t13/get',{userid})
     }
+    static async getusers(){
+        return $api.get('/auth/get')
+    }
 }

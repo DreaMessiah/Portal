@@ -31,7 +31,7 @@ import {observer} from "mobx-react-lite";
 import PayslipPage from "./pages/payslip/PayslipPage";
 import PhonebookPage from "./pages/PhonebookPage";
 import {CrewsPage} from "./pages/welding/CrewsPage";
-
+import PeoplesPage from "./pages/PeoplesPage";
 
 
 function App() {
@@ -83,6 +83,7 @@ function App() {
                         <Route path="/tabel" element={<TabelObj/>} />
                         <Route path="/table-tabel" element={<TableTabel/>} />
                         <Route path="/thisproject" element={<Thisproject />} />
+                        <Route path="/peoples" element={<PeoplesPage />} />
                     </Routes>
                 </div>
             </Router>

@@ -5,31 +5,31 @@ import {Link} from "react-router-dom";
 export const Menu = () => {
     return (
         <ul className="nav_main_menu">
-            <li className="nav_main_menu_item">Проекты / Объекты
+            <li className="nav_main_menu_item"><Link to='/main'>Проекты / Объекты</Link>
                 <ul>
-                    <li>Объекты</li>
-                    <li>Сварка</li>
+                    <li><Link to='/welding'>Объекты</Link></li>
+                    <li><Link to='/welding'>Сварка</Link></li>
                     <li><Link to='/documents'>Файлы</Link></li>
                 </ul>
             </li>
             <li className="nav_main_menu_item">Производственный учет
                 <ul>
-                    <li>Сварка</li>
-                    <li>Звенья / Бригады</li>
+                    <li><Link to='/welding'>Сварка</Link></li>
+                    <li><Link to='/welding'>Звенья / Бригады</Link></li>
                 </ul></li>
-            <li className="nav_main_menu_item">Документы
+            <li className="nav_main_menu_item"><Link to='/documents'>Документы</Link>
                 <ul>
                     <li><Link to='/documents'>Документооборот</Link></li>
                     <li><Link to='/documents'>Файловый менеджер</Link></li>
                 </ul></li>
-            <li className="nav_main_menu_item">Задачи
+            <li className="nav_main_menu_item"><Link to='/docpasslist'>Задачи</Link>
                 <ul>
-                    <li>Планировщик задач</li>
-                    <li>Совещание</li>
-                    <li>Календарь</li>
+                    <li><Link to='/docpasslist'>Планировщик задач</Link></li>
+                    <li><Link to='/tasks'>Совещание</Link></li>
+                    <li><Link to='/main'>Календарь</Link></li>
                 </ul></li>
             <li className="nav_main_menu_item">Отчёты</li>
-            <li className="nav_main_menu_item">Сотрудники</li>
+            <li className="nav_main_menu_item"><Link to='/peoples'>Сотрудники</Link></li>
         </ul>
     )
 }

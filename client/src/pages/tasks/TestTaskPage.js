@@ -10,20 +10,20 @@ import AttachObj from "../../components/AttachObj";
 import PerformersObj from "../../components/PerformersObj";
 import ResultsObj from "../../components/ResultsObj";
 import BridgeLeftBar from "../../components/leftbar/BridgeLeftBar";
-import {useLocation} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {observer} from "mobx-react-lite";
 import {Context} from "../../index";
+import {useMessage} from "../../hooks/message.hook";
 
 function TestTaskPage(){
     const {mass_create,menu_mass,wrap_buttons,dwm2,attach1,performers,results} = useContext(DataContext)
     const {store} = useContext(Context)
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
-
     const name = searchParams.get('name');
     const task = searchParams.get('task');
     const about = searchParams.get('about');
-
+    const message = useMessage()
     const currentDate = new Date();
 
 // Получаем компоненты даты и времени
@@ -112,9 +112,9 @@ function TestTaskPage(){
                             <div className='bottom-box'>
                                 <ResultsObj obj={results}/>
                                 <div className='docbuttons'>
-                                    <div className='button'><p>Подписать/Направить</p></div>
-                                    <div className='button'><p>Вернуть на доработку</p></div>
-                                    <div className='button'><p>Закрыть</p></div>
+                                    <div className='button' onClick={() => message('Документ подписан')}><Link to=''><p>Подписать/Направить</p></Link></div>
+                                    <div className='button'><Link to='/docpasslist'><p>Вернуть на доработку</p></Link></div>
+                                    <div className='button'><Link to='/docpasslist'><p>Закрыть</p></Link></div>
                                 </div>
                             </div>
                         </div>
