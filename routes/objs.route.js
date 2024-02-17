@@ -7,6 +7,8 @@ router.post('/viewobjs', objsController.showObjs)
 router.post('/insertobj', objsController.insertObjs)
 router.post('/getalltabels', objsController.getAllTabels)
 router.post('/createtabel', objsController.createTabels)
+router.post('/gett13', objsController.getT13)
+router.post('/listtabel', objsController.listTabelMans)
 
 
 module.exports = router

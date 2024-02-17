@@ -54,6 +54,7 @@
     .tabwelding_header_upper_title{
         span{
           margin-right: 20px;
+          margin-left: 20px;
         }
     }
     .tabwelding_header_upper_controlbtn{
@@ -91,6 +92,9 @@
       align-items: center;
       color: #FFF;
       cursor: pointer;
+    }
+    .tabwelding_header_newcrewblock_plusbtn:hover{
+      opacity: 0.9;
     }
   }
 }
