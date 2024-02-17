@@ -7,7 +7,7 @@ export const Menu = () => {
         <ul className="nav_main_menu">
             <li className="nav_main_menu_item"><Link to='/main'>Проекты / Объекты</Link>
                 <ul>
-                    <li><Link to='/welding'>Объекты</Link></li>
+                    <li><Link to='/objects'>Объекты</Link></li>
                     <li><Link to='/welding'>Сварка</Link></li>
                     <li><Link to='/documents'>Файлы</Link></li>
                 </ul>
