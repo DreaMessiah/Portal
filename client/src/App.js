@@ -32,7 +32,7 @@ import PayslipPage from "./pages/payslip/PayslipPage";
 import PhonebookPage from "./pages/PhonebookPage";
 import {CrewsPage} from "./pages/welding/CrewsPage";
 import PeoplesPage from "./pages/PeoplesPage";
-
+import ODataPage from "./pages/ODataPage";
 
 function App() {
     const {store} = useContext(Context)
@@ -84,6 +84,7 @@ function App() {
                         <Route path="/table-tabel" element={<TableTabel/>} />
                         <Route path="/thisproject" element={<Thisproject />} />
                         <Route path="/peoples" element={<PeoplesPage />} />
+                        <Route path="/odata" element={<ODataPage />} />
                     </Routes>
                 </div>
             </Router>
