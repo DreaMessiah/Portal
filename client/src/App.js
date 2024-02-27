@@ -33,6 +33,7 @@ import PhonebookPage from "./pages/PhonebookPage";
 import {CrewsPage} from "./pages/welding/CrewsPage";
 import PeoplesPage from "./pages/PeoplesPage";
 import ODataPage from "./pages/ODataPage";
+import ChatPage from "./pages/conference/ChatPage";
 
 function App() {
     const {store} = useContext(Context)
@@ -85,6 +86,7 @@ function App() {
                         <Route path="/thisproject" element={<Thisproject />} />
                         <Route path="/peoples" element={<PeoplesPage />} />
                         <Route path="/odata" element={<ODataPage />} />
+                        <Route path="/conference" element={<ChatPage />} />
                     </Routes>
                 </div>
             </Router>

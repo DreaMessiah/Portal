@@ -9,6 +9,8 @@ const router = require('./routes/index')
 const mailService = require('./service/mail.service')
 const errorMiddlewere = require('./middleware/error.middlewere')
 
+
+
 app.use(cookieParser())
 app.use(cors({
     credentials: true,

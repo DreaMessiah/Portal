@@ -1,11 +1,11 @@
 const ApiError = require('../exceptions/api.error')
-const {method} = require('middleware/odata.middleware')
+const {method} = require('../middleware/odata.middleware')
 class OdataService{
     async getpeoples() {
         const response = await fetch("http://192.168.0.19:3000/SRSUHRM31/odata/standard.odata/Catalog_Сотрудники?$format=json", method)
         return await response.json()
     }
-    async getuvol() {
+    async getdata() {
         const response = await fetch('http://192.168.0.19:3000/SRSUHRM31/odata/standard.odata/InformationRegister_ТекущиеКадровыеДанныеСотрудников?$format=json',method )
         return response.json()
     }

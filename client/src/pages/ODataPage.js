@@ -8,6 +8,8 @@ import WrapButtonsObj from "../components/WrapButtonsObj";
 import SearchObj from "../components/SearchObj";
 import ChangeObj from "../components/ChangeObj";
 
+import * as XLSX from 'xlsx';
+
 import "../components/listtasks/listtask2.scss";
 import NewsFooter from "../components/NewsFooter";
 function OdataPage(){
@@ -18,7 +20,7 @@ function OdataPage(){
         try {
             const response = await OdataService.getpeoples()
             if (response.data) {
-
+                //exportToExcel(response.data)
             }
             console.log(response.data)
         }catch (e) {
@@ -29,6 +31,22 @@ function OdataPage(){
     useEffect(()=> {
         const promise = loading()
     },[])
+
+    function exportToExcel(jsonData){
+        const wb = XLSX.utils.book_new();
+        const ws_name = 'Sheet1';
+
+        const ws_data = jsonData.map( (obj,index) => {
+            return [index, obj.Description, obj.Code,obj.ДатаПриема,obj.ДатаУвольнения,obj.ОформленПоТрудовомуДоговору];
+        });
+
+        const ws = XLSX.utils.aoa_to_sheet(ws_data);
+
+        XLSX.utils.book_append_sheet(wb, ws, ws_name);
+
+        // Сохраняем файл
+        XLSX.writeFile(wb, 'output.xlsx');
+    }
 
     return(
         <div className='container'>
