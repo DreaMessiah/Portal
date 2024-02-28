@@ -1,0 +1,14 @@
+.fastbtns_block{
+  width: calc(35% - 20px);
+  height: 250px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  .fastbtns_block_btn{
+    .fastbtns_block_btn_box{
+      .fastbtns_block_btn_radius{}
+      .fastbtns_block_btn_icon{}
+      .fastbtns_block_btn_text{}
+    }
+  }
+}
