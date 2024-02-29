@@ -35,6 +35,7 @@ import PeoplesPage from "./pages/PeoplesPage";
 import ODataPage from "./pages/ODataPage";
 import ChatPage from "./pages/conference/ChatPage";
 import NewstartPage from "./pages/NewstartPage";
+import LkNewPortal from "./pages/lknewportal/LkNewPortal";
 
 function App() {
     const {store} = useContext(Context)
@@ -63,6 +64,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={<NewsPage/>} />
                         <Route path="/new" element={<NewstartPage/>} />
+                        <Route path="/new_lk" element={<LkNewPortal/>} />
                         <Route path='/main' element={<MainPage/>} />
                         <Route path="/paylist" element={<PayslipPage/>} />
                         <Route path="/documents" element={<DocumentsPage/>} />

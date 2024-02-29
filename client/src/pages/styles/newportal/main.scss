@@ -13,6 +13,7 @@
     color: #F1F1F1;
     position: sticky;
     top: 0px;
+    z-index: 100;
     .head_block{
       padding: 0 20px;
       display: flex;
@@ -77,12 +78,12 @@
           display: flex;
           justify-content: flex-start;
           align-items: center;
+          color: #F1F1F1;
           .head_block_lk_photo{
             width: 40px;
             height: 40px;
-            background-image: url('../../../assets/profile/photoprofile.png');
+            background-image: url('../../../../public/profile/photoprofile.png');
             background-size: cover;
-            background-position: center center;
             background-position: center center;
             border-radius: 100%;
             margin-right: 10px;

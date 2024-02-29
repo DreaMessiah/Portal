@@ -1,0 +1,218 @@
+.lk_block{
+  .lk_block_params{
+    display: flex;
+
+    .lk_block_params_photo{
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background-position: center center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      width: 250px;
+      height: 360px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.5s;
+
+      .lk_block_params_photo_black{
+        position: absolute;
+        width: 250px;
+        height: 360px;
+        background-color: rgba(0,0,0,0.5);
+        border-radius: 10px;
+        display: none;
+        transition: 0.5s;
+      }
+      .lk_block_params_photo_open{
+        display: none;
+        transition: 0.5s;
+        justify-content: flex-end;
+        align-items: flex-end;
+        width: 230px;
+        height: 340px;
+        position: absolute;
+        color: #F1F1F1;
+        font-size: 20pt;
+        i{
+          padding: 10px;
+          border: 1px solid #F1F1F1;
+          border-radius: 10px;
+          cursor: pointer;
+        }
+
+      }
+      .lk_block_params_photo_upload{
+        display: none;
+        transition: 0.5s;
+        justify-content: flex-end;
+        align-items: flex-end;
+        width: 230px;
+        height: 340px;
+        position: absolute;
+        color: #F1F1F1;
+        font-size: 20pt;
+        i{
+          padding: 10px;
+          border: 1px solid #F1F1F1;
+          border-radius: 10px;
+          cursor: pointer;
+        }
+
+      }
+
+      .lk_block_params_photo_open:hover{
+        opacity: 0.8;
+        color: rgba(255,255,255,0.8);
+      }
+      .lk_block_params_photo_upload:hover{
+        opacity: 0.8;
+        color: rgba(255,255,255,0.8);
+      }
+
+    }
+    .lk_block_params_photo:hover{
+      transition: 0.5s;
+      .lk_block_params_photo_black{
+        display: block;
+        transition: 0.5s;
+      }
+
+      .lk_block_params_photo_open{
+        display: flex;
+        transition: 0.5s;
+        justify-content: flex-end;
+        align-items: flex-end;
+        width: 230px;
+        height: 340px;
+        position: absolute;
+        color: #F1F1F1;
+        font-size: 20pt;
+        i{
+          padding: 10px;
+          border: 1px solid #F1F1F1;
+          border-radius: 10px;
+          cursor: pointer;
+        }
+      }
+      .lk_block_params_photo_upload{
+        display: flex;
+        transition: 0.5s;
+        justify-content: flex-end;
+        align-items: flex-end;
+        width: 180px;
+        height: 340px;
+        position: absolute;
+        color: #F1F1F1;
+        font-size: 20pt;
+        i{
+          padding: 10px;
+          border: 1px solid #F1F1F1;
+          border-radius: 10px;
+          margin: 0 5px;
+          cursor: pointer;
+        }
+
+      }
+    }
+    .lk_block_params_personaldata{
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      width: 400px;
+      min-height: 100%;
+      margin: 0 20px;
+      .lk_block_params_personaldata_edit{
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        .lk_block_params_personaldata_edit_btn{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 5px 20px;
+          border: 1px solid #CCC;
+          border-radius: 2px;
+          cursor: pointer;
+        }
+        .lk_block_params_personaldata_edit_btn:hover{
+          opacity: 0.8;
+        }
+      }
+      .lk_block_params_personaldata_fio{
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: calc(100% - 20px);
+        margin-top: 20px;
+        padding: 5px 10px;
+        background-color: #FFF;
+        border-radius: 2px;
+        border: none;
+      }
+      .lk_block_params_personaldata_dev{
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: calc(100% - 20px);
+        margin-top: 10px;
+        padding: 10px 10px;
+        background-color: #FFF;
+        border-radius: 2px;
+        border: none;
+      }
+      .lk_block_params_personaldata_otdel{
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: calc(100% - 20px);
+        margin-top: 10px;
+        padding: 10px 10px;
+        background-color: #FFF;
+        border-radius: 2px;
+        border: none;
+      }
+      .lk_block_params_personaldata_tn{
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: calc(100% - 20px);
+        margin-top: 10px;
+        padding: 10px 10px;
+        background-color: #FFF;
+        border-radius: 2px;
+        border: none;
+      }
+      .lk_block_params_personaldata_login{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin-top: 10px;
+        .lk_block_params_personaldata_login_name{
+          width: 50%;
+        }
+        .lk_block_params_personaldata_login_btnpassword{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 10px 20px;
+          border: 1px solid #CCC;
+          border-radius: 2px;
+          cursor: pointer;
+        }
+        .lk_block_params_personaldata_login_btnpassword:hover{
+          opacity: 0.8;
+        }
+      }
+    }
+
+  }
+
+}
+
+.displaynone{
+  display: none !important;
+}

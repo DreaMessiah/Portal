@@ -1,15 +1,10 @@
-import {Slider} from "../slider/Slider";
 import "./style.scss"
-import {FastBtns} from "../fastbtns/FastBtns";
 
 
-export const WorkPage = () => {
+export const WorkPage = ({data}) => {
     return (
         <div className="workpage_block">
-            <div className="workpage_block_slider">
-                <Slider />
-                <FastBtns />
-            </div>
+            {data}
         </div>
     )
 }
