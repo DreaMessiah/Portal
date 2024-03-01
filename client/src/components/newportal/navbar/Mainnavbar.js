@@ -21,10 +21,10 @@ export const Mainnavbar = () => {
                     <div className="navbar_block_menu_strock_icon icon_forest"></div>
                     <div className="navbar_block_menu_strock_description">Структура компании</div>
                 </div>
-                <div className="navbar_block_menu_strock">
+                <Link to='/documents' className="navbar_block_menu_strock">
                     <div className="navbar_block_menu_strock_icon icon_doc"></div>
                     <div className="navbar_block_menu_strock_description">Документы</div>
-                </div>
+                </Link>
                 <div className="navbar_block_menu_strock">
                     <div className="navbar_block_menu_strock_icon icon_task"></div>
                     <div className="navbar_block_menu_strock_description">Задачи и Проекты</div>
@@ -37,7 +37,7 @@ export const Mainnavbar = () => {
                     <div className="navbar_block_menu_strock_icon" style={{display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#FFF', fontSize: '16pt'}}><i className="fa-regular fa-gem"></i></div>
                     <div className="navbar_block_menu_strock_description">Витирина</div>
                 </Link>
-                <Link to="/paylist" className="navbar_block_menu_strock">
+                <Link to="/newpaylist" className="navbar_block_menu_strock">
                     <div className="navbar_block_menu_strock_icon" style={{display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#FFF', fontSize: '16pt'}}><i className="fa-brands fa-google-wallet"></i></div>
                     <div className="navbar_block_menu_strock_description">Расчётка</div>
                 </Link>
