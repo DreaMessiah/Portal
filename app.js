@@ -54,7 +54,7 @@ app.use(cors({
 // })
 
 //////////////
-
+app.use('/files', express.static(config.get('file_path')));
 app.use(cookieParser())
 app.use(express.json({ extended: true }))
 app.use(express.urlencoded({ extended: true }))
@@ -66,6 +66,7 @@ const start = async () => {
         app.listen(PORT,() => {
             console.log('Server started on port : ', PORT)
         })
+
         //await mailService.sendActivationMail('test@gmail.com','test!')
         await sequelize.authenticate()
         //await sequelize.sync({ alter: true })

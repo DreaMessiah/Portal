@@ -483,7 +483,8 @@ const Files = sequelize.define('files',{
     path:{type:DataTypes.TEXT,default: ''},
     user_id:{type:DataTypes.INTEGER,ref:'users'},
     parent_id:{type:DataTypes.INTEGER,ref:'files'},
-    child_id:{type:DataTypes.ARRAY(DataTypes.INTEGER), ref:'files'}
+    child_id: {type: DataTypes.ARRAY(DataTypes.INTEGER)},
+    basket:{type:DataTypes.BOOLEAN,default:false},
 })
 
 module.exports = {

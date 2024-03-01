@@ -18,6 +18,7 @@ $purpleColor:rgba(147, 112, 219, 1);
 $orangeColor:#FEAA2D;
 $blueColor:#00E4E4;
 $greenColor:#04B800;
+$fileColor:rgba(253,224,183,1);
 $yellowColor:rgba(255, 255, 0, 1);
 $transBlackColor:rgba(30,30,30,0.8);
 $transwwBlackColor:rgba(60,60,60,0.5);
@@ -2024,6 +2025,119 @@ html{
       align-items: center;
       margin-bottom: 10px;
       cursor: pointer;
+    }
+  }
+}
+//650 340
+.file-manager{
+  width: 100%;
+  .file-header{
+    border-top: 1px solid $wgreyColor;
+    border-bottom: 1px solid $wgreyColor;
+    padding: 16px;
+    margin: 20px 20px 0 20px;
+    .file-path{
+      display: flex;
+      justify-content: space-between;
+      i{
+        font-size: 1.6rem;
+        color: $greyColor;
+        cursor: pointer;
+        margin: 0 10px;
+      }
+      i:hover,.selected{
+        color: $blackColor;
+      }
+      i.selected{
+        color: $blackColor;
+      }
+      .r{
+
+      }
+      .l{
+        display: flex;
+        flex-direction: row;
+        .path{
+          display: flex;
+          flex-direction: row;
+          .path-item{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            .ch{
+              font-size: 0.6rem;
+              margin-top: 5px;
+              cursor: default;
+            }
+            p{
+              font-size: 0.8rem;
+              cursor: pointer;
+
+            }
+            p:hover{
+              text-decoration: underline;
+            }
+          }
+        }
+
+      }
+    }
+  }
+  .files{
+    .file{
+      padding: 10px;
+      i{
+        color: #cccccc;
+      }
+    }
+    .file:hover{
+      background-color: rgba(1,1,1,0.07);
+    }
+    .selected{
+      background-color: rgba(1,1,1,0.03);
+    }
+  }
+  .files-table{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: left;
+    padding: 20px;
+    .file{
+      margin: 0 10px;
+      cursor: pointer;
+      i{
+        font-size: 3rem;
+
+      }
+      p{
+        margin-top: 3px;
+        font-size: 0.6rem;
+        text-align: center;
+      }
+    }
+  }
+  .files-list{
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+    padding: 20px;
+    .file{
+      padding: 3px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: row;
+      i{
+        font-size: 1.3rem;
+
+      }
+      p{
+        margin-top: 3px;
+        margin-left: 5px;
+        font-size: 0.6rem;
+        text-align: center;
+      }
     }
   }
 }

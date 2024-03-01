@@ -7197,6 +7197,49 @@ export const DataProvider = ({ children }) => {
         }
 
     ]
+    const docs = [
+        { id: 1, title: 'Договор аренды', category: 'Юридические документы', size: '1.2 MB', fileType: 'PDF', fileName: 'dogovor_arendy.pdf' },
+        { id: 2, title: 'Техническое задание', category: 'Проектная документация', size: '3.5 MB', fileType: 'DOCX', fileName: 'technical_specification.docx' },
+        { id: 3, title: 'Финансовый отчет', category: 'Финансовые документы', size: '750 KB', fileType: 'XLSX', fileName: 'financial_report.xlsx' },
+        { id: 4, title: 'Спецификация товаров', category: 'Торговая документация', size: '2.1 MB', fileType: 'PDF', fileName: 'specification_goods.pdf' },
+        { id: 5, title: 'План маркетинга', category: 'Маркетинговые документы', size: '4.8 MB', fileType: 'PPTX', fileName: 'marketing_plan.pptx' },
+        { id: 6, title: 'Трудовой договор', category: 'Кадровые документы', size: '980 KB', fileType: 'DOCX', fileName: 'employment_contract.docx' },
+        { id: 7, title: 'Счет-фактура', category: 'Финансовые документы', size: '1.6 MB', fileType: 'PDF', fileName: 'invoice.pdf' },
+        { id: 8, title: 'Проектный план', category: 'Проектная документация', size: '2.9 MB', fileType: 'PPTX', fileName: 'project_plan.pptx' },
+        { id: 9, title: 'Устав организации', category: 'Юридические документы', size: '1.1 MB', fileType: 'PDF', fileName: 'charter.pdf' },
+        { id: 10, title: 'Спецификация программного обеспечения', category: 'IT-документация', size: '6.2 MB', fileType: 'DOCX', fileName: 'software_specification.docx' },
+        { id: 11, title: 'Справка по здоровью', category: 'Медицинские документы', size: '500 KB', fileType: 'PDF', fileName: 'health_certificate.pdf' },
+        { id: 12, title: 'Бухгалтерская отчетность', category: 'Финансовые документы', size: '2.5 MB', fileType: 'XLSX', fileName: 'accounting_reports.xlsx' },
+        { id: 13, title: 'Технический паспорт оборудования', category: 'Техническая документация', size: '1.8 MB', fileType: 'PDF', fileName: 'equipment_passport.pdf' },
+        { id: 14, title: 'Уведомление о начислении заработной платы', category: 'Кадровые документы', size: '750 KB', fileType: 'DOCX', fileName: 'payroll_notification.docx' },
+        { id: 15, title: 'Протокол собрания акционеров', category: 'Юридические документы', size: '3.3 MB', fileType: 'PDF', fileName: 'shareholders_meeting_protocol.pdf' }
+    ]
+    const icons = {
+        'dir':'fa-folder',
+        'doc':'fa-file-word',
+        'xls':'fa-file-excel',
+        'docx':'fa-file-word',
+        'wps':'fa-file-lines',
+        'xlsx':'fa-file-excel',
+        'csv':'fa-file-excel',
+        'pdf':'fa-file-pdf',
+        'rar':'fa-file-zipper',
+        'zip':'fa-file-zipper',
+        '7z':'fa-file-zipper',
+        'gzip':'fa-file-zipper',
+        'jpg':'fa-file-image',
+        'png':'fa-file-image',
+        'bmp':'fa-file-image',
+        'gif':'fa-file-image',
+        'tif':'fa-file-image',
+        'txt':'fa-file-lines',
+        'vsdx':'fa-file-lines',
+        'vsd':'fa-file-lines',
+        'gsf':'fa-file-lines',
+        'xml':'fa-file-excel',
+        'fb2':'fa-file-lines'
+    }
+    const iconst = ['fa-solid','fa-regular']
 
     const getMonthName = (monthIndex) => {
         const monthNames = [
@@ -7251,7 +7294,9 @@ export const DataProvider = ({ children }) => {
             weldingCrews,
             my_objs,
             btns_modules,
-            table_tabel
+            table_tabel,
+            icons,
+            iconst
         }}>
             {children}
             <ToastContainer />
