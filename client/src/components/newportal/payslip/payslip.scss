@@ -1,0 +1,221 @@
+.min300{
+  min-width: 320px;
+}
+
+.info_news{
+ max-width: 60%;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  border-radius: 1px;
+}
+  .toback{
+    background-color: #929292;
+    padding: 15px;
+    margin: 10px;
+    color: #FFF;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 1rem;
+    border-right: 5px;
+  }
+
+  .payslip_right{
+    min-width: 300px;
+    height: 100%;
+    background-color: #329DD9;
+    padding: 15px;
+    //margin: 10px;
+    color: #FFF;
+    font-size: 1rem;
+    border-right: 5px;
+    p{
+
+      line-height: 18px;
+    }
+    h5{
+      margin: 10px 0;
+      span{
+        text-transform: uppercase;
+        text-decoration: underline;
+      }
+    }
+    .button-next{
+      display: flex;
+      align-items: flex-start;
+      justify-content:right;
+
+      .link{
+        cursor: pointer;
+        text-decoration: underline;
+        margin: 20px;
+        font-size: 0.8rem !important;
+        color: rgba(255,255,255,0.6);
+      }.link:hover{
+         text-decoration: none;
+         color: rgba(255,255,255,1);
+      }
+      i{
+        margin-left:5px;
+        font-size: 0.7rem;
+
+      }
+    }
+  }
+  .select_block {
+    width: calc(100% - 20px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    margin: 10px;
+    .select_block_title{
+
+    }
+    .select {
+      width: 80%;
+      height: 40px;
+      margin: 0;
+      padding: 0;
+      input{
+        border-radius: 0;
+      }
+    }
+  }
+
+    .between {
+      background-color: transparent;
+      justify-content: space-between;
+      border-radius: 1px;
+    }
+
+
+  .size_calendar{
+    width: calc(50% - 50px);
+    min-width: 300px;
+    margin: 0 15px;
+    padding: 10px;
+    background: #FFF;
+    border-radius: 1px;
+  }
+
+  .calendar_content_payslip{
+    //width: calc(100% - 60px);
+    height: calc(100% - 60px);
+    max-height: 300px;
+    //padding: 10px;
+    //margin-top: -384px;
+    h4{
+      margin-top: 20px;
+      margin-left: 14px;
+      font-weight: 600;
+    }
+    .dates{
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      div{
+        width: calc((100% - 40px) / 7);
+        height: calc((100% - 40px) / 7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        margin: 10px 0;
+        padding: 5px 0;
+        p{
+          width: 100%;
+          text-align: center;
+          font-size: 0.7rem;
+        }
+        .modal_clue{
+          position: fixed;
+          //margin-left: -25px;
+          //margin-top: -120px;
+          padding: 10px;
+          width: 200px;
+          height: 60px;
+          display: none;
+          background-color: rgba(240,240,240,1);
+          border: 1px solid #000000;
+          border-radius: 5px;
+          h5{
+            font-weight: 600;
+            font-size: 0.9rem;
+          }
+          p{
+            text-align: left;
+            font-size: 0.7rem;
+          }
+        }
+
+      }
+      div.hov:hover{
+        background-color: rgba(217,217,217,1);
+      }
+      .dayview2{
+        background: rgba(170,170,170,1);
+      }
+      .dayview0{
+        background: rgba(217,217,217,1);
+      }
+      .dayview1{
+        background: #329DD9;
+        border-radius: 3px;
+        color: #FFF;
+      }
+      .today{
+        //background-color: rgba(217,217,217,1);
+      }
+      .over{
+        background-color: red;
+      }
+      .over:hover{
+        background-color: red;
+      }
+      .pending{
+        background-color: #FEAA2D;
+      }
+      .pending:hover{
+        background-color: #FEAA2D;
+      }
+    }
+  }
+
+
+  .itogy_days{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    //margin: 0 10px;
+    padding: 0 10px;
+    .itogy_days_title{}
+    .itogy_days_total{
+      border: 1px solid #454545;
+      padding: 10px 20px;
+      margin-left: 20px;
+      border-radius: 1px;
+    }
+  }
+
+
+  .ktu{
+    width: calc(100% - 40px);
+    padding: 10px 10px;
+    border: 1px solid #454545;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 10px 0 10px 10px;
+    border-radius: 2px;
+    .ktu_title{
+      width: 50px;
+    }
+    .ktu_result{
+      width: 50px;
+    }
+    .ktu_description{
+      width: calc(100% - 100px);
+    }
+  }

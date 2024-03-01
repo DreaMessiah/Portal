@@ -1,10 +1,11 @@
 import "./style.scss"
+import {Link} from "react-router-dom";
 
 export const FastBtns = () => {
     return (
         <div className="fastbtns">
             <div className="fastbtns_block">
-                <div className="fastbtns_block_btn">
+                <Link to="/newphonebook" className="fastbtns_block_btn">
                     <div className="fastbtns_block_btn_box" style={{backgroundColor: '#FCEEE8'}}>
                     </div>
                     <div className="fastbtns_block_btn_radius" style={{backgroundColor: '#F9E7DC'}}>
@@ -15,7 +16,7 @@ export const FastBtns = () => {
                     <div className="fastbtns_block_btn_text">
                         Телефонная книга
                     </div>
-                </div>
+                </Link>
                 <div className="fastbtns_block_btn">
                     <div className="fastbtns_block_btn_box" style={{backgroundColor: '#E3E9F1'}}>
                     </div>

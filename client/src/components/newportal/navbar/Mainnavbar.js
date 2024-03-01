@@ -1,4 +1,5 @@
 import "./style.scss"
+import {Link} from "react-router-dom";
 
 export const Mainnavbar = () => {
     return (
@@ -28,10 +29,18 @@ export const Mainnavbar = () => {
                     <div className="navbar_block_menu_strock_icon icon_task"></div>
                     <div className="navbar_block_menu_strock_description">Задачи и Проекты</div>
                 </div>
-                <div className="navbar_block_menu_strock">
-                    <div className="navbar_block_menu_strock_icon icon_lk"></div>
-                    <div className="navbar_block_menu_strock_description">Личный кабинет</div>
-                </div>
+                {/*<div className="navbar_block_menu_strock">*/}
+                {/*    <div className="navbar_block_menu_strock_icon icon_lk"></div>*/}
+                {/*    <div className="navbar_block_menu_strock_description">Личный кабинет</div>*/}
+                {/*</div>*/}
+                <Link to="/main" className="navbar_block_menu_strock">
+                    <div className="navbar_block_menu_strock_icon" style={{display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#FFF', fontSize: '16pt'}}><i className="fa-regular fa-gem"></i></div>
+                    <div className="navbar_block_menu_strock_description">Витирина</div>
+                </Link>
+                <Link to="/paylist" className="navbar_block_menu_strock">
+                    <div className="navbar_block_menu_strock_icon" style={{display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#FFF', fontSize: '16pt'}}><i className="fa-brands fa-google-wallet"></i></div>
+                    <div className="navbar_block_menu_strock_description">Расчётка</div>
+                </Link>
             </div>
             <div className="navbar_block_dopmenu">
                 <div className="navbar_block_dopmenu_list">
