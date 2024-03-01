@@ -18,5 +18,11 @@ module.exports = class FileDto{
         this.user_id = model.user_id
         this.parent_id = model.parent_id
         this.child_id = model.child_id
+
+        this.addChildId = function(childId) {
+            if(!this.child_id) this.child_id = []
+            this.child_id.push(childId);
+        }
+
     }
 }

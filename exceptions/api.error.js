@@ -13,4 +13,7 @@ module.exports = class ApiError extends Error {
     static BadRequest(message, errors=[]){
         return new ApiError(400,message,errors)
     }
+    static FileDirExists(message, errors=[]){
+        return new ApiError(401,'Файл уже существует')
+    }
 }

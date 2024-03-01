@@ -7214,6 +7214,32 @@ export const DataProvider = ({ children }) => {
         { id: 14, title: 'Уведомление о начислении заработной платы', category: 'Кадровые документы', size: '750 KB', fileType: 'DOCX', fileName: 'payroll_notification.docx' },
         { id: 15, title: 'Протокол собрания акционеров', category: 'Юридические документы', size: '3.3 MB', fileType: 'PDF', fileName: 'shareholders_meeting_protocol.pdf' }
     ]
+    const icons = {
+        'dir':'fa-folder',
+        'doc':'fa-file-word',
+        'xls':'fa-file-excel',
+        'docx':'fa-file-word',
+        'wps':'fa-file-lines',
+        'xlsx':'fa-file-excel',
+        'csv':'fa-file-excel',
+        'pdf':'fa-file-pdf',
+        'rar':'fa-file-zipper',
+        'zip':'fa-file-zipper',
+        '7z':'fa-file-zipper',
+        'gzip':'fa-file-zipper',
+        'jpg':'fa-file-image',
+        'png':'fa-file-image',
+        'bmp':'fa-file-image',
+        'gif':'fa-file-image',
+        'tif':'fa-file-image',
+        'txt':'fa-file-lines',
+        'vsdx':'fa-file-lines',
+        'vsd':'fa-file-lines',
+        'gsf':'fa-file-lines',
+        'xml':'fa-file-excel',
+        'fb2':'fa-file-lines'
+    }
+    const iconst = ['fa-solid','fa-regular']
 
     const getMonthName = (monthIndex) => {
         const monthNames = [
@@ -7268,7 +7294,9 @@ export const DataProvider = ({ children }) => {
             weldingCrews,
             my_objs,
             btns_modules,
-            table_tabel
+            table_tabel,
+            icons,
+            iconst
         }}>
             {children}
             <ToastContainer />

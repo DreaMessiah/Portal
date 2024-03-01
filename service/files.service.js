@@ -4,8 +4,8 @@ const {Files} = require('../models/models')
 const ApiError = require("../exceptions/api.error");
 
 class FilesService {
-    async get(id) {
-        const files = await Files.findAll({where: {user_id:id}})
+    async get(id,parent) {
+        const files = await Files.findAll({where: {user_id:id,parent_id:parent}})
         console.log(files)
         if (!files) throw ApiError.BadRequest('База с файлами пуста')
         // const phonesDto = new PhonesDto(book)
