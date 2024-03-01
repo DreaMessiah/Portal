@@ -64,8 +64,8 @@ function App() {
             <Router>
                 <div className="App">
                     <Routes>
-                        <Route path="/" element={<NewsPage/>} />
-                        <Route path="/new" element={<NewstartPage/>} />
+                        <Route path="/7897564" element={<NewsPage/>} />
+                        <Route path="/" element={<NewstartPage/>} />
                         <Route path="/new_lk" element={<LkNewPortal/>} />
                         <Route path='/main' element={<MainPage/>} />
                         <Route path="/paylist" element={<PayslipPage/>} />
