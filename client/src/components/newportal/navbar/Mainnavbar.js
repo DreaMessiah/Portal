@@ -25,10 +25,10 @@ export const Mainnavbar = () => {
                     <div className="navbar_block_menu_strock_icon icon_doc"></div>
                     <div className="navbar_block_menu_strock_description">Документы</div>
                 </Link>
-                <div className="navbar_block_menu_strock">
+                <Link to='/maintasks' className="navbar_block_menu_strock">
                     <div className="navbar_block_menu_strock_icon icon_task"></div>
                     <div className="navbar_block_menu_strock_description">Задачи и Проекты</div>
-                </div>
+                </Link>
                 {/*<div className="navbar_block_menu_strock">*/}
                 {/*    <div className="navbar_block_menu_strock_icon icon_lk"></div>*/}
                 {/*    <div className="navbar_block_menu_strock_description">Личный кабинет</div>*/}
