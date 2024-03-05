@@ -23,6 +23,7 @@ import TestTaskPage from "./pages/tasks/TestTaskPage";
 import {ListTasks} from "./pages/listtasks/ListTasks";
 import ObjectsPage from "./pages/objects/ObjectsPage";
 import DocumentsPage from "./pages/documents/DocumentsPage";
+import FileManagerPage from "./pages/documents/fileManagerPage";
 import Thisproject from "./pages/objects/Thisproject";
 import AdminDashboardPage from "./pages/administrator/AdminDashboardPage";
 import {Controll} from "./pages/controll/Controll";
@@ -59,7 +60,6 @@ function App() {
         </Router>
     )
     return (
-
         <DataProvider>
             <Router>
                 <div className="App">
@@ -68,9 +68,10 @@ function App() {
                         <Route path="/" element={<NewstartPage/>} />
                         <Route path="/new_lk" element={<LkNewPortal/>} />
                         <Route path='/main' element={<MainPage/>} />
-                        <Route path="/paylist" element={<PayslipPage/>} />
+                        {/*<Route path="/paylist" element={<PayslipPage/>} />*/}
                         <Route path="/newpaylist" element={<NewPayList/>} />
-                        <Route path="/documents" element={<DocumentsPage/>} />
+                        <Route path="/documents" element={<FileManagerPage/>} />
+                        <Route path="/olddocuments" element={<DocumentsPage/>} />
                         <Route path="/settings" element={<SettingsPage/>} />
                         <Route path="/phonebook" element={<PhonebookPage/>} />
                         <Route path="/newphonebook" element={<NewPhoneBook />} />

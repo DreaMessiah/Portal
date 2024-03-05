@@ -32,7 +32,7 @@ class FilesController {
                 if (!parentFile.child_id) parentFile.child_id = [];
                 parentFile.child_id.push(newFile.id);
                 const childs = parentFile.child_id
-                    parentFile.child_id = null
+                parentFile.child_id = null
                 await parentFile.save();
                 parentFile.child_id = childs
                 await parentFile.save();
