@@ -192,8 +192,8 @@ function PayslipPage () {
                                                 }
                                                 startItem ? styleee = `dayview${daysState[item]}` : styleee = `dayview0`
                                                 return (
-                                                <div key={index} className={styleee}><p>{item}</p></div>
-                                        )})}
+                                                    <div key={index} className={styleee}><p>{item}</p></div>
+                                                )})}
                                     </div>
                                 </div>
                                 <div className='itogy_days'>
@@ -216,17 +216,17 @@ function PayslipPage () {
                                     <h4>Сегодня {getToday()}</h4>
                                     <h5>Расчетный лист за <span>{monthState.label}</span> месяц <span>{yearState.label}</span> год</h5>
                                     {actual ? info.map( (item,index) => (
-                                        <div key={index}>
-                                            <h5>Тип начисления: <span>{item.type}</span> </h5>
-                                            <p>КТУ: {item.cost}</p>
-                                            <p>Месяц: {item.month}</p>
-                                            <p>Количество дней: {item.days}</p>
-                                            <p>Период: {item.uchet}</p>
-                                            <p>{item.stazh}</p>
-                                        </div>
+                                            <div key={index}>
+                                                <h5>Тип начисления: <span>{item.type}</span> </h5>
+                                                <p>КТУ: {item.cost}</p>
+                                                <p>Месяц: {item.month}</p>
+                                                <p>Количество дней: {item.days}</p>
+                                                <p>Период: {item.uchet}</p>
+                                                <p>{item.stazh}</p>
+                                            </div>
                                         ))
                                         : <div>
-                                                <p>Расчетный лист за {monthState.label} месяц {yearState.label} года находится в работе или был положен в архив. Ожидайте расчетный лист 28-29 числа, текущего месяца или обратитесь в службу поддержки...</p>
+                                            <p>Расчетный лист за {monthState.label} месяц {yearState.label} года находится в работе или был положен в архив. Ожидайте расчетный лист 28-29 числа, текущего месяца или обратитесь в службу поддержки...</p>
                                             <div className='button-next'><p onClick={handlePrevMonth} className='link'>Посмотреть расчетный лист за прошлый актуальный месяц<i className={'s1 fa-solid fa-arrow-right'}></i></p> </div>
                                         </div>}
                                 </div>

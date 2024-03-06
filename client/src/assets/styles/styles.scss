@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,600&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 $wwhiteColor:rgba(255,255,255,1);
 $whiteColor:rgba(236,236,236,1);
@@ -831,7 +831,6 @@ html{
   justify-content: space-between;
   .footer {
     width: 100%;
-    height: 80px;
     display: flex;
     align-items: center;
     height: $newsheaderHeight;
@@ -843,9 +842,6 @@ html{
   .main_path {
     min-height: calc(100vh - $headerHeight  - 65px);
     width: 100%;
-
-
-
     .new_back {
       width: 100%;
       margin-top: 110px;
@@ -2031,6 +2027,34 @@ html{
 //650 340
 .file-manager{
   width: 100%;
+  .file-buttons{
+    margin: 20px;
+    display: flex;
+    flex-direction: row;
+
+    .button{
+      border-radius: 3px;
+      padding: 10px;
+      font-size: 0.8rem;
+      margin: 0 10px 0 0;
+      cursor: pointer;
+      i{
+        margin: 0 5px;
+        font-size: 0.8rem;
+      }
+    }
+    .button:hover{
+      background-color: $wgreyColor;
+    }
+    .grey{
+      background-color:rgba(18,19,56,1);
+      color: $whiteColor;
+      padding: 10px 16px 10px 10px;
+    }
+    .grey:hover{
+      background-color: $dgreyColor;
+    }
+  }
   .file-header{
     border-top: 1px solid $wgreyColor;
     border-bottom: 1px solid $wgreyColor;
@@ -2140,4 +2164,45 @@ html{
       }
     }
   }
+  .modal_win_wight{
+    .modal_win_wight_krest{
+      background-color: $wblueColor !important;
+    }
+    .delete-modal{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      .text{
+        margin: 0 40px 60px 40px;
+        p{
+          font-size: 1.2rem;
+        }
+      }
+      .buttons{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        .button{
+          cursor: pointer;
+          background-color: $wblueColor;
+          height: 40px;
+          padding: 0 50px;
+          margin: 0 10px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: $whiteColor;
+          font-size: 1rem;
+          text-transform: uppercase;
+          transition: transform 0.3s ease;
+          opacity: 1;
+        }
+        .button.da{
+          background-color: $dredColor;
+        }
+      }
+    }
+  }
+
 }

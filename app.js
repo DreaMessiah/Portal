@@ -7,11 +7,15 @@ const PORT = config.get('serverPort')
 const cookieParser = require('cookie-parser')
 const router = require('./routes/index')
 const mailService = require('./service/mail.service')
+const fileUpload = require('express-fileupload')
 const errorMiddlewere = require('./middleware/error.middlewere')
+
+app.use(fileUpload({}))
 app.use(cors({
     origin: config.get('client_url'),
     credentials: true // Если используются учетные данные, например, куки или заголовки авторизации
 }));
+
 //HTTPS//Socket.IO/////
 // const fs = require('fs')
 // const https = require('https')
@@ -66,7 +70,6 @@ const start = async () => {
         app.listen(PORT,() => {
             console.log('Server started on port : ', PORT)
         })
-
         //await mailService.sendActivationMail('test@gmail.com','test!')
         await sequelize.authenticate()
         //await sequelize.sync({ alter: true })

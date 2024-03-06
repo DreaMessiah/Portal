@@ -486,12 +486,14 @@ const Files = sequelize.define('files',{
     child_id: {type: DataTypes.ARRAY(DataTypes.INTEGER)},
     basket:{type:DataTypes.BOOLEAN,default:false},
 })
+
 const DiskSpace = sequelize.define('diskspace',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     user_id:{type:DataTypes.INTEGER,ref:'users'},
     usedspace:{type:DataTypes.BIGINT,default:0},
     diskspace:{type:DataTypes.BIGINT,default:0}
 })
+
 module.exports = {
     User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Ktulist,Files,DiskSpace
 }

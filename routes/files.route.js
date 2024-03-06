@@ -4,6 +4,7 @@ const FilesController = require('../controllers/files.controller')
 const authMiddlewere = require('../middleware/auth.middleware')
 
 router.post('/get',authMiddlewere,FilesController.getFiles)
+router.post('/upload',authMiddlewere,FilesController.uploadFile)
 router.post('/dir',authMiddlewere,FilesController.createDir)
 
 module.exports = router

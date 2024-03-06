@@ -1,4 +1,5 @@
 import './payslip.scss'
+
 import React, {useState, useEffect, useContext} from 'react';
 import {Link,useLocation} from "react-router-dom";
 import Select from 'react-select'
@@ -175,7 +176,7 @@ function PayslipPage () {
                 </div>
             </div>
             <div className='info_news'>
-                <div className='size_calendar'>
+                <div className='info size_calendar'>
                     <div className="calendar_content_payslip">
                         <h4>{monthState.label} {yearState.label}</h4>
                         <div className='dates'>

@@ -1,4 +1,4 @@
-const {User} = require('../models/models')
+const {User, DiskSpace} = require('../models/models')
 const bcrypt = require('bcrypt')
 const UserDto = require('../dtos/usersDto')
 const tokenService = require('../service/token.service')
@@ -23,13 +23,20 @@ class UsersService{
         const userDto = new UserDto(user)
         const tokens = tokenService.generateTokens({...userDto})
         await tokenService.saveToken(userDto.id, tokens.refreshToken)
+
+        const sizes = await DiskSpace.findOne({where:{user_id:userDto.id}})
+        if(!sizes){
+            await DiskSpace.create({user_id:userDto.id,usedspace:0,diskspace:10737418240});
+        }
+        userDto.diskspace = sizes.diskspace
+        userDto.usedspace = sizes.usedspace
+
         //console.log(await bcrypt.hash(password,15))
         return {...tokens,user: userDto}
     }
 
     async logout(refreshToken){
-        const token = await tokenService.removeToken(refreshToken)
-        return token
+        return await tokenService.removeToken(refreshToken)
     }
     async refresh(refreshToken){
         if(!refreshToken) throw ApiError.UnauthorizedError()
@@ -41,6 +48,13 @@ class UsersService{
         const userDto = new UserDto(user)
         const tokens = tokenService.generateTokens({...userDto})
         await tokenService.saveToken(userDto.id, tokens.refreshToken)
+
+        const sizes = await DiskSpace.findOne({where:{user_id:userDto.id}})
+        if(!sizes){
+            await DiskSpace.create({user_id:userDto.id,usedspace:0,diskspace:10737418240});
+        }
+        userDto.diskspace = sizes.diskspace
+        userDto.usedspace = sizes.usedspace
 
         return {...tokens,user: userDto}
     }
