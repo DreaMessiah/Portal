@@ -75,8 +75,7 @@ function App() {
 
                         <Route path="/maintasks" element={<MainTasks/>} />
                         <Route path="/thistask" element={<ThisTask/>} />
-                        <Route path="/documents" element={<DocumentsPage/>} />
-
+                        
                         <Route path="/documents" element={<FileManagerPage/>} />
                         <Route path="/olddocuments" element={<DocumentsPage/>} />
 
