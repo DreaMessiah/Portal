@@ -8,6 +8,8 @@ module.exports = class UsersDto{
     moderator;
     account;
     unit;
+    usedspace;
+    diskspace;
     constructor(model) {
         this.login = model.login
         this.full_name = model.full_name
@@ -18,5 +20,7 @@ module.exports = class UsersDto{
         this.moderator = model.moderator
         this.account = model.account
         this.unit = model.unit
+        this.usedspace = model.usedspace
+        this.diskspace = model.diskspace
     }
 }

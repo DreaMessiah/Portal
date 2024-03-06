@@ -7,6 +7,8 @@ import {useMessage} from "../../hooks/message.hook";
 import {Context} from "../../index";
 import {ModalWin} from "../../components/modalwin/ModalWin";
 
+import { UploadButton } from "@bytescale/upload-widget-react";
+
 function FileManager(){
     const {icons} = useContext(DataContext)
     const {store} = useContext(Context)
@@ -16,6 +18,9 @@ function FileManager(){
     const [path,setPath] = useState([])
     const [activeM,setActiveM] = useState(false)
     const [indexM,setIndexM] = useState()
+    const [activeUploadM,setActiveUploadM] = useState(false)
+    const [files, setFiles] = useState([])
+
     const message = useMessage()
     const rule = 3
 
@@ -93,11 +98,28 @@ function FileManager(){
             </div>
         )
     }
+    function Upload() {
+        const options = {
+            apiKey: "free",
+            maxFileCount: 10
+        };
+        return(
+            <UploadButton options={options}
+                          onComplete={files => alert(files.map(x => x.fileUrl).join("\n"))}>
+                {({onClick}) =>
+                    <button onClick={onClick}>
+                        Upload a file...
+                    </button>
+                }
+            </UploadButton>
+        )
+    }
+
     return (
         <div className='file-manager'>
             <div className='file-buttons'>
                 <div id='btn' className='button grey'><i className="fa-solid fa-upload"></i>Загрузить</div>
-                <div id='btn' className='button'><i className="fa-solid fa-folder-plus"></i>Создать</div>
+                <div id='btn' onClick={(e) => setActiveUploadM(true)} className='button'><i className="fa-solid fa-folder-plus"></i>Создать</div>
                 {selectFile !== -2 ?
                     <>
                         <div id='btn' className='button'><i className="fa-solid fa-copy"></i>Копировать</div>
@@ -149,6 +171,10 @@ function FileManager(){
                 </div>
                 :''}
             <ModalWin data={<Inmodal index={indexM}/>} active={activeM} setActive={setActiveM}/>
+
+            <ModalWin data={<Upload />} active={activeUploadM} setActive={setActiveUploadM}/>
+
+
         </div>
     )
 }
