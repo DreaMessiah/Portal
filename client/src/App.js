@@ -39,6 +39,7 @@ import LkNewPortal from "./pages/newportal/lknewportal/LkNewPortal";
 import NewPayList from "./pages/NewPayList";
 import NewPhoneBook from "./pages/NewPhoneBook";
 import MainTasks from "./pages/newportal/tasks/MainTasks";
+import ThisTask from "./pages/newportal/tasks/ThisTask";
 
 function App() {
     const {store} = useContext(Context)
@@ -72,6 +73,7 @@ function App() {
                         <Route path="/paylist" element={<PayslipPage/>} />
                         <Route path="/newpaylist" element={<NewPayList/>} />
                         <Route path="/maintasks" element={<MainTasks/>} />
+                        <Route path="/thistask" element={<ThisTask/>} />
                         <Route path="/documents" element={<DocumentsPage/>} />
                         <Route path="/settings" element={<SettingsPage/>} />
                         <Route path="/phonebook" element={<PhonebookPage/>} />

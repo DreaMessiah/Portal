@@ -1,8 +1,8 @@
 import React, {useEffect, useLayoutEffect, useRef} from "react";
-import Navbar from "./Navbar";
-import TitleObj from "./TitleObj";
+import Navbar from "../../Navbar";
+import TitleObj from "../../TitleObj";
 
-export default function DocumentWay({dwm1}){
+export default function NewDocumentWay({dwm1}){
     const COLORS = {
         1 : 'rgba(18,19,56,1)',
         2 : 'rgba(11,14,162,0.8)',
@@ -59,7 +59,7 @@ export default function DocumentWay({dwm1}){
     useEffect(() => {
         const canvas = canvasRef.current;
         const context = canvas.getContext('2d');
-        let container = document.getElementById('canvasContainer');
+        let container = document.getElementById('newCanvasContainer');
 
         canvas.width = canvasWidth*0.8
         canvas.height = canvasHeight*0.6
@@ -211,9 +211,10 @@ export default function DocumentWay({dwm1}){
     const titleText = 'Привязан к проекту №774655-2/22 “Название” от 01.09.2023'
     return (
         <div>
-            <TitleObj text={titleText}/>
-
-            <div id='canvasContainer'>
+            <div className='title_task'>
+                <h1>{titleText}</h1>
+            </div>
+            <div id='newCanvasContainer'>
                 <canvas id='documentway' ref={canvasRef} ></canvas>
             </div>
         </div>
