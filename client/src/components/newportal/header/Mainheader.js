@@ -10,7 +10,7 @@ export const MainHeader = () => {
     const {store} = useContext(Context)
     return (
         <div className="head_block">
-            <Link to="/new" className="head_block_logo">Сургутское РСУ</Link>
+            <Link to="/" className="head_block_logo">Сургутское РСУ</Link>
             <div className="head_block_search">
                 <input className="head_block_search_input" placeholder="Поиск..."></input>
                 <div className="head_block_search_btn"></div>

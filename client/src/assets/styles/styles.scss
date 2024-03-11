@@ -2109,8 +2109,24 @@ html{
     }
   }
   .files{
+    .list{
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+
+      .del{
+        color: $dredColor;
+      }
+    }
     .file{
       padding: 10px;
+      div{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+
       i{
         color: #cccccc;
       }
@@ -2204,5 +2220,28 @@ html{
       }
     }
   }
+.draganddrop{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100% - 40px);
+  .upload-button {
+    background-color:rgba(18,19,56,1);
+    color: $whiteColor;
+    padding: 10px 16px 10px 10px;
+    width: 40%;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    margin-top: -30px;
+    cursor: pointer;
+    .hidden-upload{
+      display: none;
+    }
+  }
+}
 
 }
