@@ -216,6 +216,9 @@
       border-radius: 10px;
       cursor: pointer;
       transition: .2s;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
       i{
         color: #CCC;
         font-size: 24pt;
@@ -266,6 +269,9 @@
           border-radius: 10px;
           cursor: pointer;
           transition: .2s;
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position: center center;
           i{
             color: #CCC;
             font-size: 24pt;
@@ -392,6 +398,9 @@
           cursor: pointer;
           transition: .2s;
           width: calc(85% / 3);
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position: center center;
           i{
             color: #CCC;
             font-size: 24pt;

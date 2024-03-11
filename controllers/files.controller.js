@@ -3,6 +3,7 @@ const {Files,User, DiskSpace} = require('../models/models')
 const fs = require('fs');
 const FileDto = require('../dtos/fileDto')
 const config = require('config')
+const PATH = require('path');
 
 class FilesController {
     async getAllFiles(req, res, next) {
@@ -90,7 +91,24 @@ class FilesController {
             next(e)
         }
     }
+    async loadImg(req, res, next){
+        try {
+            const file = req.files.file
+            const filename = req.body.filename
 
+            const path = `${config.get('public_path')}\\images\\${filename}`
+
+            if(fs.existsSync(path)){
+                return res.status(400).json({message: 'Файл с таким именем уже существует'})
+            }
+
+            await file.mv(path)
+
+            return res.status(200).json({path:`/news/images/${filename}`})
+        }catch (e) {
+            next(e)
+        }
+    }
     async getPath(req, res, next){
         try {
             const {parent} = req.body

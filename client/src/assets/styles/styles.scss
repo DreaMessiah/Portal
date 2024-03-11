@@ -2242,9 +2242,6 @@ html{
     font-size: 0.8rem;
     margin-top: -30px;
     cursor: pointer;
-    .hidden-upload{
-      display: none;
-    }
   }
 }
   .create-dir{
@@ -2263,3 +2260,6 @@ html{
   }
 }
 
+.hidden-upload{
+  display: none;
+}

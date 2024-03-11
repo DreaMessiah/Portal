@@ -14,9 +14,14 @@ export default class FilesService{
         return $api.post('/files/getpath',{ parent })
     }
 
-    static loadImage(){
-        return $api.post('/files/loadimg')
+    static loadImage(file){
+        const formData = new FormData()
+        formData.append('file', file)
+        formData.append('filename', file.name)
+
+        return $api.post('/files/loadimg',formData)
     }
+
     static uploadFile(file,user_id,parent_id,onUploadProgress ){
         const formData = new FormData()
         formData.append('file', file)
