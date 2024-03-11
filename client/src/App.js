@@ -42,6 +42,8 @@ import NewPhoneBook from "./pages/NewPhoneBook";
 import MainTasks from "./pages/newportal/tasks/MainTasks";
 import ThisTask from "./pages/newportal/tasks/ThisTask";
 import Createnews from "./pages/newportal/news/Createnews";
+import {ViewPOST} from "./components/newportal/news/ViewPOST";
+import Viewnews from "./pages/newportal/news/Viewnews";
 
 function App() {
     const {store} = useContext(Context)
@@ -105,6 +107,8 @@ function App() {
                         <Route path="/odata" element={<ODataPage />} />
                         <Route path="/conference" element={<ChatPage />} />
                         <Route path="/createnews" element={<Createnews/>} />
+                        <Route path="/viewpost" element={<Viewnews />} />
+
                     </Routes>
                 </div>
             </Router>
