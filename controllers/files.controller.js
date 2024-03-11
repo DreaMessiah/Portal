@@ -5,6 +5,16 @@ const FileDto = require('../dtos/fileDto')
 const config = require('config')
 
 class FilesController {
+    async getAllFiles(req, res, next) {
+        try {
+            const {user_id} = req.body
+            const files = await FilesService.getAll(user_id)
+            if(!files) return res.status(200).json({message: 'У Вас нет файлов'})
+            return res.status(200).json(files)
+        } catch (e) {
+            next(e)
+        }
+    }
     async getFiles(req, res, next) {
         try {
             const {user_id,parent_id} = req.body
@@ -81,6 +91,20 @@ class FilesController {
         }
     }
 
+    async getPath(req, res, next){
+        try {
+            const {parent} = req.body
+            if(+parent){
+                const path = await FilesService.createPath(+parent)
+                console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!',path)
+                if(!path) return res.status(200).json({message: 'Ошибка сбора пути'})
+                return res.status(200).json(path)
+            }
+            return res.status(200).json([])
+        } catch (e) {
+            next(e)
+        }
+    }
     async delete(req,res,next) {
         try {
 
@@ -89,7 +113,6 @@ class FilesController {
             next(e)
         }
     }
-
-
 }
+
 module.exports = new FilesController()

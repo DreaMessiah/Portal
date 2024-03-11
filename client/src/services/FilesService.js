@@ -7,6 +7,13 @@ export default class FilesService{
     static createDir(user_id,name,type,parent_id){
         return $api.post('/files/dir',{ user_id,name,type,parent_id })
     }
+    static fetchAllFiles(user_id){
+        return $api.post('/files/getall',{ user_id })
+    }
+    static getPath(parent){
+        return $api.post('/files/getpath',{ parent })
+    }
+
     static uploadFile(file,user_id,parent_id,onUploadProgress ){
         const formData = new FormData()
         formData.append('file', file)

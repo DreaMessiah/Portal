@@ -9,6 +9,8 @@ import {ModalWin} from "../../components/modalwin/ModalWin";
 
 import ModalUpload from "../../components/modalwin/ModalUpload";
 import CircularProgress from "../../components/CircularProgress";
+import {useLocation} from "react-router-dom";
+import ModalFiles from "../../components/modalwin/ModalFiles";
 
 function FileManager(){
     const {icons} = useContext(DataContext)
@@ -21,17 +23,26 @@ function FileManager(){
     const [activeM,setActiveM] = useState(false)
     const [indexM,setIndexM] = useState()
     const [activeUploadM,setActiveUploadM] = useState(false)
+    const [activeCreateM,setActiveCreateM] = useState(false)
     const [files, setFiles] = useState([])
-    const [progress, setProgress] = useState({});
+    const [progress, setProgress] = useState({})
     const filesInputRef = useRef(null)
+    const containerRef = useRef(null)
 
+    const [newDirName, setNewDirName] = useState('')
+
+    const location = useLocation();
     const message = useMessage()
     const rule = 3
 
+    const searchParams = new URLSearchParams(location.search)
+    const getParent = searchParams.get('parent') ? searchParams.get('parent') : 0
+
     const loadingHandler = async () => {
         try{
-            const response = await FilesService.fetchFiles(store.user.id,0)
-            setParentId(0)
+            console.log('Parent = ', getParent)
+            const response = await FilesService.fetchFiles(store.user.id,getParent)
+            selectPathHandler(getParent)
             if(response.data){
                 setDocuments(response.data)
                 return response.data
@@ -40,56 +51,52 @@ function FileManager(){
             console.log(e.message+': Проблема загрузки списка документов')
         }
     }
-    const selectPathHandler = async (parent,name = '') => {
+    const selectPathHandler = async (parent,type = 'dir') => {
         try{
-            const response = await FilesService.fetchFiles(store.user.id,parent)
-            console.log(parent)
-            setParentId(parent)
-            if(response.data){
-                setDocuments(response.data)
-                if(!parent) setPath([])
-                const indexToDeleteFrom = path.findIndex(item => item.parent === parent);
-                if (indexToDeleteFrom !== -1) {
-                    const newPath = path.slice(0, indexToDeleteFrom + 1);
-                    setPath(newPath);
-                }else{
-                    if(parent) setPath([...path,{parent:parent,name:name}])
+            if(type === 'dir'){
+                const response = await FilesService.fetchFiles(store.user.id,parent)
+                updateQueryStringParameter('parent',parent)
+                setParentId(parent)
+                if(response.data){
+                    setDocuments(response.data)
+                    const pathResponce = await FilesService.getPath(parent)
+                    if(pathResponce.data) setPath(pathResponce.data)
                 }
+            }else{
+                message('Это не директория')
             }
-
         }catch (e){
             console.log(e.message+': Проблема загрузки списка документов')
         }
     }
-    const handleClickOutside = (event) => {
-        console.log(event.target.className)
-        // Проверяем, является ли целевой элемент кнопкой
-        if (!event.target.matches('button')) {
-            // Снимаем выделение при клике вне кнопки
-            //document.getSelection().removeAllRanges();
-        }
-    };
-
-    useEffect(()=> {
-        loadingHandler()
-        document.addEventListener('click', handleClickOutside)
-        return () => {
-            document.removeEventListener('click', handleClickOutside)
-        }
-        //setDocuments(docs)
-    },[])
-
-    const createDirHandler = async () => {
+    const createDirHandler = async (name) => {
         try{
-            const response = await FilesService.createDir(store.user.id,'3','dir',14)
+            const response = await FilesService.createDir(store.user.id,name,'dir',parentId)
             console.log(response.data.length)
             if(response.data){
                 console.log(response.data)
+                window.location.reload()
             }
         }catch (e){
             console.log(e?.message)
         }
     }
+
+    useEffect(()=> {
+        function handleOutsideClick(event) {
+            if (containerRef.current && !containerRef.current.contains(event.target)) {
+                setSelectFile(-2);
+            }
+        }
+
+        loadingHandler()
+
+        document.addEventListener('click', handleOutsideClick)
+        return () => {
+            document.removeEventListener('click', handleOutsideClick)
+        }
+        //setDocuments(docs)
+    },[])
 
     function Inmodal({index}) {
         return(
@@ -117,17 +124,19 @@ function FileManager(){
         const selectFilesHandler = async (e) => {
             const selectedFiles = e.target.files
             setFiles(selectedFiles)
-
-            for (const file of selectedFiles) {
-                try{
-                    const response = await FilesService.uploadFile(file,store.user.id,parentId,(progressEvent) => handleUploadProgress(progressEvent, file.name))
-                    if(response.data){
+            try{
+                for (const file of selectedFiles) {
+                    const response = await FilesService.uploadFile(file, store.user.id, parentId, (progressEvent) => handleUploadProgress(progressEvent, file.name))
+                    if (response.data) {
                         console.log(response.data)
                     }
-                }catch (e){
-                    console.log(e+': Проблема загрузки списка документов')
                 }
+                console.log('Файлы загружены')
+                window.location.reload()
+            }catch (e){
+                console.log(e+': Проблема загрузки списка документов')
             }
+
         }
         const pro = 0.6
         return(
@@ -157,11 +166,57 @@ function FileManager(){
             </>
         )
     }
+    function Create() {
+        const dirNameHandler = (e) => {
+            setNewDirName(e.target.value)
+        }
+        return(
+            <>
+                <div className='create-dir'>
+                    <h4>Создание папки</h4>
+                    <div className='inputs'>
+                        <input autoFocus onChange={dirNameHandler} value={newDirName} type="text" placeholder='Имя папки' autoComplete="off"/>
+                    </div>
+                    <div className='file-buttons'>
+                        <div id='btn' onClick={(e) => createDirHandler(newDirName)} className='button grey'><i className="fa-solid fa-upload"></i>Создать</div>
+                    </div>
+                </div>
+            </>
+        )
+    }
+    function Copy() {
+        const dirNameHandler = (e) => {
+            setNewDirName(e.target.value)
+        }
+        return(
+            <>
+                <div className='create-dir'>
+                    <h4>Создание папки</h4>
+                    <div className='inputs'>
+                        <input autoFocus onChange={dirNameHandler} value={newDirName} type="text" placeholder='Имя папки' autoComplete="off"/>
+                    </div>
+                    <div className='file-buttons'>
+                        <div id='btn' onClick={(e) => createDirHandler(newDirName)} className='button grey'><i className="fa-solid fa-upload"></i>Создать</div>
+                    </div>
+                </div>
+            </>
+        )
+    }
+
+    function updateQueryStringParameter(key, value) {
+        const { protocol, host, pathname, search, hash } = window.location;
+        const queryParams = new URLSearchParams(search);
+        queryParams.set(key, value);
+        const newUrl = `${protocol}//${host}${pathname}?${queryParams}${hash}`;
+        window.history.pushState({ path: newUrl }, '', newUrl);
+    }
+
+
     return (
-        <div className='file-manager' onClick={(e) => console.log(path)}>
+        <div ref={containerRef} className='file-manager' onClick={(e) => console.log(path,parentId)}>
             <div className='file-buttons'>
-                <div id='btn' className='button grey'><i className="fa-solid fa-upload"></i>Загрузить</div>
-                <div id='btn' onClick={(e) => setActiveUploadM(true)} className='button'><i className="fa-solid fa-folder-plus"></i>Создать</div>
+                <div onClick={(e) => setActiveUploadM(true)} className='button grey'><i className="fa-solid fa-upload"></i>Загрузить</div>
+                <div onClick={(e) => setActiveCreateM(true)} className='button'><i className="fa-solid fa-folder-plus"></i>Создать</div>
                 {selectFile !== -2 ?
                     <>
                         <div id='btn' className='button'><i className="fa-solid fa-copy"></i>Копировать</div>
@@ -177,13 +232,13 @@ function FileManager(){
             <div className='file-header'>
                 <div className='file-path'>
                     <div className='l'>
-                        <i onClick={() => selectPathHandler(0,'')} className="fa-solid fa-house"></i>
+                        <i onClick={() => selectPathHandler(0,'dir')} className="fa-solid fa-house"></i>
                         {path.length ? (
                             <div className='path'>
                                 {path.map( (item,index) => (
                                     <div id='btn' className='path-item' key={index}>
                                         <i className="fa-solid fa-chevron-right ch"></i>
-                                        <p id='btn' onClick={() =>selectPathHandler(item.parent,item.name)}>{item.name}</p>
+                                        <p id='btn' onClick={() =>selectPathHandler(item.parent,item.type)}>{item.name}</p>
                                     </div>
                                 ))}
                             </div>
@@ -199,7 +254,7 @@ function FileManager(){
 
             <div className={modeView ? 'files-list files' : 'files-table files'}>
             {path.length ? (
-                <div onClick={(e) => setSelectFile(-3)} onDoubleClick={(e) => selectPathHandler(path[path.length-2] ? path[path.length-2].parent : 0,path[path.length-2] ? path[path.length-2].name : '')} className={`file back`}>
+                <div onClick={(e) => setSelectFile(-3)} onDoubleClick={(e) => selectPathHandler(path[path.length-2] ? path[path.length-2].parent : 0,'dir')} className={`file back`}>
                     <i className="fa-regular fa-circle-left"></i>
                     <p>Назад</p>
                 </div>
@@ -207,7 +262,7 @@ function FileManager(){
             {documents.length ?
                 <>
                     {documents.map((item,index) => (
-                        <div key={index} onDoubleClick={(e) => selectPathHandler(item.id,item.name)} onClick={() => setSelectFile(index)} className={`${selectFile === index ? 'selected' : ''} file`}>
+                        <div key={index} onDoubleClick={(e) => selectPathHandler(item.id,item.type)} onClick={() => setSelectFile(index)} className={`${selectFile === index ? 'selected' : ''} file`}>
                             <i className={`${selectFile !== index ? 'fa-regular':'fa-solid'} fa-file-lines ${icons[item.type]}`}></i>
                             <p>{item.name}</p>
                         </div>
@@ -224,7 +279,7 @@ function FileManager(){
             <ModalWin data={<Inmodal index={indexM}/>} active={activeM} setActive={setActiveM}/>
 
             <ModalUpload data={<Upload />} active={activeUploadM} setActive={setActiveUploadM}/>
-
+            <ModalFiles data={<Create />} active={activeCreateM} setActive={setActiveCreateM}/>
 
         </div>
     )
