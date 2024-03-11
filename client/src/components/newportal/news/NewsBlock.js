@@ -1,4 +1,5 @@
 import "./style.scss"
+import {Link} from "react-router-dom";
 
 export const NewsBlock = () => {
     return (
@@ -6,6 +7,7 @@ export const NewsBlock = () => {
             <div className="news_block_title">
                 <div className="news_block_title_name">НОВОСТИ</div>
                 <div className="news_block_title_more">больше новостей</div>
+                <Link to="/createnews" className="news_block_title_create">СОЗДАТЬ</Link>
             </div>
             <div className="news_block_list">
                 <div className="news_block_list_box" style={{backgroundImage: `url(news/img/lamp.jpg)`}}>

@@ -41,6 +41,7 @@ import NewPayList from "./pages/NewPayList";
 import NewPhoneBook from "./pages/NewPhoneBook";
 import MainTasks from "./pages/newportal/tasks/MainTasks";
 import ThisTask from "./pages/newportal/tasks/ThisTask";
+import Createnews from "./pages/newportal/news/Createnews";
 
 function App() {
     const {store} = useContext(Context)
@@ -103,6 +104,7 @@ function App() {
                         <Route path="/peoples" element={<PeoplesPage />} />
                         <Route path="/odata" element={<ODataPage />} />
                         <Route path="/conference" element={<ChatPage />} />
+                        <Route path="/createnews" element={<Createnews/>} />
                     </Routes>
                 </div>
             </Router>

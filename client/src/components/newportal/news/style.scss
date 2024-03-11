@@ -16,6 +16,22 @@
     .news_block_title_more{
       //margin-top: 5px;
       font-size: 14pt;
+      cursor: pointer;
+    }
+    .news_block_title_create{
+      font-size: 14pt;
+      padding: 5px 30px;
+      margin: 0 0 0 20px;
+      border: 1px solid #CCC;
+      border-radius: 8px;
+      color: #CCC;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .news_block_title_create:hover{
+      border: 1px solid #454545;
+      color: #454545;
+      transition: 0.2s;
     }
   }
 
@@ -116,3 +132,290 @@
     }
   }
 }
+
+.create_new_post{
+  width: 100%;
+  //font-size: 16pt;
+  .create_new_post_title{
+    width: calc(100% - 40px);
+    font-size: 18pt;
+    font-weight: 600;
+    color:rgba(18,19,56,1);
+    padding: 0 20px;
+  }
+  .create_new_post_tools{
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    padding: 10px 20px;
+
+    .create_new_post_tools_plusblock{}
+    .create_new_post_tools_devbtn{}
+    .create_new_post_tools_publish{}
+    div{
+      margin-right: 20px;
+      padding: 20px 20px;
+      border: 1px solid #CCC;
+      border-radius: 4px;
+      cursor: pointer;
+      color: #454545;
+      transition: 0.2s;
+    }
+    div:hover{
+      color: rgba(18,19,56,1);
+      border: 1px solid rgba(18,19,56,1);
+      transition: 0.2s;
+    }
+  }
+
+  .create_new_post_worklist{
+
+    width: calc(100% - 40px);
+    padding: 20px;
+    background-color: #FFF;
+    border-radius: 10px;
+    .create_new_post_worklist_header{
+      width: calc(100% - 46px);
+      padding: 20px;
+      border: 3px dotted #CCC;
+      border-radius: 10px;
+      font-size: 24pt;
+      font-weight: 600;
+      color:rgba(18,19,56,1);
+      text-align: center;
+      outline: none;
+      transition: .2s;
+    }
+
+    .create_new_post_worklist_header:hover{
+      border: 3px dotted #454545;
+      transition: .2s;
+    }
+
+    .create_new_post_worklist_header:active{
+      border: 3px dotted #454545;
+      transition: .2s;
+    }
+
+    .create_new_post_worklist_header:focus{
+      border: 3px dotted #454545;
+      transition: .2s;
+    }
+
+    .create_new_post_worklist_mainimg{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #E3E3E3;
+      width: calc(100% - 46px);
+      height: 200px;
+      border: 3px dotted #CCC;
+      margin: 10px 0 0 0;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: .2s;
+      i{
+        color: #CCC;
+        font-size: 24pt;
+        border: 1px solid #CCC;
+        padding: 10px;
+        border-radius: 3px;
+        transition: .2s;
+      }
+    }
+    .create_new_post_worklist_mainimg:hover{
+      transition: .2s;
+      border: 3px dotted #454545;
+      i{
+        color: #454545;
+        border: 1px solid #454545;
+        transition: .2s;
+      }
+    }
+
+
+
+    .create_new_post_worklist_content{
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      .create_new_post_worklist_content_smalltext{
+      }
+      .create_new_post_worklist_content_title{
+        font-size: 18pt;
+      }
+      .create_new_post_worklist_content_longtext{
+
+      }
+      .create_new_post_worklist_content_imgtext{
+        display: flex;
+        justify-content: space-between;
+          div, textarea{
+            width: calc(90% / 2)
+          }
+        .create_new_post_worklist_content_imgtext_img{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: #E3E3E3;
+          height: 400px;
+          border: 3px dotted #CCC;
+          padding: 10px 20px;
+          border-radius: 10px;
+          cursor: pointer;
+          transition: .2s;
+          i{
+            color: #CCC;
+            font-size: 24pt;
+            border: 1px solid #CCC;
+            padding: 10px;
+            border-radius: 3px;
+            transition: .2s;
+          }
+        }
+        .create_new_post_worklist_content_imgtext_img:hover{
+          transition: .2s;
+          border: 3px dotted #454545;
+          i{
+            color: #454545;
+            border: 1px solid #454545;
+            transition: .2s;
+          }
+        }
+        .create_new_post_worklist_content_imgtext_text{
+          font-size: 18pt;
+        }
+      }
+      div, input, textarea{
+        width: calc(100% - 46px);
+        padding: 10px 20px;
+        min-height: 120px;
+        border: 3px dotted #CCC;
+        border-radius: 10px;
+        //margin: 10px 0 0 0;
+      }
+
+      div, input, textarea:hover{
+        border: 3px dotted #454545;
+        transition: .2s;
+      }
+
+      div, input, textarea:active{
+        border: 3px dotted #454545;
+        transition: .2s;
+      }
+
+      textarea:focus{
+        border: 3px dotted #454545;
+        transition: .2s;
+      }
+
+      input:focus{
+        border: 3px dotted #454545;
+        transition: .2s;
+      }
+
+      div:focus{
+        border: 3px dotted #454545;
+        transition: .2s;
+      }
+
+      .plus_btn_create_strock{
+        display: flex;
+        border: none;
+        min-height: 10px;
+        transition: .2s;
+      }
+
+      .plus_btn_create_strock_btn{
+        display: none;
+        min-height: 20px;
+        border: 1px solid #CCC;
+        color: #CCC;
+        width: auto;
+        max-height: 30px !important;
+        cursor: pointer;
+        margin-right: 10px;
+        padding: 5px 30px;
+        transition: .2s;
+      }
+      .plus_btn_create_strock_btn:hover{
+        color: #454545;
+        border: 1px solid #454545;
+        transition: .2s;
+      }
+
+      .plus_btn_create_strock:hover{
+        transition: .2s;
+        div{
+          display: flex;
+          transition: .2s;
+          animation-name: openbtns;
+          animation-duration: 0.3s; /* Продолжительность анимации в секундах */
+          animation-iteration-count: 1; /* Однократное воспроизведение */
+          animation-fill-mode: forwards; /* Оставаться на последнем кадре после завершения */
+        }
+
+        @keyframes openbtns {
+          0%{
+            display: none;
+            max-height: 0px;
+            min-height: 0px;
+            height: 0px;
+            color: transparent;
+          }
+          70%{
+            color: transparent;
+          }
+          100%{
+            display: flex;
+            min-height: 20px;
+            color: #CCC;
+          }
+        }
+      }
+
+      .create_new_post_worklist_content_tripleimgs{
+        display: flex;
+        justify-content: space-between;
+        .create_new_post_worklist_content_tripleimgs_img{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: #E3E3E3;
+          height: 400px;
+          border: 3px dotted #CCC;
+          padding: 10px 20px;
+          border-radius: 10px;
+          cursor: pointer;
+          transition: .2s;
+          width: calc(85% / 3);
+          i{
+            color: #CCC;
+            font-size: 24pt;
+            border: 1px solid #CCC;
+            padding: 10px;
+            border-radius: 3px;
+            transition: .2s;
+          }
+        }
+        .create_new_post_worklist_content_tripleimgs_img:hover{
+          transition: .2s;
+          border: 3px dotted #454545;
+          i{
+            color: #454545;
+            border: 1px solid #454545;
+            transition: .2s;
+          }
+        }
+      }
+
+    }
+
+  }
+
+}
+
+
