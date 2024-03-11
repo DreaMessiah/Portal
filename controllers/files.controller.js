@@ -5,6 +5,16 @@ const FileDto = require('../dtos/fileDto')
 const config = require('config')
 
 class FilesController {
+    async getAllFiles(req, res, next) {
+        try {
+            const {user_id} = req.body
+            const files = await FilesService.getAll(user_id)
+            if(!files) return res.status(200).json({message: 'У Вас нет файлов'})
+            return res.status(200).json(files)
+        } catch (e) {
+            next(e)
+        }
+    }
     async getFiles(req, res, next) {
         try {
             const {user_id,parent_id} = req.body
@@ -44,42 +54,65 @@ class FilesController {
             next(e)
         }
     }
-
     async uploadFile(req, res, next) {
         try {
             //slave 5 mb
             const file = req.files.file
-            const parent = await Files.findOne({where:{user_id:req.body.user_id,id:req.body.parent}})
-            const sizes = await DiskSpace.findOne({where:{user_id:req.body.id}})
+            const filename = req.body.filename
+            const par = req.body.parent
+            const user = req.body.user
+
+            const parent = await Files.findOne({where:{user_id:user,id:par}})
+            const sizes = await DiskSpace.findOne({where:{user_id:user}})
 
             if(!sizes) return res.status(200).json({message: 'Ошибка файлового хранилища'})
-            if(sizes.usedspace + file.size > sizes.diskspace) return res.status(400).json({message: 'Не достаточно места на диске'})
-
-            sizes.usedspace = sizes.usedspace + file.size
-            sizes.save()
+            if(+sizes.usedspace + file.size > sizes.diskspace) return res.status(400).json({message: 'Не достаточно места на диске'})
 
             let path
             if(parent){
-                path = `${config.get('file_path')}\\${sizes.user_id}\\${parent.path}\\${file.name}`
+                path = `${config.get('file_path')}\\${sizes.user_id}\\${parent.path}\\${filename}`
             }else {
-                path = `${config.get('file_path')}\\${sizes.user_id}\\${file.name}`
+                path = `${config.get('file_path')}\\${sizes.user_id}\\${filename}`
             }
-
             if(fs.existsSync(path)){
                 return res.status(400).json({message: 'Файл с таким именем уже существует'})
             }
-
             await file.mv(path)
-
-            const type = file.name.split('.')
-
-            const fileDto = new FileDto({name:file.name,type,size:file.size,path:parent ? parent.path : '',user_id:sizes.user_id,parent_id: parent ? parent.id : 0})
+            const type = filename.split('.').pop()
+            const fileDto = new FileDto({name:filename,type,size:file.size,path: parent ? parent.path : '',user_id:sizes.user_id,parent_id: parent ? parent.id : 0})
             const newFile = await Files.create(fileDto)
+
+            sizes.usedspace = +sizes.usedspace + file.size
+            sizes.save()
 
             return res.status(200).json(newFile)
         } catch (e) {
             next(e)
         }
     }
+
+    async getPath(req, res, next){
+        try {
+            const {parent} = req.body
+            if(+parent){
+                const path = await FilesService.createPath(+parent)
+                console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!',path)
+                if(!path) return res.status(200).json({message: 'Ошибка сбора пути'})
+                return res.status(200).json(path)
+            }
+            return res.status(200).json([])
+        } catch (e) {
+            next(e)
+        }
+    }
+    async delete(req,res,next) {
+        try {
+
+            return res.json('1')
+        } catch (e) {
+            next(e)
+        }
+    }
 }
+
 module.exports = new FilesController()
