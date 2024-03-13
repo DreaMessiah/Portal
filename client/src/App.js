@@ -45,6 +45,7 @@ import Createnews from "./pages/newportal/news/Createnews";
 import {ViewPOST} from "./components/newportal/news/ViewPOST";
 import Viewnews from "./pages/newportal/news/Viewnews";
 import AllListNews from "./pages/newportal/news/AllListNews";
+import ListFastBtns from "./pages/newportal/fastbtns/ListFastBtns";
 
 function App() {
     const {store} = useContext(Context)
@@ -110,6 +111,7 @@ function App() {
                         <Route path="/createnews" element={<Createnews/>} />
                         <Route path="/viewpost" element={<Viewnews />} />
                         <Route path="/alllistnews" element={<AllListNews />} />
+                        <Route path="/listfastbtns" element={<ListFastBtns />} />
 
                     </Routes>
                 </div>
