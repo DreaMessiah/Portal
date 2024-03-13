@@ -70,7 +70,20 @@
     }
 
   }
+
+
 }
 .backhall{
   border: 1px solid gold;
+}
+
+.borderbirthday{
+  border: 1px solid #FFF;
+}
+
+.birthdaycolor{
+  background: linear-gradient(45deg, #fff 0%, #fff 3%, red 3%, red 6%, #fff 6%, #fff 9%, rgb(18, 18, 70) 9%, rgb(18, 18, 70) 12%, #fff 12%, #fff 15%, red 15%, red 18%, #fff 18%, #fff 21%, rgb(18, 18, 70) 21%, rgb(18, 18, 70) 24%, #fff 24%, #fff 27%, red 27%, red 30%, #fff 30%, #fff 33%, rgb(18, 18, 70) 33%, rgb(18, 18, 70) 36%
+  , #fff 36%, #fff 39%, red 39%, red 42%, #fff 42%, #fff 45%, rgb(18, 18, 70) 45%, rgb(18, 18, 70) 48%, #fff 48%, #fff 51%, red 51%, red 54%, #fff 54%, #fff 57%, rgb(18, 18, 70) 57%, rgb(18, 18, 70) 60%, #fff 60%, #fff 63%
+  , red 63%, red 66%, #fff 66%, #fff 69%, rgb(18, 18, 70) 69%, rgb(18, 18, 70) 72%, #fff 72%, #fff 75%, red 75%, red 78%, #fff 78%, #fff 81%, rgb(18, 18, 70) 81%, rgb(18, 18, 70) 84%, #fff 84%, #fff 87%, red 87%, red 90%
+  , #fff 90%, #fff 93%, rgb(18, 18, 70) 93%, rgb(18, 18, 70) 96%, #fff 96%, #fff 100%);
 }

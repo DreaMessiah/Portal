@@ -56,6 +56,7 @@ export const FastBtns = () => {
                     </div>
                 </div>
             </div>
+            <div className="fast_btns_more">Другие...</div>
         </div>
     )
 }
