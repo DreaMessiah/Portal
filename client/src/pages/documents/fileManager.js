@@ -218,7 +218,6 @@ function FileManager(){
         window.history.pushState({ path: newUrl }, '', newUrl);
     }
 
-
     return (
         <div ref={containerRef} className='file-manager' onClick={(e) => console.log(path,parentId)}>
             <div className='file-buttons'>

@@ -486,14 +486,31 @@ const Files = sequelize.define('files',{
     child_id: {type: DataTypes.ARRAY(DataTypes.INTEGER)},
     basket:{type:DataTypes.BOOLEAN,default:false},
 })
-
 const DiskSpace = sequelize.define('diskspace',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     user_id:{type:DataTypes.INTEGER,ref:'users'},
     usedspace:{type:DataTypes.BIGINT,default:0},
     diskspace:{type:DataTypes.BIGINT,default:0}
 })
+const Survey  = sequelize.define('survey',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    text:{type:DataTypes.TEXT},
+    creater_id:{type:DataTypes.INTEGER,ref:'users'},
+    image:{type:DataTypes.STRING},
+})
+const Question = sequelize.define('question', {
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    survey_id:{type:DataTypes.INTEGER,ref:'survey'},
+    type:{type:DataTypes.INTEGER,default:0},
+    text:{type:DataTypes.TEXT}
+})
+const Answer = sequelize.define('answer', {
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    question_id:{type:DataTypes.INTEGER,ref:'question'},
+    survey_id:{type:DataTypes.INTEGER,ref:'survey'},
+    user_id:{type:DataTypes.INTEGER,ref:'survey'},
+})
 
 module.exports = {
-    User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Ktulist,Files,DiskSpace
+    User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Ktulist,Files,DiskSpace,Survey,Question,Answer
 }
