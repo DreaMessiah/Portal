@@ -11,6 +11,7 @@ import ModalUpload from "../../components/modalwin/ModalUpload";
 import CircularProgress from "../../components/CircularProgress";
 import {useLocation} from "react-router-dom";
 import ModalFiles from "../../components/modalwin/ModalFiles";
+import Select from "react-select";
 
 function FileManager(){
     const {icons} = useContext(DataContext)
@@ -22,10 +23,12 @@ function FileManager(){
     const [parentId,setParentId] = useState(0)
     const [activeM,setActiveM] = useState(false)
     const [indexM,setIndexM] = useState()
+    const [activeCopyM,setActiveCopyM] = useState(false)
     const [activeUploadM,setActiveUploadM] = useState(false)
     const [activeCreateM,setActiveCreateM] = useState(false)
     const [files, setFiles] = useState([])
     const [progress, setProgress] = useState({})
+    const [copyOptions,setCopyOptions] = useState([])
     const filesInputRef = useRef(null)
     const containerRef = useRef(null)
 
@@ -81,7 +84,9 @@ function FileManager(){
             console.log(e?.message)
         }
     }
+    const copyHandler = async () => {
 
+    }
     useEffect(()=> {
         function handleOutsideClick(event) {
             if (containerRef.current && !containerRef.current.contains(event.target)) {
@@ -97,6 +102,7 @@ function FileManager(){
         }
         //setDocuments(docs)
     },[])
+
 
     function Inmodal({index}) {
         return(
@@ -190,13 +196,14 @@ function FileManager(){
         }
         return(
             <>
-                <div className='create-dir'>
-                    <h4>Создание папки</h4>
+                <div className='copy'>
+                    <h4>Копирование</h4>
+                    <h5>Обьект: {selectFile>0 ? documents[selectFile].name : null}</h5>
                     <div className='inputs'>
-                        <input autoFocus onChange={dirNameHandler} value={newDirName} type="text" placeholder='Имя папки' autoComplete="off"/>
+                        <Select className='file-select' options={copyOptions}></Select>
                     </div>
                     <div className='file-buttons'>
-                        <div id='btn' onClick={(e) => createDirHandler(newDirName)} className='button grey'><i className="fa-solid fa-upload"></i>Создать</div>
+                        <div id='btn' onClick={(e) => copyHandler(newDirName)} className='button grey'><i className="fa-solid fa-upload"></i>Копировать</div>
                     </div>
                 </div>
             </>
@@ -219,7 +226,7 @@ function FileManager(){
                 <div onClick={(e) => setActiveCreateM(true)} className='button'><i className="fa-solid fa-folder-plus"></i>Создать</div>
                 {selectFile !== -2 ?
                     <>
-                        <div id='btn' className='button'><i className="fa-solid fa-copy"></i>Копировать</div>
+                        <div onClick={(e) => setActiveCopyM(true)} id='btn' className='button'><i className="fa-solid fa-copy"></i>Копировать</div>
                         <div id='btn' className='button'><i className="fa-solid fa-file-export"></i>Переместить</div>
                         <div id='btn' onClick={(e) => setActiveM(true)} className='button'><i className="fa-solid fa-trash-arrow-up"></i>Удалить</div>
                         <div id='btn' className='button'><i className="fa-solid fa-file-pen"></i>Переименовать</div>
@@ -280,7 +287,7 @@ function FileManager(){
 
             <ModalUpload data={<Upload />} active={activeUploadM} setActive={setActiveUploadM}/>
             <ModalFiles data={<Create />} active={activeCreateM} setActive={setActiveCreateM}/>
-
+            <ModalFiles heigth='50vh' data={<Copy />} active={activeCopyM} setActive={setActiveCopyM}/>
         </div>
     )
 }

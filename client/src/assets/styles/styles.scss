@@ -2250,6 +2250,15 @@ html{
       margin: 20px;
       font-weight: 500;
     }
+    h5{
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+    .inputs{
+      .file-select{
+        width: 100%;
+      }
+    }
     .file-buttons{
       justify-content: right;
       .button{
@@ -2259,7 +2268,30 @@ html{
     }
   }
 }
+.copy{
+  h4{
+    font-size: 1.6rem;
+    margin: 0 20px;
+    font-weight: 500;
+  }
+  h5{
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin: 20px;
+  }
+  .inputs{
+    .file-select{
+      width: 100%;
+    }
+  }
+  .file-buttons{
+    justify-content: right;
+    .button{
+      margin: 20px 0 0 0;
+    }
 
+  }
+}
 .hidden-upload{
   display: none;
 }

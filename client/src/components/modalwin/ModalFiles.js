@@ -2,11 +2,11 @@ import "./modalupload.scss";
 
 
 
-export default function ModalFiles ( {data, active, setActive}){
+export default function ModalFiles ( {heigth = '30vh',data, active, setActive}){
     return (
         <div className={`modal ${active ? 'modal_active' : ''}`}>
 
-            <div className='middle-modal-win-files'>
+            <div style={{height:heigth}} className='middle-modal-win-files'>
                 <div className='middle-modal-win-up'>
                     <span className='left-border'></span>
                     <span className='right-border' onClick={() => setActive(false)}><i className="fa-solid fa-xmark"></i></span>
