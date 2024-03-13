@@ -1,0 +1,61 @@
+.frame_block{
+  margin-top: 40px;
+  .frame_block_title{
+    display: flex;
+    justify-content: flex-start;
+    .frame_block_title_name {
+      font-size: 24pt;
+      margin-right: 50px;
+      font-weight: 800;
+      height: 35px;
+      color: rgb(18, 19, 56);
+    }
+    .frame_block_title_edit {
+      font-size: 14pt;
+      padding: 5px 30px;
+      margin: 0 0 0 20px;
+      border: 1px solid #CCC;
+      border-radius: 8px;
+      color: #CCC;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .frame_block_title_edit:hover{
+      transition: 0.2s;
+      border: 1px solid #454545;
+      color: #454545;
+    }
+  }
+  .frame_block_plane{
+    background-color: #FFF;
+    width: calc(100% - 80px);
+    min-height: 300px;
+    margin-top: 20px;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    .frame_block_plane_man{
+      display: flex;
+      flex-direction: column;
+      width: 150px;
+      margin: 10px;
+      .frame_block_plane_man_photo{
+        width: 150px;
+        height: 180px;
+        background-size: cover;
+        background-position: center center;
+        border-radius: 10px 10px 0 0;
+      }
+      .frame_block_plane_man_name{
+        width: 130px;
+        padding: 10px;
+        background-color: #F1F1F1;
+        border-radius: 0 0 10px 10px;
+        font-size: 10pt;
+      }
+    }
+
+  }
+}
