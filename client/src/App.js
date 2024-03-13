@@ -44,6 +44,7 @@ import ThisTask from "./pages/newportal/tasks/ThisTask";
 import Createnews from "./pages/newportal/news/Createnews";
 import {ViewPOST} from "./components/newportal/news/ViewPOST";
 import Viewnews from "./pages/newportal/news/Viewnews";
+import AllListNews from "./pages/newportal/news/AllListNews";
 
 function App() {
     const {store} = useContext(Context)
@@ -108,6 +109,7 @@ function App() {
                         <Route path="/conference" element={<ChatPage />} />
                         <Route path="/createnews" element={<Createnews/>} />
                         <Route path="/viewpost" element={<Viewnews />} />
+                        <Route path="/alllistnews" element={<AllListNews />} />
 
                     </Routes>
                 </div>
