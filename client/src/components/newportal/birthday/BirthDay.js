@@ -1,12 +1,12 @@
-import "./style.scss"
+// import "./style.scss"
 import {Link} from "react-router-dom";
 
-export const HallOfFrame = () => {
+export const BirthDay = () => {
     return (
         <div className="frame_block">
             <div className="frame_block_title">
-                <div className="frame_block_title_name">Доска почёта</div>
-                <div className="frame_block_title_edit">Редактировать</div>
+                <div className="frame_block_title_name">Дни рождения</div>
+                {/*<div className="frame_block_title_edit">Редактировать</div>*/}
             </div>
             <div className="frame_block_plane backhall">
                 <div className="frame_block_plane_man">

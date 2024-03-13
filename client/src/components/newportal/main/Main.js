@@ -4,6 +4,7 @@ import "./style.scss"
 import {FastBtns} from "../fastbtns/FastBtns";
 import {NewsBlock} from "../news/NewsBlock";
 import {HallOfFrame} from "../hallofframe/HallOfFrame";
+import {BirthDay} from "../birthday/BirthDay";
 
 
 export const NewMain = () => {
@@ -16,6 +17,7 @@ export const NewMain = () => {
             <div className="workpage_block_news">
                 <NewsBlock />
                 <HallOfFrame />
+                <BirthDay />
             </div>
         </div>
     )
