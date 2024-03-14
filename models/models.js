@@ -494,9 +494,13 @@ const DiskSpace = sequelize.define('diskspace',{
 })
 const Survey  = sequelize.define('survey',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    title:{type:DataTypes.TEXT},
     text:{type:DataTypes.TEXT},
+    type:{type:DataTypes.INTEGER,default:0},
     creater_id:{type:DataTypes.INTEGER,ref:'users'},
+    onanswer:{type:DataTypes.BOOLEAN,default:true},
     image:{type:DataTypes.STRING},
+    trash:{type:DataTypes.BOOLEAN,default:false}
 })
 const Question = sequelize.define('question', {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},

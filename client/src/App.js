@@ -46,6 +46,8 @@ import {ViewPOST} from "./components/newportal/news/ViewPOST";
 import Viewnews from "./pages/newportal/news/Viewnews";
 import AllListNews from "./pages/newportal/news/AllListNews";
 import ListFastBtns from "./pages/newportal/fastbtns/ListFastBtns";
+import PollsPage from "./pages/survey/PollsPage";
+import PollsCms from "./pages/survey/PollsCms";
 
 function App() {
     const {store} = useContext(Context)
@@ -77,9 +79,10 @@ function App() {
                         <Route path='/main' element={<MainPage/>} />
                         {/*<Route path="/paylist" element={<PayslipPage/>} />*/}
                         <Route path="/newpaylist" element={<NewPayList/>} />
-
+                        <Route path="/polls" element={<PollsPage/>} />
                         <Route path="/maintasks" element={<MainTasks/>} />
                         <Route path="/thistask" element={<ThisTask/>} />
+                        <Route path="/polls/cms" element={<PollsCms/>} />
 
                         <Route path="/documents" element={<FileManagerPage/>} />
                         <Route path="/olddocuments" element={<DocumentsPage/>} />

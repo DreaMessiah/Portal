@@ -7240,6 +7240,16 @@ export const DataProvider = ({ children }) => {
         'fb2':'fa-file-lines'
     }
     const iconst = ['fa-solid','fa-regular']
+    const COLORS = {
+        '1': 'rgba(18,19,56,1)',
+        '2': 'rgba(11,14,162,0.8)',
+        '3': 'rgba(0,2,108,0.6)',
+        '4': 'rgba(55,55,68,0.4)',
+        '5': 'rgba(106,114,128,0.8)',
+        '6': 'rgba(195,209,229,0.69)',
+        '7': 'rgba(182,107,180,0.4)',
+        '8': 'rgb(89,69,69)'
+    }
 
     const getMonthName = (monthIndex) => {
         const monthNames = [
@@ -7266,6 +7276,7 @@ export const DataProvider = ({ children }) => {
 
     return (
         <DataContext.Provider value={{
+            COLORS,
             getMonthName,
             optionsMonth,
             mass_blocks_admin,

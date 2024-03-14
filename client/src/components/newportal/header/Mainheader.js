@@ -2,7 +2,6 @@ import {Link} from "react-router-dom";
 import React from 'react';
 import {useContext} from "react";
 import {Context} from "../../../index";
-import {observer} from "mobx-react-lite";
 import "./style.scss"
 
 
