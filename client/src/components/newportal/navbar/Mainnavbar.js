@@ -48,10 +48,10 @@ export const Mainnavbar = () => {
                         <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-cake-candles"></i></div>
                         <div className="navbar_block_dopmenu_list_description">Дни рождения</div>
                     </div>
-                    <div className="navbar_block_dopmenu_list_strock">
+                    <Link to='/polls' className="navbar_block_dopmenu_list_strock">
                         <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-toggle-off"></i></div>
                         <div className="navbar_block_dopmenu_list_description">Опросы</div>
-                    </div>
+                    </Link>
                     <div className="navbar_block_dopmenu_list_strock">
                         <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-square-poll-vertical"></i></div>
                         <div className="navbar_block_dopmenu_list_description">Статистика</div>

@@ -9,6 +9,7 @@ const objsRouter = require('./objs.route')
 const weldingRouter = require('./welding.route')
 const odataRouter = require('./odata.route')
 const filesRouter = require('./files.route')
+const pollsRouter = require('./polls.route')
 
 router.use('/auth',authRouter)
 router.use('/phones',phonesRouter)
@@ -18,5 +19,6 @@ router.use('/payslip',payslipRouter)
 router.use('/t13',t13Router)
 router.use('/odata',odataRouter)
 router.use('/files',filesRouter)
+router.use('/polls',pollsRouter)
 
 module.exports = router
