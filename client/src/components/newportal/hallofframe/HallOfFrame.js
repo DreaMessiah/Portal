@@ -6,7 +6,7 @@ export const HallOfFrame = () => {
         <div className="frame_block">
             <div className="frame_block_title">
                 <div className="frame_block_title_name">Доска почёта</div>
-                <div className="frame_block_title_edit">Редактировать</div>
+                <Link to="/halledit" className="frame_block_title_edit">Редактировать</Link>
             </div>
             <div className="frame_block_plane backhall">
                 <div className="frame_block_plane_man">

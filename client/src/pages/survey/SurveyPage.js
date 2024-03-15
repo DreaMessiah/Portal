@@ -141,7 +141,7 @@ export default function SurveyPage({id}){
                                                     <div className='text'>{item.text}</div>
                                                 </div>
                                                 <div className="column с2"><p>{item.total}</p></div>
-                                                <div className="column с3"><p>{item.percent}%</p></div>
+                                                <div className="column с3"><p>{item.percent.toFixed(2)}%</p></div>
                                             </div>
 
                                         ))}
