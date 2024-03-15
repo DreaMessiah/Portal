@@ -34,11 +34,9 @@ export const CreatePOST = () => {
     }
     const pushValue = (event,index) => {
         if(empty.length) checkEmpty()
-
         let newblocks = [...temp]
         newblocks[index-1].content = event.target.value
         setTemp(newblocks)
-        console.log(temp)
     }
     const loadImage = async (e,index=0,num = 0) => {
         const response = await FilesService.loadImage(e.target.files[0])
@@ -88,13 +86,14 @@ export const CreatePOST = () => {
                 }
             })
         }
-        setEmpty(n)
+        const hasTrueValue = n.some(value => value === true);
+        if( hasTrueValue ) setEmpty(n)
+        else setEmpty([])
+        return hasTrueValue
     }
     const createHandler = async () => {
-        console.log(temp)
-        checkEmpty()
-        console.log(empty)
-        console.log(startRef[0].title.trim().length)
+        if(checkEmpty()) message('Заполните выделенные поля')
+
     }
 
     return (
