@@ -36,7 +36,7 @@ export const BirthDay = () => {
                             <div className="frame_block_birthday_main_man_date">03.03.1993</div>
                             <div className="frame_block_birthday_main_man_years">31 год</div>
                         </div>
-                        <div className="todaybirthday">Сегодня <i className="fa-solid fa-gift"></i></div>
+                        {/*<div className="todaybirthday">Сегодня <i className="fa-solid fa-gift"></i></div>*/}
                     </div>
                     <div className="frame_block_birthday_main_man">
                         <div className="frame_block_birthday_main_man_photo" style={{backgroundImage: `url("/hallofframe/44.jpg")`}}></div>

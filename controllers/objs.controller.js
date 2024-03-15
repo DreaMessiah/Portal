@@ -1,7 +1,21 @@
 const {validationResult} = require('express-validator')
 const ApiError = require('../exceptions/api.error')
 const ObjsService = require("../service/objs.service");
+const BestManService = require("../service/mainpage.service");
+
 class ObjsController {
+
+    async pushBestMan(req,res,next) {
+        try{
+            const man = req.body
+            const itogyman = await BestManService.pushBestMan(man)
+            return res.json(itogyman)
+
+        }catch (e){
+            next(e)
+        }
+    }
+
     async getListObjs(req,res,next) {
          try{
              const inn = req.body.inn

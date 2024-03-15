@@ -515,6 +515,29 @@ const Answer = sequelize.define('answer', {
     user_id:{type:DataTypes.INTEGER,ref:'survey'},
 })
 
+const BestBoard = sequelize.define('bestboard', {
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    name:{type:DataTypes.STRING},
+    developer:{type:DataTypes.STRING},
+    onboard:{type:DataTypes.STRING},
+    dev:{type:DataTypes.STRING},
+    inn:{type:DataTypes.STRING}
+})
+
+// const RssPosts = sequelize.define('rss', {
+//     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+//     question_id:{type:DataTypes.INTEGER,ref:'question'},
+//     survey_id:{type:DataTypes.INTEGER,ref:'survey'},
+//     user_id:{type:DataTypes.INTEGER,ref:'survey'},
+// })
+//
+// const RssPosts = sequelize.define('rss', {
+//     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+//     question_id:{type:DataTypes.INTEGER,ref:'question'},
+//     survey_id:{type:DataTypes.INTEGER,ref:'survey'},
+//     user_id:{type:DataTypes.INTEGER,ref:'survey'},
+// })
+
 module.exports = {
-    User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Ktulist,Files,DiskSpace,Survey,Question,Answer
+    User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Ktulist,Files,DiskSpace,Survey,Question,Answer,BestBoard
 }

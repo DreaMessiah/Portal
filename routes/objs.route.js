@@ -9,6 +9,7 @@ router.post('/getalltabels', objsController.getAllTabels)
 router.post('/createtabel', objsController.createTabels)
 router.post('/gett13', objsController.getT13)
 router.post('/listtabel', objsController.listTabelMans)
+router.post('/bestman', objsController.pushBestMan)
 
 
 module.exports = router
