@@ -43,5 +43,10 @@ class FilesService {
             }
         }))
     }
+    generateRandomFileName() {
+        const timestamp = new Date().getTime();
+        const randomNumber = Math.floor(Math.random() * 10000);
+        return `${timestamp}_${randomNumber}`;
+    }
 }
 module.exports = new FilesService()
