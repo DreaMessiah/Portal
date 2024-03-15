@@ -1717,7 +1717,7 @@ html{
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: 110px;
+  margin-top: 0px;
   margin-bottom: 100px;
   .modal_win_wight_krest{
     background-color: $wblueColor !important;
@@ -1862,11 +1862,11 @@ html{
   }
   .buttons-box{
     position: fixed;
-    top:130px;
+    top: 80px;
     padding: 0 20px;
-    width: calc(100% - 40px);
+    width: calc(100% - 240px);
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     z-index: 199999;
     .box{
       display: flex;

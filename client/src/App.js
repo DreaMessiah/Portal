@@ -48,6 +48,7 @@ import AllListNews from "./pages/newportal/news/AllListNews";
 import ListFastBtns from "./pages/newportal/fastbtns/ListFastBtns";
 import PollsPage from "./pages/survey/PollsPage";
 import PollsCms from "./pages/survey/PollsCms";
+import HallEdit from "./pages/newportal/hallofframe/HallEdit";
 
 
 function App() {
@@ -116,6 +117,7 @@ function App() {
                         <Route path="/viewpost" element={<Viewnews />} />
                         <Route path="/alllistnews" element={<AllListNews />} />
                         <Route path="/listfastbtns" element={<ListFastBtns />} />
+                        <Route path="/halledit" element={<HallEdit />} />
 
                     </Routes>
                 </div>
