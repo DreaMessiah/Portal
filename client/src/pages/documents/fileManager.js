@@ -198,9 +198,9 @@ function FileManager(){
             <>
                 <div className='copy'>
                     <h4>Копирование</h4>
-                    <h5>Обьект: {selectFile>0 ? documents[selectFile].name : null}</h5>
+                    <h5>Обьект: </h5>
                     <div className='inputs'>
-                        <Select className='file-select' options={copyOptions}></Select>
+                        <Select className='file-select'></Select>
                     </div>
                     <div className='file-buttons'>
                         <div id='btn' onClick={(e) => copyHandler(newDirName)} className='button grey'><i className="fa-solid fa-upload"></i>Копировать</div>
