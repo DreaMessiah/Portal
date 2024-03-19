@@ -85,10 +85,8 @@ function App() {
                         <Route path="/maintasks" element={<MainTasks/>} />
                         <Route path="/thistask" element={<ThisTask/>} />
                         <Route path="/polls/cms" element={<PollsCms/>} />
-
                         <Route path="/documents" element={<FileManagerPage/>} />
                         <Route path="/olddocuments" element={<DocumentsPage/>} />
-
                         <Route path="/settings" element={<SettingsPage/>} />
                         <Route path="/phonebook" element={<PhonebookPage/>} />
                         <Route path="/newphonebook" element={<NewPhoneBook />} />

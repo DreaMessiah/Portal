@@ -5,7 +5,7 @@ import {useContext} from "react"
 import {DataContext} from "../../context/DataContext"
 import {useMessage} from "../../hooks/message.hook"
 
-export default function SurveyPage({id}){
+export default function SurveyPage({flag=false,id}){
     const [survey,setSurvey] = useState(null)
     const [questions,setQuestions] = useState(null)
     const [selected,setSelected] = useState(-1)
@@ -119,9 +119,10 @@ export default function SurveyPage({id}){
                         </>
                         : null}
                     <div className='next'>
-                        {!answer ? <div onClick={(e) => voteHandler()} className='button'>Проголосовать</div> : <div className='text'>Вы уже проголосовали</div> }
+                        {(!answer && (!flag || (!flag && !survey.type)))? <div onClick={(e) => voteHandler()} className='button'>Проголосовать</div> : <div>Перейти</div>}
+                        {answer ? <div className='text'>Вы уже проголосовали</div> : null}
                     </div>
-                    {answer ?
+                    {answer && !flag ?
                         <div className='statistics'>
                             {stat ?
                                 <div className='answers'>
