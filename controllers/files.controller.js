@@ -97,15 +97,32 @@ class FilesController {
 
             const newname = FilesService.generateRandomFileName()
             const type = file.name.split('.').pop()
-            const path = `${config.get('public_path')}images\\${newname}.${type}`
+            const path = `${config.get('public_path')}news\\images\\${newname}.${type}`
 
             if(fs.existsSync(path)){
                 return res.status(400).json({message: 'Файл с таким именем уже существует'})
             }
-
             await file.mv(path)
-
             return res.status(200).json({path:`/news/images/${newname}.${type}`})
+        }catch (e) {
+            next(e)
+        }
+    }
+    async loadPollsImg(req, res, next){
+        try {
+            const file = req.files.file
+
+            const newname = FilesService.generateRandomFileName()
+            const type = file.name.split('.').pop()
+            const path = `${config.get('public_path')}polls\\${newname}.${type}`
+
+            console.log(path)
+
+            if(fs.existsSync(path)){
+                return res.status(400).json({message: 'Файл с таким именем уже существует'})
+            }
+            await file.mv(path)
+            return res.status(200).json({path:`${newname}.${type}`})
         }catch (e) {
             next(e)
         }

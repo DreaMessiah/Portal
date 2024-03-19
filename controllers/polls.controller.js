@@ -6,6 +6,31 @@ class PollsController {
     async get(req,res,next) {
         try{
             const pollsData = await PollsService.get(req.user.id)
+            const updatedPollsData = await Promise.all(pollsData.map(async (item, index) => {
+                const ans = await PollsService.checkAnswers(item.id);
+                return {
+                    ...item,
+                    answers: ans
+                }
+            }))
+            return res.status(200).json(updatedPollsData)
+        }catch (e){
+            next(e)
+        }
+    }
+    async setRemove(req,res,next) {
+        try{
+            const {id} = req.body
+            const pollsData = await PollsService.remove(id)
+            return res.status(200).json(pollsData)
+        }catch (e){
+            next(e)
+        }
+    }
+    async checkExist(req,res,next) {
+        try{
+            const {id} = req.body
+            const pollsData = await PollsService.check(id)
             return res.status(200).json(pollsData)
         }catch (e){
             next(e)
@@ -38,8 +63,6 @@ class PollsController {
                 percent = total/answers.length * 100
                 statistics = [...statistics,{text:question.text,total:total,percent:percent}]
             })
-
-
             return res.status(200).json(statistics)
         }catch (e){
             next(e)
@@ -47,14 +70,32 @@ class PollsController {
     }
     async create(req,res,next) {
         try{
-            const errors = validationResult(req)
-            if(!errors.isEmpty()) next(ApiError.BadRequest('Ошибка при записи в базу опросов',errors.array()))
-            const {text,title} = req.body
-            const pollsData = await PollsService.create(text,req.user.id,title)
-            return res.status(200).json(pollsData)
+            const {id,text,title,image,questions} = req.body
+            const answers = await PollsService.checkAnswers(id)
+            if(!answers){
+                const {survey} = await PollsService.updateSurvey(id,text,req.user.id,title,image,questions[0].type)
+
+                if(survey.id) {
+                    const quests = await PollsService.updateQuestions(survey.id,questions)
+                    if(quests) return res.status(200).json({survey,quests})
+                    else{
+                        return res.status(400).json({err:true,message:'Ошибка при обновлении или создании ответов'})
+                    }
+                }
+                else{
+                    return res.status(400).json({err:true,message:'Ошибка при обновлении или создании опроса'})
+                }
+            }else{
+                return res.status(400).json({err:true,message:'Есть проголосовавшие, редактировать запрещено'})
+            }
         }catch (e){
             next(e)
         }
+    }
+    async checkAnswers(req,res,next){
+        const {id} = req.body
+        const answers = await PollsService.checkAnswers(id)
+        return res.status(200).json(answers)
     }
     async vote(req,res,next) {
         try{

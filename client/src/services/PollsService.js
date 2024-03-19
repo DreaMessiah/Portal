@@ -13,7 +13,18 @@ export default class PollsService {
     static vote(survey_id,question_id) {
         return $api.post('/polls/vote',{survey_id,question_id})
     }
-    static createSurvey(text,title) {
-        return $api.post('/polls/create',{text,title})
+    static createSurvey(id,text,title,image,questions) {
+        return $api.post('/polls/create',{id,text,title,image,questions})
     }
+    static removeSurvey(id) {
+        return $api.post('/polls/remove',{id})
+    }
+    static checkExist(id){
+        return $api.post('/polls/check',{id})
+    }
+    static checkAnswers(id){
+        return $api.post('/polls/checkanswers',{id})
+    }
+
+
 }

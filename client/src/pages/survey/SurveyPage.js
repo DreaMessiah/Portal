@@ -22,7 +22,7 @@ export default function SurveyPage({id}){
                 setSurvey(response.data.surveys)
                 setQuestions(response.data.questions)
                 setAnswer(response.data.answers)
-                setImage(response.data.surveys.image)
+                if(response.data.surveys.image) setImage(response.data.surveys.image)
             }
             const statres = await PollsService.fetchStat(id)
             console.log(statres.data)
@@ -67,7 +67,6 @@ export default function SurveyPage({id}){
     },[answer])
     useEffect(() => {
         if(stat){
-            console.log(stat)
             stat.forEach(item => {
                 if(item.percent){
                     setPerc(prevState => ({
@@ -76,16 +75,15 @@ export default function SurveyPage({id}){
                     }))
                 }
             })
-            console.log(perc)
         }
     },[stat])
 
     return (
         <>
             {survey ?
-            <div className='survey-block' style={{backgroundImage:`url("/polls/${survey.image}")`}}>
+            <div className='survey-block' style={survey.image ? {backgroundImage:`url("/polls/${survey.image}")`}:null}>
                 <div className='title'>
-                    <h3>{survey.title}</h3>
+                    <h3 style={!survey.image ? {margin:'20px',color:'rgb(18, 19, 56)',backgroundColor:'transparent'} : null}>{survey.title}</h3>
                 </div>
                 <div className='survey-box'>
                     <div className='image' ></div>
@@ -131,7 +129,7 @@ export default function SurveyPage({id}){
                                         <div className="table_list_cap"></div>
                                         <div className="survey-table-header">
                                             <div className="column с1">Ответ</div>
-                                            <div className="column с2">Количество</div>
+                                            <div className="column с2">Кол-во</div>
                                             <div className="column с3">Процент</div>
                                         </div>
                                         {stat.map((item,index) => (
@@ -141,7 +139,7 @@ export default function SurveyPage({id}){
                                                     <div className='text'>{item.text}</div>
                                                 </div>
                                                 <div className="column с2"><p>{item.total}</p></div>
-                                                <div className="column с3"><p>{item.percent.toFixed(2)}%</p></div>
+                                                <div className="column с3"><p>{ Math.round(item.percent * 100) / 100}%</p></div>
                                             </div>
 
                                         ))}

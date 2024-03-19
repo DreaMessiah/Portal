@@ -31,12 +31,65 @@ class PollsService{
 
         return {questions,answers}
     }
+    async remove(id) {
+        const survey = await Survey.findOne({where:{id:+id}})
+        if(!survey) throw ApiError.BadRequest('Нет вопроса с таким id в базе')
+        survey.trash = true
+        survey.save()
 
-    stat
-    async create(text,creater_id,title,image = null) {
-        const survey = await Survey.create({text:text,creater_id,image,title:title})
-        //const surveyDto = new surveyDto(survey)
         return {survey}
+    }
+    async check(id) {
+        const survey = await Survey.findOne({where:{id:+id,trash:false}})
+        if(!survey) return {exist:false}
+        return {exist:true}
+    }
+
+    async updateSurvey(id,text,creater_id,title,image = null,type) {
+        if (!isNaN(+id)) {
+            const survey = await Survey.findOne({where: {id: +id}})
+            if (survey) {
+                survey.text = text
+                survey.title = title
+                survey.image = image
+                survey.type = type
+                await survey.save()
+                return {survey}
+            }
+        }
+        return await this.createSurvey(text, creater_id, title, image, type)
+    }
+    async updateQuestions(id,questions) {
+        const questionslist = await Question.findAll({where:{survey_id:id}})
+        console.log(questionslist)
+        if(questionslist){
+            questionslist.map((item,index) => {
+                item.destroy()
+            })
+        }
+        if(questions.length && !isNaN(+id)) {
+            questions.map(async (item) => {
+                return await this.createQuestion(item,+id)
+            })
+            return {questions}
+        }else{
+            return false
+        }
+    }
+    async createQuestion(question,survey_id) {
+        const newQuestion = await Question.create({survey_id,type:question.type,text:question.text})
+        return {newQuestion}
+    }
+    async createSurvey(text,creater_id,title,image = null,type) {
+        const survey = await Survey.create({text:text,creater_id,image,title:title,type,onanswer:true,trash:false})
+        return {survey}
+    }
+    async checkAnswers(id){
+        if(!isNaN(+id)){
+            let answers = await Answer.findAll({where:{survey_id:+id}})
+            if(answers) return answers.length
+        }
+        return false
     }
     async setAnswer(user_id,survey_id,question_id){
         let answer = await Answer.findAll({where:{user_id:+user_id,survey_id:+survey_id}})
@@ -46,4 +99,13 @@ class PollsService{
         return {answer}
     }
 }
+
+
+
+
+
+
+
+
+
 module.exports = new PollsService()

@@ -8,6 +8,9 @@ router.post('/create',authMiddlewere,pollsController.create)
 router.post('/getsurvey',authMiddlewere,pollsController.getSurvey)
 router.post('/vote',authMiddlewere,pollsController.vote)
 router.post('/getstat',authMiddlewere,pollsController.getStat)
+router.post('/remove',authMiddlewere,pollsController.setRemove)
+router.post('/check',authMiddlewere,pollsController.checkExist)
+router.post('/checkanswers',authMiddlewere,pollsController.checkAnswers)
 
 
 module.exports = router
