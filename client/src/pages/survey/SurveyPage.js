@@ -81,19 +81,19 @@ export default function SurveyPage({flag=false,id}){
     return (
         <>
             {survey ?
-            <div className='survey-block' style={survey.image ? {backgroundImage:`url("/polls/${survey.image}")`}:null}>
+            <div className={`survey-block ${flag && 'small-box small-heigth'} ${!survey.image && 'no-padding'}`} style={survey.image ? {backgroundImage:`url("/polls/${survey.image}")`}:null}>
                 <div className='title'>
-                    <h3 style={!survey.image ? {margin:'20px',color:'rgb(18, 19, 56)',backgroundColor:'transparent'} : null}>{survey.title}</h3>
+                    <h3 className={`${flag && 'small-h'} ${!survey.image && 'no-padding'}`} style={!survey.image ? {margin:'20px',color:'rgb(18, 19, 56)',backgroundColor:'transparent'} : null}>{survey.title}</h3>
                 </div>
-                <div className='survey-box'>
+                <div className={`survey-box ${flag && 'small-box small-pad'}`}>
                     <div className='image' ></div>
                     <div className='text'>
-                        <h4>{survey.text}</h4>
+                        <h4 className={`${flag && 'small-p'}`} >{survey.text}</h4>
                     </div>
                     {questions ?
                         <>
                             {survey.type === 1 ?
-                                <div className='scale'>
+                                <div className={`scale ${flag && 'small-s'}`}>
                                     {questions.map((item,index) => (
                                         <div key={index} onClick={(e) => selectHandler(index)} className={ answer ? selected===index ? 'item selected' : 'item' : selected===index ? 'item selected' : 'item itemhover'}>
                                             {item.text}
@@ -101,7 +101,7 @@ export default function SurveyPage({flag=false,id}){
                                     ))}
                                 </div>
                                 :
-                                <div className="radio-button-container">
+                                <div className={`radio-button-container  ${flag && 'small-radio'}`}>
                                     {questions.map((item,index) => (
                                         <label key={index} className="radio-button">
                                             <input
@@ -119,10 +119,10 @@ export default function SurveyPage({flag=false,id}){
                         </>
                         : null}
                     <div className='next'>
-                        {(!answer && (!flag || (!flag && !survey.type)))? <div onClick={(e) => voteHandler()} className='button'>Проголосовать</div> : <div>Перейти</div>}
-                        {answer ? <div className='text'>Вы уже проголосовали</div> : null}
+                        {!answer ? <div onClick={(e) => voteHandler()} className='button'>Проголосовать</div> : <div className='text'>Вы уже проголосовали</div>}
+
                     </div>
-                    {answer && !flag ?
+                    {answer && !flag && survey.onanswer?
                         <div className='statistics'>
                             {stat ?
                                 <div className='answers'>

@@ -70,10 +70,10 @@ class PollsController {
     }
     async create(req,res,next) {
         try{
-            const {id,text,title,image,questions} = req.body
+            const {id,text,title,image,questions,onanswer} = req.body
             const answers = await PollsService.checkAnswers(id)
             if(!answers){
-                const {survey} = await PollsService.updateSurvey(id,text,req.user.id,title,image,questions[0].type)
+                const {survey} = await PollsService.updateSurvey(id,text,req.user.id,title,image,questions[0].type,onanswer)
 
                 if(survey.id) {
                     const quests = await PollsService.updateQuestions(survey.id,questions)

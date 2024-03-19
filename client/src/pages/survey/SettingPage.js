@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 export default function SettingPage({idd}){
     const [id,setId] = useState(idd)
     const [surveys,setSurveys] = useState(null)
+    const [checkedStat,setCheckedStat] = useState(true)
     const [activeDeleteM,setActiveDeleteM] = useState(false)
     const [title,setTitle] = useState('')
     const [text,setText] = useState('')
@@ -34,6 +35,7 @@ export default function SettingPage({idd}){
                         setSurImage({...surImage,image:Survey.image})
                         setCheckedImage(true)
                     }
+                    setCheckedStat(Survey.onanswer)
                     if(Survey.type) setSelectedType(3)
                     setQuestions(response.data.questions)
                 }
@@ -65,6 +67,7 @@ export default function SettingPage({idd}){
     },[selectedType])
     useEffect(() => {
         if(flagCreate) checkEmpty()
+        console.log(title.length)
     },[questions,title,text,surImage])
     const createHandler = async () => {
         try{
@@ -72,15 +75,22 @@ export default function SettingPage({idd}){
                 message('Заполните выделенные поля')
                 setFlagCreate(true)
             }else{
-
-                const checkAns = await PollsService.checkAnswers(id)
-                if(checkAns.data){
-                    message('Уже есть проголосовавшие, редактирование запрещено')
+                if(title.length > 100){
+                    message('Текст заголовка не может превышать 50 символов')
                 }else{
-                    const response = await PollsService.createSurvey(id,text,title,surImage.image,questions)
-                    console.log(response.data)
+                    if(text.length > 250){
+                        message('Текст опроса не может превышать 200 символов')
+                    }else{
+                        const checkAns = await PollsService.checkAnswers(id)
+                        if(checkAns.data){
+                            message('Уже есть проголосовавшие, редактирование запрещено')
+                        }else{
+                            const response = await PollsService.createSurvey(id,text,title,surImage.image,questions,checkedStat)
+                            console.log(response.data)
+                        }
+                        navigate('/polls/cms')
+                    }
                 }
-                navigate('/polls/cms')
             }
         }catch (e){
             console.log(e.message+': Проблема создания опроса')
@@ -104,6 +114,7 @@ export default function SettingPage({idd}){
         else setEmpty([])
         return hasTrueValue
     }
+
     const loadImage = async (e) => {
         try {
             const response = await FilesService.loadPollsImage(e.target.files[0])
@@ -223,6 +234,12 @@ export default function SettingPage({idd}){
 
                         {selectedType === 3 ? <div className='buttons'> <div onClick={() => addQuesHandler()} className='add-btn'>+ добавить ответ</div>  <div onClick={() => deleteQuesHandler()} className='add-btn red-solid-border'>- Удалить ответ</div> </div>: null}
                     </div>
+
+                    <label className="checkbox-container">
+                        <input type="checkbox" checked={checkedStat} onChange={(e) => setCheckedStat(!checkedStat)} />
+                        <span className="checkmark"></span>
+                        Разрешить просмотр статистики
+                    </label>
 
                 </div>
 

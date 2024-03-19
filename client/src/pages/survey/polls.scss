@@ -1,4 +1,5 @@
 $dredColor:rgba(215,26,0,0.5);
+
 .survey-block{
   padding: 20px;
   background-color: white;
@@ -89,7 +90,7 @@ $dredColor:rgba(215,26,0,0.5);
       cursor: pointer;
     }
     .text{
-      margin-bottom: 20px;
+      //margin-bottom: 20px;
     }
   }
   .statistics{
@@ -507,4 +508,49 @@ $dredColor:rgba(215,26,0,0.5);
 }
 .red-solid-border:hover{
   color: rgb(200, 19, 46);
+}
+
+.small-box{
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin: 0 !important;
+  padding-top: 10px !important;
+}
+.small-heigth{
+  height: calc(100% - 10px) !important;
+
+}
+.small-pad{
+  padding-bottom: 20px !important;
+}
+.small-h{
+  padding: 5px !important;
+  margin: 0 10px !important;
+  font-size: 1.5rem !important;
+}
+.small-p{
+  padding: 0 !important;
+  margin:10px !important;
+}
+.small-s{
+  width: calc(100% - 20px) !important;
+  padding: 10px !important;
+  margin: 0!important;
+  .item{
+    width: 2% !important;
+  }
+}
+.no-padding{
+  padding: 0 !important;
+}
+.small-radio{
+  width: calc(100% - 40px);
+  display: flex;
+  padding: 0 20px !important;
+  flex-direction: column;
+  justify-content: left;
+  align-items: flex-start;
 }

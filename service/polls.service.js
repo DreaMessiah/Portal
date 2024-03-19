@@ -45,7 +45,7 @@ class PollsService{
         return {exist:true}
     }
 
-    async updateSurvey(id,text,creater_id,title,image = null,type) {
+    async updateSurvey(id,text,creater_id,title,image = null,type,onanswer) {
         if (!isNaN(+id)) {
             const survey = await Survey.findOne({where: {id: +id}})
             if (survey) {
@@ -53,11 +53,12 @@ class PollsService{
                 survey.title = title
                 survey.image = image
                 survey.type = type
+                survey.onanswer = onanswer
                 await survey.save()
                 return {survey}
             }
         }
-        return await this.createSurvey(text, creater_id, title, image, type)
+        return await this.createSurvey(text, creater_id, title, image, type,onanswer)
     }
     async updateQuestions(id,questions) {
         const questionslist = await Question.findAll({where:{survey_id:id}})
@@ -80,8 +81,8 @@ class PollsService{
         const newQuestion = await Question.create({survey_id,type:question.type,text:question.text})
         return {newQuestion}
     }
-    async createSurvey(text,creater_id,title,image = null,type) {
-        const survey = await Survey.create({text:text,creater_id,image,title:title,type,onanswer:true,trash:false})
+    async createSurvey(text,creater_id,title,image = null,type,onanswer) {
+        const survey = await Survey.create({text:text,creater_id,image,title:title,type,onanswer:onanswer,trash:false})
         return {survey}
     }
     async checkAnswers(id){
