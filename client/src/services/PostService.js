@@ -1,13 +1,18 @@
 import $api from "../http";
-export default class FilesService {
-    static createPost(file) {
-        // if (this.isImage(file.name)) {
-        //     const formData = new FormData()
-        //     formData.append('file', file)
-        //     formData.append('filename', file.name)
-        //     return $api.post('/files/loadimg', formData)
-        // } else {
-        //     return {err: true, message: 'Файл не является изображением'}
-        // }
+export default class PostService {
+    static fetch() {
+        return $api.get('/posts/get')
+    }
+    static fetchList() {
+        return $api.get('/posts/getlist')
+    }
+    static fetchPost(id) {
+        return $api.post('/posts/getpost',{id})
+    }
+    static createPost(id,title,text,image,json_data,oncomment) {
+        return $api.post('/posts/create',{id,title,text,image,json_data:JSON.stringify(json_data),oncomment})
+    }
+    static removePost(id) {
+        return $api.post('/posts/remove',{id})
     }
 }

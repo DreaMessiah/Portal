@@ -21,10 +21,11 @@
       align-items: center;
       width: 100%;
       height: 30px;
-      margin-top: 10px;
+      margin: 2.5px 0;
       color: #454545;
       font-size: 10pt;
       cursor: pointer;
+      padding: 3px 0;
       .navbar_block_menu_strock_icon{
         width: 30px;
         height: 30px;
@@ -90,13 +91,17 @@
       transition: 0.3s;
     }
 
-    .navbar_block_menu_strock:hover{
+    .navbar_block_menu_strock:hover,.selected{
       margin-left: 2px;
       transition: 0.3s;
       .navbar_block_menu_strock_icon{
         width: 34px;
         height: 34px;
       }
+    }
+    .selected{
+      background-color: rgba(18,19,56,0.5);
+      color: white;
     }
   }
 

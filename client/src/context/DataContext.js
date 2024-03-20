@@ -7274,8 +7274,11 @@ export const DataProvider = ({ children }) => {
         { value: '11', label: 'декабрь' }
     ]
 
+    const [selectedMenu,setSelectedMenu] = useState(-1)
+
     return (
         <DataContext.Provider value={{
+            selectedMenu,setSelectedMenu,
             COLORS,
             getMonthName,
             optionsMonth,

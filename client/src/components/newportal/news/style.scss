@@ -117,10 +117,13 @@
           display: flex;
           justify-content: flex-start;
           align-items: flex-start;
+
           div{
             margin-right: 15px;
           }
-          .news_block_list_box_content_btns_date{}
+          .news_block_list_box_content_btns_date{
+
+          }
           .news_block_list_box_content_btns_like{}
           .news_block_list_box_content_btns_comment{}
         }
@@ -336,7 +339,6 @@
       }
 
       .plus_btn_create_strock_btn{
-        display: none;
         min-height: 20px;
         border: 1px solid #CCC;
         color: #CCC;
@@ -345,41 +347,16 @@
         cursor: pointer;
         margin-right: 10px;
         padding: 5px 30px;
-        transition: .2s;
       }
       .plus_btn_create_strock_btn:hover{
         color: #454545;
         border: 1px solid #454545;
-        transition: .2s;
+
       }
 
       .plus_btn_create_strock:hover{
-        transition: .2s;
         div{
           display: flex;
-          transition: .2s;
-          animation-name: openbtns;
-          animation-duration: 0.3s; /* Продолжительность анимации в секундах */
-          animation-iteration-count: 1; /* Однократное воспроизведение */
-          animation-fill-mode: forwards; /* Оставаться на последнем кадре после завершения */
-        }
-
-        @keyframes openbtns {
-          0%{
-            display: none;
-            max-height: 0px;
-            min-height: 0px;
-            height: 0px;
-            color: transparent;
-          }
-          70%{
-            color: transparent;
-          }
-          100%{
-            display: flex;
-            min-height: 20px;
-            color: #CCC;
-          }
         }
       }
 
@@ -445,10 +422,17 @@
     margin-top: 10px;
     padding: 10px 20px;
 
+    span{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
     .view_new_post_tools_plusblock{}
     .view_new_post_tools_devbtn{}
-    .view_new_post_tools_publish{}
-    div{
+    .view_new_post_tools_publish.disable{
+      display: none;
+    }
+    div,a{
       margin-right: 20px;
       padding: 20px 20px;
       border: 1px solid #CCC;
@@ -457,7 +441,7 @@
       color: #454545;
       transition: 0.2s;
     }
-    div:hover{
+    div:hover,a:hover{
       color: rgba(18,19,56,1);
       border: 1px solid rgba(18,19,56,1);
       transition: 0.2s;
@@ -496,6 +480,8 @@
       cursor: pointer;
       transition: .2s;
 
+    }.view_new_post_worklist_mainimg.big{
+      height: 400px;
     }
 
 

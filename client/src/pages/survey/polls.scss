@@ -509,7 +509,26 @@ $dredColor:rgba(215,26,0,0.5);
 .red-solid-border:hover{
   color: rgb(200, 19, 46);
 }
-
+.cms-head{
+  margin: 10px 0;
+}
+.back-button{
+  background-color:rgba(18,19,56,1);
+  color: white;
+  padding: 10px 16px 10px 10px;
+  width: 200px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  cursor: pointer;
+  margin: 10px 0;
+  i{
+    margin: 0 10px;
+  }
+}
 .small-box{
   padding: 0 !important;
   display: flex !important;

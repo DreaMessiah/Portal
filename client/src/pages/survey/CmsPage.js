@@ -73,6 +73,11 @@ export default function CmsPage(){
 
     return (
         <>
+            <div className='cms-head'>
+                <Link to='/polls' style={{marginBottom:'30px'}} className='back-button'><i class="fa-solid fa-arrow-left"></i>Назад</Link>
+                <h5>Здесь Вы можете создавать и редактировать опросы</h5>
+            </div>
+
             <div className="survey-table">
                 <div className="table_list_cap"></div>
                 <div className="survey-table-header">

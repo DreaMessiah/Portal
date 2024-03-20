@@ -4,6 +4,7 @@ import CircleChart from "../../components/graphs/CircleChart"
 import {useContext} from "react"
 import {DataContext} from "../../context/DataContext"
 import {useMessage} from "../../hooks/message.hook"
+import {Link} from "react-router-dom";
 
 export default function SurveyPage({flag=false,id}){
     const [survey,setSurvey] = useState(null)
@@ -80,8 +81,9 @@ export default function SurveyPage({flag=false,id}){
 
     return (
         <>
+            {!flag && <Link to='/polls' className='back-button'><i class="fa-solid fa-arrow-left"></i>Назад</Link> }
             {survey ?
-            <div className={`survey-block ${flag && 'small-box small-heigth'} ${!survey.image && 'no-padding'}`} style={survey.image ? {backgroundImage:`url("/polls/${survey.image}")`}:null}>
+            <div className={`survey-block ${flag && 'small-box small-heigth'} ${!survey.image && 'no-padding'}`} style={survey.image ? {backgroundImage:`url("/files/polls/${survey.image}")`}:null}>
                 <div className='title'>
                     <h3 className={`${flag && 'small-h'} ${!survey.image && 'no-padding'}`} style={!survey.image ? {margin:'20px',color:'rgb(18, 19, 56)',backgroundColor:'transparent'} : null}>{survey.title}</h3>
                 </div>

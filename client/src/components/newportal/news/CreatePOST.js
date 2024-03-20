@@ -1,16 +1,16 @@
 import "./style.scss"
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import React, {useCallback, useEffect, useRef, useState} from "react";
 import FilesService from "../../../services/FilesService";
-import useDynamicRefs from "../../../hooks/dinamicref.hook";
 import {useMessage} from "../../../hooks/message.hook";
+import PostService from "../../../services/PostService";
 
 
 export const CreatePOST = () => {
     const [temp, setTemp] = useState([])
     const [startRef,setStartRef] = useState([{id:-1,title:'',content:'',ref:useRef(null),image:''}])
     const [empty,setEmpty] = useState([])
-
+    const navigate = useNavigate()
     const message = useMessage()
     const PlusBlock = (index, blck) => {
         const newParams = {id: index,name: blck, content: '',ref:[{ current: null },{ current: null },{ current: null }],image: ['','','']}
@@ -56,7 +56,15 @@ export const CreatePOST = () => {
         }
         if(empty.length) checkEmpty()
     }
+    const createDto = (data) => {
+        if(data.length){
+            return data.map((item,index) => {
+                return {name:item.name,content:item.content,images:item.image}
+            })
 
+        }
+        return []
+    }
     const checkEmpty = () => {
         const n = [...empty]
 
@@ -92,8 +100,24 @@ export const CreatePOST = () => {
         return hasTrueValue
     }
     const createHandler = async () => {
-        if(checkEmpty()) message('Заполните выделенные поля')
+        try {
+            if(checkEmpty()) message('Заполните выделенные поля')
+            else {
+                const data = createDto(temp)
+                const response = await PostService.createPost('new',startRef[0].title,startRef[0].content,startRef[0].image,data,true)
+                if(response.data) {
+                    console.log(response.data)
+                    message('Новость добавлена')
+                    navigate('/alllistnews')
+                }
+            }
+        }catch (e) {
+            console.log(e?.message)
+        }
 
+    }
+    const cancelHandler = () => {
+        navigate('/alllistnews')
     }
 
     return (
@@ -101,11 +125,12 @@ export const CreatePOST = () => {
             <div className="create_new_post_title">Создание новости</div>
             <div className="create_new_post_tools">
                 <div onClick={() => createHandler()} className="create_new_post_tools_publish">Опубликовать</div>
+                <div onClick={() => cancelHandler()} className="create_new_post_tools_publish red-solid-border">Отменить</div>
             </div>
             <div className="create_new_post_worklist">
                 <input className={`create_new_post_worklist_header ${empty[105] ? 'red-border' : ''}`} onChange={(e) => pushHeader(e,true)} placeholder="Введите заголовок новой публикации" />
 
-                <div style={{backgroundImage: `url(${startRef[0].image})`}} onClick={(e) => startRef[0].ref.current.click()} className={`create_new_post_worklist_mainimg ${empty[106] ? 'red-border' : ''}`}>
+                <div style={startRef[0].image.length ? {backgroundImage: `url(/files/${startRef[0].image})`} : {}} onClick={(e) => startRef[0].ref.current.click()} className={`create_new_post_worklist_mainimg ${empty[106] ? 'red-border' : ''}`}>
                     <i className="fa-solid fa-upload"></i>
                     <input onChange={(e) => loadImage(e,-1)} ref={startRef[0].ref} className='hidden-upload' type='file'/>
                 </div>
@@ -127,21 +152,21 @@ export const CreatePOST = () => {
                         <span key={index}>
                             {(block.name === 'content')?(<textarea className={`create_new_post_worklist_content_longtext ${empty[index] ? 'red-border' : ''}`} name={`content_${index}`} onChange={(e) => pushValue(e,index)}></textarea>):''}
                             {(block.name === 'image')?(
-                                <div style={{backgroundImage: `url(${block.image[0]})`}} onClick={(e) => block.ref[0].current.click()} className={`create_new_post_worklist_mainimg ${empty[index] ? 'red-border' : ''}`}>
+                                <div style={block.image[0].length ? {backgroundImage: `url(/files/${block.image[0]})`} : {}} onClick={(e) => block.ref[0].current.click()} className={`create_new_post_worklist_mainimg ${empty[index] ? 'red-border' : ''}`}>
                                     <i className="fa-solid fa-upload"></i>
                                     <input onChange={(e) => loadImage(e,index)} ref={block.ref[0]} className='hidden-upload' type='file'/>
                                 </div>
                             ):''}
                             {(block.name === 'triple')?(
                                 <div className={`create_new_post_worklist_content_tripleimgs ${empty[(index)*100] || empty[(index)*100+1] || empty[(index)*100 + 2] ? 'red-border' : ''}`}>
-                                    <div style={{backgroundImage: `url(${block.image[0]})`}} onClick={(e) => block.ref[0].current.click()} className={`create_new_post_worklist_content_tripleimgs_img ${empty[(index)*100] ? 'red-border' : ''}`}><i className="fa-solid fa-upload"></i><input onChange={(e) => loadImage(e,index,0)} ref={block.ref[0]} className='hidden-upload' type='file'/></div>
-                                    <div style={{backgroundImage: `url(${block.image[1]})`}} onClick={(e) => block.ref[1].current.click()} className={`create_new_post_worklist_content_tripleimgs_img ${empty[(index)*100+1] ? 'red-border' : ''}`}><i className="fa-solid fa-upload"></i><input onChange={(e) => loadImage(e,index,1)} ref={block.ref[1]} className='hidden-upload' type='file'/></div>
-                                    <div style={{backgroundImage: `url(${block.image[2]})`}} onClick={(e) => block.ref[2].current.click()} className={`create_new_post_worklist_content_tripleimgs_img ${empty[(index)*100+2] ? 'red-border' : ''}`}><i className="fa-solid fa-upload"></i><input onChange={(e) => loadImage(e,index,2)} ref={block.ref[2]} className='hidden-upload' type='file'/></div>
+                                    <div style={block.image[0].length ? {backgroundImage: `url(/files/${block.image[0]})`} : {}} onClick={(e) => block.ref[0].current.click()} className={`create_new_post_worklist_content_tripleimgs_img ${empty[(index)*100] ? 'red-border' : ''}`}><i className="fa-solid fa-upload"></i><input onChange={(e) => loadImage(e,index,0)} ref={block.ref[0]} className='hidden-upload' type='file'/></div>
+                                    <div style={block.image[1].length ? {backgroundImage: `url(/files/${block.image[1]})`} : {}} onClick={(e) => block.ref[1].current.click()} className={`create_new_post_worklist_content_tripleimgs_img ${empty[(index)*100+1] ? 'red-border' : ''}`}><i className="fa-solid fa-upload"></i><input onChange={(e) => loadImage(e,index,1)} ref={block.ref[1]} className='hidden-upload' type='file'/></div>
+                                    <div style={block.image[2].length ? {backgroundImage: `url(/files/${block.image[2]})`} : {}} onClick={(e) => block.ref[2].current.click()} className={`create_new_post_worklist_content_tripleimgs_img ${empty[(index)*100+2] ? 'red-border' : ''}`}><i className="fa-solid fa-upload"></i><input onChange={(e) => loadImage(e,index,2)} ref={block.ref[2]} className='hidden-upload' type='file'/></div>
                                 </div>
                             ):''}
                             {(block.name === 'description')?(
                                 <div className={`create_new_post_worklist_content_imgtext ${empty[(index)*100] || empty[(index)*100+1]? 'red-border' : ''}`}>
-                                    <div style={{backgroundImage: `url(${block.image[0]})`}} onClick={(e) => block.ref[0].current.click()} className={`create_new_post_worklist_content_imgtext_img ${empty[(index)*100] ? 'red-border' : ''}`}>
+                                    <div style={block.image[0].length ? {backgroundImage: `url(/files/${block.image[0]})`} : {}} onClick={(e) => block.ref[0].current.click()} className={`create_new_post_worklist_content_imgtext_img ${empty[(index)*100] ? 'red-border' : ''}`}>
                                         <i className="fa-solid fa-upload"></i>
                                         <input onChange={(e) => loadImage(e,index)} ref={block.ref[0]} className='hidden-upload' type='file'/>
                                     </div>
