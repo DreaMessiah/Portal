@@ -8,12 +8,14 @@ export const ViewPOST = () => {
     const location = useLocation();
 
     const navigate = useNavigate()
+    const [viewId,setViewId] = useState(0)
     const [post,setPost] = useState()
     const [next,setNext] = useState()
     const [prev,setPrev] = useState()
 
     const loadingHandler = async (getPost) => {
         try {
+            setViewId(getPost)
             const response = await PostService.fetchPost(getPost)
             if(response.data){
                 setPost(response.data)
@@ -58,7 +60,7 @@ export const ViewPOST = () => {
             {post &&
                 <div className="view_new_post_worklist">
                     <div className="view_new_post_worklist_header" >{post[0].title}</div>
-                    <div style={post[0].image.length ? {backgroundImage:`url(/files${post[0].image})`} : {}} className="view_new_post_worklist_mainimg"></div>
+                    <div style={post[0].image.length ? {backgroundImage:`url(/files${post[0].image})`} : {}} className={`view_new_post_worklist_mainimg ${+viewId === 15 && 'biggest'}`}></div>
                     <div className="view_new_post_worklist_content">
                         <div className="view_new_post_worklist_content_smalltext">{post[0].content}</div>
 

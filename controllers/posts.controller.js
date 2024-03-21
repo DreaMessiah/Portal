@@ -37,6 +37,16 @@ class PostsController {
             next(e)
         }
     }
+    async getSetting(req,res,next) {
+        try{
+            const {id} = req.body
+            const settings = await PostsService.getSettings(id)
+            return res.status(200).json(settings)
+        }catch (e){
+            next(e)
+        }
+    }
+
     async create(req,res,next) {
         try{
             const {id,title,text,image,json_data,oncomment} = req.body

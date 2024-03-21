@@ -12,6 +12,12 @@ class PostsService{
         if(!posts) throw ApiError.BadRequest('База с новостями пуста')
         return posts.map( item => item.id)
     }
+    async getSettings(id) {
+        const post = await Posts.findOne({where:{id:+id,trash:false}})
+        if(!post) throw ApiError.BadRequest('Новость не доступна для редактирования')
+        return post
+    }
+
     async getPost(id) {
         const post = await Posts.findOne({where:{id:+id,trash:false}})
         if(!post) throw ApiError.BadRequest('Новость не найденa в базе')
@@ -32,8 +38,12 @@ class PostsService{
         return {post}
     }
     async updatePost(id,title,text,image,json_data,oncomment=true,trash = false) {
+        console.log(id)
+        console.log(!isNaN(+id))
         if (!isNaN(+id)) {
             const post = await Posts.findOne({where: {id: +id}})
+
+            console.log(post)
             if (Posts) {
                 post.text = text
                 post.title = title

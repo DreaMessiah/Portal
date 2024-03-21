@@ -115,11 +115,23 @@
         }
         .news_block_list_box_content_btns{
           display: flex;
-          justify-content: flex-start;
-          align-items: flex-start;
-
+          justify-content: space-between;
+          align-items: flex-end;
+          width: 100%;
           div{
             margin-right: 15px;
+          }
+          .rigth{
+            display: flex;
+            justify-content: right;
+          }
+          .left{
+            display: flex;
+            flex-direction: row;
+            justify-content: left;
+          }
+          .views{
+            margin: 0 10px;
           }
           .news_block_list_box_content_btns_date{
 
@@ -473,20 +485,18 @@
       background-size: cover;
       background-position: center center;
       width: calc(100% - 46px);
-      height: 200px;
+      height:200px;
       margin: 10px 0 0 0;
       padding: 10px 20px;
       border-radius: 10px;
-      cursor: pointer;
       transition: .2s;
 
     }.view_new_post_worklist_mainimg.big{
       height: 400px;
     }
-
-
-
-
+    .biggest{
+      height: 500px;
+    }
     .view_new_post_worklist_content{
       margin-top: 10px;
       display: flex;

@@ -9,6 +9,9 @@ export default class PostService {
     static fetchPost(id) {
         return $api.post('/posts/getpost',{id})
     }
+    static fetchSetting(id) {
+        return $api.post('/posts/setting',{id})
+    }
     static createPost(id,title,text,image,json_data,oncomment) {
         return $api.post('/posts/create',{id,title,text,image,json_data:JSON.stringify(json_data),oncomment})
     }

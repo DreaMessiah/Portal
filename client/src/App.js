@@ -45,6 +45,7 @@ import Createnews from "./pages/newportal/news/Createnews";
 import {ViewPOST} from "./components/newportal/news/ViewPOST";
 import Viewnews from "./pages/newportal/news/Viewnews";
 import AllListNews from "./pages/newportal/news/AllListNews";
+import Listnews from "./pages/newportal/news/Listnews";
 import ListFastBtns from "./pages/newportal/fastbtns/ListFastBtns";
 import PollsPage from "./pages/survey/PollsPage";
 import PollsCms from "./pages/survey/PollsCms";
@@ -112,6 +113,7 @@ function App() {
                         <Route path="/odata" element={<ODataPage />} />
                         <Route path="/conference" element={<ChatPage />} />
                         <Route path="/createnews" element={<Createnews/>} />
+                        <Route path="/settingnews" element={<Listnews/>} />
                         <Route path="/viewpost" element={<Viewnews />} />
                         <Route path="/alllistnews" element={<AllListNews />} />
                         <Route path="/listfastbtns" element={<ListFastBtns />} />

@@ -12,10 +12,10 @@ export const Mainnavbar = () => {
                     <div className="navbar_block_menu_strock_icon icon_home"></div>
                     <div className="navbar_block_menu_strock_description">Главная</div>
                 </Link>
-                <div onClick={(e) => setSelectedMenu(2)} className={`navbar_block_menu_strock ${selectedMenu===2 && 'selected'}`}>
+                <Link to='/alllistnews' onClick={(e) => setSelectedMenu(2)} className={`navbar_block_menu_strock ${selectedMenu===2 && 'selected'}`}>
                     <div className="navbar_block_menu_strock_icon icon_news"></div>
                     <div className="navbar_block_menu_strock_description">Новости</div>
-                </div>
+                </Link>
                 <div onClick={(e) => setSelectedMenu(3)} className={`navbar_block_menu_strock ${selectedMenu===3 && 'selected'}`}>
                     <div className="navbar_block_menu_strock_icon icon_com"></div>
                     <div className="navbar_block_menu_strock_description">Сотрудники</div>

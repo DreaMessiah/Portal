@@ -8,5 +8,7 @@ router.get('/getlist',authMiddlewere,PostsController.getList)
 router.post('/create',authMiddlewere,PostsController.create)
 router.post('/getpost',authMiddlewere,PostsController.getPost)
 router.post('/remove',authMiddlewere,PostsController.setRemove)
+router.post('/setting',authMiddlewere,PostsController.getSetting)
+
 
 module.exports = router
