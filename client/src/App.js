@@ -50,6 +50,8 @@ import ListFastBtns from "./pages/newportal/fastbtns/ListFastBtns";
 import PollsPage from "./pages/survey/PollsPage";
 import PollsCms from "./pages/survey/PollsCms";
 import HallEdit from "./pages/newportal/hallofframe/HallEdit";
+import ContestPage from "./pages/kidscontest/ContestPage";
+import LoadPage from "./pages/kidscontest/LoadPage";
 
 
 function App() {
@@ -76,6 +78,8 @@ function App() {
             <Router>
                 <div className="App">
                     <Routes>
+                        <Route path="/load-contest" element={<LoadPage/>} />
+                        <Route path="/kids-contest" element={<ContestPage/>} />
                         <Route path="/7897564" element={<NewsPage/>} />
                         <Route path="/" element={<NewstartPage/>} />
                         <Route path="/new_lk" element={<LkNewPortal/>} />

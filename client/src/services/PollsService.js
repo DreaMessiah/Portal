@@ -25,6 +25,18 @@ export default class PollsService {
     static checkAnswers(id){
         return $api.post('/polls/checkanswers',{id})
     }
-
+    static getKids(){
+        return $api.get('/polls/getkids')
+    }
+    static newWorks(contests,phone){
+        console.log(contests)
+        return $api.post('/polls/newworks',{contests,phone})
+    }
+    static checkExitsContests(){
+        return $api.post('/polls/checkcontests')
+    }
+    static voteKid(id,nomination_id){
+        return $api.post('/polls/votekid',{id,nomination_id})
+    }
 
 }

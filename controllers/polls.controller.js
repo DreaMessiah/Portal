@@ -1,6 +1,7 @@
 const PollsService = require('../service/polls.service')
 const {validationResult} = require('express-validator')
 const ApiError = require('../exceptions/api.error')
+const authMiddlewere = require("../middleware/auth.middleware");
 
 class PollsController {
     async get(req,res,next) {
@@ -108,5 +109,44 @@ class PollsController {
         }
     }
 
+    async getKids(req,res,next) {
+        try{
+            const contests = await PollsService.getContests()
+            return res.status(200).json(contests)
+        }catch (e) {
+            next(e)
+        }
+    }
+    async newWorks(req,res,next) {
+        try{
+            const {contests,phone} = req.body
+            const check = await PollsService.checkExist(req.user.id)
+            if (!check){
+                const newItems = await PollsService.newWorks(req.user.id,phone,contests)
+                return res.status(200).json(newItems)
+            }
+            return res.status(200).json({message:'Заявка уже подавалась'})
+
+        }catch (e) {
+            next(e)
+        }
+    }
+    async checkExistContests(req,res,next){
+        try{
+            return res.status(200).json( await PollsService.checkExist(req.user.id) )
+        }catch (e) {
+            next(e)
+        }
+    }
+    async voteKid(req,res,next) {
+        try{
+            const {survey_id,question_id} = req.body
+            console.log(survey_id,question_id)
+            const vote = await PollsService.setAnswer(req.user.id,survey_id,question_id)
+            return res.status(200).json(vote)
+        }catch (e) {
+            next(e)
+        }
+    }
 }
 module.exports = new PollsController()

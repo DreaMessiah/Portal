@@ -1,4 +1,4 @@
-const {Survey,Question,Answer, Files} = require('../models/models')
+const {Survey,Question,Answer, Files, Contest, User} = require('../models/models')
 const SurveyDto = require('../dtos/surveyDto')
 const ApiError = require('../exceptions/api.error')
 class PollsService{
@@ -44,7 +44,6 @@ class PollsService{
         if(!survey) return {exist:false}
         return {exist:true}
     }
-
     async updateSurvey(id,text,creater_id,title,image = null,type,onanswer) {
         if (!isNaN(+id)) {
             const survey = await Survey.findOne({where: {id: +id}})
@@ -94,11 +93,36 @@ class PollsService{
     }
     async setAnswer(user_id,survey_id,question_id){
         let answer = await Answer.findAll({where:{user_id:+user_id,survey_id:+survey_id}})
-        console.log(answer)
         if(answer.length) throw ApiError.BadRequest('Вы уже проголосовали')
         answer = await Answer.create({question_id:question_id,user_id:user_id,survey_id:survey_id})
         return {answer}
     }
+
+    async getContests() {
+        const contests = await Contest.findAll({ where: { trash: false} })
+        if(!contests) throw ApiError.BadRequest('База пуста')
+
+        contests.map( async contest => {
+            console.log(contest.user_id)
+            const user = await User.findOne({ where:{id:+contest.user_id} })
+            // if(user){
+            //     console.log(user)
+            // }
+        })
+        //
+
+        return contests
+    }
+    async newWorks(id,phone,contests){
+        return contests.map( async(item) => {
+            return await Contest.create({user_id:id,phone:phone,name:item.name,age:item.age,image:item.image,trash:false})
+        })
+    }
+    async checkExist(id) {
+        return !! await Contest.findOne({where:{user_id:id}})
+    }
+
+
 }
 
 
