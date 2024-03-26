@@ -697,7 +697,7 @@ html{
           margin-top: 10px;
           padding: 10px;
           cursor: pointer;
-          border: none;
+          border: 5px solid $whiteColor;
           font-weight: 700;
           text-align: center;
           text-transform: uppercase;
@@ -2295,4 +2295,7 @@ html{
 }
 .hidden-upload{
   display: none;
+}
+.red-auth-border{
+  border-bottom: 2px solid $dredColor !important;
 }

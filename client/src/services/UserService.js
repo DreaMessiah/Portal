@@ -7,6 +7,7 @@ export default class UserService {
     static loadAvatar(file){
 
         if(file){
+            console.log(this.isImage(file.name))
             if(this.isImage(file.name)){
                 const formData = new FormData()
                 formData.append('file', file)

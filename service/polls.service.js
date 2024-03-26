@@ -119,6 +119,10 @@ class PollsService{
     async checkKidsVote(id){
         return !! await KidsAnswers.findOne({where:{user_id:+id}})
     }
+    async getVotes(id){
+        const votes = await KidsAnswers.findAll({where:{contest_id:+id}})
+        return votes.length
+    }
     async setNominations(user_id,nominations){
         if(nominations){
             return nominations.map(async item => {

@@ -3,11 +3,13 @@ import {useContext, useEffect, useRef, useState} from "react";
 import UserService from "../../../services/UserService";
 import {observer} from "mobx-react-lite";
 import {Context} from "../../../index";
+import {useMessage} from "../../../hooks/message.hook";
 
 
 const LkNew = () => {
     const {store} = useContext(Context)
-    const [face,setFace] = useState(store.avatar.length ? store.avatar : 'face.png')
+    const [face,setFace] = useState(store.user.avatar.length ? store.user.avatar : 'face.png')
+    const message = useMessage()
     const faceRef = useRef()
 
     const [editParams, setEditParams] = useState(false)
@@ -58,9 +60,12 @@ const LkNew = () => {
     const loadImage = async (e) => {
         try {
             const response = await UserService.loadAvatar(e.target.files[0])
-            if(response.data){
-                store.setAvatar(response.data.path)
-                setFace(response.data.path)
+            if(response){
+                if(response.err) message(response.message)
+                else {
+                    store.setAvatar(response.data.path)
+                    setFace(response.data.path)
+                }
             }
         }catch (e) {
             console.log(e)

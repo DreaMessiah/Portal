@@ -18,6 +18,8 @@ function ListContest(){
     const [all,setAll] = useState(false)
     const {store} = useContext(Context)
     const message = useMessage()
+    const [isVote,setIsVote] = useState(false)
+
     const openImageFullscreen = (index) => {
         setCurrentImageIndex(index)
     }
@@ -37,14 +39,17 @@ function ListContest(){
             if (contests.data) {
                 const ctst = [...contests.data]
                 const users = await AuthService.getusers()
+
                 if(users){
                     ctst.map(rows => {
-                        users.data.users.map( item => {
+                        users.data.users.map( async item => {
                             if(rows.user_id === item.id){
                                 rows.developer = item.developer
                                 rows.full_name = item.full_name
-                                rows.face = 'profile/face.png'
+                                rows.face = item.avatar.length ? item.avatar : 'face.png'
                                 rows.nomi = null
+                                const votes = await PollsService.getVotes(rows.id)
+                                rows.votes = votes.data
                             }
                         })
                     })
@@ -61,6 +66,15 @@ function ListContest(){
                 setNominations(nomi)
                 console.log(nomi)
             }
+
+            const check = await PollsService.checkVoteKids()
+            if(check.data.check){
+                setIsVote(check.data.check)
+                if(check.data.check){
+                    //message('Вы уже проголосовали')
+                }
+            }
+
         }catch (e) {
             console.log(e?.message)
         }
@@ -71,7 +85,8 @@ function ListContest(){
                 const response = await PollsService.voteKid(nominations)
                 if(response.data){
                     console.log(response.data)
-                    //navigate('/kids-gallery')
+                    message('Ваш голос принят')
+                    window.location.reload()
                 }
             }
         }catch (e){
@@ -125,7 +140,7 @@ function ListContest(){
             <div className="gallery">
                 {works.map((item, index) => (
                     <div key={index} className={`gallery-item ${item.nomi!==null && 'blur-img'}`} onClick={() => openImageFullscreen(index)}>
-                        <div className='img' style={{backgroundImage:`url(/files/polls/${item.image})`,content:'123123'}} />
+                        <div className='img' style={{backgroundImage:`url(/files/polls/${item.image})`}} />
                         <div style={item.nomi!==null ? {display:'flex'}:{}} className='nomination-text'><p>{item.nomi!==null ? nominations[item.nomi].name : ''}</p></div>
                         <div className='text'>
                             <p>{item.name} {YearsSting(item.age)} </p>
@@ -136,7 +151,6 @@ function ListContest(){
                 {currentImageIndex !== null && (
                     <div className="fullscreen-overlay">
                         <div className={`fullscreen-container`}>
-
                             <div className="fullscreen-image">
                                 <div className="prev-button" onClick={goToPreviousImage}>
                                     <i className="fa-solid fa-chevron-left"></i>
@@ -144,7 +158,7 @@ function ListContest(){
                                 <div className="next-button" onClick={goToNextImage}>
                                     <i className="fa-solid fa-chevron-right"></i>
                                 </div>
-                                <img src={`/files/polls/${works[currentImageIndex].image}`} alt={'123123'} />
+                                <img src={`/files/polls/${works[currentImageIndex].image}`} alt={'image'}/>
 
                                 <div className="image-description">
                                     <div className={`name`}>{works[currentImageIndex].name} {YearsSting(works[currentImageIndex].age)}</div>
@@ -154,16 +168,16 @@ function ListContest(){
                             <div className={`data-container`}>
                                 <div className='info'>
                                     <div className={`about`}>
-                                        <div style={{backgroundImage:`url("${works[currentImageIndex].face}")`}} className={`avatar`}></div>
+                                        <div style={{backgroundImage:`url("/files/profile/${works[currentImageIndex].face}")`}} className={`avatar`}></div>
                                         <div className={`text`}>
                                             <div className='name'>{works[currentImageIndex].full_name}</div>
                                             <div className={`date`}>{works[currentImageIndex].developer}</div>
                                         </div>
                                     </div>
                                     <hr/>
-                                    <div className={`answers`}><i className={`fa-heart fa-regular`}></i>{27} <i className="fa-regular fa-calendar"></i><span>{formatDate(works[currentImageIndex].createdAt)}</span></div>
+                                    <div className={`answers`}><i className={`fa-heart fa-regular`}></i>{works[currentImageIndex].votes} <i className="fa-regular fa-calendar"></i><span>{formatDate(works[currentImageIndex].createdAt)}</span></div>
                                     <hr/>
-                                    {nominations &&
+                                    {nominations && !isVote ?
                                         <div className={`nominations radio-button-container`}>
                                             {works[currentImageIndex].nomi === null ?
                                                 <>
@@ -186,23 +200,28 @@ function ListContest(){
                                                 </> :
                                                 <div className='bold'>Вы выбрали номинацию <p>{nominations[works[currentImageIndex].nomi].name}</p> для данный работы</div>
                                             }
-                                        </div>
+                                        </div> : null
                                     }
+                                    {isVote && <div className={`small-text`}>Вы уже проголосовали</div>}
 
                                 </div>
-                                <div className='buttons'>
-                                    <hr/>
-                                    {works[currentImageIndex].nomi === null ?
-                                        <>
-                                            {all ?
-                                                <div onClick={(e => setSelected(-1))} className={`button disable`}>Изменить выбор</div>
-                                                :
-                                                <div onClick={(e) => selectNomination(currentImageIndex)} className={`button`}>Номинировать</div>
-                                            }
-                                        </>
-                                    :<div onClick={(e) => unselectNomination(currentImageIndex)} className={`button`}>Отменить</div>}
+                                <>
+                                    {!isVote &&
+                                    <div className='buttons'>
+                                        <hr/>
+                                        {works[currentImageIndex].nomi === null ?
+                                            <>
+                                                {all ?
+                                                    <div onClick={(e => setSelected(-1))} className={`button disable`}>Изменить выбор</div>
+                                                    :
+                                                    <div onClick={(e) => selectNomination(currentImageIndex)} className={`button`}>Номинировать</div>
+                                                }
+                                            </>
+                                            :<div onClick={(e) => unselectNomination(currentImageIndex)} className={`button`}>Отменить</div>}
+                                    </div>
+                                    }
+                                </>
 
-                                </div>
 
                             </div>
                         </div>
@@ -211,7 +230,7 @@ function ListContest(){
                     </div>
                 )}
             </div>
-            {all && <div onClick={() => voteHandler()} className={`send-contest`}>Проголосовать</div> }
+            { !isVote && all && works.length ? <div onClick={() => voteHandler()} className={`send-contest ${all && 'flex'}`}>Проголосовать</div> : null}
         </div>
     )
 }

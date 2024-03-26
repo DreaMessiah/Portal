@@ -52,7 +52,7 @@ import PollsCms from "./pages/survey/PollsCms";
 import HallEdit from "./pages/newportal/hallofframe/HallEdit";
 import ContestPage from "./pages/kidscontest/ContestPage";
 import LoadPage from "./pages/kidscontest/LoadPage";
-import GalleryPage from "./pages/kidscontest/GalleryPage";
+
 
 
 function App() {
@@ -81,7 +81,6 @@ function App() {
                     <Routes>
                         <Route path="/load-contest" element={<LoadPage/>} />
                         <Route path="/kids-contest" element={<ContestPage/>} />
-                        {/*<Route path="/kids-gallery" element={<GalleryPage/>} />*/}
                         <Route path="/7897564" element={<NewsPage/>} />
                         <Route path="/" element={<NewstartPage/>} />
                         <Route path="/new_lk" element={<LkNewPortal/>} />
