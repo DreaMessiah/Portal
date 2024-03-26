@@ -18,7 +18,7 @@ router.post('/newworks',authMiddlewere,pollsController.newWorks)
 router.post('/votekid',authMiddlewere,pollsController.voteKid)
 router.post('/checkcontests',authMiddlewere,pollsController.checkExistContests)
 router.get('/checkvote',authMiddlewere,pollsController.checkVoteKids)
-
+router.post('/getvotes',authMiddlewere,pollsController.getVotes)
 
 
 

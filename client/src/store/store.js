@@ -18,11 +18,11 @@ export default class Store {
     }
     setUser(user){
         this.user = user
+        if(!this.user.avatar) this.user.avatar = 'face.png'
     }
-
     setAvatar(avatar){
-        this.avatar = avatar
-        if(!this.avatar.length) this.avatar = 'face.jpg'
+        this.user.avatar = avatar
+        if(!avatar) this.user.avatar = 'face.png'
     }
     setT13(t13){
         this.t13 = t13
@@ -39,10 +39,10 @@ export default class Store {
             localStorage.setItem('token',response.data.accessToken)
             this.setAuth(true)
             this.setUser(response.data.user)
-            this.setAvatar(response.data.user.avatar)
             await this.checkT13()
         }catch (e){
-            console.log(e.response?.data?.message)
+            console.log(e)
+            return e.response?.data?.message
         }
     }
     async registration(login,password,tn,full_name,id,email,inn,moderator,account,unit) {
@@ -51,7 +51,6 @@ export default class Store {
             localStorage.setItem('token',response.data.accessToken)
             this.setAuth(true)
             this.setUser(response.data.user)
-            this.setAvatar(response.data.user.avatar)
         }catch (e){
             console.log(e.response?.data?.message)
         }
@@ -62,7 +61,6 @@ export default class Store {
             localStorage.removeItem('token')
             this.setAuth(false)
             this.setUser({})
-            this.setAvatar('')
         }catch (e){
             console.log(e.response?.data?.message)
         }
