@@ -20,7 +20,8 @@ const User = sequelize.define('users',{
     phone:{type:DataTypes.STRING},
     phonecompany:{type:DataTypes.STRING},
     snils:{type:DataTypes.STRING},
-    unit:{type:DataTypes.INTEGER}
+    unit:{type:DataTypes.INTEGER},
+    developer:{type:DataTypes.TEXT}
 })
 const Token = sequelize.define('token',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
@@ -47,6 +48,7 @@ const T13 = sequelize.define('t13', {
     month:{type:DataTypes.STRING},
     year:{type:DataTypes.STRING},
     inn:{type:DataTypes.STRING},
+    birthday:{type:DataTypes.STRING},
     d1:{type:DataTypes.STRING},
     d2:{type:DataTypes.STRING},
     d3:{type:DataTypes.STRING},
@@ -514,7 +516,6 @@ const Answer = sequelize.define('answer', {
     survey_id:{type:DataTypes.INTEGER,ref:'survey'},
     user_id:{type:DataTypes.INTEGER,ref:'survey'},
 })
-
 const Posts = sequelize.define('rss', {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     title:{type:DataTypes.TEXT,allowNull: false},
@@ -525,17 +526,42 @@ const Posts = sequelize.define('rss', {
     trash:{type:DataTypes.BOOLEAN,default:false},
     clicks:{type:DataTypes.INTEGER,default:0}
 })
-
 const BestBoard = sequelize.define('bestboard', {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     name:{type:DataTypes.STRING},
+    tn:{type:DataTypes.STRING},
     developer:{type:DataTypes.STRING},
     onboard:{type:DataTypes.STRING},
     dev:{type:DataTypes.STRING},
     inn:{type:DataTypes.STRING}
 })
 
+const Contest  = sequelize.define('contest',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    user_id:{type:DataTypes.INTEGER,ref:'users'},
+    phone:{type:DataTypes.STRING},
+    mail:{type:DataTypes.STRING},
+    name:{type:DataTypes.TEXT},
+    age:{type:DataTypes.INTEGER},
+    image:{type:DataTypes.TEXT},
+    trash:{type:DataTypes.BOOLEAN,default:false}
+})
+const Nominations  = sequelize.define('nominations', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    name: {type: DataTypes.TEXT}
+})
+const KidsAnswers  = sequelize.define('kidsanswers',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    contest_id:{type:DataTypes.INTEGER,ref:'contest'},
+    nomination_id:{type:DataTypes.INTEGER,ref:'nominations'},
+    user_id:{type:DataTypes.INTEGER,ref:'users'}
+})
 
+const Avatar = sequelize.define('avatar', {
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    user_id:{type:DataTypes.INTEGER,ref:'users'},
+    image:{type:DataTypes.BLOB('long')},
+});
 //
 // const RssPosts = sequelize.define('rss', {
 //     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
@@ -545,5 +571,5 @@ const BestBoard = sequelize.define('bestboard', {
 // })
 
 module.exports = {
-    User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Ktulist,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
+    Contest,Nominations,KidsAnswers,User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Ktulist,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts,Avatar
 }

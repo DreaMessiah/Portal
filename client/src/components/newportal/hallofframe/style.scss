@@ -135,10 +135,20 @@
     display: flex;
     flex-direction: column;
     color: #454545;
+    @keyframes opachki {
+      from {
+        opacity: 0; /* Начальное значение непрозрачности */
+      }
+      to {
+        opacity: 1; /* Конечное значение непрозрачности */
+      }
+    }
     .hall_edit_visual_man{
+      opacity: 0;
       margin-top: 10px;
       display: flex;
       align-items: flex-start;
+      animation: opachki 0.3s ease forwards;
       .hall_edit_visual_man_dev{
         display: flex;
         flex-direction: column;
@@ -205,5 +215,50 @@
   .btnhover:hover{
     opacity: 0.7;
     transition: 0.2s;
+  }
+}
+
+.del_hall_edit{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .del_hall_edit_mess{
+    text-align: center;
+    margin: 30px 0 50px 0;
+    span{
+      font-weight: 600;
+    }
+  }
+  .del_hall_edit_btns{
+    display: flex;
+    justify-content: space-between;
+    .del_hall_edit_btns_cancel{
+      background-color: rgb(18, 19, 56);
+      color: white;
+      margin: 10px;
+      padding: 10px 16px 10px 10px;
+      width: 150px;
+      height: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    .del_hall_edit_btns_delete{
+      background-color: rgba(215, 26, 0, 0.5);
+      color: white;
+      margin: 10px;
+      padding: 10px 16px 10px 10px;
+      width: 150px;
+      height: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
   }
 }

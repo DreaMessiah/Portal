@@ -5,8 +5,36 @@ const BestManService = require("../service/mainpage.service");
 
 class ObjsController {
 
+    async delBestMan(req,res,next) {
+        try{
+
+            const id = req.body
+            console.log('Контроллер ID удаляемого')
+            console.log(id)
+            const itogyman = await BestManService.delBestMan(id)
+            console.log(itogyman)
+            return res.json(itogyman)
+
+        }catch (e){
+            next(e)
+        }
+    }
+
+    async viewBestMan(req,res,next) {
+        try{
+
+            const inn = req.body
+            const itogyman = await BestManService.viewBestMan(inn)
+            return res.json(itogyman)
+
+        }catch (e){
+            next(e)
+        }
+    }
+
     async pushBestMan(req,res,next) {
         try{
+
             const man = req.body
             const itogyman = await BestManService.pushBestMan(man)
             return res.json(itogyman)

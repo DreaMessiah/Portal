@@ -5,9 +5,11 @@ import {Context} from "../../../index";
 import React from "react";
 import Select from "react-select";
 import MainpageService from "../../../services/MainpageService";
+import ModalFiles from "../../modalwin/ModalFiles";
+import {DelWin} from "./DelWin";
 
 export const TumblerHall = () => {
-
+    const [active, setActive] = useState(false)
     const [listMans, setListMans] = useState([])
     const [thisMans, setThisMans] = useState([])
     const [thisDev, setThisDev] = useState([])
@@ -76,6 +78,7 @@ export const TumblerHall = () => {
         console.log()
         const bestman = {
             name: thisMans.name,
+            tn: thisMans.tn,
             developer: thisMans.developer,
             onboard: thisMans.onboard,
             dev: thisDev.label,
@@ -84,14 +87,36 @@ export const TumblerHall = () => {
         try{
             const bestMan = await MainpageService.pushBestMan({bestman})
             console.log(bestMan.data)
+            viewBoard()
         } catch(e) {
             console.log(e)
         }
 
     }
+    const [listBM, setListBM] = useState([])
+    const viewBoard = async () => {
+        try{
+            const bestMan = await MainpageService.viewBestMan({inn:inn})
+            setListBM(bestMan.data)
+            console.log(bestMan.data)
+        } catch(e) {
+            console.log(e)
+        }
+    }
+
+    const [delman, setDelman] = useState({})
+    const [ind, setInd] = useState()
+    const deleteMan = async (man, index) => {
+        setDelman(man)
+        setActive(true)
+        setInd(index)
+    }
 
     useEffect(() => {
         t13List()
+        viewBoard()
+
+        // console.log(listBM)
     }, [])
 
     return (
@@ -106,19 +131,24 @@ export const TumblerHall = () => {
                 <div className="hall_edit_tumbler_btn btnhover" onClick = {() => pullMan()}>Добавить</div>
             </div>
             <div className="hall_edit_visual">
-                <div className="hall_edit_visual_man">
+                {listBM.map((man, index) => (
+
+
+                <div className="hall_edit_visual_man" key={index}>
                     <div className="hall_edit_visual_man_dev">
-                        <div className="hall_edit_visual_man_dev_num">12</div>
-                        <div className="hall_edit_visual_man_dev_dev">ИТР</div>
+                        <div className="hall_edit_visual_man_dev_num">{index + 1}</div>
+                        <div className="hall_edit_visual_man_dev_dev">{man.dev}</div>
                     </div>
-                    <div className="hall_edit_visual_man_photo" style={{backgroundImage: `url("/hallofframe/44.jpg")`}}></div>
+                    <div className="hall_edit_visual_man_photo" style={{backgroundImage: `url("/profile/face.jpg")`, backgroundSize: '90%', backgroundRepeat: 'no-repeat', backgroundColor: '#FFF'}}></div>
                     <div className="hall_edit_visual_man_description">
-                        <div className="hall_edit_visual_man_description_name">Барахтянский Владимир Алексеевич</div>
-                        <div className="hall_edit_visual_man_description_dev">Производитель работ 2 категории</div>
+                        <div className="hall_edit_visual_man_description_name">{man.name}</div>
+                        <div className="hall_edit_visual_man_description_dev">{man.developer}</div>
                     </div>
-                    <div className="hall_edit_visual_man_del btnhover" >Удалить</div>
+                    <div className="hall_edit_visual_man_del btnhover" onClick={()=>deleteMan(man, index)}>Удалить</div>
                 </div>
+                ))}
             </div>
+            <ModalFiles data={<DelWin active={active} setActive={setActive} inn={inn} man={delman} list={listBM} setList={setListBM} ind={ind} setInd={setInd}/>} active={active} setActive={setActive}/>
         </div>
     )
 }

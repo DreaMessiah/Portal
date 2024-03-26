@@ -72,8 +72,8 @@ const start = async () => {
         })
         //await mailService.sendActivationMail('test@gmail.com','test!')
         await sequelize.authenticate()
-        //await sequelize.sync({ alter: true })
-        console.log('connect to DB')
+        await sequelize.sync({ alter: true })
+        // console.log('connect to DB')
     }catch (e){
         console.log(e)
     }
