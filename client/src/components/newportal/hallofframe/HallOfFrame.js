@@ -5,7 +5,7 @@ import MainpageService from "../../../services/MainpageService";
 import {useContext} from "react";
 import {Context} from "../../../index";
 import {useEffect} from "react";
-import AuthServise from "../../../services/AuthService";
+import AuthService from "../../../services/AuthService";
 
 export const HallOfFrame = () => {
     const  {store} = useContext(Context)
@@ -24,7 +24,7 @@ export const HallOfFrame = () => {
 
 
 
-            const list = await AuthServise.getusers()
+            const list = await AuthService.getusers()
 
             newArr.map( item => {
                 list.data.users.map( row => {
