@@ -3,6 +3,7 @@ const config = require('config')
 const {Files} = require('../models/models')
 const ApiError = require("../exceptions/api.error");
 const {Sequelize} = require('sequelize')
+const sharp = require("sharp");
 class FilesService {
     async get(id,parent) {
         const dirs = await Files.findAll({where: {user_id:id,parent_id:parent,type:'dir'}})
@@ -23,6 +24,22 @@ class FilesService {
         if(!file.parent_id) return allPath
         else{
             return this.createPath(file.parent_id,allPath)
+        }
+    }
+    async compressResizeAndSaveImage(filePath,quality, width, height) {
+        try {
+
+            const buffer = await sharp(filePath).resize({ width, height, position: 'center' }).jpeg({ quality }).toBuffer()
+            fs.writeFile(filePath, buffer, (err) => {
+                if (err) {
+                    console.error('Ошибка при сохранении файла:', err);
+                    return
+                }
+                sharp.cache(false)
+                console.log('Изображение успешно сохранено.')
+            })
+        } catch (error) {
+            console.error('Ошибка при сжатии, изменении размера и перезаписи изображения:', error)
         }
     }
     createDir(file){

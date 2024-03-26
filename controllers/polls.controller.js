@@ -1,6 +1,7 @@
 const PollsService = require('../service/polls.service')
 const {validationResult} = require('express-validator')
 const ApiError = require('../exceptions/api.error')
+const authMiddlewere = require("../middleware/auth.middleware");
 
 class PollsController {
     async get(req,res,next) {
@@ -108,5 +109,65 @@ class PollsController {
         }
     }
 
+    async getKids(req,res,next) {
+        try{
+            const contests = await PollsService.getContests()
+            return res.status(200).json(contests)
+        }catch (e) {
+            next(e)
+        }
+    }
+    async newWorks(req,res,next) {
+        try{
+            const {contests,phone,mail} = req.body
+            const check = await PollsService.checkExist(req.user.id)
+            if (!check){
+                const newItems = await PollsService.newWorks(req.user.id,phone,contests,mail)
+                return res.status(200).json(newItems)
+            }
+            return res.status(200).json({message:'Заявка уже подавалась'})
+
+        }catch (e) {
+            next(e)
+        }
+    }
+    async checkExistContests(req,res,next){
+        try{
+            return res.status(200).json( await PollsService.checkExist(req.user.id) )
+        }catch (e) {
+            next(e)
+        }
+    }
+    async voteKid(req,res,next) {
+        try{
+            const {nominations} = req.body
+            const check = await PollsService.checkKidsVote(+req.user.id)
+            if(!check){
+                const vote = await PollsService.setNominations(req.user.id,nominations)
+                return res.status(200).json(vote)
+            }else{
+                return res.status(200).json({message:"Вы уже голосовали"})
+            }
+
+        }catch (e) {
+            next(e)
+        }
+    }
+    async getNomi(req,res,next){
+        try{
+            const nomi = await PollsService.getNomi()
+            return res.status(200).json(nomi)
+        }catch (e) {
+            next(e)
+        }
+    }
+    async checkVoteKids(req,res,next){
+        try{
+            const check = await PollsService.checkKidsVote(+req.user.id)
+            return res.status(200).json({check:check})
+        }catch (e) {
+            next(e)
+        }
+    }
 }
 module.exports = new PollsController()

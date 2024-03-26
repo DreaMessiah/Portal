@@ -7,6 +7,7 @@ module.exports = class UsersDto{
     inn;
     moderator;
     account;
+    avatar;
     unit;
     usedspace;
     diskspace;
@@ -18,6 +19,7 @@ module.exports = class UsersDto{
         this.email = model.email
         this.inn = model.inn
         this.moderator = model.moderator
+        this.avatar = model.avatar
         this.account = model.account
         this.unit = model.unit
         this.usedspace = model.usedspace

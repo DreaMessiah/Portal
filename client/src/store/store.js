@@ -5,6 +5,7 @@ import {API_URL} from "../http";
 
 export default class Store {
     user = {}
+    avatar = ''
     t13 = {}
     onboard = ''
     isAuth = false
@@ -17,6 +18,11 @@ export default class Store {
     }
     setUser(user){
         this.user = user
+    }
+
+    setAvatar(avatar){
+        this.avatar = avatar
+        if(!this.avatar.length) this.avatar = 'face.jpg'
     }
     setT13(t13){
         this.t13 = t13
@@ -33,6 +39,7 @@ export default class Store {
             localStorage.setItem('token',response.data.accessToken)
             this.setAuth(true)
             this.setUser(response.data.user)
+            this.setAvatar(response.data.user.avatar)
             await this.checkT13()
         }catch (e){
             console.log(e.response?.data?.message)
@@ -44,6 +51,7 @@ export default class Store {
             localStorage.setItem('token',response.data.accessToken)
             this.setAuth(true)
             this.setUser(response.data.user)
+            this.setAvatar(response.data.user.avatar)
         }catch (e){
             console.log(e.response?.data?.message)
         }
@@ -54,6 +62,7 @@ export default class Store {
             localStorage.removeItem('token')
             this.setAuth(false)
             this.setUser({})
+            this.setAvatar('')
         }catch (e){
             console.log(e.response?.data?.message)
         }
@@ -65,6 +74,7 @@ export default class Store {
             localStorage.setItem('token',response.data.accessToken)
             this.setAuth(true)
             this.setUser(response.data.user)
+            this.setAvatar(response.data.user.avatar)
             await this.checkT13()
         }catch (e){
             console.log(e.response?.data?.message)

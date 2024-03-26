@@ -75,6 +75,10 @@ export const Mainnavbar = () => {
                         <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-thumbtack"></i></div>
                         <div className="navbar_block_dopmenu_list_description">Доска объявлений</div>
                     </div>
+                    <Link to='/kids-contest' className={`navbar_block_dopmenu_list_strock`}>
+                        <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-children"></i></div>
+                        <div className="navbar_block_dopmenu_list_description">Детский конкурс</div>
+                    </Link>
                 </div>
                 <div className="navbar_block_dopmenu_more">Ещё...</div>
             </div>

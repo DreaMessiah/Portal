@@ -321,6 +321,10 @@ $dredColor:rgba(215,26,0,0.5);
       color: #454545;
       transition: 0.2s;
     }
+    .green{
+      background-color: darkgreen;
+      color: #FFFFFF;
+    }
   }
   .setting-list{
     width: calc(100% - 40px);
@@ -489,8 +493,9 @@ $dredColor:rgba(215,26,0,0.5);
   }
   .add-btn{
     min-height: 20px;
-    border: 1px solid #CCC;
-    color: #CCC;
+    border: 1px solid rgb(18, 19, 56);
+    color:  rgb(18, 19, 56);
+
     max-height: 30px !important;
     cursor: pointer;
     margin-right: 10px;
@@ -499,15 +504,16 @@ $dredColor:rgba(215,26,0,0.5);
     width: 200px;
   }
   .add-btn:hover{
-    border: 1px solid rgb(18, 19, 56);
-    color:  rgb(18, 19, 56);
+    background-color: #04B800;
+    color: #FFFFFF;
   }
 }
 .red-solid-border{
   border: 1px solid rgb(200, 19, 46) !important;
 }
 .red-solid-border:hover{
-  color: rgb(200, 19, 46);
+  color: rgb(200, 19, 46) !important;
+  background-color: transparent !important;
 }
 .cms-head{
   margin: 10px 0;

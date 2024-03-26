@@ -1,5 +1,4 @@
-const {Survey,Question,Answer, Files} = require('../models/models')
-const SurveyDto = require('../dtos/surveyDto')
+const {Survey,Question,Answer, Contest, Nominations,KidsAnswers} = require('../models/models')
 const ApiError = require('../exceptions/api.error')
 class PollsService{
     async get(user_id) {
@@ -44,7 +43,6 @@ class PollsService{
         if(!survey) return {exist:false}
         return {exist:true}
     }
-
     async updateSurvey(id,text,creater_id,title,image = null,type,onanswer) {
         if (!isNaN(+id)) {
             const survey = await Survey.findOne({where: {id: +id}})
@@ -94,11 +92,44 @@ class PollsService{
     }
     async setAnswer(user_id,survey_id,question_id){
         let answer = await Answer.findAll({where:{user_id:+user_id,survey_id:+survey_id}})
-        console.log(answer)
         if(answer.length) throw ApiError.BadRequest('Вы уже проголосовали')
         answer = await Answer.create({question_id:question_id,user_id:user_id,survey_id:survey_id})
         return {answer}
     }
+
+    async getContests() {
+        const contests = await Contest.findAll({ where: { trash: false} })
+        if(!contests) throw ApiError.BadRequest('База пуста')
+        return contests
+    }
+    async getNomi() {
+        const nomi = await Nominations.findAll({order: [['id', 'ASC']]})
+        if(!nomi) throw ApiError.BadRequest('База пуста')
+        return nomi
+    }
+
+    async newWorks(id,phone,contests,mail){
+        return contests.map( async(item) => {
+            return await Contest.create({user_id:id,phone:phone,name:item.name,age:item.age,image:item.image,trash:false,mail:mail})
+        })
+    }
+    async checkExist(id) {
+        return !! await Contest.findOne({where:{user_id:+id}})
+    }
+    async checkKidsVote(id){
+        return !! await KidsAnswers.findOne({where:{user_id:+id}})
+    }
+    async setNominations(user_id,nominations){
+        if(nominations){
+            return nominations.map(async item => {
+                await KidsAnswers.create({contest_id:item.contest,nomination_id:item.id,user_id})
+            })
+        }else{
+            return {message:'Ошибка голосования'}
+        }
+    }
+
+
 }
 
 

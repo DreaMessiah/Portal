@@ -12,5 +12,16 @@ router.post('/remove',authMiddlewere,pollsController.setRemove)
 router.post('/check',authMiddlewere,pollsController.checkExist)
 router.post('/checkanswers',authMiddlewere,pollsController.checkAnswers)
 
+router.get('/getkids',authMiddlewere,pollsController.getKids)
+router.get('/getnomi',authMiddlewere,pollsController.getNomi)
+router.post('/newworks',authMiddlewere,pollsController.newWorks)
+router.post('/votekid',authMiddlewere,pollsController.voteKid)
+router.post('/checkcontests',authMiddlewere,pollsController.checkExistContests)
+router.get('/checkvote',authMiddlewere,pollsController.checkVoteKids)
+
+
+
+
+
 
 module.exports = router

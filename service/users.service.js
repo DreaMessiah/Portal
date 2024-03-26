@@ -60,7 +60,8 @@ class UsersService{
     }
 
     async get() {
-        const users = await User.findAll({order: [['id', 'ASC']], limit: 30})
+        //const users = await User.findAll({order: [['id', 'ASC']], limit: 30})
+        const users = await User.findAll({order: [['id', 'ASC']]})
         if(!users) throw ApiError.BadRequest('Ошибка получения списка пользователей')
         return {users}
     }

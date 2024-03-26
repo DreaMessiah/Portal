@@ -1,7 +1,15 @@
 import "./style.scss"
-import {useState} from "react";
+import {useContext, useEffect, useRef, useState} from "react";
+import UserService from "../../../services/UserService";
+import {observer} from "mobx-react-lite";
+import {Context} from "../../../index";
 
-export const LkNew = () => {
+
+const LkNew = () => {
+    const {store} = useContext(Context)
+    const [face,setFace] = useState(store.user.avatar.length ? store.user.avatar : 'face.png')
+    const faceRef = useRef()
+
 
     const [editParams, setEditParams] = useState(false)
     const btnEdit = document.getElementById('edit_personal_data')
@@ -48,21 +56,35 @@ export const LkNew = () => {
         inputTN.style.display = 'none !important'
     }
 
+    const loadImage = async (e) => {
+        try {
+            const response = await UserService.loadAvatar(e.target.files[0])
+            if(response.data){
+                store.setAvatar(response.data.path)
+                setFace(response.data.path)
+                this.forceUpdate()
+            }
+        }catch (e) {
+            console.log(e)
+        }
+    }
 
     return (
         <div className="lk_block">
             <div className="lk_block_params">
-                    <div className="lk_block_params_photo" style={{backgroundImage: `url(/profile/photoprofile.png)`}}>
+                    <div className="lk_block_params_photo" style={face.length ? {backgroundImage: `url(/files/profile/${face})`} : {}}>
                         <div className="lk_block_params_photo_black"></div>
                         <div className="lk_block_params_photo_open"><i className="fa-solid fa-maximize"></i></div>
-                        <div className="lk_block_params_photo_upload"><i className="fa-solid fa-upload"></i></div>
+                        <div onClick={(e) => faceRef.current.click()} className="lk_block_params_photo_upload"><i className="fa-solid fa-upload"></i></div>
+                        <input onChange={(e) => loadImage(e)} ref={faceRef} className='hidden-upload' type='file'/>
                     </div>
+
                     <div className="lk_block_params_personaldata">
                         <div className="lk_block_params_personaldata_edit">
                             <div className="lk_block_params_personaldata_edit_btn" id="edit_personal_data" onClick={()=>openEditor(editParams)}>Редактировать</div>
                             <div className="lk_block_params_personaldata_edit_btn" id="save_personal_data" onClick={()=>saveEditor(editParams)}>Сохранить</div>
                         </div>
-                        <div className="lk_block_params_personaldata_fio" id="blockFIO">Барахтянский Владимир Алексеевич</div>
+                        <div onClick={(e) => console.log(store.user.avatar)} className="lk_block_params_personaldata_fio" id="blockFIO">Барахтянский Владимир Алексеевич</div>
                         <input className="lk_block_params_personaldata_fio displaynone" id="inputFIO" value="Барахтянский Владимир Алексеевич" />
                         <div className="lk_block_params_personaldata_dev" id="blockDEV">Разработчик ПО</div>
                         <input className="lk_block_params_personaldata_dev displaynone" id="inputDEV" value="Разработчик ПО" />
@@ -79,3 +101,4 @@ export const LkNew = () => {
         </div>
     )
 }
+export default observer(LkNew)
