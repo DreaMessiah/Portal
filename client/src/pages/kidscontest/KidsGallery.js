@@ -8,7 +8,7 @@ import formatDate from "../../components/functions/formatDate";
 import {useMessage} from "../../hooks/message.hook";
 import {useNavigate} from "react-router-dom";
 
-function ListContest(){
+function KidsGallery(){
     const navigate = useNavigate()
     const [works, setWorks] = useState([])
     const [nominations, setNominations] = useState([])
@@ -68,11 +68,12 @@ function ListContest(){
     const voteHandler = async () => {
         try {
             if(all){
-                const response = await PollsService.voteKid(nominations)
-                if(response.data){
-                    console.log(response.data)
-                    //navigate('/kids-gallery')
-                }
+                navigate('/kids-gallery')
+                // const response = await PollsService.voteKid(nominations)
+                // if(response.data){
+                //
+                // }
+
             }
         }catch (e){
             console.log(e?.message)
@@ -163,32 +164,9 @@ function ListContest(){
                                     <hr/>
                                     <div className={`answers`}><i className={`fa-heart fa-regular`}></i>{27} <i className="fa-regular fa-calendar"></i><span>{formatDate(works[currentImageIndex].createdAt)}</span></div>
                                     <hr/>
-                                    {nominations &&
-                                        <div className={`nominations radio-button-container`}>
-                                            {works[currentImageIndex].nomi === null ?
-                                                <>
-                                                    {nominations.map((item, index) => (
-                                                        <span key={index}>
-                                                        {!item.selected &&
-                                                            <label key={index} className="radio-button">
-                                                                <input
-                                                                    type="radio"
-                                                                    value={selected}
-                                                                    checked={selected === index}
-                                                                    onChange={(e) => setSelected(index)}
-                                                                />
-                                                                <span className="radio-button-text">{item.name}</span>
-                                                            </label>
-                                                        }
-                                                        </span>
-                                                    ))}
-                                                    {all ? <div className='bold'><p>Вы сделали выбор во всех номинациях.</p></div> : null}
-                                                </> :
-                                                <div className='bold'>Вы выбрали номинацию <p>{nominations[works[currentImageIndex].nomi].name}</p> для данный работы</div>
-                                            }
-                                        </div>
-                                    }
-
+                                    <div className={`information`}>
+                                        <div className='bold'>{works[currentImageIndex].name} {YearsSting(works[currentImageIndex].age)} </div>
+                                    </div>
                                 </div>
                                 <div className='buttons'>
                                     <hr/>
@@ -200,7 +178,7 @@ function ListContest(){
                                                 <div onClick={(e) => selectNomination(currentImageIndex)} className={`button`}>Номинировать</div>
                                             }
                                         </>
-                                    :<div onClick={(e) => unselectNomination(currentImageIndex)} className={`button`}>Отменить</div>}
+                                        :<div onClick={(e) => unselectNomination(currentImageIndex)} className={`button`}>Отменить</div>}
 
                                 </div>
 
@@ -212,9 +190,10 @@ function ListContest(){
                 )}
             </div>
             {all && <div onClick={() => voteHandler()} className={`send-contest`}>Проголосовать</div> }
+            <div onClick={(e) => console.log(nominations)}>TEST</div>
         </div>
     )
 }
-export default observer(ListContest)
+export default observer(KidsGallery)
 
 

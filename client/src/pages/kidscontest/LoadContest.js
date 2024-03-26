@@ -5,6 +5,7 @@ import FilesService from "../../services/FilesService";
 import {useMessage} from "../../hooks/message.hook";
 import PhoneInput from "../../components/inputs/PhoneInput";
 import PollsService from "../../services/PollsService";
+import MailInput from "../../components/inputs/MailInput";
 
 
 export default function LoadContest(){
@@ -16,6 +17,7 @@ export default function LoadContest(){
     const [works,setWorks] = useState([{name:'',age:'',image:'',ref:useRef()}])
     const [empty,setEmpty] = useState([])
     const [phone, setPhone] = useState('')
+    const [mail, setMail] = useState('')
     const [check, setCheck] = useState(false)
     const loadingHandler = async () => {
         try{
@@ -39,7 +41,11 @@ export default function LoadContest(){
     }
     const checkEmpty = () => {
         const n = [...empty]
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
         n[0] = phone.trim().length !== 16
+            n[500] = !emailRegex.test(mail);
+
         if(works.length){
             works.map((item,index) => {
                 const indexB = index + 1
@@ -111,14 +117,13 @@ export default function LoadContest(){
                     return newItem
                 })
                 console.log(contests)
-                //const response = PollsService.newWorks(contests,phone)
-                //if(response.data) console.log(response.data)
+                const response = PollsService.newWorks(contests,phone,mail)
+                if(response.data) console.log(response.data)
                 navigate('/kids-contest')
             }
         }catch (e) {
             message('Ошибка отправки заявки. Презагрузите страницу, и попробуйте снова')
         }
-
     }
     useEffect(() => {
         if(empty.length)checkEmpty()
@@ -131,7 +136,7 @@ export default function LoadContest(){
     },[works])
     return (
         <>
-        {check ?
+        {!check ?
         <div className='contest survey-setting'>
             <div onClick={(e) => console.log(phone.trim().length)} className='create-title'>Загрузите работы Ваших детей</div>
             <div className='cms-head'>
@@ -149,6 +154,12 @@ export default function LoadContest(){
                             <div>
                                 <i className="fa-solid fa-phone"></i>
                                 <PhoneInput empty={empty[0]} phone={phone} setPhone={setPhone} />
+                            </div>
+                        </div>
+                        <div className='phone mail'>
+                            <div>
+                                <i className="fa-regular fa-envelope"></i>
+                                <MailInput empty={empty[500]} mail={mail} setMail={setMail} />
                             </div>
 
                         </div>

@@ -1,5 +1,4 @@
-const {Survey,Question,Answer, Files, Contest, User} = require('../models/models')
-const SurveyDto = require('../dtos/surveyDto')
+const {Survey,Question,Answer, Contest, Nominations,KidsAnswers} = require('../models/models')
 const ApiError = require('../exceptions/api.error')
 class PollsService{
     async get(user_id) {
@@ -101,25 +100,33 @@ class PollsService{
     async getContests() {
         const contests = await Contest.findAll({ where: { trash: false} })
         if(!contests) throw ApiError.BadRequest('База пуста')
-
-        contests.map( async contest => {
-            console.log(contest.user_id)
-            const user = await User.findOne({ where:{id:+contest.user_id} })
-            // if(user){
-            //     console.log(user)
-            // }
-        })
-        //
-
         return contests
     }
-    async newWorks(id,phone,contests){
+    async getNomi() {
+        const nomi = await Nominations.findAll({order: [['id', 'ASC']]})
+        if(!nomi) throw ApiError.BadRequest('База пуста')
+        return nomi
+    }
+
+    async newWorks(id,phone,contests,mail){
         return contests.map( async(item) => {
-            return await Contest.create({user_id:id,phone:phone,name:item.name,age:item.age,image:item.image,trash:false})
+            return await Contest.create({user_id:id,phone:phone,name:item.name,age:item.age,image:item.image,trash:false,mail:mail})
         })
     }
     async checkExist(id) {
-        return !! await Contest.findOne({where:{user_id:id}})
+        return !! await Contest.findOne({where:{user_id:+id}})
+    }
+    async checkKidsVote(id){
+        return !! await KidsAnswers.findOne({where:{user_id:+id}})
+    }
+    async setNominations(user_id,nominations){
+        if(nominations){
+            return nominations.map(async item => {
+                await KidsAnswers.create({contest_id:item.contest,nomination_id:item.id,user_id})
+            })
+        }else{
+            return {message:'Ошибка голосования'}
+        }
     }
 
 

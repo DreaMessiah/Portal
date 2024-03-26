@@ -119,10 +119,10 @@ class PollsController {
     }
     async newWorks(req,res,next) {
         try{
-            const {contests,phone} = req.body
+            const {contests,phone,mail} = req.body
             const check = await PollsService.checkExist(req.user.id)
             if (!check){
-                const newItems = await PollsService.newWorks(req.user.id,phone,contests)
+                const newItems = await PollsService.newWorks(req.user.id,phone,contests,mail)
                 return res.status(200).json(newItems)
             }
             return res.status(200).json({message:'Заявка уже подавалась'})
@@ -140,10 +140,31 @@ class PollsController {
     }
     async voteKid(req,res,next) {
         try{
-            const {survey_id,question_id} = req.body
-            console.log(survey_id,question_id)
-            const vote = await PollsService.setAnswer(req.user.id,survey_id,question_id)
-            return res.status(200).json(vote)
+            const {nominations} = req.body
+            const check = await PollsService.checkKidsVote(+req.user.id)
+            if(!check){
+                const vote = await PollsService.setNominations(req.user.id,nominations)
+                return res.status(200).json(vote)
+            }else{
+                return res.status(200).json({message:"Вы уже голосовали"})
+            }
+
+        }catch (e) {
+            next(e)
+        }
+    }
+    async getNomi(req,res,next){
+        try{
+            const nomi = await PollsService.getNomi()
+            return res.status(200).json(nomi)
+        }catch (e) {
+            next(e)
+        }
+    }
+    async checkVoteKids(req,res,next){
+        try{
+            const check = await PollsService.checkKidsVote(+req.user.id)
+            return res.status(200).json({check:check})
         }catch (e) {
             next(e)
         }

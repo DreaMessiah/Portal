@@ -7,6 +7,7 @@ import "./style.scss"
 
 export const MainHeader = () => {
     const {store} = useContext(Context)
+
     return (
         <div className="head_block">
             <Link to="/" className="head_block_logo">Сургутское РСУ</Link>
@@ -17,7 +18,7 @@ export const MainHeader = () => {
             <div className="head_block_right">
                 <div className="head_block_callback">Обратная связь</div>
                 <Link to="/new_lk" className="head_block_lk">
-                    <div className="head_block_lk_photo"></div>
+                    <div style={{backgroundImage:`url(/files/profile/${store.avatar})`}} className="head_block_lk_photo"></div>
                     <div className="head_block_lk_name">{store.user.full_name}</div>
                 </Link>
 
