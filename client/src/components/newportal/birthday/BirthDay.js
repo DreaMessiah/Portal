@@ -4,20 +4,39 @@ import ObjsService from "../../../services/ObjsService";
 import {useContext, useState} from "react";
 import {Context} from "../../../index";
 import {useEffect} from "react";
+import AuthServise from "../../../services/AuthService";
 
 export const BirthDay = () => {
 
     const [birthman, setBirthman] = useState([])
 
-
     const users = async (e) => {
-        // try {
-        //     const listMan = await ObjsService.getT13({inn, month, year})
-        //     // console.log(listMan.data)
-        //
-        // } catch(e) {
-        //     console.log(e)
-        // }
+        try {
+
+
+
+            // if(birthman.length !== 0 && list.data){
+            //     const listUsers = list.data.users
+            //
+            //     birthman.forEach(man => {
+            //         listUsers.forEach(user => {
+            //             if(user.tn === man.tn && user.avatar !== ''){
+            //                 man.avatar = user.avatar
+            //                 newArr.push(man)
+            //             }
+            //         })
+            //     })
+            //
+            //
+            //     setBirthman([... newArr])
+            // } else {
+            //     // users()
+            // }
+
+
+        } catch(e) {
+            console.log(e)
+        }
     }
 
     const months = [
@@ -88,7 +107,6 @@ export const BirthDay = () => {
 
 
     const t13List = async (e) => {
-
         const newArr = []
 
         try {
@@ -105,6 +123,7 @@ export const BirthDay = () => {
                 let date = new Date(ye, mon - 1, day);
                 if(isBirthdayWithin30Days(date)){
                     // console.log(man.birthday)
+                    man.avatar = 'face.png'
                     newArr.push(man)
                 }
 
@@ -112,8 +131,22 @@ export const BirthDay = () => {
 
 
             })
+            const list = await AuthServise.getusers()
+
+            newArr.map( item => {
+                list.data.users.map( row => {
+                    if(item.tn === row.tn){
+                        item.avatar = row.avatar ? row.avatar : 'face.png'
+                    }
+                })
+
+            })
+
             console.log(newArr)
             setBirthman([...newArr])
+
+
+
         } catch(e) {
             console.log(e)
         }
@@ -121,7 +154,13 @@ export const BirthDay = () => {
 
     useEffect(() => {
         t13List()
+
     }, [])
+    useEffect(() => {
+        if(birthman.length){
+            users()
+        }
+    },[])
     return (
         <div className="frame_block ">
             <div className="frame_block_title">
@@ -130,9 +169,16 @@ export const BirthDay = () => {
             </div>
             <div className="frame_block_birthday borderbirthday birthdaycolor">
                 <div className="frame_block_birthday_main">
-                    {birthman.map((man, index) => (
+                    {birthman.map((man, index) => {
+                        // let dopstyle
+                        // if(man.avatar === 'face.png'){
+                        //     dopstyle = {backgroundPosition: 'center center', backgroundSize: '100%'}
+                        // } else {
+                        //     dopstyle = {}
+                        // }
+                        return (
                         <div className="frame_block_birthday_main_man" key={index}>
-                            <div className="frame_block_birthday_main_man_photo" style={{backgroundImage: `url("/hallofframe/11.jpg")`}}></div>
+                            <div className="frame_block_birthday_main_man_photo" style={{backgroundImage: `url("/files/profile/${man.avatar}")`}}></div>
                             <div className="frame_block_birthday_main_man_text">
                                 <div className="frame_block_birthday_main_man_name">{man.name}</div>
                                 <div className="frame_block_birthday_main_man_dev">{man.developer}</div>
@@ -140,7 +186,7 @@ export const BirthDay = () => {
                                 <div className="frame_block_birthday_main_man_years">{calculateAge(man.birthday)}</div>
                             </div>
                         </div>
-                    ))}
+                    )})}
                 </div>
             </div>
         </div>
