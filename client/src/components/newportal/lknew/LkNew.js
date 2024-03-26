@@ -7,9 +7,8 @@ import {Context} from "../../../index";
 
 const LkNew = () => {
     const {store} = useContext(Context)
-    const [face,setFace] = useState(store.user.avatar.length ? store.user.avatar : 'face.png')
+    const [face,setFace] = useState(store.avatar.length ? store.avatar : 'face.png')
     const faceRef = useRef()
-
 
     const [editParams, setEditParams] = useState(false)
     const btnEdit = document.getElementById('edit_personal_data')
@@ -62,7 +61,6 @@ const LkNew = () => {
             if(response.data){
                 store.setAvatar(response.data.path)
                 setFace(response.data.path)
-                this.forceUpdate()
             }
         }catch (e) {
             console.log(e)

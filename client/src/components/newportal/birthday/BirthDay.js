@@ -11,13 +11,13 @@ export const BirthDay = () => {
 
 
     const users = async (e) => {
-        try {
-            const listMan = await ObjsService.getT13({inn, month, year})
-            // console.log(listMan.data)
-
-        } catch(e) {
-            console.log(e)
-        }
+        // try {
+        //     const listMan = await ObjsService.getT13({inn, month, year})
+        //     // console.log(listMan.data)
+        //
+        // } catch(e) {
+        //     console.log(e)
+        // }
     }
 
     const months = [

@@ -5,6 +5,7 @@ export default class UserService {
     }
 
     static loadAvatar(file){
+
         if(file){
             if(this.isImage(file.name)){
                 const formData = new FormData()

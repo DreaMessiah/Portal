@@ -39,10 +39,12 @@ export default class Store {
             localStorage.setItem('token',response.data.accessToken)
             this.setAuth(true)
             this.setUser(response.data.user)
+            console.log(response.data.user)
             this.setAvatar(response.data.user.avatar)
             await this.checkT13()
         }catch (e){
-            console.log(e.response?.data?.message)
+            console.log('fdsfd')
+            console.log(e?.response?.data?.message)
         }
     }
     async registration(login,password,tn,full_name,id,email,inn,moderator,account,unit) {
