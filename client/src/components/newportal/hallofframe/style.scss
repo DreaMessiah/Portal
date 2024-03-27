@@ -262,3 +262,99 @@
     }
   }
 }
+
+.quest_director{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .quest_director_up{
+    width: 100%;
+    .quest_director_up_title{
+      font-weight: 700;
+      font-size: 20pt;
+      margin-bottom: 20px;
+    }
+    .quest_director_up_customer {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      .select{
+        width: 300px;
+      }
+      .quest_director_up_customer_name {
+        width: 100px;
+      }
+    }
+
+    .quest_director_up_theme{
+      display: flex;
+      width: 100%;
+      align-items: center;
+      margin-bottom: 10px;
+      .quest_director_up_theme_name{
+        width: 100px;
+      }
+      .quest_director_up_theme_input{
+        width: 278px;
+        padding: 10px;
+        border: 1px solid #CCC;
+        border-radius: 5px;
+        outline: none;
+      }
+    }
+
+    .quest_director_up_question{
+      .quest_director_up_question_name{
+        margin-bottom: 5px;
+
+      }
+      .quest_director_up_question_textarea{
+        width: calc(100% - 22px);
+        height: 60px;
+        padding: 10px;
+        border: 1px solid #CCC;
+        border-radius: 5px;
+        outline: none;
+        resize: none;
+      }
+    }
+
+  }
+
+  .quest_director_btns{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    .quest_director_btns_cancel{
+      background-color: rgba(215, 26, 0, 0.5);
+      color: white;
+      margin: 10px;
+      padding: 10px 16px 10px 10px;
+      width: 150px;
+      height: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    .quest_director_btns_post{
+      background-color: rgb(18, 19, 56);
+      color: white;
+      margin: 10px;
+      padding: 10px 16px 10px 10px;
+      width: 150px;
+      height: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+  }
+
+}

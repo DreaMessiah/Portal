@@ -48,12 +48,12 @@ export const BirthDay = () => {
 
     const currentDate = new Date();
     let thisday = currentDate.getDate();
-    console.log(thisday)
+    // console.log(thisday)
     const year = currentDate.getFullYear() + '';
-    console.log(year)
+    // console.log(year)
     const currentMonth = currentDate.getMonth(); // Получаем номер текущего месяца
     let month = months[currentMonth];
-    console.log(month)
+    // console.log(month)
     // month = 'январь' // убрать перед началом работы
 
 
@@ -142,7 +142,7 @@ export const BirthDay = () => {
 
             })
 
-            console.log(newArr)
+            // console.log(newArr)
             setBirthman([...newArr])
 
 

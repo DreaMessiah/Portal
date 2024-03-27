@@ -7,6 +7,7 @@ import Select from "react-select";
 import MainpageService from "../../../services/MainpageService";
 import ModalFiles from "../../modalwin/ModalFiles";
 import {DelWin} from "./DelWin";
+import AuthService from "../../../services/AuthService";
 
 export const TumblerHall = () => {
     const [active, setActive] = useState(false)
@@ -25,10 +26,10 @@ export const TumblerHall = () => {
 
     const currentDate = new Date();
     const year = currentDate.getFullYear() + '';
-    console.log(year)
+    // console.log(year)
     const currentMonth = currentDate.getMonth(); // Получаем номер текущего месяца
     let month = months[currentMonth];
-    console.log(month)
+    // console.log(month)
     const t13List = async (e) => {
         let newArr
         try {
@@ -61,7 +62,7 @@ export const TumblerHall = () => {
             }
 
 
-            console.log(listMans)
+            // console.log(listMans)
         } catch {
             alert('ебобо скрипт проверь')
         }
@@ -73,9 +74,9 @@ export const TumblerHall = () => {
     ]
 
     const pullMan = async () => {
-        console.log(thisMans)
-        console.log(thisDev)
-        console.log()
+        // console.log(thisMans)
+        // console.log(thisDev)
+        // console.log()
         const bestman = {
             name: thisMans.name,
             tn: thisMans.tn,
@@ -86,7 +87,7 @@ export const TumblerHall = () => {
         }
         try{
             const bestMan = await MainpageService.pushBestMan({bestman})
-            console.log(bestMan.data)
+            // console.log(bestMan.data)
             viewBoard()
         } catch(e) {
             console.log(e)
@@ -95,10 +96,26 @@ export const TumblerHall = () => {
     }
     const [listBM, setListBM] = useState([])
     const viewBoard = async () => {
+        const newArr = []
         try{
             const bestMan = await MainpageService.viewBestMan({inn:inn})
-            setListBM(bestMan.data)
-            console.log(bestMan.data)
+            bestMan.data.forEach(man => {
+                man.avatar = 'face.png'
+                newArr.push(man)
+            })
+
+            const list = await AuthService.getusers()
+
+            newArr.map( item => {
+                list.data.users.map( row => {
+                    if(item.tn === row.tn){
+                        item.avatar = row.avatar ? row.avatar : 'face.png'
+                    }
+                })
+            })
+
+            // console.log(newArr)
+            setListBM([...newArr])
         } catch(e) {
             console.log(e)
         }
@@ -139,7 +156,7 @@ export const TumblerHall = () => {
                         <div className="hall_edit_visual_man_dev_num">{index + 1}</div>
                         <div className="hall_edit_visual_man_dev_dev">{man.dev}</div>
                     </div>
-                    <div className="hall_edit_visual_man_photo" style={{backgroundImage: `url("/profile/face.jpg")`, backgroundSize: '90%', backgroundRepeat: 'no-repeat', backgroundColor: '#FFF'}}></div>
+                    <div className="hall_edit_visual_man_photo" style={{backgroundImage: `url("files/profile/${man.avatar}")`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundColor: '#FFF'}}></div>
                     <div className="hall_edit_visual_man_description">
                         <div className="hall_edit_visual_man_description_name">{man.name}</div>
                         <div className="hall_edit_visual_man_description_dev">{man.developer}</div>
