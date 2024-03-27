@@ -53,6 +53,7 @@ import HallEdit from "./pages/newportal/hallofframe/HallEdit";
 import ContestPage from "./pages/kidscontest/ContestPage";
 import LoadPage from "./pages/kidscontest/LoadPage";
 import MainCms from "./pages/newportal/news/MainCms";
+import Message from "./pages/newportal/message/Message";
 
 
 function App() {
@@ -124,6 +125,7 @@ function App() {
                         <Route path="/alllistnews" element={<AllListNews />} />
                         <Route path="/listfastbtns" element={<ListFastBtns />} />
                         <Route path="/halledit" element={<HallEdit />} />
+                        <Route path="/messages" element={<Message />} />
 
                     </Routes>
                 </div>

@@ -16,14 +16,14 @@ export const Mainnavbar = () => {
                     <div className="navbar_block_menu_strock_icon icon_news"></div>
                     <div className="navbar_block_menu_strock_description">Новости</div>
                 </Link>
-                <div onClick={(e) => setSelectedMenu(3)} className={`navbar_block_menu_strock ${selectedMenu===3 && 'selected'}`}>
-                    <div className="navbar_block_menu_strock_icon icon_com"></div>
-                    <div className="navbar_block_menu_strock_description">Сотрудники</div>
-                </div>
-                <div onClick={(e) => setSelectedMenu(4)} className={`navbar_block_menu_strock ${selectedMenu===4 && 'selected'}`}>
+                <Link to="/messages" onClick={(e) => setSelectedMenu(3)} className={`navbar_block_menu_strock ${selectedMenu===3 && 'selected'}`}>
+                    <div className="navbar_block_menu_strock_icon icon" style={{display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#FFF', fontSize: '16pt'}}><i className="fa-regular fa-comment"></i></div>
+                    <div className="navbar_block_menu_strock_description">Сообщения</div>
+                </Link>
+                <Link to="/" onClick={(e) => setSelectedMenu(4)} className={`navbar_block_menu_strock ${selectedMenu===4 && 'selected'}`}>
                     <div className="navbar_block_menu_strock_icon icon_forest"></div>
                     <div className="navbar_block_menu_strock_description">Структура компании</div>
-                </div>
+                </Link>
                 <Link onClick={(e) => setSelectedMenu(5)} to='/documents' className={`navbar_block_menu_strock ${selectedMenu===5 && 'selected'}`}>
                     <div className="navbar_block_menu_strock_icon icon_doc"></div>
                     <div className="navbar_block_menu_strock_description">Документы</div>
