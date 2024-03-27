@@ -1,5 +1,5 @@
 import "./style.scss"
-import {Link} from "react-router-dom";
+import {Link,useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import PostService from "../../../services/PostService";
 import formatDate from "../../functions/formatDate";
@@ -7,13 +7,11 @@ import shortenText from "../../functions/shortenText";
 
 export const AllListPOSTS = () => {
     const [posts,setPosts] = useState([])
-
+    const navigate = useNavigate()
     const rule = 3
-
     const loadingHandler = async () => {
         try{
             const response = await PostService.fetch()
-            console.log(response)
             if(response.data){
                 setPosts(response.data)
             }
@@ -42,7 +40,6 @@ export const AllListPOSTS = () => {
                                 <div className="news_block_list_box_content_a">
                                     <div className="news_block_list_box_content_xyz">
                                         {/*<div className="news_block_list_box_content_xyz_x">2 часа назад</div>*/}
-
                                     </div>
                                     <div className="news_block_list_box_content_title">{item.title}</div>
                                     <div className="news_block_list_box_content_description">{shortenText(item.text)}</div>
@@ -56,7 +53,7 @@ export const AllListPOSTS = () => {
                                         <div className="news_block_list_box_content_btns_comment"><i className="fa-regular fa-comments"></i></div>
                                     </div>
                                     <div className='rigth'>
-                                        {rule === 3 && <Link to={`/createnews?post=${item.id}`}><i className="fa-solid fa-gear"></i></Link>}
+                                        {rule === 3 && <div onClick={() => navigate(`/createnews?post=${item.id}`)}><i className="fa-solid fa-gear"></i></div>}
                                         <div className="views">{item.clicks} просмотров</div>
                                     </div>
                                 </div>

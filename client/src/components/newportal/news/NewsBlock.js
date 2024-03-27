@@ -11,7 +11,6 @@ export const NewsBlock = () => {
     const loadingHandler = async () => {
         try{
             const response = await PostService.fetchBlocks()
-            console.log(response)
             if(response.data) setBlocks(response.data)
         }catch (e) {
             console.log(e)

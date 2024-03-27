@@ -21,7 +21,6 @@ export const QuestionDirector = ({setActive}) => {
         try {
             if(!checkEmpty()){
                 const mail = await PhonesService.sendMail(aup.mail,title,text)
-                console.log(mail)
                 message(mail.data.message)
                 setActive(false)
             }else{
@@ -45,11 +44,7 @@ export const QuestionDirector = ({setActive}) => {
     const loadingHandler = async () => {
         try {
             const response = await PhonesService.getManagers()
-            console.log(response)
-            if(response.data){
-                console.log(response.data)
-                setManagers(response.data)
-            }
+            if(response.data) setManagers(response.data)
         }catch (e){
             console.log(e)
         }
@@ -58,9 +53,6 @@ export const QuestionDirector = ({setActive}) => {
     useEffect(() => {
         loadingHandler()
     },[])
-    useEffect(() => {
-        console.log(aup)
-    },[aup])
     return (
         <div className="quest_director" style={{color: '#454545'}}>
             <div className="quest_director_up">

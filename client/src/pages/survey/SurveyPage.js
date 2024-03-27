@@ -26,7 +26,6 @@ export default function SurveyPage({flag=false,id}){
                 if(response.data.surveys.image) setImage(response.data.surveys.image)
             }
             const statres = await PollsService.fetchStat(id)
-            console.log(statres.data)
             if(statres.data){
                 setStat(statres.data)
             }
@@ -56,8 +55,7 @@ export default function SurveyPage({flag=false,id}){
         }
     }
     useEffect(() => {
-        const load = loadingHandler()
-        console.log(load)
+        loadingHandler()
     },[])
     useEffect(() => {
         if(answer){
