@@ -24,9 +24,10 @@ class UsersService{
         const tokens = tokenService.generateTokens({...userDto})
         await tokenService.saveToken(userDto.id, tokens.refreshToken)
 
-        const sizes = await DiskSpace.findOne({where:{user_id:userDto.id}})
+
+        let sizes = await DiskSpace.findOne({where:{user_id:userDto.id}})
         if(!sizes){
-            await DiskSpace.create({user_id:userDto.id,usedspace:0,diskspace:10737418240});
+            sizes = await DiskSpace.create({user_id:userDto.id,usedspace:0,diskspace:10737418240});
         }
         userDto.diskspace = sizes.diskspace
         userDto.usedspace = sizes.usedspace
@@ -49,9 +50,9 @@ class UsersService{
         const tokens = tokenService.generateTokens({...userDto})
         await tokenService.saveToken(userDto.id, tokens.refreshToken)
 
-        const sizes = await DiskSpace.findOne({where:{user_id:userDto.id}})
+        let sizes = await DiskSpace.findOne({where:{user_id:userDto.id}})
         if(!sizes){
-            await DiskSpace.create({user_id:userDto.id,usedspace:0,diskspace:10737418240});
+            sizes = await DiskSpace.create({user_id:userDto.id,usedspace:0,diskspace:10737418240});
         }
         userDto.diskspace = sizes.diskspace
         userDto.usedspace = sizes.usedspace
