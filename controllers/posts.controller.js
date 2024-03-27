@@ -19,6 +19,24 @@ class PostsController {
             next(e)
         }
     }
+    async getBlocks(req,res,next) {
+        try{
+            const blocks = await PostsService.getBlocks()
+            console.log(blocks)
+            return res.status(200).json(blocks)
+        }catch (e){
+            next(e)
+        }
+    }
+    async saveBlocks(req,res,next) {
+        try{
+            const {blocks} = req.body
+            const posts = await PostsService.saveBlocks(blocks)
+            return res.status(200).json(posts)
+        }catch (e){
+            next(e)
+        }
+    }
     async setRemove(req,res,next) {
         try{
             const {id} = req.body
@@ -37,6 +55,16 @@ class PostsController {
             next(e)
         }
     }
+    async getSinglePost(req,res,next) {
+        try{
+            const {id} = req.body
+            const post = await PostsService.getSinglePost(id)
+            return res.status(200).json(post)
+        }catch (e){
+            next(e)
+        }
+    }
+
     async getSetting(req,res,next) {
         try{
             const {id} = req.body

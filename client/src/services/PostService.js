@@ -3,11 +3,20 @@ export default class PostService {
     static fetch() {
         return $api.get('/posts/get')
     }
+    static fetchBlocks() {
+        return $api.get('/posts/getblocks')
+    }
+    static saveBlocks(blocks) {
+        return $api.post('/posts/saveblocks',{blocks})
+    }
     static fetchList() {
         return $api.get('/posts/getlist')
     }
     static fetchPost(id) {
         return $api.post('/posts/getpost',{id})
+    }
+    static fetchSinglePost(id) {
+        return $api.post('/posts/getsinglepost',{id})
     }
     static fetchSetting(id) {
         return $api.post('/posts/setting',{id})

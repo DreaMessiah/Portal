@@ -2299,3 +2299,17 @@ html{
 .red-auth-border{
   border-bottom: 2px solid $dredColor !important;
 }
+
+::-webkit-scrollbar {
+  width: 6px; /* Ширина полосы прокрутки */
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(5, 5, 5, 0.7);
+  border-radius: 5px; /* Скругление углов бегунка */
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Цвет трека */
+}
+::-webkit-scrollbar-corner {
+  background: transparent; /* Цвет угла */
+}

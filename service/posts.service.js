@@ -1,4 +1,4 @@
-const {Posts} = require('../models/models')
+const {Posts, MainBlocks} = require('../models/models')
 
 const ApiError = require('../exceptions/api.error')
 class PostsService{
@@ -12,6 +12,12 @@ class PostsService{
         if(!posts) throw ApiError.BadRequest('База с новостями пуста')
         return posts.map( item => item.id)
     }
+    async getBlocks() {
+        const posts = await MainBlocks.findAll({order: [['id', 'ASC']] })
+        if(!posts) throw ApiError.BadRequest('База с блоками пуста')
+        return posts
+    }
+
     async getSettings(id) {
         const post = await Posts.findOne({where:{id:+id,trash:false}})
         if(!post) throw ApiError.BadRequest('Новость не доступна для редактирования')
@@ -30,6 +36,21 @@ class PostsService{
         })
         return postDto
     }
+    async getSinglePost(id) {
+        const post = await Posts.findOne({where:{id:+id,trash:false}})
+        if(!post) throw ApiError.BadRequest('Новость не найденa в базе')
+        return {title:post.title,image:post.image,content:post.text,clicks:post.clicks,createdAt:post.createdAt}
+    }
+    async saveBlocks(blocks){
+        return blocks.map(async item => {
+            const block = await MainBlocks.findOne({where: {id:+item.id}})
+            block.type = item.type
+            block.block_id = item.block_id
+            await block.save()
+            return block
+        })
+    }
+
     async remove(id) {
         const post = await Posts.findOne({where:{id:+id}})
         if(!post) throw ApiError.BadRequest('Нет вопроса с таким id в базе')

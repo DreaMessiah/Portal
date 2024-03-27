@@ -5,10 +5,11 @@ const authMiddlewere = require('../middleware/auth.middleware')
 
 router.get('/get',authMiddlewere,PostsController.get)
 router.get('/getlist',authMiddlewere,PostsController.getList)
+router.get('/getblocks',authMiddlewere,PostsController.getBlocks)
 router.post('/create',authMiddlewere,PostsController.create)
 router.post('/getpost',authMiddlewere,PostsController.getPost)
+router.post('/getsinglepost',authMiddlewere,PostsController.getSinglePost)
 router.post('/remove',authMiddlewere,PostsController.setRemove)
 router.post('/setting',authMiddlewere,PostsController.getSetting)
-
-
+router.post('/saveblocks',authMiddlewere,PostsController.saveBlocks)
 module.exports = router

@@ -52,7 +52,7 @@ import PollsCms from "./pages/survey/PollsCms";
 import HallEdit from "./pages/newportal/hallofframe/HallEdit";
 import ContestPage from "./pages/kidscontest/ContestPage";
 import LoadPage from "./pages/kidscontest/LoadPage";
-
+import MainCms from "./pages/newportal/news/MainCms";
 
 
 function App() {
@@ -79,6 +79,7 @@ function App() {
             <Router>
                 <div className="App">
                     <Routes>
+                        <Route path='/settingmain' element={<MainCms/>}/>
                         <Route path="/load-contest" element={<LoadPage/>} />
                         <Route path="/kids-contest" element={<ContestPage/>} />
                         <Route path="/7897564" element={<NewsPage/>} />
