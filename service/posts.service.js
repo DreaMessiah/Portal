@@ -39,7 +39,7 @@ class PostsService{
     async getSinglePost(id) {
         const post = await Posts.findOne({where:{id:+id,trash:false}})
         if(!post) throw ApiError.BadRequest('Новость не найденa в базе')
-        return {title:post.title,image:post.image,content:post.text,clicks:post.clicks,createdAt:post.createdAt}
+        return {id:post.id,title:post.title,image:post.image,content:post.text,clicks:post.clicks,createdAt:post.createdAt}
     }
     async saveBlocks(blocks){
         return blocks.map(async item => {
