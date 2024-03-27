@@ -21,9 +21,6 @@ export const HallOfFrame = () => {
                 newArr.push(man)
             })
 
-
-
-
             const list = await AuthService.getusers()
 
             newArr.map( item => {
@@ -32,10 +29,9 @@ export const HallOfFrame = () => {
                         item.avatar = row.avatar ? row.avatar : 'face.png'
                     }
                 })
-
             })
 
-            console.log(newArr)
+            // console.log(newArr)
             setListBM([...newArr])
 
             // setListBM(bestMan.data)

@@ -536,6 +536,13 @@ const BestBoard = sequelize.define('bestboard', {
     inn:{type:DataTypes.STRING}
 })
 
+const MainBlocks  = sequelize.define('mainblocks',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    type:{type:DataTypes.INTEGER},
+    block_id:{type:DataTypes.INTEGER,allowNull:false},
+    data:{type:DataTypes.TEXT,default:''}
+})
+
 const Contest  = sequelize.define('contest',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     user_id:{type:DataTypes.INTEGER,ref:'users'},
@@ -557,11 +564,6 @@ const KidsAnswers  = sequelize.define('kidsanswers',{
     user_id:{type:DataTypes.INTEGER,ref:'users'}
 })
 
-const Avatar = sequelize.define('avatar', {
-    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
-    user_id:{type:DataTypes.INTEGER,ref:'users'},
-    image:{type:DataTypes.BLOB('long')},
-});
 //
 // const RssPosts = sequelize.define('rss', {
 //     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
@@ -571,5 +573,5 @@ const Avatar = sequelize.define('avatar', {
 // })
 
 module.exports = {
-    Contest,Nominations,KidsAnswers,User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Ktulist,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts,Avatar
+    MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Ktulist,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
 }
