@@ -1,5 +1,6 @@
 const PhonesService = require('../service/phones.service')
 const {validationResult} = require('express-validator')
+const mailService = require('../service/mail.service')
 const ApiError = require('../exceptions/api.error')
 class PhonesController {
     async get(req,res,next) {
@@ -23,6 +24,27 @@ class PhonesController {
             next(e)
         }
     }
+    async getmanagers(req,res,next) {
+        try{
+            const managers = await PhonesService.getmanagers()
+            const contacts = managers.map( item => {
+                return {...item.dataValues,value:item.id,label:item.name}
+            })
+            return res.status(200).json(contacts)
+        }catch (e) {
+            next(e)
+        }
+    }
+    async sendmail(req,res,next) {
+        try{
+            const {to,title,text} = req.body
+            await mailService.sendQuestionToManager(to,title,text,req.user)
+            return res.status(200).json({message:'Сообщение отправлено'})
+        }catch (e) {
+            next(e)
+        }
+    }
+
     async change(req,res,next){
         try{
             const errors = validationResult(req)

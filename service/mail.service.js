@@ -29,5 +29,21 @@ class MailService{
                 `
         })
     }
+    async sendQuestionToManager(to,title,text,user){
+        await this.transporter.sendMail({
+            from: config.get('smtp_user'),
+            to,
+            subject:title,
+            text:'',
+            html:
+                `
+                    <div>
+                        <h1>Вам поступил вопрос от пользователя Корпоративного портала</h1>
+                        <h3>Пользователь ${user.full_name}</h3>
+                        <p>${text}</p>                        
+                    </div>
+                `
+        })
+    }
 }
 module.exports = new MailService()

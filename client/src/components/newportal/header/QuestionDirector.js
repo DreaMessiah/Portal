@@ -1,36 +1,66 @@
-import {Link} from "react-router-dom";
-import React, {useState} from 'react';
+
+import React, {useEffect, useState} from 'react';
 import {useContext} from "react";
 import {Context} from "../../../index";
 import "./style.scss"
 import Select from "react-select";
+import PhonesService from "../../../services/PhonesService";
+import {useMessage} from "../../../hooks/message.hook";
 
-
-export const QuestionDirector = () => {
+export const QuestionDirector = ({setActive}) => {
     const {store} = useContext(Context)
     const [aup, setAup] = useState({})
+    const [empty,setEmpty] = useState([])
+    const [title,setTitle] = useState('')
+    const [text,setText] = useState('')
+    const [managers,setManagers] = useState([])
+    const message = useMessage()
 
-    const listDev = [
-        {label: 'Генеральный директор', value: 0},
-        {label: 'Исполнительный диретор', value: 1},
-        {label: 'Отдел кадров', value: 2},
-        {label: 'Бухгалтерия', value: 3}
-    ]
 
-    const postMess = (to) => {
-        const thismess = {}
-        const valuemess = document.getElementById('mess')
-        const valuetitle = document.getElementById('title')
+    const postMess = async () => {
+        try {
+            if(!checkEmpty()){
+                const mail = await PhonesService.sendMail(aup.mail,title,text)
+                console.log(mail)
+                message(mail.data.message)
+                setActive(false)
+            }else{
+                message('Заполните все необходимые поля')
+            }
+        }catch (e) {
+            console.log('Ошибка отправки')
+        }
+    }
+    const checkEmpty = () => {
+        const n = [...empty]
+        n[0] = !!!text.trim().length
+        n[1] = !!!title.trim().length
+        n[2] = !!!aup.id
 
-        thismess.towhom = aup
-        thismess.title = valuemess.value
-        thismess.message = valuetitle.value
-
-        console.log(thismess)
-
-        // const
+        const hasTrueValue = n.some(value => value === true);
+        if( hasTrueValue ) setEmpty(n)
+        else setEmpty([])
+        return hasTrueValue
+    }
+    const loadingHandler = async () => {
+        try {
+            const response = await PhonesService.getManagers()
+            console.log(response)
+            if(response.data){
+                console.log(response.data)
+                setManagers(response.data)
+            }
+        }catch (e){
+            console.log(e)
+        }
     }
 
+    useEffect(() => {
+        loadingHandler()
+    },[])
+    useEffect(() => {
+        console.log(aup)
+    },[aup])
     return (
         <div className="quest_director" style={{color: '#454545'}}>
             <div className="quest_director_up">
@@ -38,23 +68,23 @@ export const QuestionDirector = () => {
                 <div className="quest_director_up_customer">
                     <div className="quest_director_up_customer_name">Кому: </div>
                     <div className="hall_edit_tumbler">
-                        <Select className='select' onChange={(e) => setAup(e)} value={aup} options={listDev}/>
+                        <Select className={`select ${empty[2] && 'red-solid-border'}`} onChange={(e) => setAup(e)} value={aup} options={managers}/>
                         {/*<Select className='select' />*/}
-                        <p  style={{margin: '0 0 10px 0'}}></p>
+                        <p style={{margin: '0 0 10px 0'}}></p>
                     </div>
                 </div>
                 <div className="quest_director_up_theme">
                     <div className="quest_director_up_theme_name">Тема: </div>
-                    <input className="quest_director_up_theme_input" type="text" id='title' placeholder="Тема обращения" required></input>
+                    <input value={title} onChange={(e) => setTitle(e.target.value)} className={`quest_director_up_theme_input ${empty[0] && 'red-solid-border'}`} type="text" id='title' placeholder="Тема обращения" required></input>
                 </div>
                 <div className="quest_director_up_question">
                     <div className="quest_director_up_question_name">Текст обращения:</div>
-                    <textarea className="quest_director_up_question_textarea" id='mess' required></textarea>
+                    <textarea value={text} onChange={(e) => setText(e.target.value)} className={`quest_director_up_question_textarea ${empty[1] && 'red-solid-border'}`} id='mess' required></textarea>
                 </div>
             </div>
             <div className="quest_director_btns">
-                <div className="quest_director_btns_cancel">Отмена</div>
-                <div className="quest_director_btns_post" onClick={()=>postMess(aup)}>Отправить</div>
+                <div className="quest_director_btns_cancel" onClick={(e) => setActive(false)}>Отмена</div>
+                <div className="quest_director_btns_post" onClick={(e) => postMess()}>Отправить</div>
             </div>
         </div>
     )

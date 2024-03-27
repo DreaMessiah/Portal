@@ -13,4 +13,10 @@ export default class PhonesService{
     static deletePhones(id){
         return $api.post('/phones/delete',{id})
     }
+    static getManagers(){
+        return $api.get('/phones/getmanagers')
+    }
+    static sendMail(to,title,text){
+        return $api.post('/phones/sendmail',{to,title,text})
+    }
 }

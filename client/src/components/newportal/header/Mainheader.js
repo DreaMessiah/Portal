@@ -8,11 +8,9 @@ import {QuestionDirector} from "./QuestionDirector";
 import {ModalWin} from "../../modalwin/ModalWin";
 import ModalFiles from "../../modalwin/ModalFiles";
 
-
 export const MainHeader = () => {
     const {store} = useContext(Context)
     const [active, setActive] = useState(false)
-
 
     return (
         <div className="head_block">
@@ -30,7 +28,7 @@ export const MainHeader = () => {
 
                 <div className="head_block_callback" onClick={() => store.logout()}>Выйти</div>
                 <div className="head_block_questions" onClick={()=>setActive(true)}>?</div>
-                <ModalFiles heigth='40vh' data={<QuestionDirector />} active={active} setActive={setActive}/>
+                <ModalFiles heigth='40vh' data={<QuestionDirector setActive={setActive} />} active={active} setActive={setActive}/>
             </div>
         </div>
     )

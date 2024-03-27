@@ -1,4 +1,4 @@
-const {Phonebook} = require('../models/models')
+const {Phonebook,Managers} = require('../models/models')
 const PhonesDto = require('../dtos/phonesDto')
 const ApiError = require('../exceptions/api.error')
 class PhonesService{
@@ -14,6 +14,10 @@ class PhonesService{
         const phonesDto = new PhonesDto(book)
         return {phones: phonesDto}
     }
+    async getmanagers() {
+        return await Managers.findAll()
+    }
+
     async change(id,name,mobile_phone,city_phone,ats,email,position,job,order) {
         const contact = await Phonebook.findByPk(id)
         if(!contact) throw ApiError.BadRequest('Контакт не найден')
