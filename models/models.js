@@ -563,7 +563,13 @@ const KidsAnswers  = sequelize.define('kidsanswers',{
     nomination_id:{type:DataTypes.INTEGER,ref:'nominations'},
     user_id:{type:DataTypes.INTEGER,ref:'users'}
 })
-
+const Managers =  sequelize.define('managers',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    mail:{type:DataTypes.STRING},
+    name:{type:DataTypes.STRING},
+    tn:{type:DataTypes.STRING},
+    description:{type:DataTypes.TEXT}
+})
 //
 // const RssPosts = sequelize.define('rss', {
 //     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
@@ -573,5 +579,5 @@ const KidsAnswers  = sequelize.define('kidsanswers',{
 // })
 
 module.exports = {
-    MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Ktulist,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
+    Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Ktulist,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
 }
