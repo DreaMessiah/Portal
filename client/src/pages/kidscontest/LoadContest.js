@@ -131,16 +131,13 @@ export default function LoadContest(){
     useEffect(() => {
         loadingHandler()
     },[])
-    useEffect(() => {
-        console.log(works)
-    },[works])
     return (
         <>
         {check ?
         <div className='contest survey-setting'>
             <div onClick={(e) => console.log(phone.trim().length)} className='create-title'>Загрузите работы Ваших детей</div>
             <div className='cms-head'>
-                <Link to='/' style={{marginBottom:'30px'}} className='back-button'><i class="fa-solid fa-arrow-left"></i>Назад</Link>
+                <Link to='/' style={{marginBottom:'30px'}} className='back-button'><i className="fa-solid fa-arrow-left"></i>Назад</Link>
                 <h5>Здесь Вы можете подать заявку на конкурс детского рисунка «День победы глазами детей»</h5>
                 <p>Подать заявку можно только ОДИН раз, От одного ребенка принимается одна работа. Если Вы желаете заявить работы от нескольких детей нажмите кнопку <span>+ Добавить работу.</span> </p>
             </div>
@@ -195,7 +192,7 @@ export default function LoadContest(){
         </div>
         :
             <div className='cms-head'>
-                <Link to='/' style={{marginBottom:'30px'}} className='back-button'><i class="fa-solid fa-arrow-left"></i>Назад</Link>
+                <Link to='/' style={{marginBottom:'30px'}} className='back-button'><i className="fa-solid fa-arrow-left"></i>Назад</Link>
                 <h5>Вы уже подавали заявку</h5>
             </div>
         }

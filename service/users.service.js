@@ -12,7 +12,6 @@ class UsersService{
         const userDto = new UserDto(user)
         const tokens = tokenService.generateTokens({...userDto})
         await tokenService.saveToken(userDto.id, tokens.refreshToken)
-
         return {...tokens,user: userDto}
     }
     async login(login,password) {
@@ -23,8 +22,6 @@ class UsersService{
         const userDto = new UserDto(user)
         const tokens = tokenService.generateTokens({...userDto})
         await tokenService.saveToken(userDto.id, tokens.refreshToken)
-
-
         let sizes = await DiskSpace.findOne({where:{user_id:userDto.id}})
         if(!sizes){
             sizes = await DiskSpace.create({user_id:userDto.id,usedspace:0,diskspace:10737418240});

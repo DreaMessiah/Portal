@@ -133,17 +133,19 @@ export const BirthDay = () => {
             })
             const list = await AuthServise.getusers()
 
-            newArr.map( item => {
-                list.data.users.map( row => {
-                    if(item.tn === row.tn){
-                        item.avatar = row.avatar ? row.avatar : 'face.png'
-                    }
+            if(list.data){
+                newArr.map( item => {
+                    list.data.users.map( row => {
+                        if(item.tn === row.tn){
+                            item.avatar = row.avatar ? row.avatar : 'face.png'
+                        }
+                    })
                 })
+            }
 
-            })
 
             // console.log(newArr)
-            setBirthman([...newArr])
+            setBirthman(newArr ? [...newArr] : [])
 
 
 

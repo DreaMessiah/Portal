@@ -17,7 +17,6 @@ export const SettingPost = () => {
     const loadingHandler = async () => {
         try{
             const response = await PostService.fetch()
-            console.log(response)
             if(response.data){
                 setPosts(response.data)
             }
@@ -25,7 +24,6 @@ export const SettingPost = () => {
             console.log(e?.message)
         }
     }
-
     useEffect(() => {
         loadingHandler()
     },[])
@@ -40,7 +38,6 @@ export const SettingPost = () => {
                 if(deleteIndex >= 0){
                     const response = await PostService.removePost(posts[deleteIndex].id)
                     if(response.data){
-                        console.log(response.data)
                         message('Новость удалена')
                         const newArray = [...posts.slice(0, deleteIndex), ...posts.slice(deleteIndex + 1)];
                         setPosts(newArray);
@@ -71,7 +68,7 @@ export const SettingPost = () => {
     return (
         <>
             <div className='cms-head'>
-                <Link to='/alllistnews' style={{marginBottom:'30px'}} className='back-button'><i class="fa-solid fa-arrow-left"></i>Назад</Link>
+                <Link to='/alllistnews' style={{marginBottom:'30px'}} className='back-button'><i className="fa-solid fa-arrow-left"></i>Назад</Link>
                 <h5>Здесь Вы можете создавать и редактировать новости</h5>
             </div>
 
