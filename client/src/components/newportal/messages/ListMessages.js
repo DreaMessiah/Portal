@@ -25,12 +25,12 @@ export const ListMessages = () => {
     const  {store} = useContext(Context)
     const userstore = store.user
     const my_tn = store.user.tn
-    console.log(my_tn)
+    // console.log(my_tn)
     const getChats = async () => {
         try {
             const response = await MessagesService.getMyChats(my_tn)
             const result = response.data
-            console.log(response.data)
+            // console.log(response.data)
             const toarr = []
             const to_mess = []
 
@@ -41,7 +41,7 @@ export const ListMessages = () => {
                     to_mess.push(mess)
                 }
             })
-            console.log(to_mess)
+            // console.log(to_mess)
 
             const fromarr = []
             const from_mess = []
@@ -52,17 +52,68 @@ export const ListMessages = () => {
                     from_mess.push(mess)
                 }
             })
-            const allListChats = [... to_mess, ... from_mess]
+            let allListChats = [... to_mess, ... from_mess]
+            allListChats = [...new Set(allListChats)];
+            const recoveArr = []
+            const itogyArr = []
+            allListChats.forEach(mess => {
+                if(recoveArr.includes(mess.tn_from+mess.tn_to) || recoveArr.includes(mess.tn_to+mess.tn_from)){
 
-            console.log(from_mess)
+
+                } else {
+                    recoveArr.push(mess.tn_from+mess.tn_to)
+                    if(mess.tn_to === my_tn){
+                        const to = mess.tn_to
+                        const from = mess.tn_from
+                        mess.tn_to = from
+                        mess.tn_from = from
+                    }
+
+                    itogyArr.push(mess)
+                }
+            })
+
+            const full_chats = []
+
+            itogyArr.forEach(chat => {
+                users.forEach(user => {
+                    if(chat.tn_to === user.tn){
+                        if(user.avatar === ''){
+                            chat.ava_to = 'face.png'
+                        } else {
+                            chat.ava_to = user.avatar
+                        }
+
+                        chat.name_to = user.full_name
+                        chat.full_name = user.full_name
+                    }
+                    if(chat.tn_from === user.tn){
+                        if(user.avatar === ''){
+                            chat.ava_from = 'face.png'
+                        } else {
+                            chat.ava_from = user.avatar
+                        }
+                        chat.name_from = user.full_name
+                    }
+                })
+                full_chats.push(chat)
+            })
+
+            // console.log(recoveArr)
+            // console.log(full_chats)
+            setAllChats(full_chats)
+
         } catch(e){
             console.log(e)
         }
 
     }
 
+    const openChat = () => {
+
+    }
     const passMess = async () => {
-        console.log(textarea)
+        // console.log(textarea)
         if(textarea !== '' && thisMans){
             thisMans.message = textarea
             thisMans.tn_from = userstore.tn
@@ -71,14 +122,14 @@ export const ListMessages = () => {
             thisMans.files = []
             thisMans.trash = false
             thisMans.read = false
-            console.log(thisMans.tn_to)
+            // console.log(thisMans.tn_to)
 
 
             const mess = {}
             try{
                 const response = await MessagesService.pushMess(thisMans)
                 const result = response.data
-                console.log(result)
+                // console.log(result)
                 result.forEach(mess => {
                     let avatar = ''
                     let full_name = ''
@@ -103,7 +154,7 @@ export const ListMessages = () => {
             }
 
             const textMessage = document.getElementById('textmess')
-            console.log(textMessage.value)
+            // console.log(textMessage.value)
             textMessage.value = ''
             setTextarea('')
         } else {
@@ -141,7 +192,7 @@ export const ListMessages = () => {
 
     const listUsers = async () => {
         const list = await AuthServise.getusers()
-        console.log(list.data.users)
+        // console.log(list.data.users)
         const newList = [];
         list.data.users.forEach(user => {
             user.value = user.tn
@@ -157,10 +208,11 @@ export const ListMessages = () => {
         setNewmess(false)
         setThisMans('')
         setThismess([])
+        getChats()
     }
 
-    const makeLetter = async (bull) => {
-        if(thisMans){
+    const makeLetter = async (bull, chatman) => {
+        if(thisMans && chatman === undefined){
             setOpenmess(bull)
             setTextarea('')
                 thisMans.tn_from = userstore.tn
@@ -169,7 +221,7 @@ export const ListMessages = () => {
             try{
                 const response = await MessagesService.getMess(thisMans)
                 const result = response.data
-                console.log(result)
+                // console.log(result)
                 result.forEach(mess => {
                     let avatar = ''
                     let full_name = ''
@@ -192,6 +244,46 @@ export const ListMessages = () => {
 
             }
 
+        } else if(chatman !== undefined){
+
+            // console.log(chatman)
+            users.forEach(user => {
+                if(user.tn === chatman.tn_to){
+                    setThisMans(user);
+                }
+            })
+
+            setOpenmess(bull)
+            setTextarea('')
+            chatman.tn_from = my_tn
+            chatman.tn_to = chatman.tn_to
+            setThisMans(chatman);
+
+            try{
+                const response = await MessagesService.getMess(chatman)
+                const result = response.data
+                // console.log(result)
+                result.forEach(mess => {
+                    let avatar = ''
+                    let full_name = ''
+                    users.forEach(man => {
+                        if(mess.tn_from === man.tn){
+                            avatar = man.avatar
+                            full_name = man.full_name
+                        }
+                    })
+                    if(avatar == ''){
+                        mess.avatar = 'face.png'
+                    } else {
+                        mess.avatar = avatar
+                    }
+
+                    mess.full_name = full_name
+                })
+                setThismess([... result])
+            }catch{
+
+            }
         } else {
             message('Не выбран получатель')
         }
@@ -209,9 +301,11 @@ export const ListMessages = () => {
     }
     useEffect(()=>{
         listUsers()
-        console.log(users)
-        getChats()
+        // console.log(users)
     }, [])
+    useEffect(()=>{
+        getChats()
+    }, [users])
     return (
         <div className="list_mess">
         <div className="list_messages">
@@ -234,7 +328,7 @@ export const ListMessages = () => {
                     </div>
                     <div className="list_messages_col_title_left">
                         <div className="list_messages_col_title_left_sel">
-                            <Select classNamePrefix='custom-select' placeholder="Поиск"/>
+                            {/*<Select classNamePrefix='custom-select' placeholder="Поиск"/>*/}
                         </div>
                     </div>
                     <div className="list_messages_col_title_right">
@@ -242,39 +336,22 @@ export const ListMessages = () => {
                         <div className="list_messages_col_title_right_sett"><i className="fa-solid fa-ellipsis"/></div>
                     </div>
                 </div>
-                <div className="list_messages_col_str" style={(openmess === false) ? {display:'flex'} : {display:'none'}}>
-                    <div className="list_messages_col_str_ava" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
-                    <div className="list_messages_col_str_mess">
-                        <div className="list_messages_col_str_mess_left">
-                            <div className="list_messages_col_str_mess_left_name">Марафон в «Шагах»</div>
-                            <div className="list_messages_col_str_mess_left_text">Воу, что это за движение? Это «Весеннее умножение»!</div>
-                        </div>
-                        <div className="list_messages_col_str_mess_right"><div className="list_messages_col_str_mess_right_date">14мар</div></div>
+                {allchats.map((chat, index)=>(
+                    <div key={index} className="list_messages_col_str" onClick={()=>{ makeLetter(true, chat)}} style={(openmess === false) ? {display:'flex'} : {display:'none'}}>
+                        <div className="list_messages_col_str_ava" style={{backgroundImage: `url("/files/profile/${chat.ava_to}")`}}></div>
+                        <div className="list_messages_col_str_mess">
+                            <div className="list_messages_col_str_mess_left">
+                                <div className="list_messages_col_str_mess_left_name">{chat.name_to}</div>
+                                <div className="list_messages_col_str_mess_left_text" style={{fontSize: '10pt'}}>автор: - {chat.name_from}</div>
+                                <div className="list_messages_col_str_mess_left_text">{chat.text}</div>
+                            </div>
+                            <div className="list_messages_col_str_mess_right"><div className="list_messages_col_str_mess_right_date">{backDate(chat.createdAt)}</div></div>
 
-                    </div>
-                </div>
-                <div className="list_messages_col_str" style={(openmess === false) ? {display:'flex'} : {display:'none'}}>
-                    <div className="list_messages_col_str_ava" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
-                    <div className="list_messages_col_str_mess">
-                        <div className="list_messages_col_str_mess_left">
-                            <div className="list_messages_col_str_mess_left_name">Марафон в «Шагах»</div>
-                            <div className="list_messages_col_str_mess_left_text">Воу, что это за движение? Это «Весеннее умножение»!</div>
                         </div>
-                        <div className="list_messages_col_str_mess_right"><div className="list_messages_col_str_mess_right_date">14мар</div></div>
-
                     </div>
-                </div>
-                <div className="list_messages_col_str" style={(openmess === false) ? {display:'flex'} : {display:'none'}}>
-                    <div className="list_messages_col_str_ava" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
-                    <div className="list_messages_col_str_mess">
-                        <div className="list_messages_col_str_mess_left">
-                            <div className="list_messages_col_str_mess_left_name">Марафон в «Шагах»</div>
-                            <div className="list_messages_col_str_mess_left_text">Воу, что это за движение? Это «Весеннее умножение»!</div>
-                        </div>
-                        <div className="list_messages_col_str_mess_right"><div className="list_messages_col_str_mess_right_date">14мар</div></div>
+                ))}
 
-                    </div>
-                </div>
+
 
 
 
