@@ -570,14 +570,18 @@ const Managers =  sequelize.define('managers',{
     tn:{type:DataTypes.STRING},
     description:{type:DataTypes.TEXT}
 })
-//
-// const RssPosts = sequelize.define('rss', {
-//     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
-//     question_id:{type:DataTypes.INTEGER,ref:'question'},
-//     survey_id:{type:DataTypes.INTEGER,ref:'survey'},
-//     user_id:{type:DataTypes.INTEGER,ref:'survey'},
-// })
+
+const Messages = sequelize.define('messages', {
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    tn_to:{type:DataTypes.STRING,ref:'question'},
+    tn_from:{type:DataTypes.STRING,ref:'survey'},
+    title:{type:DataTypes.TEXT},
+    text:{type:DataTypes.TEXT},
+    files:{type: DataTypes.ARRAY(DataTypes.INTEGER)},
+    trash:{type:DataTypes.BOOLEAN,default:false},
+    read:{type:DataTypes.BOOLEAN,default:false}
+})
 
 module.exports = {
-    Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Ktulist,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
+    Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Ktulist,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
 }
