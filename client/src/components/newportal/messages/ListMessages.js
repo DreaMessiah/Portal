@@ -7,6 +7,8 @@ import AuthServise from "../../../services/AuthService";
 import {useMessage} from "../../../hooks/message.hook";
 import {useContext} from "react";
 import {Context} from "../../../index";
+import FilesService from "../../../services/FilesService";
+import MessagesService from "../../../services/MessagesService";
 
 
 export const ListMessages = () => {
@@ -16,11 +18,50 @@ export const ListMessages = () => {
     const [openmess, setOpenmess] = useState(false)
     const [customer, setCustomer] = useState({})
     const [textarea, setTextarea] = useState('')
+    const [thismess, setThismess] = useState([])
+    const [allchats, setAllChats] = useState([])
 
     const message = useMessage()
     const  {store} = useContext(Context)
     const userstore = store.user
-    const passMess = () => {
+    const my_tn = store.user.tn
+    console.log(my_tn)
+    const getChats = async () => {
+        try {
+            const response = await MessagesService.getMyChats(my_tn)
+            const result = response.data
+            console.log(response.data)
+            const toarr = []
+            const to_mess = []
+
+
+            result.forEach(mess => {
+                if(!toarr.includes(mess.tn_to)){
+                    toarr.push(mess.tn_to)
+                    to_mess.push(mess)
+                }
+            })
+            console.log(to_mess)
+
+            const fromarr = []
+            const from_mess = []
+
+            result.forEach(mess => {
+                if(!fromarr.includes(mess.tn_from)){
+                    fromarr.push(mess.tn_from)
+                    from_mess.push(mess)
+                }
+            })
+            const allListChats = [... to_mess, ... from_mess]
+
+            console.log(from_mess)
+        } catch(e){
+            console.log(e)
+        }
+
+    }
+
+    const passMess = async () => {
         console.log(textarea)
         if(textarea !== '' && thisMans){
             thisMans.message = textarea
@@ -31,7 +72,71 @@ export const ListMessages = () => {
             thisMans.trash = false
             thisMans.read = false
             console.log(thisMans.tn_to)
+
+
+            const mess = {}
+            try{
+                const response = await MessagesService.pushMess(thisMans)
+                const result = response.data
+                console.log(result)
+                result.forEach(mess => {
+                    let avatar = ''
+                    let full_name = ''
+                    users.forEach(man => {
+                        if(mess.tn_from === man.tn){
+                            avatar = man.avatar
+                            full_name = man.full_name
+                        }
+                    })
+                    if(avatar == ''){
+                        mess.avatar = 'face.png'
+                    } else {
+                        mess.avatar = avatar
+                    }
+
+                    mess.full_name = full_name
+                })
+                setThismess([... result])
+
+            }catch(e){
+                console.log(e)
+            }
+
+            const textMessage = document.getElementById('textmess')
+            console.log(textMessage.value)
+            textMessage.value = ''
+            setTextarea('')
+        } else {
+            message('Нельзя отправить пустое сообщение')
         }
+    }
+
+    const getMessages = async () => {
+        try{
+            const response = await MessagesService.getMess(thisMans)
+            const result = response.data
+            result.forEach(mess => {
+                let avatar = ''
+                let full_name = ''
+                users.forEach(man => {
+                    if(mess.tn_from === man.tn){
+                        avatar = man.avatar
+                        full_name = man.full_name
+                    }
+                })
+                if(avatar == ''){
+                    mess.avatar = 'face.png'
+                } else {
+                    mess.avatar = avatar
+                }
+
+                mess.full_name = full_name
+            })
+            setThismess([... result])
+        }catch{
+
+        }
+
     }
 
     const listUsers = async () => {
@@ -51,20 +156,61 @@ export const ListMessages = () => {
         setOpenmess(false)
         setNewmess(false)
         setThisMans('')
-
+        setThismess([])
     }
 
-    const makeLetter = (bull) => {
+    const makeLetter = async (bull) => {
         if(thisMans){
             setOpenmess(bull)
+            setTextarea('')
+                thisMans.tn_from = userstore.tn
+                thisMans.tn_to = thisMans.tn
+
+            try{
+                const response = await MessagesService.getMess(thisMans)
+                const result = response.data
+                console.log(result)
+                result.forEach(mess => {
+                    let avatar = ''
+                    let full_name = ''
+                    users.forEach(man => {
+                        if(mess.tn_from === man.tn){
+                            avatar = man.avatar
+                            full_name = man.full_name
+                        }
+                    })
+                    if(avatar == ''){
+                        mess.avatar = 'face.png'
+                    } else {
+                        mess.avatar = avatar
+                    }
+
+                    mess.full_name = full_name
+                })
+                setThismess([... result])
+            }catch{
+
+            }
+
         } else {
             message('Не выбран получатель')
         }
 
     }
+
+    const backDate = fulldate => {
+        const utcDate = new Date(fulldate);
+        // const datetimearr = utcDate.split('T')
+        const date = utcDate.toLocaleDateString('ru-RU')
+        const options = { hour: 'numeric', minute: 'numeric' };
+        const time = utcDate.toLocaleTimeString('ru-RU', options)
+
+        return date + ' ' + time
+    }
     useEffect(()=>{
         listUsers()
         console.log(users)
+        getChats()
     }, [])
     return (
         <div className="list_mess">
@@ -147,79 +293,28 @@ export const ListMessages = () => {
                     </div>
                 </div>
 
-
+                {/*autorch*/}
                 <div className={`history_mess ${(openmess === true) ? 'activate' : ''}`} >
                     <div className="history_mess_pen" >
-                        <textarea className="history_mess_pen_letter" onChange={(e)=>setTextarea(e.target.value)}>{textarea}</textarea>
+                        <textarea className="history_mess_pen_letter" id='textmess' onChange={(e)=>setTextarea(e.target.value)}>{textarea}</textarea>
                         <div className="history_mess_pen_btn" onClick={()=>passMess()}>Отправить <i className="fa-regular fa-paper-plane"/></div>
                     </div>
                     <div className="history_mess_list" >
-                        <div className="history_mess_list_block " >
-                            <div className="history_mess_list_block_ava" style={{backgroundImage: `url("files/profile/face.png")` }}></div>
-                            <div className="history_mess_list_block_content" >
-                                <div className="history_mess_list_block_content_name" >Абдуллаев Алишер Абдумаджидович</div>
-                                <div className="history_mess_list_block_content_message" >Текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст</div>
-                                <div className="history_mess_list_block_content_dateandstatus" >
-                                    <div className="history_mess_list_block_content_date" >14 мар</div>
-                                    <div className="history_mess_list_block_content_status" >Прочитано</div>
+                        {thismess.map((mess, index) => (
+                            <div className="history_mess_list_block " key={index}>
+                                <div className="history_mess_list_block_ava" style={{backgroundImage: `url("files/profile/${mess.avatar}")` }}></div>
+                                <div className="history_mess_list_block_content" >
+                                    <div className="history_mess_list_block_content_name" >{mess.full_name}</div>
+                                    <div className="history_mess_list_block_content_message" >{mess.text}</div>
+                                    <div className="history_mess_list_block_content_dateandstatus" >
+                                        <div className="history_mess_list_block_content_date" >{backDate(mess.createdAt)}</div>
+                                        <div className="history_mess_list_block_content_status" >Прочитано</div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="history_mess_list_block " >
-                            <div className="history_mess_list_block_ava" style={{backgroundImage: `url("files/profile/face.png")` }}></div>
-                            <div className="history_mess_list_block_content autorch" >
-                                <div className="history_mess_list_block_content_name" >Барахтянский Владимир Алексеевич</div>
-                                <div className="history_mess_list_block_content_message" >Текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст</div>
-                                <div className="history_mess_list_block_content_dateandstatus" >
-                                    <div className="history_mess_list_block_content_date" >14 мар</div>
-                                    <div className="history_mess_list_block_content_status" >Прочитано</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="history_mess_list_block " >
-                            <div className="history_mess_list_block_ava" style={{backgroundImage: `url("files/profile/face.png")` }}></div>
-                            <div className="history_mess_list_block_content" >
-                                <div className="history_mess_list_block_content_name" >Абдуллаев Алишер Абдумаджидович</div>
-                                <div className="history_mess_list_block_content_message" >Текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст</div>
-                                <div className="history_mess_list_block_content_dateandstatus" >
-                                    <div className="history_mess_list_block_content_date" >14 мар</div>
-                                    <div className="history_mess_list_block_content_status" >Прочитано</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="history_mess_list_block " >
-                            <div className="history_mess_list_block_ava" style={{backgroundImage: `url("files/profile/face.png")` }}></div>
-                            <div className="history_mess_list_block_content autorch" >
-                                <div className="history_mess_list_block_content_name" >Барахтянский Владимир Алексеевич</div>
-                                <div className="history_mess_list_block_content_message" >Текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст</div>
-                                <div className="history_mess_list_block_content_dateandstatus" >
-                                    <div className="history_mess_list_block_content_date" >14 мар</div>
-                                    <div className="history_mess_list_block_content_status" >Прочитано</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="history_mess_list_block " >
-                            <div className="history_mess_list_block_ava" style={{backgroundImage: `url("files/profile/face.png")` }}></div>
-                            <div className="history_mess_list_block_content" >
-                                <div className="history_mess_list_block_content_name" >Абдуллаев Алишер Абдумаджидович</div>
-                                <div className="history_mess_list_block_content_message" >Текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст</div>
-                                <div className="history_mess_list_block_content_dateandstatus" >
-                                    <div className="history_mess_list_block_content_date" >14 мар</div>
-                                    <div className="history_mess_list_block_content_status" >Прочитано</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="history_mess_list_block " >
-                            <div className="history_mess_list_block_ava" style={{backgroundImage: `url("files/profile/face.png")` }}></div>
-                            <div className="history_mess_list_block_content autorch" >
-                                <div className="history_mess_list_block_content_name" >Барахтянский Владимир Алексеевич</div>
-                                <div className="history_mess_list_block_content_message" >Текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст</div>
-                                <div className="history_mess_list_block_content_dateandstatus" >
-                                    <div className="history_mess_list_block_content_date" >14 мар</div>
-                                    <div className="history_mess_list_block_content_status" >Прочитано</div>
-                                </div>
-                            </div>
-                        </div>
+                        ))}
+
+
 
                     </div>
                 </div>
