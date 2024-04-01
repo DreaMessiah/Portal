@@ -7,6 +7,7 @@ const config = require("config")
 const fs = require("fs")
 const {Avatar, T13, User} = require("../models/models");
 const sequelize = require("sequelize");
+
 class UsersController {
     async registration(req,res,next) {
         try{
@@ -40,6 +41,16 @@ class UsersController {
             next(e)
         }
     }
+    async changePassword(req,res,next) {
+        try{
+            const {oldPass,newPass} = req.body
+            const result = await userService.changePassword(req.user.id,oldPass,newPass)
+            return res.status(200).json(result)
+        }catch (e){
+            next(e)
+        }
+    }
+
     async refresh(req,res,next) {
         try{
             const refreshToken = req.cookies['refreshToken']

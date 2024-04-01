@@ -22,17 +22,17 @@ export const HallOfFrame = () => {
             })
 
             const list = await AuthService.getusers()
-
-            newArr.map( item => {
-                list.data.users.map( row => {
-                    if(item.tn === row.tn){
-                        item.avatar = row.avatar ? row.avatar : 'face.png'
-                    }
+            if(list.data){
+                newArr.map( item => {
+                    list.data.users.map( row => {
+                        if(item.tn === row.tn){
+                            item.avatar = row.avatar ? row.avatar : 'face.png'
+                        }
+                    })
                 })
-            })
-
+            }
             // console.log(newArr)
-            setListBM([...newArr])
+            setListBM(newArr?[...newArr]:[])
 
             // setListBM(bestMan.data)
             // console.log(bestMan.data)

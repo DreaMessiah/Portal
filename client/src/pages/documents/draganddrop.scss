@@ -1,0 +1,25 @@
+.drop-area {
+  width: calc(100% - 100px);
+  height: calc(100vh - 180px);
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #E3E3E3;
+  border: 3px dotted #CCC;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  i{
+    color: black;
+    font-size: 24pt;
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 3px;
+    transition: 0.2s;
+  }
+}

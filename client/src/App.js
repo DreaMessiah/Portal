@@ -55,7 +55,6 @@ import LoadPage from "./pages/kidscontest/LoadPage";
 import MainCms from "./pages/newportal/news/MainCms";
 import Message from "./pages/newportal/message/Message";
 
-
 function App() {
     const {store} = useContext(Context)
     useEffect(() => {

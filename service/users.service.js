@@ -12,7 +12,6 @@ class UsersService{
         const userDto = new UserDto(user)
         const tokens = tokenService.generateTokens({...userDto})
         await tokenService.saveToken(userDto.id, tokens.refreshToken)
-
         return {...tokens,user: userDto}
     }
     async login(login,password) {
@@ -23,18 +22,24 @@ class UsersService{
         const userDto = new UserDto(user)
         const tokens = tokenService.generateTokens({...userDto})
         await tokenService.saveToken(userDto.id, tokens.refreshToken)
-
-        const sizes = await DiskSpace.findOne({where:{user_id:userDto.id}})
+        let sizes = await DiskSpace.findOne({where:{user_id:userDto.id}})
         if(!sizes){
-            await DiskSpace.create({user_id:userDto.id,usedspace:0,diskspace:10737418240});
+            sizes = await DiskSpace.create({user_id:userDto.id,usedspace:0,diskspace:10737418240});
         }
         userDto.diskspace = sizes.diskspace
         userDto.usedspace = sizes.usedspace
-
         //console.log(await bcrypt.hash(password,15))
         return {...tokens,user: userDto}
     }
-
+    async changePassword(id,oldPass,newPass){
+        const user = await User.findOne({where: {id:id}})
+        if(!user) return {err:true,message:'Пользователя с таким именем не существует'}
+        const isPassEquals = await bcrypt.compare(oldPass,user.password)
+        if(!isPassEquals) return {err:true,message:'Неверный пароль'}
+        user.password = await bcrypt.hash(newPass,15)
+        await user.save()
+        return {err:false,message:'Пароль успешно изменен'}
+    }
     async logout(refreshToken){
         return await tokenService.removeToken(refreshToken)
     }
@@ -49,9 +54,9 @@ class UsersService{
         const tokens = tokenService.generateTokens({...userDto})
         await tokenService.saveToken(userDto.id, tokens.refreshToken)
 
-        const sizes = await DiskSpace.findOne({where:{user_id:userDto.id}})
+        let sizes = await DiskSpace.findOne({where:{user_id:userDto.id}})
         if(!sizes){
-            await DiskSpace.create({user_id:userDto.id,usedspace:0,diskspace:10737418240});
+            sizes = await DiskSpace.create({user_id:userDto.id,usedspace:0,diskspace:10737418240});
         }
         userDto.diskspace = sizes.diskspace
         userDto.usedspace = sizes.usedspace

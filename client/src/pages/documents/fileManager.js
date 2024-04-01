@@ -6,13 +6,12 @@ import "../../components/listtasks/listtask3.scss";
 import {useMessage} from "../../hooks/message.hook";
 import {Context} from "../../index";
 import {ModalWin} from "../../components/modalwin/ModalWin";
-
 import ModalUpload from "../../components/modalwin/ModalUpload";
 import CircularProgress from "../../components/CircularProgress";
 import {useLocation} from "react-router-dom";
 import ModalFiles from "../../components/modalwin/ModalFiles";
 import Select from "react-select";
-
+import './draganddrop.scss'
 function FileManager(){
     const {icons} = useContext(DataContext)
     const {store} = useContext(Context)
@@ -29,6 +28,8 @@ function FileManager(){
     const [files, setFiles] = useState([])
     const [progress, setProgress] = useState({})
     const [copyOptions,setCopyOptions] = useState([])
+
+
     const filesInputRef = useRef(null)
     const containerRef = useRef(null)
 
@@ -36,6 +37,7 @@ function FileManager(){
 
     const location = useLocation();
     const message = useMessage()
+
     const rule = 3
 
     const searchParams = new URLSearchParams(location.search)
@@ -87,6 +89,7 @@ function FileManager(){
     const copyHandler = async () => {
 
     }
+
     useEffect(()=> {
         function handleOutsideClick(event) {
             if (containerRef.current && !containerRef.current.contains(event.target)) {
@@ -102,8 +105,6 @@ function FileManager(){
         }
         //setDocuments(docs)
     },[])
-
-
     function Inmodal({index}) {
         return(
             <div className='delete-modal'>
@@ -117,7 +118,25 @@ function FileManager(){
             </div>
         )
     }
+
     function Upload() {
+        const [dragEnter,setDragEnter] = useState(false)
+        function dragEnterHandler(event){
+            event.preventDefault()
+            event.stopPropagation()
+            setDragEnter(true)
+        }
+        function dragLeaveHandler(event){
+            event.preventDefault()
+            event.stopPropagation()
+            setDragEnter(false)
+        }
+        function dropHandler(event){
+            event.preventDefault()
+            event.stopPropagation()
+            setDragEnter(false)
+            selectFilesHandler(event,[...event.dataTransfer.files])
+        }
         const handleUploadProgress = (progressEvent,name) => {
             const percentCompleted = (progressEvent.loaded / progressEvent.total)
             console.log(percentCompleted)
@@ -127,8 +146,10 @@ function FileManager(){
             }))
         }
 
-        const selectFilesHandler = async (e) => {
-            const selectedFiles = e.target.files
+        const selectFilesHandler = async (e,drop = null) => {
+            let selectedFiles
+            if(drop===null) selectedFiles = e.target.files
+            else selectedFiles = drop
             setFiles(selectedFiles)
             try{
                 for (const file of selectedFiles) {
@@ -163,8 +184,8 @@ function FileManager(){
                         ))}
                     </div>
                 ) : (
-                    <div className='draganddrop'>
-                        <div onClick={(e) => filesInputRef.current.click()} className='upload-button'>Выберите файлы
+                    <div onDragEnter={dragEnterHandler} onDragLeave={dragLeaveHandler} onDragOver={dragEnterHandler} onDrop={dropHandler} className='draganddrop'>
+                        <div onClick={(e) => filesInputRef.current.click()} className='upload-button'>{dragEnter ? <i className="fa-solid fa-upload">…</i> : 'Выберите файлы'}
                             <input onChange={(e) => selectFilesHandler(e)} multiple ref={filesInputRef} className='hidden-upload' type='file'/>
                         </div>
                     </div>
