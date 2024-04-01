@@ -214,8 +214,8 @@ export const ListMessages = () => {
         if(thisMans && chatman === undefined){
             setOpenmess(bull)
             setTextarea('')
-                thisMans.tn_from = userstore.tn
-                thisMans.tn_to = thisMans.tn
+            thisMans.tn_from = userstore.tn
+            thisMans.tn_to = thisMans.tn
 
             try{
                 const response = await MessagesService.getMess(thisMans)
@@ -307,103 +307,103 @@ export const ListMessages = () => {
     }, [users])
     return (
         <div className="list_mess">
-        <div className="list_messages">
+            <div className="list_messages">
 
-            <div className="grayfon"></div>
-            <div className="list_messages_col">
+                <div className="grayfon"></div>
+                <div className="list_messages_col">
 
-                <div className={`list_messages_col_title ${(openmess === false) ? 'activate' : ''}`}>
-                    <div className={`new_mess ${(newmess === true) ? 'new_mess_active' : ''}`} >
-                        <div className="new_mess_title">
-                            <div className="new_mess_title_createname">Выберите кому написать</div>
-                            <div className="new_mess_title_close" onClick={()=>downSett()}><i className="fa-solid fa-xmark"/></div>
-                        </div>
-                        <div className="new_mess_create">
-                            <div className="new_mess_create_select">
-                            <Select classNamePrefix='custom-select' placeholder="Выбрать получателя" onChange={e=>setThisMans(e)} value={thisMans} options={users}/>
+                    <div className={`list_messages_col_title ${(openmess === false) ? 'activate' : ''}`}>
+                        <div className={`new_mess ${(newmess === true) ? 'new_mess_active' : ''}`} >
+                            <div className="new_mess_title">
+                                <div className="new_mess_title_createname">Выберите кому написать</div>
+                                <div className="new_mess_title_close" onClick={()=>downSett()}><i className="fa-solid fa-xmark"/></div>
                             </div>
-                            <div className="new_mess_create_btn" onClick={()=>makeLetter(true)}>Написать</div>
-                        </div>
-                    </div>
-                    <div className="list_messages_col_title_left">
-                        <div className="list_messages_col_title_left_sel">
-                            {/*<Select classNamePrefix='custom-select' placeholder="Поиск"/>*/}
-                        </div>
-                    </div>
-                    <div className="list_messages_col_title_right">
-                        <div className="list_messages_col_title_right_new" onClick={()=>setNewmess(true)}><i className="fa-regular fa-pen-to-square"/></div>
-                        <div className="list_messages_col_title_right_sett"><i className="fa-solid fa-ellipsis"/></div>
-                    </div>
-                </div>
-                {allchats.map((chat, index)=>(
-                    <div key={index} className="list_messages_col_str" onClick={()=>{ makeLetter(true, chat)}} style={(openmess === false) ? {display:'flex'} : {display:'none'}}>
-                        <div className="list_messages_col_str_ava" style={{backgroundImage: `url("/files/profile/${chat.ava_to}")`}}></div>
-                        <div className="list_messages_col_str_mess">
-                            <div className="list_messages_col_str_mess_left">
-                                <div className="list_messages_col_str_mess_left_name">{chat.name_to}</div>
-                                <div className="list_messages_col_str_mess_left_text" style={{fontSize: '10pt'}}>автор: - {chat.name_from}</div>
-                                <div className="list_messages_col_str_mess_left_text">{chat.text}</div>
+                            <div className="new_mess_create">
+                                <div className="new_mess_create_select">
+                                    <Select classNamePrefix='custom-select' placeholder="Выбрать получателя" onChange={e=>setThisMans(e)} value={thisMans} options={users}/>
+                                </div>
+                                <div className="new_mess_create_btn" onClick={()=>makeLetter(true)}>Написать</div>
                             </div>
-                            <div className="list_messages_col_str_mess_right"><div className="list_messages_col_str_mess_right_date">{backDate(chat.createdAt)}</div></div>
-
+                        </div>
+                        <div className="list_messages_col_title_left">
+                            <div className="list_messages_col_title_left_sel">
+                                {/*<Select classNamePrefix='custom-select' placeholder="Поиск"/>*/}
+                            </div>
+                        </div>
+                        <div className="list_messages_col_title_right">
+                            <div className="list_messages_col_title_right_new" onClick={()=>setNewmess(true)}><i className="fa-regular fa-pen-to-square"/></div>
+                            <div className="list_messages_col_title_right_sett"><i className="fa-solid fa-ellipsis"/></div>
                         </div>
                     </div>
-                ))}
+                    {allchats.map((chat, index)=>(
+                        <div key={index} className="list_messages_col_str" onClick={()=>{ makeLetter(true, chat)}} style={(openmess === false) ? {display:'flex'} : {display:'none'}}>
+                            <div className="list_messages_col_str_ava" style={{backgroundImage: `url("/files/profile/${chat.ava_to}")`}}></div>
+                            <div className="list_messages_col_str_mess">
+                                <div className="list_messages_col_str_mess_left">
+                                    <div className="list_messages_col_str_mess_left_name">{chat.name_to}</div>
+                                    <div className="list_messages_col_str_mess_left_text" style={{fontSize: '10pt'}}>автор: - {chat.name_from}</div>
+                                    <div className="list_messages_col_str_mess_left_text">{chat.text}</div>
+                                </div>
+                                <div className="list_messages_col_str_mess_right"><div className="list_messages_col_str_mess_right_date">{backDate(chat.createdAt)}</div></div>
+
+                            </div>
+                        </div>
+                    ))}
 
 
 
 
 
 
-                {/*----------------------------------------------------------------------*/}
+                    {/*----------------------------------------------------------------------*/}
 
-                <div className={`list_messages_col_title ${(openmess === true) ? 'activate' : ''}`}>
+                    <div className={`list_messages_col_title ${(openmess === true) ? 'activate' : ''}`}>
 
-                    <div className="list_messages_col_title_left">
-                        <div className="list_messages_col_title_left_sel">
-                            {(thisMans)&&thisMans.full_name}
+                        <div className="list_messages_col_title_left">
+                            <div className="list_messages_col_title_left_sel">
+                                {(thisMans)&&thisMans.full_name}
+                            </div>
+                        </div>
+                        <div className="list_messages_col_title_right">
+                            <div className="list_messages_col_title_right_new" onClick={()=>downSett()}><i className="fa-solid fa-xmark"/></div>
                         </div>
                     </div>
-                    <div className="list_messages_col_title_right">
-                        <div className="list_messages_col_title_right_new" onClick={()=>downSett()}><i className="fa-solid fa-xmark"/></div>
-                    </div>
-                </div>
 
-                {/*autorch*/}
-                <div className={`history_mess ${(openmess === true) ? 'activate' : ''}`} >
-                    <div className="history_mess_pen" >
-                        <textarea className="history_mess_pen_letter" id='textmess' onChange={(e)=>setTextarea(e.target.value)}>{textarea}</textarea>
-                        <div className="history_mess_pen_btn" onClick={()=>passMess()}>Отправить <i className="fa-regular fa-paper-plane"/></div>
-                    </div>
-                    <div className="history_mess_list" >
-                        {thismess.map((mess, index) => (
-                            <div className="history_mess_list_block " key={index}>
-                                <div className="history_mess_list_block_ava" style={{backgroundImage: `url("files/profile/${mess.avatar}")` }}></div>
-                                <div className="history_mess_list_block_content" >
-                                    <div className="history_mess_list_block_content_name" >{mess.full_name}</div>
-                                    <div className="history_mess_list_block_content_message" >{mess.text}</div>
-                                    <div className="history_mess_list_block_content_dateandstatus" >
-                                        <div className="history_mess_list_block_content_date" >{backDate(mess.createdAt)}</div>
-                                        <div className="history_mess_list_block_content_status" >Прочитано</div>
+                    {/*autorch*/}
+                    <div className={`history_mess ${(openmess === true) ? 'activate' : ''}`} >
+                        <div className="history_mess_pen" >
+                            <textarea className="history_mess_pen_letter" id='textmess' onChange={(e)=>setTextarea(e.target.value)}>{textarea}</textarea>
+                            <div className="history_mess_pen_btn" onClick={()=>passMess()}>Отправить <i className="fa-regular fa-paper-plane"/></div>
+                        </div>
+                        <div className="history_mess_list" >
+                            {thismess.map((mess, index) => (
+                                <div className="history_mess_list_block " key={index}>
+                                    <div className="history_mess_list_block_ava" style={{backgroundImage: `url("files/profile/${mess.avatar}")` }}></div>
+                                    <div className="history_mess_list_block_content" >
+                                        <div className="history_mess_list_block_content_name" >{mess.full_name}</div>
+                                        <div className="history_mess_list_block_content_message" >{mess.text}</div>
+                                        <div className="history_mess_list_block_content_dateandstatus" >
+                                            <div className="history_mess_list_block_content_date" >{backDate(mess.createdAt)}</div>
+                                            <div className="history_mess_list_block_content_status" >Прочитано</div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
 
 
 
+                        </div>
                     </div>
+
+
+                    {/*-------------------------------------------------------------------------------*/}
+
+                    <div className="list_messages_col_bottom" ></div>
                 </div>
 
 
-                {/*-------------------------------------------------------------------------------*/}
 
-                <div className="list_messages_col_bottom" ></div>
             </div>
-
-
-
-        </div>
             <div className="menu_mess">
                 <div className="menu_mess_list">
                     <div className="menu_mess_list_btn">Все чаты</div>

@@ -578,10 +578,17 @@ const Messages = sequelize.define('messages', {
     title:{type:DataTypes.TEXT},
     text:{type:DataTypes.TEXT},
     files:{type: DataTypes.ARRAY(DataTypes.INTEGER)},
-    trash:{type:DataTypes.BOOLEAN,default:false},
+    trash_to:{type:DataTypes.BOOLEAN,default:false},
+    trash_from:{type:DataTypes.BOOLEAN,default:false},
     read:{type:DataTypes.BOOLEAN,default:false}
+})
+const Chats = sequelize.define('chats', {
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    tn_creator:{type:DataTypes.STRING,ref:'question'},
+    tn_direction:{type:DataTypes.STRING,ref:'survey'},
+    trash:{type:DataTypes.BOOLEAN,default:false}
 })
 
 module.exports = {
-    Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Ktulist,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
+    Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Ktulist,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
 }
