@@ -6,7 +6,7 @@ const sequelize = require("sequelize");
 
 class MessagesService {
     async pushMess(mess) {
-        await Messages.create({tn_to: mess.tn_to, tn_from: mess.tn_from, title: mess.title, text: mess.message, files: mess.files, trash: mess.trash, read: mess.read,})
+        await Messages.create({tn_to: mess.tn_to, tn_from: mess.tn_from, title: mess.title, text: mess.message, files: mess.files, trash_to: mess.trash,trash_from: mess.trash_from,read: mess.read})
         const listMess = await Messages.findAll({
             where: {
                 [Op.or]: [
@@ -64,7 +64,7 @@ class MessagesService {
             where: { tn_from: tn },
             order: [['createdAt', 'DESC']]
         });
-
+        console.log(listChatsFrom)
         // const listChatsTo = await Messages.findAll({
         //     where: {tn_from:tn},
         //     group: ['messages.tn_to','messages.id'],
@@ -73,10 +73,10 @@ class MessagesService {
         const uniqueChats = [...listChatsTo, ...listChatsFrom]
 
         const sortedList = uniqueChats.sort((a, b) => {
-            const dateA = new Date(a.createdAt);
-            const dateB = new Date(b.createdAt);
-            return dateB - dateA;
-        });
+            const dateA = new Date(a.createdAt)
+            const dateB = new Date(b.createdAt)
+            return dateB - dateA
+        })
         return sortedList
 
     }

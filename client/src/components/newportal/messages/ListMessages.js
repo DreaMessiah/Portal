@@ -30,7 +30,7 @@ export const ListMessages = () => {
         try {
             const response = await MessagesService.getMyChats(my_tn)
             const result = response.data
-            // console.log(response.data)
+            console.log(response.data)
             const toarr = []
             const to_mess = []
 

@@ -12,7 +12,6 @@ export default class MessagesService{
     }
 
     static async getMyChats(tn){
-        console.log(tn)
         return $api.post('/mess/getmychats',{tn})
     }
 

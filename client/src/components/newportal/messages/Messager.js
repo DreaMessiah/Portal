@@ -10,8 +10,7 @@ import {Context} from "../../../index";
 import FilesService from "../../../services/FilesService";
 import MessagesService from "../../../services/MessagesService";
 
-
-export const ListMessages = () => {
+export const Messager = () => {
     const [newmess, setNewmess] = useState(false)
     const [users, setUsers] = useState([])
     const [thisMans, setThisMans] = useState()
