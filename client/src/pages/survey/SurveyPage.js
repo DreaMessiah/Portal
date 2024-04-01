@@ -79,7 +79,7 @@ export default function SurveyPage({flag=false,id}){
 
     return (
         <>
-            {!flag && <Link to='/polls' className='back-button'><i class="fa-solid fa-arrow-left"></i>Назад</Link> }
+            {!flag && <Link to='/polls' className='back-button'><i className="fa-solid fa-arrow-left"></i>Назад</Link> }
             {survey ?
             <div className={`survey-block ${flag && 'small-box small-heigth'} ${!survey.image && 'no-padding'}`} style={survey.image ? {backgroundImage:`url("/files/polls/${survey.image}")`}:null}>
                 <div className='title'>

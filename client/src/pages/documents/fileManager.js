@@ -246,12 +246,12 @@ function FileManager(){
                 <div onClick={(e) => setActiveCreateM(true)} className='button'><i className="fa-solid fa-folder-plus"></i>Создать</div>
                 {selectFile !== -2 ?
                     <>
-                        <div onClick={(e) => setActiveCopyM(true)} id='btn' className='button'><i className="fa-solid fa-copy"></i>Копировать</div>
-                        <div id='btn' className='button'><i className="fa-solid fa-file-export"></i>Переместить</div>
-                        <div id='btn' onClick={(e) => setActiveM(true)} className='button'><i className="fa-solid fa-trash-arrow-up"></i>Удалить</div>
-                        <div id='btn' className='button'><i className="fa-solid fa-file-pen"></i>Переименовать</div>
-                        {selectFile !== 'dir' ?
-                            <div id='btn' className='button'><i className="fa-solid fa-download"></i>Скачать</div>
+                        {/*<div onClick={(e) => setActiveCopyM(true)} id='btn' className='button'><i className="fa-solid fa-copy"></i>Копировать</div>*/}
+                        {/*<div id='btn' className='button'><i className="fa-solid fa-file-export"></i>Переместить</div>*/}
+                        {/*<div id='btn' onClick={(e) => setActiveM(true)} className='button'><i className="fa-solid fa-trash-arrow-up"></i>Удалить</div>*/}
+                        {/*<div id='btn' className='button'><i className="fa-solid fa-file-pen"></i>Переименовать</div>*/}
+                        {selectFile !== 'dir' ? ''
+                            // <div id='btn' className='button'><i className="fa-solid fa-download"></i>Скачать</div>
                             :null}
                     </>
                     : null}
