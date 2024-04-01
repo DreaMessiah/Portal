@@ -54,6 +54,7 @@ import ContestPage from "./pages/kidscontest/ContestPage";
 import LoadPage from "./pages/kidscontest/LoadPage";
 import MainCms from "./pages/newportal/news/MainCms";
 import Message from "./pages/newportal/message/Message";
+import NewPageObjects from "./pages/newportal/objects/NewPageObjects";
 
 function App() {
     const {store} = useContext(Context)
@@ -125,6 +126,7 @@ function App() {
                         <Route path="/listfastbtns" element={<ListFastBtns />} />
                         <Route path="/halledit" element={<HallEdit />} />
                         <Route path="/messages" element={<Message />} />
+                        <Route path="/objectsportal" element={<NewPageObjects />} />
 
                     </Routes>
                 </div>

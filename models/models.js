@@ -589,6 +589,14 @@ const Chats = sequelize.define('chats', {
     trash:{type:DataTypes.BOOLEAN,default:false}
 })
 
+const PostComments = sequelize.define('postcomments', {
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    creator_tn:{type:DataTypes.STRING,ref:'users'},
+    post_id:{type:DataTypes.STRING,ref:'rss'},
+    text:{type:DataTypes.STRING},
+    trash:{type:DataTypes.BOOLEAN,default:false}
+})
+
 module.exports = {
-    Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Ktulist,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
+    PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Ktulist,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
 }
