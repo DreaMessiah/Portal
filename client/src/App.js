@@ -53,7 +53,6 @@ import HallEdit from "./pages/newportal/hallofframe/HallEdit";
 import ContestPage from "./pages/kidscontest/ContestPage";
 import LoadPage from "./pages/kidscontest/LoadPage";
 import MainCms from "./pages/newportal/news/MainCms";
-import FileInput from "./components/inputs/FileInput";
 
 function App() {
     const {store} = useContext(Context)
@@ -79,7 +78,6 @@ function App() {
             <Router>
                 <div className="App">
                     <Routes>
-                        <Route path='upload-file' element={<FileInput/>}/>
                         <Route path='/settingmain' element={<MainCms/>}/>
                         <Route path="/load-contest" element={<LoadPage/>} />
                         <Route path="/kids-contest" element={<ContestPage/>} />

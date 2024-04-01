@@ -92,7 +92,6 @@ export default function SettingMain(){
                     item.title = data.title
                     item.image = data.image
                 })
-                console.log(settings)
                 setBlocks(settings)
             }
         }catch (e) {
@@ -126,7 +125,7 @@ export default function SettingMain(){
             }
             {blocks &&
                 <div className={`setting-blocks`}>
-                    <div className={`link`}><Link to='/' style={{marginBottom:'30px'}} className='back-button'><i class="fa-solid fa-arrow-left"></i>Назад</Link></div>
+                    <div className={`link`}><Link to='/' style={{marginBottom:'30px'}} className='back-button'><i className="fa-solid fa-arrow-left"></i>Назад</Link></div>
                     <h5 onClick={(e) => console.log(blocks)}>Редактирование расположения новостей и опросов на главной странице портала</h5>
                     <div className={`header-btns`}>
                         <div onClick={(e) => handleSave()} className={`button green`}>Опубликовать</div>

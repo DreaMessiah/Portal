@@ -24,6 +24,7 @@ router.get('/get',authMiddlewere,usersController.get)
 //Запрос выполниться только для авторизованных пользователей !
 ////////////////////////////////////////////////////////////////
 router.post('/setavatar',authMiddlewere,usersController.setAvatar)
+router.post('/changepass',authMiddlewere,usersController.changePassword)
 
 
 module.exports = router

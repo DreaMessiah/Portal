@@ -5,7 +5,6 @@ export default class UserService {
     }
 
     static loadAvatar(file){
-
         if(file){
             console.log(this.isImage(file.name))
             if(this.isImage(file.name)){
@@ -19,6 +18,9 @@ export default class UserService {
         }else{
             return {err:false,message:'Файл не выбран'}
         }
+    }
+    static changePassword(oldPass,newPass){
+        return $api.post('/auth/changepass', {oldPass,newPass})
     }
     static isImage(filename) {
         const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp']; // расширения изображений

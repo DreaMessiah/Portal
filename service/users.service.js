@@ -28,11 +28,18 @@ class UsersService{
         }
         userDto.diskspace = sizes.diskspace
         userDto.usedspace = sizes.usedspace
-
         //console.log(await bcrypt.hash(password,15))
         return {...tokens,user: userDto}
     }
-
+    async changePassword(id,oldPass,newPass){
+        const user = await User.findOne({where: {id:id}})
+        if(!user) return {err:true,message:'Пользователя с таким именем не существует'}
+        const isPassEquals = await bcrypt.compare(oldPass,user.password)
+        if(!isPassEquals) return {err:true,message:'Неверный пароль'}
+        user.password = await bcrypt.hash(newPass,15)
+        await user.save()
+        return {err:false,message:'Пароль успешно изменен'}
+    }
     async logout(refreshToken){
         return await tokenService.removeToken(refreshToken)
     }
