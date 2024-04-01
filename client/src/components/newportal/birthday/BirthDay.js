@@ -12,9 +12,6 @@ export const BirthDay = () => {
 
     const users = async (e) => {
         try {
-
-
-
             // if(birthman.length !== 0 && list.data){
             //     const listUsers = list.data.users
             //
@@ -52,7 +49,7 @@ export const BirthDay = () => {
     const year = currentDate.getFullYear() + '';
     // console.log(year)
     const currentMonth = currentDate.getMonth(); // Получаем номер текущего месяца
-    let month = months[currentMonth];
+    let month = months[2];
     // console.log(month)
     // month = 'январь' // убрать перед началом работы
 
