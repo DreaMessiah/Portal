@@ -1,6 +1,7 @@
 const PostsService = require('../service/posts.service')
 const {validationResult} = require('express-validator')
 const ApiError = require('../exceptions/api.error')
+const authMiddlewere = require("../middleware/auth.middleware");
 
 class PostsController {
     async get(req,res,next) {
@@ -84,5 +85,44 @@ class PostsController {
             next(e)
         }
     }
+    async newComment(req,res,next) {
+        try{
+            const {post_id,text} = req.body
+            const post = await PostsService.addComment(req.user.tn,post_id,text)
+            return res.status(200).json(post)
+        }catch (e){
+            next(e)
+        }
+    }
+    async getComments(req,res,next) {
+        try{
+            const {post_id} = req.body
+            console.log(post_id)
+            const comments = await PostsService.getComments(post_id)
+            return res.status(200).json(comments)
+        }catch (e){
+            next(e)
+        }
+    }
+    async changeComment(req,res,next) {
+        try{
+            const {id,text} = req.body
+            const comments = await PostsService.changeComment(id,text)
+            return res.status(200).json(comments)
+        }catch (e){
+            next(e)
+        }
+    }
+    async deleteComment(req,res,next) {
+        try{
+            const {id} = req.body
+            const comments = await PostsService.deleteComment(id)
+            return res.status(200).json(comments)
+        }catch (e){
+            next(e)
+        }
+    }
+
+
 }
 module.exports = new PostsController()

@@ -1,17 +1,37 @@
 import "./style.scss"
 import {Link, useLocation, useNavigate} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import PostService from "../../../services/PostService";
+import formatDate from "../../functions/formatDate";
+import {check} from "express-validator";
+import {useMessage} from "../../../hooks/message.hook";
+import formatDateTime from "../../functions/formatDateTime";
+import {Context} from "../../../index";
+import {observer} from "mobx-react-lite";
+import ModalFiles from "../../modalwin/ModalFiles";
+import shortenText from "../../functions/shortenText";
 
 
-export const ViewPOST = () => {
+export const ViewPOST = observer( () => {
     const location = useLocation();
-
+    const {store} = useContext(Context)
     const navigate = useNavigate()
     const [viewId,setViewId] = useState(0)
     const [post,setPost] = useState()
     const [next,setNext] = useState()
     const [prev,setPrev] = useState()
+    const [deleteIndex,setDeleteIndex] = useState(-1)
+    const [deleteActive,setDeleteActive] = useState(false)
+
+    const [changeComment,setChangeComment] = useState(-1)
+    const [changeCommentText,setChangeCommentText] = useState('')
+
+    const [comment,setComment] = useState('')
+    const [comments,setComments] = useState([])
+    const [visibleCount,setVisibleCount] = useState(3)
+    const message = useMessage()
+
+    const rule = 3
 
     const loadingHandler = async (getPost) => {
         try {
@@ -28,6 +48,12 @@ export const ViewPOST = () => {
                     setNext(nextIndex !== null ? newsIds[nextIndex] : null)
                     setPrev(prevIndex !== null ? newsIds[prevIndex] : null)
                 }
+
+                const comm = await PostService.getComments(getPost)
+                if(comm.data.length){
+                    console.log(comm.data)
+                    setComments(comm.data)
+                }
             }
         }catch (e) {
             console.log(e?.message)
@@ -41,6 +67,89 @@ export const ViewPOST = () => {
         if (!prev) event.preventDefault()
         else navigate(to)
     }
+    const handleShowMore = () => {
+        setVisibleCount(prevCount => prevCount + 10)
+    }
+    const saveCommentHandler = async (index) => {
+        try {
+            if(changeCommentText.length){
+                const response = await PostService.changeComment(comments[index].id,changeCommentText)
+                if(response.data){
+                    const newComments = [...comments]
+                    newComments[index].text = changeCommentText
+                    setComments(newComments)
+                }
+                setChangeComment(-1)
+            }else{
+                message('Комментарий не может быть пустым')
+            }
+        }catch (e) {
+            console.log(e)
+        }
+    }
+    const changeCommentHandler = (index) => {
+        setChangeComment(index)
+        setChangeCommentText(comments[index].text)
+    }
+    const commentWriteHandler = (value) => {
+        if(value.length<1000){
+            setComment(value)
+        }
+    }
+    const sendCommentHandler = async () => {
+        try {
+            if(comment.length) {
+                const response = await PostService.newComment(viewId, comment)
+                if (response.data) {
+                    const newComment = {...response.data, avatar: store.user.avatar,full_name:store.user.full_name}
+                        setComments([newComment,...comments])
+                        setComment('')
+                } else {
+                    message('Напишите коментарий перед отправкой')
+                }
+            }
+        }catch (e) {
+            console.log(e)
+        }
+    }
+    const deleteCommentHandler = async (index) => {
+        try {
+            const response = await PostService.deleteComment(comments[index].id)
+            console.log(response.data)
+            if(response.data){
+                const newComments = [...comments]
+                newComments.splice(index, 1);
+                setComments(newComments)
+                setDeleteIndex(-1)
+                setDeleteActive(false)
+                message('Комментарий удален')
+            }
+            setChangeComment(-1)
+        }catch (e) {
+            console.log(e)
+        }
+    }
+    const deleteButtonHandler = (index) => {
+        setDeleteActive(true)
+        setDeleteIndex(index)
+    }
+    const cancelDeleteHandler = () => {
+        setDeleteActive(false)
+        setDeleteIndex(-1)
+    }
+
+    function Delete(){
+        return(
+            <div className={`delete-box`}>
+                <p>Вы действиельно желаете удалить комментарий <span>"{comments[deleteIndex] && shortenText(comments[deleteIndex].text,6)}"</span>?</p>
+                <div className={`buttons`}>
+                    <div onClick={(e) => deleteCommentHandler(deleteIndex)} className={`button`}>Да</div>
+                    <div onClick={(e) => cancelDeleteHandler()} className={`button`}>Нет</div>
+                </div>
+            </div>
+        )
+    }
+
     useEffect(() => {
         const searchParams = new URLSearchParams(location.search)
         const getPost = searchParams.get('post') ? searchParams.get('post') : 0
@@ -84,9 +193,47 @@ export const ViewPOST = () => {
                                 }
                         </span>
                         ))}
+
                     </div>
+                    {post && post[0].oncomment ?
+                    <div className={`history_mess`} >
+                        <div className={`title`} onClick={(e) => console.log(post)}>Коментарии</div>
+                        <div className="history_mess_pen" >
+                            <textarea className="history_mess_pen_letter" id='textmess' value={comment} onChange={(e)=>commentWriteHandler(e.target.value)}/>
+                            <div className="history_mess_pen_btn" onClick={() => sendCommentHandler()}>Отправить<i className="fa-regular fa-paper-plane"/></div>
+                        </div>
+
+                        <div className="history_mess_list" >
+                            {comments && comments.slice(0,visibleCount).map((mess, index) => (
+                                <div className="history_mess_list_block " key={index}>
+                                    <div className="history_mess_list_block_ava" style={mess.avatar.length ? {backgroundImage: `url("files/profile/${mess.avatar}")` } : {backgroundImage: `url("files/profile/face.png")` }}></div>
+                                    <div className="history_mess_list_block_content" >
+                                        <div className="history_mess_list_block_content_name" >
+                                            <p>{mess.full_name} {changeComment===index && '(Редактирование комментария)'}</p>
+                                            <p className={`icons`}>
+                                                {changeComment!==index ? <i onClick={(e) => changeCommentHandler(index)} className="fa-solid fa-pencil small"></i> : <><div onClick={(e) => saveCommentHandler(index)} className={`savechange`}>{changeComment===index && 'Сохранить изменения'}</div><div onClick={(e) => setChangeComment(-1)} className={`cancel`}>Отменить</div></>}
+                                                <i onClick={(e) => deleteButtonHandler(index)} className="fa-solid fa-xmark"></i></p>
+                                        </div>
+                                        {changeComment!==index &&<div className="history_mess_list_block_content_message" >{mess.text}</div>}
+                                        {changeComment===index && <textarea className={`change-text`} value={changeCommentText} onChange={(e) => setChangeCommentText(e.target.value)}/>}
+                                        <div className="history_mess_list_block_content_dateandstatus" >
+                                            <div></div>
+                                            <div className="history_mess_list_block_content_date" >{formatDateTime(mess.createdAt)}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                            {comments && comments.length > visibleCount && (
+                                <div className={`showmore`} onClick={handleShowMore}>Показать следующие коментарии</div>
+                            )}
+                            {comments && comments.length <= visibleCount && comments.length > 3 && (
+                                <div className={`showmore`} onClick={(e) => setVisibleCount(3)}>Скрыть коментарии</div>
+                            )}
+                        </div>
+                    </div> : null}
+                    <ModalFiles data={<Delete />} active={deleteActive} setActive={setDeleteActive} />
                 </div>
             }
         </div>
     )
-}
+})

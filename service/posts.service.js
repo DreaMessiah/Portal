@@ -1,6 +1,6 @@
-const {Posts, MainBlocks} = require('../models/models')
-
+const {Posts, MainBlocks, PostComments, User} = require('../models/models')
 const ApiError = require('../exceptions/api.error')
+
 class PostsService{
     async get() {
         const posts = await Posts.findAll({ where: { trash: false},  order: [['id', 'DESC']] })
@@ -17,6 +17,39 @@ class PostsService{
         if(!posts) throw ApiError.BadRequest('База с блоками пуста')
         return posts
     }
+    async addComment(creator_tn,post_id,text) {
+        const post = await Posts.findOne({where: {id:post_id}})
+        if(!post) throw ApiError.BadRequest('Новость не найдена')
+        if(post.oncomment){
+            return await PostComments.create({creator_tn,post_id,text,trash:false})
+        }
+        return {message:'Коментирование запрещено'}
+    }
+    async getComments(post_id) {
+        const comments = await PostComments.findAll({where: {post_id:post_id,trash:false},order:[['createdAt','DESC']]})
+        if(comments.length){
+            const commDto = comments.map( async item => {
+                const user = await User.findOne({where:{tn:item.creator_tn}})
+                return {...item.dataValues,avatar:user.avatar,full_name:user.full_name}
+            })
+            return await Promise.all(commDto)
+        }
+        return {message:'Коментарии отсутствуют'}
+    }
+    async changeComment(id,text) {
+        const comment = await PostComments.findOne({where:{id:+id}})
+        if(!comment) throw ApiError.BadRequest('Коментарий не найден')
+        comment.text = text
+        await comment.save()
+        return comment
+    }
+    async deleteComment(id) {
+        const comment = await PostComments.findOne({where:{id:+id}})
+        if(!comment) throw ApiError.BadRequest('Коментарий не найден')
+        comment.trash = true
+        await comment.save()
+        return {message:'Комментарий удален'}
+    }
 
     async getSettings(id) {
         const post = await Posts.findOne({where:{id:+id,trash:false}})
@@ -29,7 +62,7 @@ class PostsService{
         if(!post) throw ApiError.BadRequest('Новость не найденa в базе')
         post.clicks++
         await post.save()
-        const postDto = [{name:'main',title:post.title,image:post.image,content:post.text}]
+        const postDto = [{name:'main',title:post.title,image:post.image,content:post.text,oncomment:post.oncomment}]
         const data = JSON.parse(post.json_data)
         data.map( item => {
             postDto.push({name:item.name,content: item.content,image:item.images})

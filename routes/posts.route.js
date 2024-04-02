@@ -12,4 +12,9 @@ router.post('/getsinglepost',authMiddlewere,PostsController.getSinglePost)
 router.post('/remove',authMiddlewere,PostsController.setRemove)
 router.post('/setting',authMiddlewere,PostsController.getSetting)
 router.post('/saveblocks',authMiddlewere,PostsController.saveBlocks)
+router.post('/newcomment',authMiddlewere,PostsController.newComment)
+router.post('/getcomments',authMiddlewere,PostsController.getComments)
+router.post('/changecomment',authMiddlewere,PostsController.changeComment)
+router.post('/deletecomment',authMiddlewere,PostsController.deleteComment)
+
 module.exports = router

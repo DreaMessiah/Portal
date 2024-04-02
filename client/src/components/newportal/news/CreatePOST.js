@@ -12,6 +12,7 @@ export const CreatePOST = () => {
     const [startRef,setStartRef] = useState([{id:-1,title:'',content:'',ref:useRef(null),image:''}])
     const [empty,setEmpty] = useState([])
     const [viewId,setViewId] = useState(0)
+    const [oncomment,setOncomment] = useState(false)
     const navigate = useNavigate()
     const message = useMessage()
     const PlusBlock = (index, blck) => {
@@ -105,7 +106,7 @@ export const CreatePOST = () => {
             if(checkEmpty()) message('Заполните выделенные поля')
             else {
                 const data = createDto(temp)
-                const response = await PostService.createPost(viewId ? viewId : 'new',startRef[0].title,startRef[0].content,startRef[0].image,data,true)
+                const response = await PostService.createPost(viewId ? viewId : 'new',startRef[0].title,startRef[0].content,startRef[0].image,data,!oncomment)
                 if(response.data) {
                     console.log(response.data)
                     message(viewId ? 'Новость Обновлена' : 'Новость Добавлена')
@@ -136,6 +137,7 @@ export const CreatePOST = () => {
                     const newTemp = JSON.parse(newStaff.json_data).map( item => ({...item,ref:[{ current: null },{ current: null },{ current: null }]}))
                     setTemp(newTemp)
                     setStartRef(ref)
+                    setOncomment(!newStaff.oncomment)
                     console.log(newStaff)
                 }
             }
@@ -221,6 +223,11 @@ export const CreatePOST = () => {
                         </span>
                         )})}
                 </div>
+                <label className="checkbox-container">
+                    <input type="checkbox" checked={oncomment} onChange={(e) => setOncomment(!oncomment)} />
+                    <span className="checkmark"></span>
+                    Запретить коментирование
+                </label>
             </div>
         </div>
     )

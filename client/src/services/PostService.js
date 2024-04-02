@@ -27,4 +27,16 @@ export default class PostService {
     static removePost(id) {
         return $api.post('/posts/remove',{id})
     }
+    static newComment(post_id,text) {
+        return $api.post('/posts/newcomment',{post_id,text})
+    }
+    static getComments(post_id) {
+        return $api.post('/posts/getcomments',{post_id})
+    }
+    static changeComment(id,text) {
+        return $api.post('/posts/changecomment',{id,text})
+    }
+    static deleteComment(id) {
+        return $api.post('/posts/deletecomment',{id})
+    }
 }
