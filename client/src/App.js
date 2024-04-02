@@ -55,6 +55,9 @@ import LoadPage from "./pages/kidscontest/LoadPage";
 import MainCms from "./pages/newportal/news/MainCms";
 import Message from "./pages/newportal/message/Message";
 import NewPageObjects from "./pages/newportal/objects/NewPageObjects";
+import ThisObj from "./pages/newportal/objects/ThisObj";
+import NewTabel from "./pages/newportal/objects/NewTabel";
+import {ListTab} from "./pages/objects/ListTabelNewPortal";
 
 function App() {
     const {store} = useContext(Context)
@@ -127,6 +130,8 @@ function App() {
                         <Route path="/halledit" element={<HallEdit />} />
                         <Route path="/messages" element={<Message />} />
                         <Route path="/objectsportal" element={<NewPageObjects />} />
+                        <Route path="/thisobjsportal" element={<ThisObj />} />
+                        <Route path="/tabelportal" element={<ListTab />} />
 
                     </Routes>
                 </div>

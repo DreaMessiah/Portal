@@ -8,8 +8,10 @@ import {DataContext} from "../../../context/DataContext";
 import MyObjs from "../../../components/objs/MyObjs";
 import React from "react";
 import MyListObjs from "../../../components/newportal/objs/MyObjs";
+import DriveProject from "../../../components/objs/DriveProject";
+import DriveOnProject from "../../../components/newportal/objs/DriveProject";
 
-export default function NewPageObjects(){
+export default function ThisObj(){
 
     const { mass_create, menu_mass, my_objs} = useContext(DataContext)
 
@@ -20,7 +22,7 @@ export default function NewPageObjects(){
             <div className="up_path"><MainHeader /></div>
             <div className="main_path">
                 <Mainnavbar />
-                <WorkPage data={<MyListObjs mass={my_objs} page={pageName}/>}/>
+                <WorkPage data={<DriveOnProject mass={my_objs} page={pageName}/>}/>
             </div>
         </div>
     )
