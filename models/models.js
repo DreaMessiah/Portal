@@ -535,14 +535,12 @@ const BestBoard = sequelize.define('bestboard', {
     dev:{type:DataTypes.STRING},
     inn:{type:DataTypes.STRING}
 })
-
 const MainBlocks  = sequelize.define('mainblocks',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     type:{type:DataTypes.INTEGER},
     block_id:{type:DataTypes.INTEGER,allowNull:false},
     data:{type:DataTypes.TEXT,default:''}
 })
-
 const Contest  = sequelize.define('contest',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     user_id:{type:DataTypes.INTEGER,ref:'users'},
@@ -570,7 +568,6 @@ const Managers =  sequelize.define('managers',{
     tn:{type:DataTypes.STRING},
     description:{type:DataTypes.TEXT}
 })
-
 const Messages = sequelize.define('messages', {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     tn_to:{type:DataTypes.STRING,ref:'question'},
@@ -588,15 +585,61 @@ const Chats = sequelize.define('chats', {
     tn_direction:{type:DataTypes.STRING,ref:'survey'},
     trash:{type:DataTypes.BOOLEAN,default:false}
 })
-
 const PostComments = sequelize.define('postcomments', {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     creator_tn:{type:DataTypes.STRING,ref:'users'},
-    post_id:{type:DataTypes.STRING,ref:'rss'},
-    text:{type:DataTypes.STRING},
+    post_id:{type:DataTypes.INTEGER,ref:'rss'},
+    text:{type:DataTypes.TEXT},
     trash:{type:DataTypes.BOOLEAN,default:false}
 })
 
+const Tasks = sequelize.define('tasks', {
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    name:{type:DataTypes.TEXT},
+    text:{type:DataTypes.TEXT},
+    creator_tn:{type:DataTypes.INTEGER,ref:'users'},
+    expiration:{type:DataTypes.DATE},
+    status_id:{type:DataTypes.INTEGER,ref:'taskstatuses'},
+    priority:{type:DataTypes.INTEGER},
+    connection_id:{type:DataTypes.INTEGER,ref:'taskconnections'},
+    trash:{type:DataTypes.BOOLEAN,default:false}
+})
+const TaskConnections = sequelize.define('taskconnections', {
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    obj_id:{type:DataTypes.INTEGER},
+    type:{type:DataTypes.INTEGER}
+})
+const TaskDocs = sequelize.define('taskdocs', {
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    file_id:{type:DataTypes.INTEGER,ref:'files'},
+    task_id:{type:DataTypes.INTEGER,ref:'tasks'}
+})
+const TaskResults = sequelize.define('taskresults', {
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    task_id:{type:DataTypes.INTEGER,ref:'tasks'},
+    files_id: {type: DataTypes.ARRAY(DataTypes.INTEGER)},
+    text:{type:DataTypes.TEXT}
+})
+const TaskChains = sequelize.define('taskchains', {
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    task_id:{type:DataTypes.INTEGER,ref:'tasks'},
+    from_tn: {type: DataTypes.INTEGER,ref:'users'},
+    to_tn: {type: DataTypes.INTEGER,ref:'users'},
+    type:{type:DataTypes.INTEGER}
+})
+const Statuses = sequelize.define('statuses', {
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    value:{type:DataTypes.TEXT},
+    label:{type:DataTypes.TEXT},
+    type:{type:DataTypes.INTEGER}
+})
+const Priority = sequelize.define('priority', {
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    value:{type:DataTypes.TEXT},
+    label:{type:DataTypes.TEXT},
+    type:{type:DataTypes.INTEGER}
+})
+
 module.exports = {
-    PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Ktulist,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
+    Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Ktulist,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
 }
