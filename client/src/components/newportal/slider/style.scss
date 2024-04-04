@@ -6,48 +6,12 @@
         background-position: center center;
         border-radius: 10px;
         position: relative;
-//<<<<<<< HEAD
-//        height: 100%;
-//        display: flex;
-//        flex-direction: column;
-//        justify-content: center;
-//        align-items: center;
-//        .small-link{
-//            color: rgba(18,19,56,1);
-//            font-size: 0.7rem;
-//            cursor: pointer;
-//            font-weight: 500;
-//        }
-
-//        .text{
-//            text-align: center;
-//            font-size: 0.9rem;
-//            font-weight: 600;
-//            text-transform: uppercase;
-//
-//            p{
-//                margin: 7px 0;
-//            }
-//            .big{
-//                font-size: 1.2rem;
-//            }
-//        }
-//        .button{
-//            cursor: pointer;
-//            background-color:rgba(18,19,56,1);
-//            color: white;
-//            margin: 3px;
-//            padding: 10px 30px;
-//            width: 160px;
-//            height: 20px;
-//=======
-
-            .small-link{
-                color: rgba(18,19,56,1);
-                font-size: 0.7rem;
-                cursor: pointer;
-                font-weight: 500;
-            }
+        .small-link{
+            color: rgba(18,19,56,1);
+            font-size: 0.7rem;
+            cursor: pointer;
+            font-weight: 500;
+        }
         .small-link:hover{
             color: #aaa;
             text-decoration: underline !important;
@@ -65,7 +29,6 @@
         .data{
             width: 60%;
             height: 100%;
-//>>>>>>> two
             display: flex;
             flex-direction: column;
             justify-content: center;
