@@ -322,7 +322,7 @@ export const ListMessages = () => {
                             <div className="new_mess_create_select">
                             <Select classNamePrefix='custom-select' placeholder="Выбрать получателя" onChange={e=>setThisMans(e)} value={thisMans} options={users}/>
                             </div>
-                            <div className="new_mess_create_btn" onClick={()=>makeLetter(true)}>Написать</div>
+                            <div className="new_mess_create_btn" onClick={()=>makeLetter(true)}><i className="fa-solid fa-magnifying-glass"/><div class="name-btns">Написать</div></div>
                         </div>
                     </div>
                     <div className="list_messages_col_title_left">
