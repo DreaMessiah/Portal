@@ -1,5 +1,5 @@
 import "./tabel.scss";
-import "../../welding/yearmounth/viewobj.scss";
+import "./viewtab.scss";
 import {Link, useLocation} from "react-router-dom";
 import {useContext, useEffect, useState} from "react";
 import {DataContext} from "../../../context/DataContext";
@@ -7,9 +7,6 @@ import ObjsService from "../../../services/ObjsService";
 import {Context} from "../../../index";
 import {useMessage} from "../../../hooks/message.hook";
 import {useMonth} from "../../../hooks/month.hook";
-
-
-
 
 export const TabelNewMY = () => {
 
@@ -146,9 +143,10 @@ export const TabelNewMY = () => {
     return (
         <div className='right-block-ymwelding'>
             <div className='ymwelding_head'>
-                <div className='ymwelding_head_btnlast'>Назад к объектам</div>
+                <div className='back-button'>Назад</div>
+
+                <div className='back-button'>Передать</div>
                 <div className='ymwelding_head_nameobj'><span>{getId}</span>       </div>
-                <div className='ymwelding_head_passobj'>Передать</div>
             </div>
             <div className='ymwelding_controller'>
                 <div className='ymwelding_controller_ym'>
@@ -176,9 +174,9 @@ export const TabelNewMY = () => {
                     <div onClick={()=>plusMonth()} className='ymwelding_controller_ym_pluss'>Создать</div>
                 </div>
                 <div className='ymwelding_controller_sistembtns'>
-                    <div className='ymwelding_controller_sistembtns_crews'>Звенья / Бригады</div>
-                    <div className='ymwelding_controller_sistembtns_itogs'>Отчеты</div>
-                    <div className='ymwelding_controller_sistembtns_viewsjob'>Виды работ</div>
+                    <div className='back-button'>Звенья / Бригады</div>
+                    <div className='back-button'>Отчеты</div>
+                    <div className='back-button'>Виды работ</div>
                 </div>
             </div>
             <div className='ymwelding_slice'></div>
@@ -187,7 +185,7 @@ export const TabelNewMY = () => {
                 <div className='ymwelding_years_head'>{year.year}</div>
                 <div className='ymwelding_years_body'>{  year.months.map((month,index) => (
                     <div key={index}>
-                        <Link key={index} to={`/table-tabel/?id=${index}&shifr=${month.shifr}&month=${month.month}&year=${month.year}`} className='ymwelding_years_body_month'>
+                        <Link key={index} to={`/thistabelportal/?id=${index}&shifr=${month.shifr}&month=${month.month}&year=${month.year}`} className='ymwelding_years_body_month'>
                             <div className='ymwelding_years_body_month_text'>{selectMonth(month.month)}</div>
                             <div className='ymwelding_years_body_month_settings'> ... </div>
                         </Link>

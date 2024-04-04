@@ -5,13 +5,13 @@ import "../welding/tabelwelding/tabviewwork1550.scss";
 import "../welding/tabelwelding/tabviewwork1080.scss";
 import {useLocation} from "react-router-dom";
 import {TimeSheepList} from "./TimeSheepList";
-import {useMonth} from "../../hooks/month.hook";
-import ObjsService from "../../services/ObjsService";
-import {Context} from "../../index";
+import {useMonth} from "../../../hooks/month.hook";
+import ObjsService from "../../../services/ObjsService";
+import {Context} from "../../../index";
 
 
 
-export const TimeSheep = () => {
+export const TimeSheepPortal = () => {
 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);

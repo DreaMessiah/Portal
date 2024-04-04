@@ -1,11 +1,11 @@
 import React, {useContext, useEffect, useRef, useState} from "react";
 import "./tabel.scss";
-import {DataContext} from "../../context/DataContext";
+import {DataContext} from "../../../context/DataContext";
 import Select, { StylesConfig } from 'react-select';
-import ObjsService from "../../services/ObjsService";
+import ObjsService from "../../../services/ObjsService";
 import {useLocation} from "react-router-dom";
-import {Context} from "../../index";
-import {useMonth} from "../../hooks/month.hook";
+import {Context} from "../../../index";
+import {useMonth} from "../../../hooks/month.hook";
 
 export const TimeSheepList = () => {
 

@@ -1,64 +1,204 @@
-.frame_block_birthday {
-  background-color: #FFF;
-  width: calc(100% - 80px);
-  min-height: 300px;
-  height: 100%;
-  margin-top: 20px;
-  border-radius: 10px;
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-
-  .frame_block_birthday_main{
-    width: 100%;
-    min-height: 100%;
+@media screen and (min-width: 1400px){
+  .frame_block_birthday {
     background-color: #FFF;
+    width: calc(100% - 80px);
+    min-height: 300px;
+    height: 100%;
+    margin-top: 20px;
     border-radius: 10px;
+    padding: 20px;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    .frame_block_birthday_main_man{
-      display: flex;
-      justify-content: flex-start;
-      width: calc(50% - 20px);
-      height: 210px;
-      margin: 10px;
-      background-color: #F1F1F1;
-      border-radius: 10px;
-      position: relative;
 
-      .todaybirthday{
-        position: absolute;
-        bottom: 10px;
-        right: 20px;
-        font-size: 18pt;
-      }
-      .frame_block_birthday_main_man_photo{
-        width: 170px;
+    .frame_block_birthday_main{
+      width: 100%;
+      min-height: 100%;
+      background-color: #FFF;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      .frame_block_birthday_main_man{
+        display: flex;
+        justify-content: flex-start;
+        width: calc(50% - 20px);
         height: 210px;
-        border-radius: 10px 0 0 10px;
-        background-size: cover;
-        background-position: center center;
-      }
-      .frame_block_birthday_main_man_text{
-        width: calc(100% - 20px - 170px);
-        height: 190px;
-        padding: 10px;
-        div{
-          background-color: #FFFFFF;
-          border-radius: 5px;
-          padding: 10px;
-          margin: 5px 0;
-          font-size: 10pt;
+        margin: 10px;
+        background-color: #F1F1F1;
+        border-radius: 10px;
+        position: relative;
+
+        .todaybirthday{
+          position: absolute;
+          bottom: 10px;
+          right: 20px;
+          font-size: 18pt;
         }
-        .frame_block_birthday_main_man_name{}
-        .frame_block_birthday_main_man_dev{}
-        .frame_block_birthday_main_man_date{}
-        .frame_block_birthday_main_man_years{}
+        .frame_block_birthday_main_man_photo{
+          width: 170px;
+          height: 210px;
+          border-radius: 10px 0 0 10px;
+          background-size: cover;
+          background-position: center center;
+        }
+        .frame_block_birthday_main_man_text{
+          width: calc(100% - 20px - 170px);
+          height: 190px;
+          padding: 10px;
+          div{
+            background-color: #FFFFFF;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 5px 0;
+            font-size: 10pt;
+          }
+          .frame_block_birthday_main_man_name{}
+          .frame_block_birthday_main_man_dev{}
+          .frame_block_birthday_main_man_date{}
+          .frame_block_birthday_main_man_years{}
+        }
+
       }
 
     }
-
   }
 }
+@media screen and (min-width: 800px) and (max-width: 1400px){
+  .frame_block_birthday {
+    background-color: #FFF;
+    width: calc(100% - 60px);
+    margin-left: 10px;
+    min-height: 300px;
+    height: 100%;
+    margin-top: 20px;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    .frame_block_birthday_main{
+      width: 100%;
+      min-height: 100%;
+      background-color: #FFF;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      .frame_block_birthday_main_man{
+        display: flex;
+        justify-content: flex-start;
+        width: calc(50% - 20px);
+        height: 210px;
+        margin: 10px;
+        background-color: #F1F1F1;
+        border-radius: 10px;
+        position: relative;
+
+        .todaybirthday{
+          position: absolute;
+          bottom: 10px;
+          right: 20px;
+          font-size: 18pt;
+        }
+        .frame_block_birthday_main_man_photo{
+          width: 140px;
+          height: 190px;
+          border-radius: 10px 0 0 10px;
+          background-size: cover;
+          background-position: center center;
+        }
+        .frame_block_birthday_main_man_text{
+          width: calc(100% - 20px - 140px);
+          height: 190px;
+          padding: 10px;
+          font-size: 10pt;
+          div{
+            background-color: #FFFFFF;
+            border-radius: 5px;
+            padding: 5px;
+            margin: 5px 0;
+            font-size: 9pt;
+          }
+          .frame_block_birthday_main_man_name{}
+          .frame_block_birthday_main_man_dev{}
+          .frame_block_birthday_main_man_date{}
+          .frame_block_birthday_main_man_years{}
+        }
+
+      }
+
+    }
+  }
+}
+@media screen and (max-width: 800px){
+  .frame_block_birthday {
+    background-color: #FFF;
+    width: calc(100% - 60px);
+    min-height: 300px;
+    height: 100%;
+    margin-left: 10px;
+    margin-top: 20px;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    .frame_block_birthday_main{
+      width: 100%;
+      min-height: 100%;
+      background-color: #FFF;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      .frame_block_birthday_main_man{
+        display: flex;
+        //flex-direction: column;
+        justify-content: flex-start;
+        width: 100%;
+        //min-height: content-box;
+        margin: 10px;
+        background-color: #F1F1F1;
+        border-radius: 10px;
+        position: relative;
+
+        .todaybirthday{
+          position: absolute;
+          bottom: 10px;
+          right: 20px;
+          font-size: 18pt;
+        }
+        .frame_block_birthday_main_man_photo{
+          max-width: 170px;
+          width: 50%;
+          height: 210px;
+          border-radius: 10px 0 0 10px;
+          background-size: cover;
+          background-position: center center;
+        }
+        .frame_block_birthday_main_man_text{
+          width: calc(50%);
+          height: 190px;
+          padding: 10px;
+          div{
+            background-color: #FFFFFF;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 5px 0;
+            font-size: 10pt;
+          }
+          .frame_block_birthday_main_man_name{}
+          .frame_block_birthday_main_man_dev{}
+          .frame_block_birthday_main_man_date{}
+          .frame_block_birthday_main_man_years{}
+        }
+
+      }
+
+    }
+  }
+}
+
