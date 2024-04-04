@@ -53,6 +53,8 @@ export const ViewPOST = observer( () => {
                 if(comm.data.length){
                     console.log(comm.data)
                     setComments(comm.data)
+                }else {
+                    setComments([])
                 }
             }
         }catch (e) {
