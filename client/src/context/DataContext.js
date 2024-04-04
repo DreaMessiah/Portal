@@ -4053,38 +4053,40 @@ export const DataProvider = ({ children }) => {
         {
             name: 'tabel',
             title: 'Табеля',
-            url: '/tabel',
+            url: '/tabelportal',
+            icon: 'fa-solid fa-table-list',
             toid: 0
         },
         // документооборот
-        {
-            name: 'documents',
-            title: 'Документо оборот',
-            url: '/docpasslist',
-            toid: 0
-        },
+        // {
+        //     name: 'documents',
+        //     title: 'Документо оборот',
+        //     url: '/docpasslist',
+        //     toid: 0
+        // },
         // ТМЦ
-        {
-            name: 'goods',
-            title: 'ТМЦ',
-            url: '/goods',
-            toid: 0
-
-        },
+        // {
+        //     name: 'goods',
+        //     title: 'ТМЦ',
+        //     url: '/goods',
+        //     toid: 0
+        //
+        // },
         // сварщики
         {
             name: 'welding',
             title: 'Сварщки',
-            url: '/obj',
+            url: '/welwel',
+            icon: 'fa-solid fa-wand-magic-sparkles',
             toid: 1
         },
         // персонал
-        {
-            name: 'humanresource',
-            title: 'Персонал',
-            url: '/personal',
-            toid: 0
-        }
+        // {
+        //     name: 'humanresource',
+        //     title: 'Персонал',
+        //     url: '/personal',
+        //     toid: 0
+        // }
 
     ]
     const table_tabel = [

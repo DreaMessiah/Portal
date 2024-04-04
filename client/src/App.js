@@ -55,6 +55,14 @@ import LoadPage from "./pages/kidscontest/LoadPage";
 import MainCms from "./pages/newportal/news/MainCms";
 import Message from "./pages/newportal/message/Message";
 import TaskRouter from "./pages/tasks/TaskRouter";
+
+import NewPageObjects from "./pages/newportal/objects/NewPageObjects";
+import ThisObj from "./pages/newportal/objects/ThisObj";
+import NewTabel from "./pages/newportal/objects/NewTabel";
+import {ListTab} from "./pages/objects/ListTabelNewPortal";
+import {ThisTableTabel} from "./pages/newportal/objects/TableTabel";
+
+
 function App() {
     const {store} = useContext(Context)
     useEffect(() => {
@@ -125,6 +133,10 @@ function App() {
                         <Route path="/listfastbtns" element={<ListFastBtns />} />
                         <Route path="/halledit" element={<HallEdit />} />
                         <Route path="/messages" element={<Message />} />
+                        <Route path="/objectsportal" element={<NewPageObjects />} />
+                        <Route path="/thisobjsportal" element={<ThisObj />} />
+                        <Route path="/tabelportal" element={<ListTab />} />
+                        <Route path="/thistabelportal" element={<ThisTableTabel />} />
 
                     </Routes>
                 </div>
