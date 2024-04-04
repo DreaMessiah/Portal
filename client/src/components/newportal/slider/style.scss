@@ -18,10 +18,7 @@
 //            cursor: pointer;
 //            font-weight: 500;
 //        }
-//        .small-link:hover{
-//            color: #aaa;
-//            text-decoration: underline !important;
-//        }
+
 //        .text{
 //            text-align: center;
 //            font-size: 0.9rem;
@@ -51,6 +48,10 @@
                 cursor: pointer;
                 font-weight: 500;
             }
+        .small-link:hover{
+            color: #aaa;
+            text-decoration: underline !important;
+        }
         .overlay{
             position: absolute;
             top:0;
