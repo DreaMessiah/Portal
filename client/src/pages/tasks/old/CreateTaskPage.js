@@ -1,11 +1,11 @@
 import React, {useContext, useState} from "react";
 import Select from 'react-select'
-import {DataContext} from "../../context/DataContext";
-import Navbar from "../../components/Navbar";
-import SearchObj from "../../components/SearchObj";
-import ChangeObj from "../../components/ChangeObj";
-import WrapButtonsObj from "../../components/WrapButtonsObj";
-import BridgeLeftBar from "../../components/leftbar/BridgeLeftBar";
+import {DataContext} from "../../../context/DataContext";
+import Navbar from "../../../components/Navbar";
+import SearchObj from "../../../components/SearchObj";
+import ChangeObj from "../../../components/ChangeObj";
+import WrapButtonsObj from "../../../components/WrapButtonsObj";
+import BridgeLeftBar from "../../../components/leftbar/BridgeLeftBar";
 import {Link} from "react-router-dom";
 
 export default function CreateTaskPage(){

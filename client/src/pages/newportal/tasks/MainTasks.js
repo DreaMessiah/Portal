@@ -5,8 +5,6 @@ import {WorkPage} from "../../../components/newportal/workpage/WorkPage";
 import {TasksMyList} from "../../../components/newportal/tasks/TasksMyList";
 
 export default function MainTasks(){
-
-
     return (
         <div className='new_container'>
             <div className="up_path"><MainHeader /></div>

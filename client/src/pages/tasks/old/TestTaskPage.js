@@ -1,19 +1,19 @@
 import React, {useContext} from "react";
-import {DataContext} from "../../context/DataContext";
-import Navbar from "../../components/Navbar";
-import DocumentWay from "../../components/DocumentWay";
-import SearchObj from "../../components/SearchObj";
-import ChangeObj from "../../components/ChangeObj";
-import WrapButtonsObj from "../../components/WrapButtonsObj";
-import WorksTasksObj from "../../components/WorkTasksObj";
-import AttachObj from "../../components/AttachObj";
-import PerformersObj from "../../components/PerformersObj";
-import ResultsObj from "../../components/ResultsObj";
-import BridgeLeftBar from "../../components/leftbar/BridgeLeftBar";
+import {DataContext} from "../../../context/DataContext";
+import Navbar from "../../../components/Navbar";
+import DocumentWay from "../../../components/DocumentWay";
+import SearchObj from "../../../components/SearchObj";
+import ChangeObj from "../../../components/ChangeObj";
+import WrapButtonsObj from "../../../components/WrapButtonsObj";
+import WorksTasksObj from "../../../components/WorkTasksObj";
+import AttachObj from "../../../components/AttachObj";
+import PerformersObj from "../../../components/PerformersObj";
+import ResultsObj from "../../../components/ResultsObj";
+import BridgeLeftBar from "../../../components/leftbar/BridgeLeftBar";
 import {Link, useLocation} from "react-router-dom";
 import {observer} from "mobx-react-lite";
-import {Context} from "../../index";
-import {useMessage} from "../../hooks/message.hook";
+import {Context} from "../../../index";
+import {useMessage} from "../../../hooks/message.hook";
 
 function TestTaskPage(){
     const {mass_create,menu_mass,wrap_buttons,dwm2,attach1,performers,results} = useContext(DataContext)

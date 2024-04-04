@@ -10,6 +10,7 @@ router.post('/dir',authMiddlewere,FilesController.createDir)
 router.post('/getpath',authMiddlewere,FilesController.getPath)
 router.post('/loadimg',authMiddlewere,FilesController.loadImg)
 router.post('/loadpollsimg',authMiddlewere,FilesController.loadPollsImg)
-
+router.post('/uploadfile',authMiddlewere,FilesController.uploadFileDefault)
+router.post('/deletefile',authMiddlewere,FilesController.deleteFileDefault)
 
 module.exports = router

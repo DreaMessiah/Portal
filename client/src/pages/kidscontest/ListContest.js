@@ -19,7 +19,7 @@ function ListContest(){
     const {store} = useContext(Context)
     const message = useMessage()
     const [isVote,setIsVote] = useState(false)
-
+    const [used,setUsed] = useState(0)
     const openImageFullscreen = (index) => {
         setCurrentImageIndex(index)
     }
@@ -133,7 +133,7 @@ function ListContest(){
     },[])
     useEffect(() => {
         setAll(nominations.every(item => item.selected))
-
+        setUsed(nominations.filter(item => item.selected).length)
     },[nominations])
     return (
         <div className='contest'>
@@ -231,6 +231,7 @@ function ListContest(){
                 )}
             </div>
             { !isVote && all && works.length ? <div onClick={() => voteHandler()} className={`send-contest ${all && 'flex'}`}>Проголосовать</div> : null}
+            { !isVote && used>0 && !all && works.length ? <div className={`send-contest grey ${used>0 && !all && 'flex'}`}>{used === 4 ? `Выберете еще ${5-used} номинацию` : `Выберете еще ${5-used} номинации`}</div> : null}
         </div>
     )
 }

@@ -91,6 +91,38 @@ class FilesController {
             next(e)
         }
     }
+    async uploadFileDefault(req, res, next) {
+        try {
+            const file = req.files.file
+            const filename = req.body.filename
+
+            const path = `${config.get('file_path')}\\temp\\${filename}`
+
+            await file.mv(path)
+            const type = filename.split('.').pop()
+
+            return res.status(200).json(file)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async deleteFileDefault(req, res, next) {
+        try {
+            const {name} = req.body
+            console.log(name)
+            const path = `${config.get('file_path')}\\temp\\${name}`
+            fs.unlink(path,(err) => {
+                if (err) {
+                    return res.status(200).json({message:`Ошибка при удалении файла: ${err}`})
+                }
+                return res.status(200).json({message:'файл удален'})
+            })
+
+        } catch (e) {
+            next(e)
+        }
+    }
+
     async loadImg(req, res, next){
         try {
             const file = req.files.file

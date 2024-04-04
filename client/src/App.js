@@ -11,15 +11,15 @@ import LkPage from "./pages/LkPage"
 import NewsPage from "./pages/NewsPage"
 import SelNewsPage from "./pages/SelNewsPage"
 import DocumentPage from "./pages/DocumentPage"
-import TasksPage from "./pages/tasks/TasksPage"
-import CreateTaskPage from "./pages/tasks/CreateTaskPage";
+import TasksPage from "./pages/tasks/old/TasksPage"
+import CreateTaskPage from "./pages/tasks/old/CreateTaskPage";
 import {Weldingmain} from "./pages/welding/Weldingmain";
 import {Yearwelding} from "./pages/welding/Yearwelding";
 import {Tabel} from "./pages/welding/Tabel";
 import {TabelObj} from "./pages/tabel/Tabel";
 import {TableTabel} from "./pages/tabel/TableTabel";
 import { DataProvider } from './context/DataContext';
-import TestTaskPage from "./pages/tasks/TestTaskPage";
+import TestTaskPage from "./pages/tasks/old/TestTaskPage";
 import {ListTasks} from "./pages/listtasks/ListTasks";
 import ObjectsPage from "./pages/objects/ObjectsPage";
 import DocumentsPage from "./pages/documents/DocumentsPage";
@@ -54,7 +54,7 @@ import ContestPage from "./pages/kidscontest/ContestPage";
 import LoadPage from "./pages/kidscontest/LoadPage";
 import MainCms from "./pages/newportal/news/MainCms";
 import Message from "./pages/newportal/message/Message";
-
+import TaskRouter from "./pages/tasks/TaskRouter";
 function App() {
     const {store} = useContext(Context)
     useEffect(() => {
@@ -79,6 +79,7 @@ function App() {
             <Router>
                 <div className="App">
                     <Routes>
+                        <Route path='/tasks' element={<TaskRouter/>}/>
                         <Route path='/settingmain' element={<MainCms/>}/>
                         <Route path="/load-contest" element={<LoadPage/>} />
                         <Route path="/kids-contest" element={<ContestPage/>} />
@@ -98,7 +99,6 @@ function App() {
                         <Route path="/phonebook" element={<PhonebookPage/>} />
                         <Route path="/newphonebook" element={<NewPhoneBook />} />
                         <Route path="/document" element={<DocumentPage/>} />
-                        <Route path="/tasks" element={<TasksPage/>} />
                         <Route path="/welding" element={<Weldingmain />} />
                         <Route path="/crews" element={<CrewsPage />} />
                         <Route path="/obj" element={<Yearwelding />} />

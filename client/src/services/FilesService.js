@@ -49,6 +49,11 @@ export default class FilesService{
         const extension = filename.split('.').pop().toLowerCase(); // получаем расширение файла и приводим его к нижнему регистру
         return imageExtensions.includes(extension); // возвращаем true, если расширение файла соответствует расширениям изображений
     }
+    static isDocuments(filename) {
+        const documentsExtensions = ['doc', 'docx', 'pdf', 'xls', 'xlsx', 'jpg', 'jpeg', 'png', 'gif', 'bmp']
+        const extension = filename.split('.').pop().toLowerCase(); // получаем расширение файла и приводим его к нижнему регистру
+        return documentsExtensions.includes(extension); // возвращаем true, если расширение файла соответствует расширениям изображений
+    }
     static uploadFile(file,user_id,parent_id,onUploadProgress ){
         const formData = new FormData()
         formData.append('file', file)
@@ -62,4 +67,21 @@ export default class FilesService{
             onUploadProgress: onUploadProgress
         })
     }
+    static uploadTaskFiles(file,onUploadProgress ){
+        if(file){
+            if(this.isDocuments(file.name)){
+                const formData = new FormData()
+                formData.append('file', file)
+                formData.append('filename', file.name)
+                if(file.size > 2147483648) return {message: 'Слишком большой размер брат.'}
+                return $api.post('/files/uploadfile',formData,{
+                    onUploadProgress: onUploadProgress
+                })
+            }
+        }
+    }
+    static deleteFile(name){
+        return $api.post('/files/deletefile',{name})
+    }
+
 }

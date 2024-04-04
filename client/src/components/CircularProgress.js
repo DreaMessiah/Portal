@@ -1,7 +1,6 @@
 import React from 'react';
 
-const CircularProgress = ({ progress }) => {
-    console.log(progress)
+const CircularProgress = ({color="#e6e6e6", progress }) => {
     const radius = 7;
     const circumference = 2 * Math.PI * radius;
     const strokeWidth = 2;
@@ -15,7 +14,7 @@ const CircularProgress = ({ progress }) => {
                 cx={center}
                 cy={center}
                 fill="none"
-                stroke="#e6e6e6"
+                stroke={color}
                 strokeWidth={strokeWidth}
             />
             <circle

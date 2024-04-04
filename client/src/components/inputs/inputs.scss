@@ -1,13 +1,109 @@
-.create_new_post_worklist_mainimg{
+.rs-stack-item{
+  width: 100%;
+
+  .rs-calendar-table-cell-selected .rs-calendar-table-cell-content {
+    background-color: rgb(18, 19, 56);
+  }
+  .rs-btn-primary {
+    background-color: rgb(18, 19, 56);
+  }
+  .rs-btn-primary:hover{
+    background-color: rgb(18, 19, 56);
+  }
+
+  .rs-input-group,.rs-input-group:hover,.rs-input-group:focus-within,.rs-picker,.rs-input-group-focus{
+    border-color: transparent;
+    outline: none;
+    input{
+      text-transform: uppercase;
+      font-weight: 600;
+      font-size: 0.7rem;
+      color: #aaa;
+    }
+    input::placeholder {
+      color: #aaa;
+    }
+  }
+  .rs-picker-toolbar-right{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}
+
+.checkbox-container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  font-size: 18px;
+  -webkit-user-select: none;
+  user-select: none;
+  margin-top: 20px;
+  font-weight: 600;
+}
+.disable-select{
+  .select__multi-value__remove{
+    display: none !important;
+  }
+}
+.row{
+  margin-top: 20px;
+  .name{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+  }
+  .delete-select{
+    margin: 5px 10px 5px 0;
+    i{
+      font-size: 1.4rem;
+      color: rgba(215,26,0,0.5);
+      cursor: pointer;
+    }
+    i:hover{
+    color: rgba(215,26,0,1);
+    }
+  }
+
+}
+.drop-area {
+  width: calc(100% - 100px);
+  height: calc(100vh - 180px);
+  margin: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #E3E3E3;
+  border: 3px dotted #CCC;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  i{
+    color: black;
+    font-size: 24pt;
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 3px;
+    transition: 0.2s;
+  }
+}
+.files-box{
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
   width: calc(100% - 46px);
   height: 200px;
   border: 3px dotted #CCC;
   margin: 10px 0 0 0;
-  padding: 10px 20px;
+  padding: 20px;
   border-radius: 10px;
   cursor: pointer;
   transition: .2s;
@@ -18,17 +114,74 @@
     color: #CCC;
     font-size: 24pt;
     border: 1px solid #CCC;
-    padding: 10px;
+    padding: 0 10px;
     border-radius: 3px;
     transition: .2s;
   }
+  .files-list{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: calc(100% - 40px);
+    height: 100%;
+    .file{
+      width: 40%;
+      padding: 3px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: row;
+
+      justify-content: space-between;
+      align-items: flex-start;
+      .l{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        span{
+          color: rgba(215,26,0,1);
+          text-transform: uppercase;
+          font-weight: 600;
+          font-size: 0.5rem;
+        }
+      }
+      i{
+        font-size: 0.8rem;
+        border: none;
+      }
+      p{
+        margin-top: 3px;
+        margin-left: 5px;
+        font-size: 0.6rem;
+        text-align: center;
+      }
+    }
+  }
 }
-.create_new_post_worklist_mainimg:hover{
-  transition: .2s;
-  border: 3px dotted #454545;
+.files-box.upload{
+  justify-content: center;
+  align-items: center;
   i{
-    color: #454545;
-    border: 1px solid #454545;
-    transition: .2s;
+    padding: 20px;
+  }
+}
+.del{
+  font-size: 1.4rem;
+  color: rgba(215,26,0,0.5);
+  cursor: pointer;
+}
+.del:hover{
+  color: rgba(215,26,0,1);
+}
+.upload-button{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  div{
+    margin-top: 5px;
+    font-size: 0.8rem;
+    color: #cccccc;
   }
 }

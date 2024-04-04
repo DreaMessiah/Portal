@@ -72,7 +72,7 @@ input::-webkit-inner-spin-button {
   font-family: Montserrat, sans-serif;
 }
 a{
-  text-decoration: none;
+  text-decoration: none !important;
   color: black;
 }
 hr{
@@ -2313,3 +2313,30 @@ html{
 ::-webkit-scrollbar-corner {
   background: transparent; /* Цвет угла */
 }
+.red-solid-select-border{
+  .select__control{
+    border-color: $dredColor !important;
+  }
+}
+.red-color{
+  color: $dredColor;
+}
+.red-dotted-border{
+  border-color: $dredColor !important;
+}
+//.news_block_list_box{
+//  color: black;
+//}
+//.news_block_title_more{
+//  color: #333333;
+//}
+//.news_block_title_more:hover{
+//  color: black;
+//}
+//.navbar_block_dopmenu_list_strock{
+//  color: #333333;
+//}
+//.navbar_block_dopmenu_list_strock:hover{
+//  text-decoration: underline !important;
+//  color: #333333;
+//}
