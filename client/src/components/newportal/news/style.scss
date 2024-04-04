@@ -590,12 +590,13 @@
 @media screen and (min-width: 800px) and (max-width: 1400px){
   .news_block{
     width: calc(100% );
-    margin-top: 30px;
+    margin-top: 50px;
 
     .news_block_title{
       display: flex;
       justify-content: flex-start;
       align-items: flex-end;
+
       .news_block_title_name{
         font-size: 24pt;
         margin-right: 50px;
@@ -1180,7 +1181,7 @@
 @media screen and (max-width: 800px){
   .news_block{
     width: calc(100%);
-    margin-top: 30px;
+    margin-top: 50px;
 
     .news_block_title{
       display: flex;
@@ -1771,3 +1772,4 @@
     border: 3px dotted #FFC0CB !important;
   }
 }
+

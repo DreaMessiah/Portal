@@ -710,7 +710,7 @@
 
   }
 }
-@media screen and (min-width: 500px) and (max-width: 800px){
+@media screen and (min-width: 450px) and (max-width: 800px){
   .frame_block{
     margin-top: 40px;
     .frame_block_title{
@@ -1069,7 +1069,7 @@
   }
 }
 
-@media screen and (max-width: 500px){
+@media screen and (min-width: 400px) and (max-width: 450px){
   .frame_block{
     margin-top: 40px;
     .frame_block_title{
@@ -1114,22 +1114,22 @@
       flex-wrap: wrap;
       .frame_block_plane_man{
         display: flex;
-        flex-direction: column;
-        width: 150px;
+        //flex-direction: column;
+        width: 100%;
         margin: 10px;
         .frame_block_plane_man_photo{
           width: 150px;
           height: 180px;
           background-size: cover;
           background-position: center center;
-          border-radius: 10px 10px 0 0;
+          border-radius: 10px 0 0 10px;
         }
 
         .frame_block_plane_man_text{
-          width: 130px;
+          width: calc(100% - 150px);
           padding: 10px;
           background-color: #F1F1F1;
-          border-radius: 0 0 10px 10px;
+          border-radius: 0 10px 10px 0;
           font-size: 10pt;
           .frame_block_plane_man_name{}
           .frame_block_plane_man_slicer{
@@ -1429,3 +1429,362 @@
   }
 }
 
+@media screen and (max-width: 400px){
+  .frame_block{
+    margin-top: 40px;
+    .frame_block_title{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      margin-left: 10px;
+      .frame_block_title_name {
+        font-size: 20pt;
+        margin-right: 50px;
+        font-weight: 800;
+        height: 35px;
+        color: rgb(18, 19, 56);
+        margin-bottom: 10px;
+      }
+      .frame_block_title_edit {
+        font-size: 14pt;
+        padding: 5px 30px;
+        margin: 0 0 0 0px;
+        border: 1px solid #CCC;
+        border-radius: 8px;
+        color: #CCC;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .frame_block_title_edit:hover{
+        transition: 0.2s;
+        border: 1px solid #454545;
+        color: #454545;
+      }
+    }
+    .frame_block_plane{
+      background-color: #FFF;
+      width: calc(100% - 60px);
+      min-height: 300px;
+      margin-left: 10px;
+      margin-top: 20px;
+      border-radius: 10px;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      .frame_block_plane_man{
+        display: flex;
+        //flex-direction: column;
+        width: 100%;
+        margin: 10px;
+        .frame_block_plane_man_photo{
+          width: 100px;
+          height: 180px;
+          background-size: cover;
+          background-position: center center;
+          border-radius: 10px 0 0 10px;
+        }
+
+        .frame_block_plane_man_text{
+          width: calc(100% - 100px);
+          padding: 10px;
+          background-color: #F1F1F1;
+          border-radius: 0 10px 10px 0;
+          font-size: 9pt;
+          .frame_block_plane_man_name{}
+          .frame_block_plane_man_slicer{
+            width: 100%;
+            height: 2px;
+            background-color: #FFF;
+            border-radius: 2px;
+            margin: 5px 0;
+          }
+          .frame_block_plane_man_dev{}
+        }
+
+
+      }
+
+    }
+
+
+  }
+  .backhall{
+    border: 1px solid gold;
+  }
+  .borderbirthday{
+    border: 1px solid #FFF;
+  }
+  .birthdaycolor{
+    background: linear-gradient(45deg, #fff 0%, #fff 3%, red 3%, red 6%, #fff 6%, #fff 9%, rgb(18, 18, 70) 9%, rgb(18, 18, 70) 12%, #fff 12%, #fff 15%, red 15%, red 18%, #fff 18%, #fff 21%, rgb(18, 18, 70) 21%, rgb(18, 18, 70) 24%, #fff 24%, #fff 27%, red 27%, red 30%, #fff 30%, #fff 33%, rgb(18, 18, 70) 33%, rgb(18, 18, 70) 36%
+    , #fff 36%, #fff 39%, red 39%, red 42%, #fff 42%, #fff 45%, rgb(18, 18, 70) 45%, rgb(18, 18, 70) 48%, #fff 48%, #fff 51%, red 51%, red 54%, #fff 54%, #fff 57%, rgb(18, 18, 70) 57%, rgb(18, 18, 70) 60%, #fff 60%, #fff 63%
+    , red 63%, red 66%, #fff 66%, #fff 69%, rgb(18, 18, 70) 69%, rgb(18, 18, 70) 72%, #fff 72%, #fff 75%, red 75%, red 78%, #fff 78%, #fff 81%, rgb(18, 18, 70) 81%, rgb(18, 18, 70) 84%, #fff 84%, #fff 87%, red 87%, red 90%
+    , #fff 90%, #fff 93%, rgb(18, 18, 70) 93%, rgb(18, 18, 70) 96%, #fff 96%, #fff 100%);
+  }
+  .hall_edit{
+
+  }
+  .hall_edit{
+    display: flex;
+    flex-direction: column;
+    .hall_edit_title{
+      font-size: 24pt;
+      margin-right: 50px;
+      font-weight: 800;
+      height: 35px;
+      color: rgb(18, 19, 56);
+    }
+    .hall_edit_tumbler{
+      margin-top: 20px;
+      width: 300px;
+      display: flex;
+      flex-direction: column;
+      .hall_edit_tumbler_sel{
+        margin-bottom: 10px;
+        height: 40px;
+        border: 0px solid #454545;
+        border-radius: 10px;
+        outline: none;
+
+      }
+      .hall_edit_tumbler_btn{
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #454545;
+        border: 1px solid #CCC;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+    }
+
+    .hall_edit_visual{
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid #FFF;
+      display: flex;
+      flex-direction: column;
+      color: #454545;
+      @keyframes opachki {
+        from {
+          opacity: 0; /* Начальное значение непрозрачности */
+        }
+        to {
+          opacity: 1; /* Конечное значение непрозрачности */
+        }
+      }
+      .hall_edit_visual_man{
+        opacity: 0;
+        margin-top: 10px;
+        display: flex;
+        align-items: flex-start;
+        animation: opachki 0.3s ease forwards;
+        .hall_edit_visual_man_dev{
+          display: flex;
+          flex-direction: column;
+          .hall_edit_visual_man_dev_num{
+            width: 60px;
+            height: 30px;
+            padding: 10px;
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18pt;
+          }
+          .hall_edit_visual_man_dev_dev{
+            margin-top: 10px;
+            width: 60px;
+            height: 30px;
+            padding: 10px;
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        }
+        .hall_edit_visual_man_photo{
+          width: 160px;
+          height: 200px;
+          background-size: cover;
+          background-position: center center;
+          border-radius: 10px 0 0 10px;
+          margin-left: 10px;
+        }
+        .hall_edit_visual_man_description{
+          width: calc(60% - 30px);
+          height: calc(200px - 20px);
+          border-radius: 0 10px 10px 0;
+          background-color: #FFFFFF;
+          padding: 10px 10px 10px 20px;
+          .hall_edit_visual_man_description_name{
+            font-size: 20pt;
+          }
+          .hall_edit_visual_man_description_dev{
+
+          }
+        }
+        .hall_edit_visual_man_del{
+          padding: 10px 30px;
+          margin-left: 10px;
+          border-radius: 10px;
+          border: 1px solid red;
+          color: darkred;
+        }
+      }
+
+
+    }
+
+    .btnhover{
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .btnhover:hover{
+      opacity: 0.7;
+      transition: 0.2s;
+    }
+  }
+  .del_hall_edit{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .del_hall_edit_mess{
+      text-align: center;
+      margin: 30px 0 50px 0;
+      span{
+        font-weight: 600;
+      }
+    }
+    .del_hall_edit_btns{
+      display: flex;
+      justify-content: space-between;
+      .del_hall_edit_btns_cancel{
+        background-color: rgb(18, 19, 56);
+        color: white;
+        margin: 10px;
+        padding: 10px 16px 10px 10px;
+        width: 150px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        cursor: pointer;
+      }
+      .del_hall_edit_btns_delete{
+        background-color: rgba(215, 26, 0, 0.5);
+        color: white;
+        margin: 10px;
+        padding: 10px 16px 10px 10px;
+        width: 150px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        cursor: pointer;
+      }
+    }
+  }
+  .quest_director{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .quest_director_up{
+      width: 100%;
+      .quest_director_up_title{
+        font-weight: 700;
+        font-size: 20pt;
+        margin-bottom: 20px;
+      }
+      .quest_director_up_customer {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        .select{
+          width: 300px;
+        }
+        .quest_director_up_customer_name {
+          width: 100px;
+        }
+      }
+
+      .quest_director_up_theme{
+        display: flex;
+        width: 100%;
+        align-items: center;
+        margin-bottom: 10px;
+        .quest_director_up_theme_name{
+          width: 100px;
+        }
+        .quest_director_up_theme_input{
+          width: 278px;
+          padding: 10px;
+          border: 1px solid #CCC;
+          border-radius: 5px;
+          outline: none;
+        }
+      }
+
+      .quest_director_up_question{
+        .quest_director_up_question_name{
+          margin-bottom: 5px;
+
+        }
+        .quest_director_up_question_textarea{
+          width: calc(100% - 22px);
+          height: 60px;
+          padding: 10px;
+          border: 1px solid #CCC;
+          border-radius: 5px;
+          outline: none;
+          resize: none;
+        }
+      }
+
+    }
+
+    .quest_director_btns{
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      height: 100%;
+      .quest_director_btns_cancel{
+        background-color: rgba(215, 26, 0, 0.5);
+        color: white;
+        margin: 10px;
+        padding: 10px 16px 10px 10px;
+        width: 150px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        cursor: pointer;
+      }
+      .quest_director_btns_post{
+        background-color: rgb(18, 19, 56);
+        color: white;
+        margin: 10px;
+        padding: 10px 16px 10px 10px;
+        width: 150px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        cursor: pointer;
+      }
+    }
+
+  }
+}
