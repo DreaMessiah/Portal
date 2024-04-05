@@ -48,7 +48,7 @@ export const MainHeader = () => {
                             <div className="navbar_block_menu_strock_description">Сообщения</div>
                         </Link>
                     }
-                    <Link to="/" onClick={(e) => setSelectedMenu(4)} className={`navbar_block_menu_strock ${selectedMenu===4 && 'selected'}`}>
+                    <Link to="/structure" onClick={(e) => setSelectedMenu(4)} className={`navbar_block_menu_strock ${selectedMenu===4 && 'selected'}`}>
                         <div className="navbar_block_menu_strock_icon icon_forest"></div>
                         <div className="navbar_block_menu_strock_description">Структура компании</div>
                     </Link>
