@@ -16,7 +16,11 @@ export const MainHeader = () => {
     const [burger, setBurger] = useState(false)
     const {selectedMenu,setSelectedMenu} = useContext(DataContext)
     const rule = store.user.unit
-
+    const screenWidth = window.innerWidth;
+    let widther = '40vh'
+    if(screenWidth < 550){
+        widther = '60vh'
+    }
     return (
         <div className="head_block">
             <div className="menu_burger" style={(burger)?{display: 'flex'}:{display: 'none'}}>
@@ -125,7 +129,7 @@ export const MainHeader = () => {
                 <div className="head_block_burger" onClick={()=>setBurger(!burger)}><i className="fa-solid fa-bars"/></div>
                 <div className="head_block_callback" onClick={() => store.logout()}>Выйти</div>
                 <div className="head_block_questions" onClick={()=>setActive(true)}>?</div>
-                <ModalFiles heigth='40vh' data={<QuestionDirector setActive={setActive} />} active={active} setActive={setActive}/>
+                <ModalFiles heigth={widther} data={<QuestionDirector setActive={setActive} />} active={active} setActive={setActive}/>
             </div>
         </div>
     )
