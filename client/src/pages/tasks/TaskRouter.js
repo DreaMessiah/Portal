@@ -5,7 +5,7 @@ import {Mainnavbar} from "../../components/newportal/navbar/Mainnavbar";
 import {useEffect, useState} from "react";
 import CreateTask from "./CreateTask";
 import CreateTaskGroup from "./CreateTaskGroup";
-import TaskList from "./TackList";
+import TaskList from "./TaskList";
 
 
 export default function TaskRouter({page= 1}){
