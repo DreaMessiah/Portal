@@ -1,0 +1,1045 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+$wwhiteColor:rgba(255,255,255,1);
+$whiteColor:rgba(236,236,236,1);
+$whiteHoverColor:rgba(200,200,200,1);
+$blackColor:rgba(30,30,30,1);
+$greyColor:rgba(116,116,116,1);
+$wgreyColor:rgba(217,217,217,1);
+$wwgreyColor:rgba(240,240,240,1);
+$dgreyColor:rgba(97,118,118,1);
+$darkGreyColor:rgba(80,80,80,1);
+$redColor:rgba(215,26,0,1);
+$dredColor:rgba(215,26,0,0.5);
+$dblueColor:rgba(30,74,139,1);
+$wblueColor:rgba(50,157,217,1);
+$purpleColor:rgba(147, 112, 219, 1);
+$orangeColor:#FEAA2D;
+$blueColor:#00E4E4;
+$greenColor:#04B800;
+$fileColor:rgba(253,224,183,1);
+$yellowColor:rgba(255, 255, 0, 1);
+$transBlackColor:rgba(30,30,30,0.8);
+$transwwBlackColor:rgba(60,60,60,0.5);
+$transwBlackColor:rgba(30,30,30,0.6);
+$transBlueColor: rgba(2, 24, 68, 0.7);
+$transdBlueColor:rgba(13,17,52,0.81);
+$transWhiteColor:rgba(230,230,230,0.7);
+
+$headerHeight:80px;
+$newsheaderHeight:115px;
+
+$objwidth:384px;
+$calendarwidth:384px;
+$workswidth:420px;
+$worksHeight:220px;
+
+@media screen and (min-width: 1200px){
+    .phonebook{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 0px;
+        margin-bottom: 100px;
+        .modal_win_wight_krest{
+            background-color: $wblueColor !important;
+        }
+        .phone-modal{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            .text{
+                margin: 0 40px 60px 40px;
+                p{
+                    font-size: 1.2rem;
+                }
+            }
+            .buttons{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                .button{
+                    cursor: pointer;
+                    background-color: $wblueColor;
+                    height: 40px;
+                    width: 30%;
+                    padding: 0 50px;
+                    margin: 0 10px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    color: $whiteColor;
+                    font-size: 1rem;
+                    text-transform: uppercase;
+                    transition: transform 0.3s ease;
+                    opacity: 1;
+                }
+                .button.da{
+                    background-color: $dredColor;
+                }
+            }
+        }
+        .phonebook-box{
+            width: 80%;
+            margin-top: 100px;
+
+            .table-container {
+                display: flex;
+                flex-direction: column;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                padding: 10px;
+                background-color: $whiteColor;
+                textarea,input{
+                    background-color: transparent;
+                    border: none;
+                    opacity: 0.8;
+                    color: #333333;
+                    resize: none;
+                    overflow-y: hidden;
+                    width: calc(100% - 20px);
+                }
+                textarea:disabled {
+                    opacity: 1;
+                    color: #333333;
+                }
+                .table-row {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 8px 0;
+                    border-bottom: 1px solid #ccc;
+                    font-size: 0.8rem;
+                    position: relative;
+                    .ctrl{
+                        flex: auto;
+                        position: absolute;
+                        width: 70px;
+                        right: -80px;
+                        display: flex;
+                        justify-content: left;
+                        align-items: center;
+                        i{
+                            //position: absolute;
+                            font-size: 1.2rem;
+                            cursor: pointer;
+                            color: $transwwBlackColor;
+                            margin-left: 6px;
+                        }
+                        i.s1{
+
+                        }
+                        i.s2{
+
+                        }
+                        i.s3{
+                            position: absolute;
+                            left: 40px;
+                            font-size: 1.4rem;
+                            color: $dredColor;
+                        }
+                    }
+                    &.header {
+
+                        font-weight: bold;
+                        border-bottom: 2px solid #000;
+                        //background-color: $wblueColor;
+                        color: #454545;
+                    }
+                    >div {
+                        flex: 1;
+                    }
+                    .small{
+
+                    }
+                    .standart{
+                        flex-basis: auto;
+                    }
+                }
+                .title{
+                    width: calc(100%) !important;
+                    input{
+                        text-transform: uppercase;
+                        font-weight: 600;
+                        text-align: center;
+                        font-size: 0.8rem;
+                    }
+                }
+            }
+            .new{
+                width: calc(100% - 26px);
+                border: 3px solid $wgreyColor !important;
+                padding: 5px;
+                font-size: 0.8rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .new:focus{
+                border: 3px solid $greyColor !important;
+                box-shadow: none !important;
+                outline: none !important;
+            }
+
+        }
+        .buttons-box{
+            position: fixed;
+            top: 80px;
+            padding: 0 20px;
+            width: calc(100% - 240px);
+            display: flex;
+            justify-content: flex-end;
+            z-index: 199999;
+            .box{
+                display: flex;
+            }
+            .left {
+                justify-content: left;
+            }
+            .right {
+                justify-content: right;
+            }
+
+            .button{
+                cursor: pointer;
+                background-color: $wblueColor;
+                height: 60px;
+                padding: 0 20px;
+                margin: 0 10px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: $whiteColor;
+                font-size: 1rem;
+                text-transform: uppercase;
+                transition: transform 0.3s ease;
+                opacity: 1;
+
+                i{
+                    margin-right: 10px;
+                    font-size: 1.4rem;
+                }
+                p{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+            }
+            .none{
+                opacity: 0;
+            }
+        }
+    }
+}
+@media screen and (min-width: 890px) and (max-width: 1200px){
+    .phonebook{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 0px;
+        margin-bottom: 100px;
+        .modal_win_wight_krest{
+            background-color: $wblueColor !important;
+        }
+        .phone-modal{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            .text{
+                margin: 0 40px 60px 40px;
+                p{
+                    font-size: 1.2rem;
+                }
+            }
+            .buttons{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                .button{
+                    cursor: pointer;
+                    background-color: $wblueColor;
+                    height: 40px;
+                    width: 30%;
+                    padding: 0 50px;
+                    margin: 0 10px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    color: $whiteColor;
+                    font-size: 1rem;
+                    text-transform: uppercase;
+                    transition: transform 0.3s ease;
+                    opacity: 1;
+                }
+                .button.da{
+                    background-color: $dredColor;
+                }
+            }
+        }
+        .phonebook-box{
+            width: calc(100% - 100px);
+            margin-top: 50px;
+            margin-left: -50px;
+
+            .table-container {
+                display: flex;
+                flex-direction: column;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                padding: 10px;
+                background-color: $whiteColor;
+                textarea,input{
+                    background-color: transparent;
+                    border: none;
+                    opacity: 0.8;
+                    color: #333333;
+                    resize: none;
+                    overflow-y: hidden;
+                    width: calc(100% - 20px);
+                }
+                textarea:disabled {
+                    opacity: 1;
+                    color: #333333;
+                }
+                .table-row {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 8px 0;
+                    border-bottom: 1px solid #ccc;
+                    font-size: 0.8rem;
+                    position: relative;
+                    .ctrl{
+                        flex: auto;
+                        position: absolute;
+                        width: 40px;
+                        right: -50px;
+                        display: flex;
+                        justify-content: left;
+                        align-items: center;
+                        i{
+                            //position: absolute;
+                            font-size: 1.2rem;
+                            cursor: pointer;
+                            color: $transwwBlackColor;
+                            margin-left: 6px;
+                        }
+                        i.s1{
+
+                        }
+                        i.s2{
+
+                        }
+                        i.s3{
+                            position: absolute;
+                            left: 40px;
+                            font-size: 1.4rem;
+                            color: $dredColor;
+                        }
+                    }
+                    &.header {
+
+                        font-weight: bold;
+                        border-bottom: 2px solid #000;
+                        //background-color: $wblueColor;
+                        color: #454545;
+                    }
+                    >div {
+                        flex: 1;
+                    }
+                    .small{
+
+                    }
+                    .standart{
+                        flex-basis: auto;
+                    }
+                }
+                .title{
+                    width: calc(100%) !important;
+                    input{
+                        text-transform: uppercase;
+                        font-weight: 600;
+                        text-align: center;
+                        font-size: 0.8rem;
+                    }
+                }
+            }
+            .new{
+                width: calc(100% - 26px);
+                border: 3px solid $wgreyColor !important;
+                padding: 5px;
+                font-size: 0.8rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .new:focus{
+                border: 3px solid $greyColor !important;
+                box-shadow: none !important;
+                outline: none !important;
+            }
+
+        }
+        .buttons-box{
+            position: fixed;
+            top: 80px;
+            padding: 0 20px;
+            width: calc(100% - 240px);
+            display: flex;
+            justify-content: flex-end;
+            z-index: 199999;
+            .box{
+                display: flex;
+            }
+            .left {
+                justify-content: left;
+            }
+            .right {
+                justify-content: right;
+            }
+
+            .button{
+                cursor: pointer;
+                background-color: $wblueColor;
+                //height: 60px;
+                padding: 5px 10px;
+                margin: 0 10px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: $whiteColor;
+                font-size: 0.7rem;
+                text-transform: uppercase;
+                transition: transform 0.3s ease;
+                opacity: 1;
+
+                i{
+                    margin-right: 10px;
+                    font-size: 1.4rem;
+                }
+                p{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+            }
+            .none{
+                opacity: 0;
+            }
+        }
+    }
+}
+@media screen and (min-width: 820px) and (max-width: 890px){
+    .phonebook{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 0px;
+        margin-bottom: 100px;
+        .modal_win_wight_krest{
+            background-color: $wblueColor !important;
+        }
+        .phone-modal{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            .text{
+                margin: 0 40px 60px 40px;
+                p{
+                    font-size: 1.2rem;
+                }
+            }
+            .buttons{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                .button{
+                    cursor: pointer;
+                    background-color: $wblueColor;
+                    height: 40px;
+                    width: 30%;
+                    padding: 0 50px;
+                    margin: 0 10px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    color: $whiteColor;
+                    font-size: 1rem;
+                    text-transform: uppercase;
+                    transition: transform 0.3s ease;
+                    opacity: 1;
+                }
+                .button.da{
+                    background-color: $dredColor;
+                }
+            }
+        }
+        .phonebook-box{
+            width: calc(100%);
+            margin-top: 50px;
+
+            .table-container {
+                display: flex;
+                flex-direction: column;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                padding: 10px;
+                background-color: $whiteColor;
+
+                textarea,input{
+                    background-color: transparent;
+                    border: none;
+                    opacity: 0.8;
+                    color: #333333;
+                    resize: none;
+                    overflow-y: hidden;
+                    width: calc(100% - 20px);
+                    font-size: 0.7rem;
+                }
+                textarea:disabled {
+                    opacity: 1;
+                    color: #333333;
+                }
+                .table-row {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 8px 0;
+                    border-bottom: 1px solid #ccc;
+                    font-size: 0.6rem;
+                    position: relative;
+                    .ctrl{
+                        flex: auto;
+                        position: absolute;
+                        width: 40px;
+                        bottom: 0;
+                        right: 50px;
+                        display: flex;
+                        justify-content: left;
+                        align-items: center;
+                        i{
+                            //position: absolute;
+                            font-size: 1.2rem;
+                            cursor: pointer;
+                            color: $transwwBlackColor;
+                            margin-left: 6px;
+                        }
+                        i.s1{
+
+                        }
+                        i.s2{
+
+                        }
+                        i.s3{
+                            position: absolute;
+                            left: 40px;
+                            font-size: 1.4rem;
+                            color: $dredColor;
+                        }
+                    }
+                    &.header {
+
+                        font-weight: bold;
+                        border-bottom: 2px solid #000;
+                        //background-color: $wblueColor;
+                        color: #454545;
+                    }
+                    >div {
+                        flex: 1;
+                    }
+                    .small{
+
+                    }
+                    .standart{
+                        flex-basis: auto;
+                    }
+                }
+                .title{
+                    width: calc(100%) !important;
+                    input{
+                        text-transform: uppercase;
+                        font-weight: 600;
+                        text-align: center;
+                        font-size: 0.8rem;
+                    }
+                }
+            }
+            .new{
+                width: calc(100% - 26px);
+                border: 3px solid $wgreyColor !important;
+                padding: 5px;
+                font-size: 0.8rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .new:focus{
+                border: 3px solid $greyColor !important;
+                box-shadow: none !important;
+                outline: none !important;
+            }
+
+        }
+        .buttons-box{
+            position: fixed;
+            top: 80px;
+            padding: 0 20px 0 20px;
+            width: calc(100%);
+            display: flex;
+            justify-content: flex-end;
+            z-index: 199999;
+            .box{
+                display: flex;
+            }
+            .left {
+                justify-content: left;
+            }
+            .right {
+                justify-content: right;
+            }
+
+            .button{
+                cursor: pointer;
+                background-color: $wblueColor;
+                //height: 60px;
+                padding: 5px 10px;
+                margin: 0 5px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: $whiteColor;
+                font-size: 0.7rem;
+                text-transform: uppercase;
+                transition: transform 0.3s ease;
+                opacity: 1;
+
+                i{
+                    margin-right: 10px;
+                    font-size: 1.4rem;
+                }
+                p{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+            }
+            .none{
+                opacity: 0;
+            }
+        }
+    }
+}
+@media screen and (min-width: 650px) and (max-width: 820px){
+    .phonebook{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 0px;
+        margin-bottom: 100px;
+        .modal_win_wight_krest{
+            background-color: $wblueColor !important;
+        }
+        .phone-modal{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            .text{
+                margin: 0 40px 60px 40px;
+                p{
+                    font-size: 1.2rem;
+                }
+            }
+            .buttons{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                .button{
+                    cursor: pointer;
+                    background-color: $wblueColor;
+                    height: 40px;
+                    width: 30%;
+                    padding: 0 50px;
+                    margin: 0 10px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    color: $whiteColor;
+                    font-size: 1rem;
+                    text-transform: uppercase;
+                    transition: transform 0.3s ease;
+                    opacity: 1;
+                }
+                .button.da{
+                    background-color: $dredColor;
+                }
+            }
+        }
+        .phonebook-box{
+            width: calc(100%);
+            margin-top: 50px;
+
+            .table-container {
+                display: flex;
+                flex-direction: column;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                padding: 10px;
+                background-color: $whiteColor;
+
+                textarea,input{
+                    background-color: transparent;
+                    border: none;
+                    opacity: 0.8;
+                    color: #333333;
+                    resize: none;
+                    overflow-y: hidden;
+                    width: calc(100% - 20px);
+                    font-size: 0.7rem;
+                }
+                textarea:disabled {
+                    opacity: 1;
+                    color: #333333;
+                }
+                .table-row {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 8px 0;
+                    border-bottom: 1px solid #ccc;
+                    font-size: 0.6rem;
+                    position: relative;
+                    .ctrl{
+                        flex: auto;
+                        position: absolute;
+                        width: 40px;
+                        bottom: 0;
+                        right: 50px;
+                        display: flex;
+                        justify-content: left;
+                        align-items: center;
+                        i{
+                            //position: absolute;
+                            font-size: 1.2rem;
+                            cursor: pointer;
+                            color: $transwwBlackColor;
+                            margin-left: 6px;
+                        }
+                        i.s1{
+
+                        }
+                        i.s2{
+
+                        }
+                        i.s3{
+                            position: absolute;
+                            left: 40px;
+                            font-size: 1.4rem;
+                            color: $dredColor;
+                        }
+                    }
+                    &.header {
+
+                        font-weight: bold;
+                        border-bottom: 2px solid #000;
+                        //background-color: $wblueColor;
+                        color: #454545;
+                    }
+                    >div {
+                        flex: 1;
+                    }
+                    .small{
+
+                    }
+                    .standart{
+                        flex-basis: auto;
+                    }
+                }
+                .title{
+                    width: calc(100%) !important;
+                    input{
+                        text-transform: uppercase;
+                        font-weight: 600;
+                        text-align: center;
+                        font-size: 0.8rem;
+                    }
+                }
+            }
+            .new{
+                width: calc(100% - 26px);
+                border: 3px solid $wgreyColor !important;
+                padding: 5px;
+                font-size: 0.8rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .new:focus{
+                border: 3px solid $greyColor !important;
+                box-shadow: none !important;
+                outline: none !important;
+            }
+
+        }
+        .buttons-box{
+            position: fixed;
+            top: 80px;
+            //padding: 0 20px 0 50px;
+            width: calc(100%);
+            display: flex;
+            justify-content: flex-end;
+            z-index: 199999;
+            .box{
+                display: flex;
+            }
+            .left {
+                justify-content: left;
+            }
+            .right {
+                justify-content: right;
+            }
+
+            .button{
+                cursor: pointer;
+                background-color: $wblueColor;
+                //height: 60px;
+                padding: 5px 10px;
+                margin: 0 5px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: $whiteColor;
+                font-size: 0.5rem;
+                text-transform: uppercase;
+                transition: transform 0.3s ease;
+                opacity: 1;
+
+                i{
+                    margin-right: 10px;
+                    font-size: 1.4rem;
+                }
+                p{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+            }
+            .none{
+                opacity: 0;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 650px){
+    .phonebook{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 0px;
+        margin-bottom: 100px;
+        .modal_win_wight_krest{
+            background-color: $wblueColor !important;
+        }
+        .phone-modal{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            .text{
+                margin: 0 40px 60px 40px;
+                p{
+                    font-size: 1.2rem;
+                }
+            }
+            .buttons{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                .button{
+                    cursor: pointer;
+                    background-color: $wblueColor;
+                    height: 40px;
+                    width: 30%;
+                    padding: 0 50px;
+                    margin: 0 10px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    color: $whiteColor;
+                    font-size: 1rem;
+                    text-transform: uppercase;
+                    transition: transform 0.3s ease;
+                    opacity: 1;
+                }
+                .button.da{
+                    background-color: $dredColor;
+                }
+            }
+        }
+        .phonebook-box{
+            width: 98%;
+            margin-top: 20px;
+
+            .table-container {
+                display: flex;
+                flex-direction: column;
+                //border: 1px solid #ccc;
+                border-radius: 4px;
+                padding: 0px;
+                background-color: $whiteColor;
+                textarea,input{
+                    background-color: transparent;
+                    border: none;
+                    opacity: 0.8;
+                    color: #333333;
+                    resize: none;
+                    overflow-y: hidden;
+                    width: calc(100%);
+
+                }
+                textarea:disabled {
+                    opacity: 1;
+                    color: #333333;
+
+                }
+                .table-row {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+                    padding: 2px 5px;
+                    border: 1px solid #454545;
+                    font-size: 0.8rem;
+                    position: relative;
+                    margin-bottom: 10px;
+                    border-radius: 10px;
+                    div{
+                        width: 100%;
+                        border-bottom: 1px solid #CCC;
+                    }
+                    .ctrl{
+                        flex: auto;
+                        position: absolute;
+                        width: 70px;
+                        right: -80px;
+                        display: flex;
+                        justify-content: left;
+                        align-items: center;
+                        i{
+                            //position: absolute;
+                            font-size: 1.2rem;
+                            cursor: pointer;
+                            color: $transwwBlackColor;
+                            margin-left: 6px;
+                        }
+                        i.s1{
+
+                        }
+                        i.s2{
+
+                        }
+                        i.s3{
+                            position: absolute;
+                            left: 40px;
+                            font-size: 1.4rem;
+                            color: $dredColor;
+                        }
+                    }
+                    &.header {
+                        display: none;
+                        font-weight: bold;
+                        border-bottom: 2px solid #000;
+                        //background-color: $wblueColor;
+                        color: #454545;
+                    }
+                    >div {
+                        flex: 1;
+                    }
+                    .small{
+
+                    }
+                    .standart{
+                        flex-basis: auto;
+                    }
+                }
+                .title{
+                    width: calc(100%) !important;
+                    input{
+                        text-transform: uppercase;
+                        font-weight: 600;
+                        text-align: center;
+                        font-size: 0.8rem;
+                    }
+                }
+            }
+            .new{
+                width: calc(100% - 26px);
+                border: 3px solid $wgreyColor !important;
+                padding: 5px;
+                font-size: 0.8rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .new:focus{
+                border: 3px solid $greyColor !important;
+                box-shadow: none !important;
+                outline: none !important;
+            }
+
+        }
+        .buttons-box{
+            display: none;
+            position: fixed;
+            top: 80px;
+            //padding: 0 20px;
+            width: calc(100% - 240px);
+            justify-content: flex-end;
+            z-index: 199999;
+            .box{
+                display: flex;
+            }
+            .left {
+                justify-content: left;
+            }
+            .right {
+                justify-content: right;
+            }
+
+            .button{
+                cursor: pointer;
+                background-color: $wblueColor;
+                height: 60px;
+                padding: 0 20px;
+                margin: 0 10px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: $whiteColor;
+                font-size: 1rem;
+                text-transform: uppercase;
+                transition: transform 0.3s ease;
+                opacity: 1;
+
+                i{
+                    margin-right: 10px;
+                    font-size: 1.4rem;
+                }
+                p{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+            }
+            .none{
+                opacity: 0;
+            }
+        }
+    }
+}
+

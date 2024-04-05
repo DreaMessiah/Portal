@@ -1,3 +1,104 @@
+.menu_burger{
+  position: fixed;
+  top: 60px;
+  left: 0px;
+  width: 100vw;
+  height: calc(100% - 60px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: rgba(18,19,56,1);
+  color: #FFFFFF;
+  .navbar_block_menu_strock{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: calc(100% - 40px);
+    max-width: 350px;
+    height: 50px;
+    border-bottom: 1px solid #FFFFFF;
+    .navbar_block_menu_strock_icon{
+      width: 30px;
+      height: 30px;
+      //background-color: rgba(18,19,56,1);
+      border-radius: 2px;
+      margin-right: 20px;
+    }
+    .navbar_block_menu_strock_description{
+      color: #FFFFFF;
+      font-size: 14pt;
+    }
+  }
+  .navbar_block_dopmenu_list_strock{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: calc(100vw - 40px - 20px);
+    max-width: 350px;
+    height: 20px;
+    border-bottom: 1px solid #FFFFFF;
+    padding: 10px;
+    background-color: #F1F1F1;
+    margin-top: 5px;
+    border-radius: 5px;
+    .navbar_block_dopmenu_list_icon{
+      color: rgba(18,19,56,1);
+      margin-right: 20px;
+    }
+    .navbar_block_dopmenu_list_description{
+      color: rgba(18,19,56,1);
+    }
+  }
+  .icon_home{
+    background-image: url("icons/home.svg");
+    background-size: 70%;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
+
+  .icon_news{
+    background-image: url("icons/news.svg");
+    background-size: 70%;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
+
+  .icon_com{
+    background-image: url("icons/comunity.svg");
+    background-size: 70%;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
+
+  .icon_forest{
+    background-image: url("icons/forest.svg");
+    background-size: 70%;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
+
+  .icon_doc{
+    background-image: url("icons/doc.svg");
+    background-size: 50%;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
+
+  .icon_task{
+    background-image: url("icons/task.svg");
+    background-size: 65%;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
+
+  .icon_lk{
+    background-image: url("icons/lk.svg");
+    background-size: 65%;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
+}
 @media screen and (min-width: 1200px){
   .head_block{
     padding: 0 20px;
@@ -61,7 +162,7 @@
         opacity: 0.8;
       }
       .head_block_burger{
-        display: flex;
+        display: none;
         justify-content: center;
         align-items: center;
         padding: 0 20px 0 20px;

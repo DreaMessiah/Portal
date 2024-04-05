@@ -5,7 +5,7 @@ import {Context} from "../../../index";
 import {useMessage} from "../../../hooks/message.hook";
 import PhonesService from "../../../services/PhonesService";
 import {ModalWin} from "../../modalwin/ModalWin";
-
+import "./style.scss"
 function PhoneBookList(){
     const {store} = useContext(Context)
     const message = useMessage()
