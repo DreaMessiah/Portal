@@ -45,7 +45,6 @@ export const SinglePost = ({id}) => {
                             <div className="news_block_list_box_content_btns_comment"><i className="fa-regular fa-comments"></i></div>
                         </div>
                         <div className='rigth'>
-                            {rule === 3 && <Link to={`/createnews?post=${post.id}`}><i className="fa-solid fa-gear"></i></Link>}
                             <div className="views">{post.clicks} просмотров</div>
                         </div>
                     </div>
