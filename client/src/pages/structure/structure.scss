@@ -1,0 +1,16 @@
+.structure{
+  .title{
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .image{
+    width: 100%;
+    overflow: scroll;
+    img{
+      min-width: 1000px;
+      width: 100%;
+    }
+  }
+}

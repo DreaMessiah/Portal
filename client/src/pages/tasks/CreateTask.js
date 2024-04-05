@@ -10,6 +10,7 @@ import MultiSelect from "../../components/inputs/MultiSelect";
 import FileInput from "../../components/inputs/FileInput";
 import FilesService from "../../services/FilesService";
 import {useMessage} from "../../hooks/message.hook";
+import {useNavigate} from "react-router-dom";
 
 function CreateTask(){
     const [name,setName] = useState('')
@@ -35,6 +36,7 @@ function CreateTask(){
 
     const {store} = useContext(Context)
     const message = useMessage()
+    const navigate = useNavigate()
 
     const loadingHandler = async () => {
         try {
@@ -88,7 +90,8 @@ function CreateTask(){
                 const filenames = files.map(file => file.name)
                 const response = await TasksService.createTask(name,text,exp,prio,obj,filenames,group)
                 if(response.data){
-                    console.log(response.data)
+                    message(response.data.message)
+                    navigate('/maintasks')
                 }
             }else {
                 message('Заполните выделеные поля')
@@ -120,8 +123,6 @@ function CreateTask(){
     return (
         <div className={`create-task`}>
             <div className="create_new_post_title">Создание Задачи</div>
-
-
             <div className={`inputs`}>
                 <label className={`${empty[0] && 'red-color'}`}>Название задачи</label>
                 <input onClick={() => console.log(files)} value={name} onChange={(e) => setName(e.target.value)} placeholder={'Введите название задачи'} className={`task-name ${empty[0] && 'red-dotted-border'}`} type={`text`}/>

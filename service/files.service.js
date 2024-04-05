@@ -23,13 +23,13 @@ class FilesService {
     }
     async createPath(parent,path = []){
         const file = await Files.findOne({where: {id:parent}})
-        console.log('parent',file.parent_id)
         const allPath = [{parent:parent,name:file.name},...path]
         if(!file.parent_id) return allPath
         else{
             return this.createPath(file.parent_id,allPath)
         }
     }
+
     async compressResizeAndSaveImage(filePath,quality, width, height) {
         try {
 
@@ -63,6 +63,18 @@ class FilesService {
                 return reject({messsage: 'Ошибка создания директории...'})
             }
         }))
+    }
+    async createPathTask(path){
+        const taskPath = `${config.get('file_path')}\\tasks\\${path}`
+        if(!fs.existsSync(taskPath)){
+            await fs.mkdir(taskPath, (err) => {
+                if (err) {
+                    console.error('Ошибка при создании папки:', err);
+                    return;
+                }
+                console.log('Папка успешно создана.');
+            })
+        }
     }
     generateRandomFileName() {
         const timestamp = new Date().getTime();

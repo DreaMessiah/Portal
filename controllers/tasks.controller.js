@@ -52,7 +52,7 @@ class TasksController {
     async createTask(req,res,next) {
         try{
             const {name,text,exp,prio,obj,filenames,group} = req.body
-            const task = await TasksService.createTask(name,text,req.user.tn,exp,prio.id,obj.shifr,filenames,group)
+            const task = await TasksService.createTask(name,text,req.user.tn,exp,prio.id,obj.shifr,filenames,group,req.user.id)
             return res.status(200).json(task)
         }catch (e){
             next(e)
