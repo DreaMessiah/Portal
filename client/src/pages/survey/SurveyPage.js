@@ -33,7 +33,6 @@ export default function SurveyPage({flag=false,id}){
             console.log(e.message+': Проблема загрузки опроса')
         }
     }
-
     const voteHandler = async () => {
         try{
             if(selected >= 0 && questions.length && survey !== null){
@@ -54,6 +53,7 @@ export default function SurveyPage({flag=false,id}){
             setSelected(index)
         }
     }
+
     useEffect(() => {
         loadingHandler()
     },[])
@@ -76,6 +76,7 @@ export default function SurveyPage({flag=false,id}){
             })
         }
     },[stat])
+
 
     return (
         <>

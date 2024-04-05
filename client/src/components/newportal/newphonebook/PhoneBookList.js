@@ -27,7 +27,7 @@ function PhoneBookList(){
     const [contacts,setContacts] = useState([])
     const [reserve,setReserve] = useState([])
 
-    const rule = 3
+    const rule = store.user.unit
 
     useEffect( () => {
         autoResize()
@@ -209,7 +209,7 @@ function PhoneBookList(){
     return (
 
                 <div className='phonebook'>
-                    <div className='buttons-box'>
+                    <div style={rule !== 3 ? {justifyContent:'flex-start'}:{}} className='buttons-box'>
                         <div className='left box'>
                             <Link className='button' to='/'><i className="fa-solid fa-caret-left"></i>Вернуться</Link>
                             {change && !onCreateContact ? <div onClick={() => createTitleHandler()} className='button'>{onCreateTitle ? <p><i className="fa-solid fa-save"/>Сохранить заголовок</p> : <p><i className="fa-solid fa-plus"/>Добавить заголовок</p>}</div> : ''}
@@ -221,7 +221,7 @@ function PhoneBookList(){
                             {rule === 3 ? <div onClick={() => saveChangesHandler()} className='button'><i className="fa-solid fa-gears"></i>{change ? 'Сохранить' : 'Редактировать' }</div> : ''}
                         </div>
                     </div>
-                    <div className='phonebook-box'>
+                    <div style={rule !== 3 ? {marginTop:'0',marginLeft:'0'} : {}} className='phonebook-box'>
                         <div>
                             <div className="table-container">
                                 <div className="table-row header">

@@ -83,5 +83,12 @@ export default class FilesService{
     static deleteFile(name){
         return $api.post('/files/deletefile',{name})
     }
+    static fetchStatements(){
+        return $api.get('/files/getstatements')
+    }
+    static downloadStatement(id){
+        return $api.post('/files/downloadstatement',{id},{responseType:'blob'})
+    }
+
 
 }

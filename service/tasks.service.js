@@ -37,12 +37,11 @@ class TasksService{
     async createTask(name,text,creator_tn,expiration,priority_id,connection_value,filenames,group) {
         let connection
         if(connection_value){
-           connection = TaskConnections.create({obj:connection_value,type:1})
+           connection = await TaskConnections.create({obj:connection_value,type:1})
         }
 
-        const task = await Tasks.create({name,text,creator_tn,expiration,status_id:1,priority_id,connection_id:connection ? connection.id : 0})
+        const task = await Tasks.create({name,text,creator_tn,expiration,status_id:1,priority_id,connection_id:connection ? connection.id : 0,trash:false})
         if(!task) throw ApiError.BadRequest('Задача не создана')
-        console.log(task.id)
 
         return {message:'Задача создана успешно'}
     }

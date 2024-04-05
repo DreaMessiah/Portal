@@ -2,19 +2,21 @@ import {MainHeader} from "../../components/newportal/header/Mainheader";
 import {WorkPage} from "../../components/newportal/workpage/WorkPage";
 import {Mainnavbar} from "../../components/newportal/navbar/Mainnavbar";
 import SettingPage from "./SettingPage";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import './polls.scss'
 import CmsPage from "./CmsPage";
 import PollsService from "../../services/PollsService";
 
-import {useEffect, useState} from "react";
+import React,{useContext, useEffect, useState} from "react";
+import {Context} from "../../index";
+
 
 export default function PollsCms(){
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search)
     const getSurvey = searchParams.get('survey') ? searchParams.get('survey') : 0
-
-    const rule = 3
+    const {store} = useContext(Context)
+    const rule = store.user.unit
 
     function updateQueryStringParameter(key, value) {
         const { protocol, host, pathname, search, hash } = window.location;
@@ -47,7 +49,13 @@ export default function PollsCms(){
             <div className="up_path"><MainHeader /></div>
             <div className="main_path">
                 <Mainnavbar />
-                {!getSurvey ? <WorkPage data={<CmsPage />}/> : <WorkPage data={<SettingPage idd={getSurvey}/>}/>}
+                {rule === 3 ?
+                <>
+                    {!getSurvey ? <WorkPage data={<CmsPage />}/> : <WorkPage data={<SettingPage idd={getSurvey}/>}/>}
+                </>
+                :
+                    <div style={{marginLeft:'270px',marginTop:'20px'}}>Доступ к данному ресурсу запрещен</div>
+                }
             </div>
         </div>
     )

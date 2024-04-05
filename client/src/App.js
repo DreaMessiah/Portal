@@ -61,7 +61,7 @@ import ThisObj from "./pages/newportal/objects/ThisObj";
 import NewTabel from "./pages/newportal/objects/NewTabel";
 import {ListTab} from "./pages/objects/ListTabelNewPortal";
 import {ThisTableTabel} from "./pages/newportal/objects/TableTabel";
-
+import Statements from "./pages/documents/Statements";
 
 function App() {
     const {store} = useContext(Context)
@@ -95,6 +95,7 @@ function App() {
                         <Route path="/" element={<NewstartPage/>} />
                         <Route path="/new_lk" element={<LkNewPortal/>} />
                         <Route path='/main' element={<MainPage/>} />
+                        <Route path='/statements' element={<Statements/>}/>
                         {/*<Route path="/paylist" element={<PayslipPage/>} />*/}
                         <Route path="/newpaylist" element={<NewPayList/>} />
                         <Route path="/polls" element={<PollsPage/>} />
