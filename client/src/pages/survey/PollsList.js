@@ -4,15 +4,15 @@ import {create} from "axios";
 import formatDate from "../../components/functions/formatDate";
 import {Link} from "react-router-dom";
 import {DataContext} from "../../context/DataContext";
+import {Context} from "../../index";
 export default function PollsList(){
     const [surveys,setSurveys] = useState(null)
-
+    const {store} = useContext(Context)
     const loadingHandler = async () => {
         try{
             const response = await PollsService.fetchPolls()
             if(response.data){
                 setSurveys(response.data)
-                console.log(response.data)
             }
         }catch (e){
             console.log(e.message+': Проблема загрузки списка опросов')
@@ -32,11 +32,10 @@ export default function PollsList(){
     }
 
     useEffect(() => {
-        const load = loadingHandler()
-        console.log(load)
+        loadingHandler()
     },[])
 
-    const rule = 3
+    const rule = store.user.unit
 
     return (
         <>

@@ -6,13 +6,14 @@ import {Link} from "react-router-dom";
 import {DataContext} from "../../context/DataContext";
 import ModalFiles from "../../components/modalwin/ModalFiles";
 import {useMessage} from "../../hooks/message.hook";
+import {Context} from "../../index";
 
 export default function CmsPage(){
     const [surveys,setSurveys] = useState(null)
     const [activeDeleteM,setActiveDeleteM] = useState(false)
     const [deleteIndex,setDeleteIndex] = useState(0)
     const message = useMessage()
-
+    const {store} = useContext(Context)
     const loadingHandler = async () => {
         try{
             const response = await PollsService.fetchPolls()
@@ -69,39 +70,49 @@ export default function CmsPage(){
 
     },[])
 
-    const rule = 3
+    const rule = store.user.unit
 
     return (
         <>
-            <div className='cms-head'>
-                <Link to='/polls' style={{marginBottom:'30px'}} className='back-button'><i class="fa-solid fa-arrow-left"></i>Назад</Link>
-                <h5>Здесь Вы можете создавать и редактировать опросы</h5>
-            </div>
-
-            <div className="survey-table">
-                <div className="table_list_cap"></div>
-                <div className="survey-table-header">
-                    <div className="column с1">Дата</div>
-                    <div className="column с2">Текст опроса</div>
-                    <div className="column с3">Удалить</div>
-                    <div className="column с4">Редактировать</div>
-                </div>
-                <div className="survey-table-body">
-                    {surveys ? surveys.map((survey, index) => (
-                        <div className="survey-row" key={index}>
-                            <div className="column с1">{formatDate(survey.createdAt)}</div>
-                            <div className="column с2">{survey.title}</div>
-                            <div onClick={(e) => deleteHandler(index)} className="column с3"><i className="fa-solid fa-trash"></i></div>
-                            <Link to={!survey.answers ? `/polls/cms?survey=${surveys[index].id}` : null} className="column с4"><i style={survey.answers ? {color:'#999'}:null} className="fa-solid fa-gear"></i></Link>
+            {rule === 3 ?
+                <>
+                    <div className='cms-head'>
+                        <Link to='/polls' style={{marginBottom: '30px'}} className='back-button'><i
+                            class="fa-solid fa-arrow-left"></i>Назад</Link>
+                        <h5>Здесь Вы можете создавать и редактировать опросы</h5>
+                    </div>
+                    <div className="survey-table">
+                        <div className="table_list_cap"></div>
+                        <div className="survey-table-header">
+                            <div className="column с1">Дата</div>
+                            <div className="column с2">Текст опроса</div>
+                            <div className="column с3">Удалить</div>
+                            <div className="column с4">Редактировать</div>
                         </div>
-                    )) : null}
-                </div>
-                <div className='next'>
-                    <Link to='/polls/cms?survey=new' className='button'>Добавить опрос</Link>
-                </div>
+                        <div className="survey-table-body">
+                            {surveys ? surveys.map((survey, index) => (
+                                <div className="survey-row" key={index}>
+                                    <div className="column с1">{formatDate(survey.createdAt)}</div>
+                                    <div className="column с2">{survey.title}</div>
+                                    <div onClick={(e) => deleteHandler(index)} className="column с3"><i
+                                        className="fa-solid fa-trash"></i></div>
+                                    <Link to={!survey.answers ? `/polls/cms?survey=${surveys[index].id}` : null}
+                                          className="column с4"><i style={survey.answers ? {color: '#999'} : null}
+                                                                   className="fa-solid fa-gear"></i></Link>
+                                </div>
+                            )) : null}
+                        </div>
+                        <div className='next'>
+                            <Link to='/polls/cms?survey=new' className='button'>Добавить опрос</Link>
+                        </div>
 
-                <ModalFiles data={<Delete index={deleteIndex}/>} active={activeDeleteM} setActive={setActiveDeleteM}/>
-            </div>
+                        <ModalFiles data={<Delete index={deleteIndex}/>} active={activeDeleteM}
+                                    setActive={setActiveDeleteM}/>
+                    </div>
+                </>
+                :
+                <div>Доступ к данному ресурсу запрещен</div>
+            }
         </>
     )
 }

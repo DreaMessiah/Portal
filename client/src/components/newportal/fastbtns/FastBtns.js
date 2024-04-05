@@ -2,7 +2,6 @@ import "./style.scss"
 import {Link} from "react-router-dom";
 
 export const FastBtns = () => {
-
     let options = {
         width: "300px",
         border: true,
@@ -32,21 +31,21 @@ export const FastBtns = () => {
                         Телефонная книга
                     </div>
                 </Link>
-                <div className="fastbtns_block_btn">
+                <Link to={'/alllistnews'} className="fastbtns_block_btn">
                     <div className="fastbtns_block_btn_box" style={{backgroundColor: '#E3E9F1'}}>
                     </div>
                     <div className="fastbtns_block_btn_radius" style={{backgroundColor: '#D6E1EA'}}>
                     </div>
                     <div className="fastbtns_block_btn_icon">
-                        <i className="fa-solid fa-calendar-days" style={{color: '#758AC2'}}></i>
+                        <i className="fa-solid fa-newspaper" style={{color: '#758AC2'}}></i>
                     </div>
                     <div className="fastbtns_block_btn_text">
-                        Календарь событий
+                        Новости
                     </div>
-                </div>
+                </Link>
             </div>
             <div className="fastbtns_block">
-                <div className="fastbtns_block_btn">
+                <Link to={'/documents'} className="fastbtns_block_btn">
                     <div className="fastbtns_block_btn_box" style={{backgroundColor: '#F1EDF6'}}>
                     </div>
                     <div className="fastbtns_block_btn_radius" style={{backgroundColor: '#E8E4F2'}}>
@@ -57,7 +56,7 @@ export const FastBtns = () => {
                     <div className="fastbtns_block_btn_text">
                         Мои документы
                     </div>
-                </div>
+                </Link>
                 <div className="fastbtns_block_btn">
                     <div className="fastbtns_block_btn_box" style={{backgroundColor: '#F4EEF6'}}>
                     </div>
@@ -71,7 +70,7 @@ export const FastBtns = () => {
                     </div>
                 </div>
             </div>
-            <Link to="/listfastbtns" className="fast_btns_more">Другие...</Link>
+            {/*<Link to="/listfastbtns" className="fast_btns_more">Другие...</Link>*/}
         </div>
     )
 }

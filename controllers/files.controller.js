@@ -1,5 +1,5 @@
 const FilesService = require('../service/files.service')
-const {Files,User, DiskSpace} = require('../models/models')
+const {Files,User, DiskSpace, StatementsSimples} = require('../models/models')
 const fs = require('fs');
 const FileDto = require('../dtos/fileDto')
 const config = require('config')
@@ -175,9 +175,30 @@ class FilesController {
     }
     async delete(req,res,next) {
         try {
-
             return res.json('1')
         } catch (e) {
+            next(e)
+        }
+    }
+    async getStatements(req,res,next) {
+        try {
+            const statements = await FilesService.getStatements()
+            return res.status(200).json(statements)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async downloadStatement(req,res,next){
+        try{
+            const {id} = req.body
+            const statement = await StatementsSimples.findOne({where:{id:id}})
+            if(!statement) return res.status(400).json({message: 'Файл не найден'})
+            const path = `${config.get('public_path')}statements\\${statement.file}`
+            if(fs.existsSync(path)){
+                return res.download(path,statement.file)
+            }
+            return res.status(400).json({message: 'Файл не найден'})
+        }catch (e) {
             next(e)
         }
     }

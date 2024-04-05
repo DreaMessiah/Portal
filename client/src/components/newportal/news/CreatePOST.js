@@ -1,13 +1,15 @@
 import "./style.scss"
 import {Link, useLocation, useNavigate} from "react-router-dom";
-import React, {useCallback, useEffect, useRef, useState} from "react";
+import React, {useCallback, useContext, useEffect, useRef, useState} from "react";
 import FilesService from "../../../services/FilesService";
 import {useMessage} from "../../../hooks/message.hook";
 import PostService from "../../../services/PostService";
+import {Context} from "../../../index";
 
 
 export const CreatePOST = () => {
     const location = useLocation()
+    const {store} = useContext(Context)
     const [temp, setTemp] = useState([])
     const [startRef,setStartRef] = useState([{id:-1,title:'',content:'',ref:useRef(null),image:''}])
     const [empty,setEmpty] = useState([])
@@ -151,7 +153,10 @@ export const CreatePOST = () => {
         loadingHandler(getPost)
     }, [location])
 
+    const rule = store.user.unit
     return (
+        <>
+            {rule === 3 ?
         <div className="create_new_post">
             <div onClick={(e) => console.log(startRef)} className="create_new_post_title">Создание новости</div>
             <div className="create_new_post_tools">
@@ -230,5 +235,9 @@ export const CreatePOST = () => {
                 </label>
             </div>
         </div>
+            :
+            <div>У Вас нет прав на просмотр данного ресурса</div>
+            }
+        </>
     )
 }

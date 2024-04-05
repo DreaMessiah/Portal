@@ -31,7 +31,7 @@ export const ViewPOST = observer( () => {
     const [visibleCount,setVisibleCount] = useState(3)
     const message = useMessage()
 
-    const rule = 3
+
 
     const loadingHandler = async (getPost) => {
         try {
@@ -48,10 +48,8 @@ export const ViewPOST = observer( () => {
                     setNext(nextIndex !== null ? newsIds[nextIndex] : null)
                     setPrev(prevIndex !== null ? newsIds[prevIndex] : null)
                 }
-
                 const comm = await PostService.getComments(getPost)
                 if(comm.data.length){
-                    console.log(comm.data)
                     setComments(comm.data)
                 }else {
                     setComments([])
@@ -158,6 +156,7 @@ export const ViewPOST = observer( () => {
         loadingHandler(getPost)
     }, [location])
 
+    const rule = store.user.unit
     return (
         <div className="view_new_post">
             <div className="view_new_post_tools">
@@ -205,16 +204,32 @@ export const ViewPOST = observer( () => {
                             <div className="history_mess_pen_btn" onClick={() => sendCommentHandler()}>Отправить<i className="fa-regular fa-paper-plane"/></div>
                         </div>
 
-                        <div className="history_mess_list" >
+                        <div className="history_mess_list">
                             {comments && comments.slice(0,visibleCount).map((mess, index) => (
                                 <div className="history_mess_list_block " key={index}>
-                                    <div className="history_mess_list_block_ava" style={mess.avatar.length ? {backgroundImage: `url("files/profile/${mess.avatar}")` } : {backgroundImage: `url("files/profile/face.png")` }}></div>
+                                    <div className="history_mess_list_block_ava" onClick={() => console.log(mess)} style={mess.avatar.length ? {backgroundImage: `url("files/profile/${mess.avatar}")` } : {backgroundImage: `url("files/profile/face.png")` }}></div>
                                     <div className="history_mess_list_block_content" >
                                         <div className="history_mess_list_block_content_name" >
                                             <p>{mess.full_name} {changeComment===index && '(Редактирование комментария)'}</p>
-                                            <p className={`icons`}>
-                                                {changeComment!==index ? <i onClick={(e) => changeCommentHandler(index)} className="fa-solid fa-pencil small"></i> : <><div onClick={(e) => saveCommentHandler(index)} className={`savechange`}>{changeComment===index && 'Сохранить изменения'}</div><div onClick={(e) => setChangeComment(-1)} className={`cancel`}>Отменить</div></>}
-                                                <i onClick={(e) => deleteButtonHandler(index)} className="fa-solid fa-xmark"></i></p>
+                                            { ( rule === 3 || store.user.tn === mess.creator_tn ) ?
+                                            <p className={`icons`} >
+                                                {store.user.tn === mess.creator_tn &&
+                                                    <>
+                                                        {changeComment !== index ?
+                                                            <i onClick={(e) => changeCommentHandler(index)}
+                                                               className="fa-solid fa-pencil small"></i> : <>
+                                                                <div onClick={(e) => saveCommentHandler(index)}
+                                                                     className={`savechange`}>{changeComment === index && 'Сохранить изменения'}</div>
+                                                                <div onClick={(e) => setChangeComment(-1)}
+                                                                     className={`cancel`}>Отменить
+                                                                </div>
+                                                            </>}
+                                                    </>
+                                                }
+                                                <i onClick={(e) => deleteButtonHandler(index)} className="fa-solid fa-xmark"></i>
+                                            </p>
+                                            : null}
+
                                         </div>
                                         {changeComment!==index &&<div className="history_mess_list_block_content_message" >{mess.text}</div>}
                                         {changeComment===index && <textarea className={`change-text`} value={changeCommentText} onChange={(e) => setChangeCommentText(e.target.value)}/>}

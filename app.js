@@ -63,6 +63,11 @@ app.use(cookieParser())
 app.use(express.json({ extended: true }))
 app.use(express.urlencoded({ extended: true }))
 app.use('/api', router)
+// Middleware для добавления заголовков безопасности
+app.use((req, res, next) => {
+    res.setHeader('Content-Security-Policy', 'default-src http:');
+    next();
+});
 app.use(errorMiddlewere) //Обязательно последний!
 //*******************************************************\
 const start = async () => {

@@ -1,14 +1,17 @@
 import "./style.scss"
 import {Link,useNavigate} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import PostService from "../../../services/PostService";
 import formatDate from "../../functions/formatDate";
 import shortenText from "../../functions/shortenText";
+import {observer} from "mobx-react-lite";
+import {Context} from "../../../index";
 
 export const AllListPOSTS = () => {
     const [posts,setPosts] = useState([])
+    const {store} = useContext(Context)
     const navigate = useNavigate()
-    const rule = 3
+    const rule = store.user.unit
     const loadingHandler = async () => {
         try{
             const response = await PostService.fetch()
@@ -28,8 +31,12 @@ export const AllListPOSTS = () => {
         <div className="news_block">
             <div className="news_block_title">
                 <div className="news_block_title_name">НОВОСТИ</div>
-                <Link to="/createnews" className="news_block_title_create">СОЗДАТЬ</Link>
-                <Link to={`/settingnews`} className="news_block_title_create">РЕДАКТИРОВАТЬ</Link>
+                {rule === 3 &&
+                    <>
+                        <Link to="/createnews" className="news_block_title_create">СОЗДАТЬ</Link>
+                        <Link to={`/settingnews`} className="news_block_title_create">РЕДАКТИРОВАТЬ</Link>
+                    </>
+                }
             </div>
             {posts &&
                 <div className="news_block_list">
