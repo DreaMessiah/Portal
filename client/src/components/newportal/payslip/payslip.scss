@@ -8,22 +8,48 @@ align-items: center;
     .min300{
       min-width: 320px;
     }
-    .info_news{
-      display: flex;
-      max-width: 1000px;
-      width: 100%;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      flex-direction:row;
-      .info{
+    @media screen and (min-width: 400px){
+      .info_news{
         display: flex;
+        max-width: 1000px;
+        width: 100%;
+        min-width: 320px;
+        justify-content: space-around;
         flex-wrap: wrap;
-        width: calc(50% - 40px);
-        padding: 20px;
+        flex-direction:row;
+        .info{
+          display: flex;
+          flex-wrap: wrap;
+          width: calc(50% - 40px);
+          min-width: 320px;
+          padding: 20px;
+        }
       }
     }
+
+    @media screen and (max-width: 400px){
+      .info_news{
+        display: flex;
+        max-width: 1000px;
+        width: 90%;
+        min-width: 320px;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        flex-direction:row;
+        .info{
+          display: flex;
+          flex-wrap: wrap;
+          width: calc(50% - 40px);
+          min-width: 320px;
+          padding: 0px !important;
+          margin: 0px !important;
+        }
+      }
+    }
+
     .toback{
       width: 100%;
+      //min-width: 320px;
       background-color: #929292;
       padding: 15px;
       margin-bottom: 10px;
@@ -37,7 +63,7 @@ align-items: center;
     .payslip_right{
       min-width: 300px;
       background-color: #329DD9;
-      padding: 15px;
+      padding: 15px 0 15px 15px;
       //margin: 10px;
       color: #FFF;
       font-size: 1rem;
@@ -102,6 +128,7 @@ align-items: center;
       border-radius: 1px;
     }
     .size_calendar{
+
       margin: 20px;
       padding: 0 !important;
       background: #FFF;
@@ -124,7 +151,7 @@ align-items: center;
         align-items: center;
         flex-wrap: wrap;
         div{
-          width: calc((100% - 40px) / 7);
+          width: calc((100% - 20px) / 7);
           height: calc((100% - 40px) / 7);
           display: flex;
           align-items: center;
