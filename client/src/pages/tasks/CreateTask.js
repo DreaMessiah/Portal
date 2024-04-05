@@ -121,9 +121,10 @@ function CreateTask(){
         <div className={`create-task`}>
             <div className="create_new_post_title">Создание Задачи</div>
 
+
             <div className={`inputs`}>
                 <label className={`${empty[0] && 'red-color'}`}>Название задачи</label>
-                <input onClick={() => console.log(checkEmpty())} value={name} onChange={(e) => setName(e.target.value)} placeholder={'Введите название задачи'} className={`task-name ${empty[0] && 'red-dotted-border'}`} type={`text`}/>
+                <input onClick={() => console.log(files)} value={name} onChange={(e) => setName(e.target.value)} placeholder={'Введите название задачи'} className={`task-name ${empty[0] && 'red-dotted-border'}`} type={`text`}/>
                 <label className={`${empty[1] && 'red-color'}`}>Описание задачи</label>
                 <textarea value={text} onChange={(e) => setText(e.target.value)} placeholder={'Введите описание задачи'} className={`task-text ${empty[1] && 'red-dotted-border'}`} />
                 <label className={`${empty[2] && 'red-color'}`}>Приоритет Задачи</label>

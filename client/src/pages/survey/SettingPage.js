@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import PollsService from "../../services/PollsService";
 import {Link} from "react-router-dom";
 import ModalFiles from "../../components/modalwin/ModalFiles";
@@ -6,6 +6,7 @@ import {useMessage} from "../../hooks/message.hook";
 import FilesService from "../../services/FilesService";
 
 import { useNavigate } from 'react-router-dom';
+import {Context} from "../../index";
 export default function SettingPage({idd}){
     const [id,setId] = useState(idd)
     const [surveys,setSurveys] = useState(null)
@@ -22,6 +23,7 @@ export default function SettingPage({idd}){
     const [flagCreate,setFlagCreate] = useState(false)
     const message = useMessage()
     const navigate = useNavigate();
+    const {store} = useContext(Context)
     const loadingHandler = async () => {
         try{
             if (isNaN(+id)) setId('new')
@@ -114,7 +116,6 @@ export default function SettingPage({idd}){
         else setEmpty([])
         return hasTrueValue
     }
-
     const loadImage = async (e) => {
         try {
             const response = await FilesService.loadPollsImage(e.target.files[0])
@@ -175,7 +176,7 @@ export default function SettingPage({idd}){
         )
     }
 
-    const rule = 3
+    const rule = store.user.unit
 
     return (
         <>

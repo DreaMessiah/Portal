@@ -44,12 +44,14 @@ export const HallOfFrame = () => {
         viewBoard()
     }, [])
 
-
+    const rule = store.user.unit
     return (
         <div className="frame_block">
             <div className="frame_block_title">
                 <div className="frame_block_title_name">Доска почёта</div>
+                {rule === 3 &&
                 <Link to="/halledit" className="frame_block_title_edit">Редактировать</Link>
+                }
             </div>
             <div className="frame_block_plane backhall">
                 {listBM.map((man, index) => (

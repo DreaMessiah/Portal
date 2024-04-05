@@ -1,6 +1,6 @@
 const fs = require('fs');
 const config = require('config')
-const {Files} = require('../models/models')
+const {Files, StatementsSimples} = require('../models/models')
 const ApiError = require("../exceptions/api.error");
 const {Sequelize} = require('sequelize')
 const sharp = require("sharp");
@@ -16,6 +16,10 @@ class FilesService {
         const files = await Files.findAll({where: {user_id:id}})
         if (!files) throw ApiError.BadRequest('База с файлами пуста')
         return files
+    }
+
+    async getStatements() {
+        return await StatementsSimples.findAll()
     }
     async createPath(parent,path = []){
         const file = await Files.findOne({where: {id:parent}})

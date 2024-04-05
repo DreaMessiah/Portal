@@ -1,10 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import shortenText from "../../functions/shortenText";
 import formatDate from "../../functions/formatDate";
 import {Link} from "react-router-dom";
 import PostService from "../../../services/PostService";
+import {Context} from "../../../index";
 
 export const SinglePost = ({id}) => {
+    const {store} = useContext(Context)
     const [post,setPost] = useState({})
     const loadingHandler = async () => {
         try {
@@ -19,7 +21,7 @@ export const SinglePost = ({id}) => {
     useEffect(() => {
         loadingHandler()
     },[])
-    const rule = 2
+    const rule = store.user.unit
     return(
         <>
             {post &&

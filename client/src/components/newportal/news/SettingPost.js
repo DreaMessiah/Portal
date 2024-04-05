@@ -1,6 +1,6 @@
 import "./style.scss"
 import {Link} from "react-router-dom";
-import React,{useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import PostService from "../../../services/PostService";
 import formatDate from "../../functions/formatDate";
 import shortenText from "../../functions/shortenText";
@@ -8,9 +8,11 @@ import ModalFiles from "../../modalwin/ModalFiles";
 
 import PollsService from "../../../services/PollsService";
 import {useMessage} from "../../../hooks/message.hook";
+import {Context} from "../../../index";
 
 export const SettingPost = () => {
     const [posts,setPosts] = useState([])
+    const {store} = useContext(Context)
     const [activeDeleteM,setActiveDeleteM] = useState(false)
     const [deleteIndex,setDeleteIndex] = useState(-1)
     const message = useMessage()
@@ -64,38 +66,43 @@ export const SettingPost = () => {
             </>
         )
     }
-
+    const rule = store.user.unit
     return (
         <>
-            <div className='cms-head'>
-                <Link to='/alllistnews' style={{marginBottom:'30px'}} className='back-button'><i className="fa-solid fa-arrow-left"></i>Назад</Link>
-                <h5>Здесь Вы можете создавать и редактировать новости</h5>
-            </div>
+        {rule === 3 ?
+            <>
+                <div className='cms-head'>
+                    <Link to='/alllistnews' style={{marginBottom:'30px'}} className='back-button'><i className="fa-solid fa-arrow-left"></i>Назад</Link>
+                    <h5>Здесь Вы можете создавать и редактировать новости</h5>
+                </div>
+                <div className="survey-table">
+                    <div className="table_list_cap"></div>
+                    <div className="survey-table-header">
+                        <div className="column с1">Дата</div>
+                        <div className="column с2">Текст опроса</div>
+                        <div className="column с3">Удалить</div>
+                        <div className="column с4">Редактировать</div>
+                    </div>
+                    <div className="survey-table-body">
+                        {posts ? posts.map((item, index) => (
+                            <div className="survey-row" key={index}>
+                                <div className="column с1">{formatDate(item.createdAt)}</div>
+                                <div className="column с2">{item.title}</div>
+                                <div onClick={(e) => deleteHandler(index)} className="column с3"><i className="fa-solid fa-trash"></i></div>
+                                <Link to={`/createnews?post=${item.id}`} className="column с4"><i className="fa-solid fa-gear"></i></Link>
+                            </div>
+                        )) : null}
+                    </div>
+                    <div className='next'>
+                        <Link to='/createnews' className='button'>Добавить новость</Link>
+                    </div>
 
-            <div className="survey-table">
-                <div className="table_list_cap"></div>
-                <div className="survey-table-header">
-                    <div className="column с1">Дата</div>
-                    <div className="column с2">Текст опроса</div>
-                    <div className="column с3">Удалить</div>
-                    <div className="column с4">Редактировать</div>
+                    <ModalFiles data={<Delete index={deleteIndex}/>} active={activeDeleteM} setActive={setActiveDeleteM}/>
                 </div>
-                <div className="survey-table-body">
-                    {posts ? posts.map((item, index) => (
-                        <div className="survey-row" key={index}>
-                            <div className="column с1">{formatDate(item.createdAt)}</div>
-                            <div className="column с2">{item.title}</div>
-                            <div onClick={(e) => deleteHandler(index)} className="column с3"><i className="fa-solid fa-trash"></i></div>
-                            <Link to={`/createnews?post=${item.id}`} className="column с4"><i className="fa-solid fa-gear"></i></Link>
-                        </div>
-                    )) : null}
-                </div>
-                <div className='next'>
-                    <Link to='/createnews' className='button'>Добавить новость</Link>
-                </div>
-
-                <ModalFiles data={<Delete index={deleteIndex}/>} active={activeDeleteM} setActive={setActiveDeleteM}/>
-            </div>
+            </>
+            :
+            <div>У Вас нет прав на просмотр данного ресурса</div>
+        }
         </>
     )
 }

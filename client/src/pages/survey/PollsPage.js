@@ -9,14 +9,12 @@ export default function PollsPage(){
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search)
     const getSurvey = searchParams.get('survey') ? searchParams.get('survey') : 0
-    console.log(getSurvey)
     return (
         <div className='new_container'>
             <div className="up_path"><MainHeader /></div>
             <div className="main_path">
                 <Mainnavbar />
                 {getSurvey ? <WorkPage data={<SurveyPage id={getSurvey} />}/> : <WorkPage data={<PollsList />}/>}
-
             </div>
         </div>
     )
