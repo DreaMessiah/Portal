@@ -55,7 +55,7 @@ import LoadPage from "./pages/kidscontest/LoadPage";
 import MainCms from "./pages/newportal/news/MainCms";
 import Message from "./pages/newportal/message/Message";
 import TaskRouter from "./pages/tasks/TaskRouter";
-
+import StructureRouter from "./pages/structure/StructureRouter";
 import NewPageObjects from "./pages/newportal/objects/NewPageObjects";
 import ThisObj from "./pages/newportal/objects/ThisObj";
 import NewTabel from "./pages/newportal/objects/NewTabel";
@@ -87,6 +87,8 @@ function App() {
             <Router>
                 <div className="App">
                     <Routes>
+                        <Route path='/tasks/list' element={<TaskRouter page={3}/>}/>
+                        <Route path='/structure' element={<StructureRouter/>}/>
                         <Route path='/tasks' element={<TaskRouter/>}/>
                         <Route path='/settingmain' element={<MainCms/>}/>
                         <Route path="/load-contest" element={<LoadPage/>} />

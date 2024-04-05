@@ -91,6 +91,7 @@ class FilesController {
             next(e)
         }
     }
+
     async uploadFileDefault(req, res, next) {
         try {
             const file = req.files.file

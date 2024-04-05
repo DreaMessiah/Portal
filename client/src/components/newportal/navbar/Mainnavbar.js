@@ -32,7 +32,7 @@ export const Mainnavbar = () => {
                         <div className="navbar_block_menu_strock_description">Сообщения</div>
                     </Link>
                 }
-                <Link to="/" onClick={(e) => setSelectedMenu(4)} className={`navbar_block_menu_strock ${selectedMenu===4 && 'selected'}`}>
+                <Link to="/structure" onClick={(e) => setSelectedMenu(4)} className={`navbar_block_menu_strock ${selectedMenu===4 && 'selected'}`}>
                     <div className="navbar_block_menu_strock_icon icon_forest"></div>
                     <div className="navbar_block_menu_strock_description">Структура компании</div>
                 </Link>
@@ -59,10 +59,10 @@ export const Mainnavbar = () => {
             </div>
             <div className={`navbar_block_dopmenu`}>
                 <div className={`navbar_block_dopmenu_list`}>
-                    <div className={`navbar_block_dopmenu_list_strock`}>
+                    <a href={`/#happybirthday`} className={`navbar_block_dopmenu_list_strock`}>
                         <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-cake-candles"></i></div>
                         <div className="navbar_block_dopmenu_list_description">Дни рождения</div>
-                    </div>
+                    </a>
                     <Link to='/polls' className={`navbar_block_dopmenu_list_strock`}>
                         <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-toggle-off"></i></div>
                         <div className="navbar_block_dopmenu_list_description">Опросы</div>

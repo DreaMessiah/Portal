@@ -1,5 +1,9 @@
-const {Tasks,Priority, Objects, User, TaskGroups, TaskConnections} = require('../models/models')
+const {Tasks,Priority, Objects, User, TaskGroups, TaskConnections, TaskChains, TaskDocs, Files, DiskSpace} = require('../models/models')
 const ApiError = require('../exceptions/api.error')
+const FilesService = require('./files.service')
+const config = require("config");
+const fs = require("fs");
+const FileDto = require("../dtos/fileDto");
 
 class TasksService{
     async getPriority() {
@@ -34,18 +38,38 @@ class TasksService{
         return await TaskGroups.destroy({where:{id:id}})
     }
 
-    async createTask(name,text,creator_tn,expiration,priority_id,connection_value,filenames,group) {
+    async createTask(name,text,creator_tn,expiration,priority_id,connection_value,filenames,group,user_id) {
         let connection
         if(connection_value){
            connection = await TaskConnections.create({obj:connection_value,type:1})
         }
-
         const task = await Tasks.create({name,text,creator_tn,expiration,status_id:1,priority_id,connection_id:connection ? connection.id : 0,trash:false})
         if(!task) throw ApiError.BadRequest('Задача не создана')
 
+        const next = group.map(item => item.value)
+        const chain = await TaskChains.create({task_id:task.id,user_tn:creator_tn,status_id:1,next:next})
+
+        filenames.map( async (item) => {
+            await FilesService.createPathTask(task.id).then( async () => {
+
+                await this.replaceFile(item,task.id)
+                await TaskDocs.create({filename:item,chain_id:chain.id,task_id:task.id})
+            })
+        })
+
         return {message:'Задача создана успешно'}
     }
-
+    async replaceFile(file,task){
+        try {
+            fs.rename(`${config.get('file_path')}\\temp\\${file}`, `${config.get('file_path')}\\tasks\\${task}\\${file}`, (err) => {
+                if (err) {
+                    console.error('Ошибка при перемещении файла:', err);
+                }
+            });
+        }catch (e) {
+            console.log(e)
+        }
+    }
 }
 
 module.exports = new TasksService()

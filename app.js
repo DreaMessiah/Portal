@@ -81,7 +81,6 @@ const start = async () => {
         console.log('connect to DB')
     }catch (e){
         console.log(e)
-
     }
 }
 

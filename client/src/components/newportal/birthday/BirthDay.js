@@ -163,7 +163,7 @@ export const BirthDay = () => {
     return (
         <div className="frame_block ">
             <div className="frame_block_title">
-                <div className="frame_block_title_name">Дни рождения <i className="fa-solid fa-gift"></i></div>
+                <div id={`happybirthday`} className="frame_block_title_name">Дни рождения <i className="fa-solid fa-gift"></i></div>
                 {/*<div className="frame_block_title_edit">Редактировать</div>*/}
             </div>
             <div className="frame_block_birthday borderbirthday birthdaycolor">

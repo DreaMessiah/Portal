@@ -609,7 +609,8 @@ const TaskConnections = sequelize.define('taskconnections', {
 })
 const TaskDocs = sequelize.define('taskdocs', {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
-    file_id:{type:DataTypes.INTEGER,ref:'files'},
+    filename:{type:DataTypes.STRING},
+    chain_id:{type:DataTypes.INTEGER,ref:'taskchains'},
     task_id:{type:DataTypes.INTEGER,ref:'tasks'}
 })
 const TaskResults = sequelize.define('taskresults', {

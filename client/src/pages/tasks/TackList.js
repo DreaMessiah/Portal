@@ -1,43 +1,18 @@
-import "./style.scss"
-import React, {useContext} from "react";
-import {DataContext} from "../../../context/DataContext";
+import React, {useContext, useEffect, useRef, useState} from "react"
+import {observer} from "mobx-react-lite"
+import {Context} from "../../index"
+import TasksService from "../../services/TasksService"
+import './styles.scss'
+
+import UserService from "../../services/UserService";
+import MultiSelect from "../../components/inputs/MultiSelect";
+import {useMessage} from "../../hooks/message.hook";
+import PollsService from "../../services/PollsService";
+import ModalFiles from "../../components/modalwin/ModalFiles";
 import {Link} from "react-router-dom";
 
-export const TasksMyList = () => {
-
-    const {list_titletasks} = useContext(DataContext)
-
-    const inOrOut = rev => {
-        let style = 'intoIcon';
-        if(rev === '1'){
-            style = 'outIcon';
-        }
-        return style;
-    }
-
-    const prioryStatus = num => {
-        num = parseInt(num);
-        switch (num) {
-            case 1:
-                return 'Высокий';
-            case 2:
-                return 'Средний';
-            case 3:
-                return 'Высокий';
-            default:
-                return 'Ознакомление'
-        }
-    }
-
-    const returnInToIcon = check =>{
-        if(check === 1){
-            return "fa-solid fa-arrow-left"
-        }else{
-            return "fa-solid fa-arrow-right"
-        }
-
-    }
-
+function TaskList(){
+    const [tasks,setTasks] = useState([])
     return (
         <div className="tasks_block">
             <div className="navigation">
@@ -64,7 +39,7 @@ export const TasksMyList = () => {
                     <div className="titlecap_name_star"><i className="fa-solid fa-star"></i></div>
                 </div>
                 <div className="titlecap_btn_plus_task">
-                    <Link style={{color:'white'}} to={`/tasks`} className="titlecap_btn_plus_task_name">Добавить задачу</Link>
+                    <div className="titlecap_btn_plus_task_name">Добавить задачу</div>
                     <div className="titlecap_btn_plus_task_slash"></div>
                     <div className="titlecap_btn_plus_task_open"><i className="fa-solid fa-caret-down"></i></div>
                 </div>
@@ -86,18 +61,20 @@ export const TasksMyList = () => {
                     <div className="cap_table_left_grant">Грант</div>
                     <div className="cap_table_left_inside">Нет задач, требующих оперативной реакции</div>
                 </div>
-
+                <div className="cap_table_right">
+                    <div className="cap_table_right_jobs"><i className="fa-solid fa-hippo"></i><i className="fa-solid fa-hippo"></i><i className="fa-solid fa-hippo"></i>Боты-Бегемоты</div>
+                </div>
             </div>
 
             <div className='table_list_new'>
                 <div className='table_list_cap'></div>
-                {list_titletasks.map( (item,index) => (
+                {tasks.length ? tasks.map( (item,index) => (
                     <div className='table_list_strock' key={index}>
                         <div className='table_list_strock_datein flex_center'>{item.datestart}<br/>{item.timestart}</div>
                         <div className='table_list_strock_dateto flex_center'>{item.dateend}<br/>{item.timeend}</div>
                         <div className='table_list_strock_title flex_center'>{item.title}</div>
                         <div className='table_list_strock_icon flex_center'>
-                            <i className={returnInToIcon(parseInt(item.navigation))}></i>
+                            <i className={`fa-solid fa-arrow-left`}></i>
                         </div>
                         <div className='table_list_strock_performance flex_center'>
                             <div className='table_list_strock_p_indicate flex_center'>
@@ -111,7 +88,7 @@ export const TasksMyList = () => {
                         </div>
                         <div className='table_list_strock_status flex_center'>{item.status}</div>
                         <div className='table_list_strock_category flex_center'>{item.group}</div>
-                        <div className='table_list_strock_priority flex_center'>{prioryStatus(item.priority)}</div>
+                        <div className='table_list_strock_priority flex_center'>{item.priority}</div>
                         <Link to="/thistask" className='table_list_strock_edit flex_center'>
                             <i className="fa-solid fa-pen"></i>
                         </Link>
@@ -119,10 +96,12 @@ export const TasksMyList = () => {
                             <i className="fa-solid fa-xmark"></i>
                         </div>
                     </div>
-                ))}
+                )):null}
 
             </div>
 
         </div>
     )
 }
+
+export default observer(TaskList)
