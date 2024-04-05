@@ -12,6 +12,10 @@ export const MainHeader = () => {
     const {store} = useContext(Context)
     const [active, setActive] = useState(false)
 
+    const openBurger = () => {
+        alert('burger_open')
+    }
+
     return (
         <div className="head_block">
             <Link to="/" className="head_block_logo">Сургутское РСУ</Link>
@@ -25,7 +29,7 @@ export const MainHeader = () => {
                     <div style={{backgroundImage:`url(/files/profile/${store.user.avatar})`}} className="head_block_lk_photo"></div>
                     <div className="head_block_lk_name">{store.user.full_name}</div>
                 </Link>
-                <div className=""></div>
+                <div className="head_block_burger" onClick={()=>openBurger()}><i className="fa-solid fa-bars"/></div>
                 <div className="head_block_callback" onClick={() => store.logout()}>Выйти</div>
                 <div className="head_block_questions" onClick={()=>setActive(true)}>?</div>
                 <ModalFiles heigth='40vh' data={<QuestionDirector setActive={setActive} />} active={active} setActive={setActive}/>
