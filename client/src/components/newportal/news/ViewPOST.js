@@ -197,7 +197,7 @@ export const ViewPOST = observer( () => {
 
                     </div>
                     {post && post[0].oncomment ?
-                    <div className={`history_mess`} >
+                    <div className={`history_messs`} >
                         <div className={`title`} onClick={(e) => console.log(post)}>Коментарии</div>
                         <div className="history_mess_pen" >
                             <textarea className="history_mess_pen_letter" id='textmess' value={comment} onChange={(e)=>commentWriteHandler(e.target.value)}/>
