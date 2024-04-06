@@ -57,7 +57,7 @@ export const FastBtns = () => {
                         Мои документы
                     </div>
                 </Link>
-                <div className="fastbtns_block_btn">
+                <Link to={'/maintasks'} className="fastbtns_block_btn">
                     <div className="fastbtns_block_btn_box" style={{backgroundColor: '#F4EEF6'}}>
                     </div>
                     <div className="fastbtns_block_btn_radius" style={{backgroundColor: '#F4E6F1'}}>
@@ -68,7 +68,7 @@ export const FastBtns = () => {
                     <div className="fastbtns_block_btn_text">
                         Мои задачи
                     </div>
-                </div>
+                </Link>
             </div>
             {/*<Link to="/listfastbtns" className="fast_btns_more">Другие...</Link>*/}
         </div>
