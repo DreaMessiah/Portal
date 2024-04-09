@@ -60,7 +60,7 @@ export const AllListPOSTS = () => {
                                         <div className="news_block_list_box_content_btns_comment"><i className="fa-regular fa-comments"></i></div>
                                     </div>
                                     <div className='rigth'>
-                                        {rule === 3 && <div onClick={() => navigate(`/createnews?post=${item.id}`)}><i className="fa-solid fa-gear"></i></div>}
+                                        {rule === 5 && <div onClick={() => navigate(`/createnews?post=${item.id}`)}><i className="fa-solid fa-gear"></i></div>}
                                         <div className="views">{item.clicks} просмотров</div>
                                     </div>
                                 </div>
