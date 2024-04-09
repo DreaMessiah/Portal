@@ -14,6 +14,7 @@ const pollsRouter = require('./polls.route')
 const postsRouter = require('./posts.route')
 const tasksRouter = require('./tasks.route')
 const tabelRouter = require('./tabel.route')
+const referenceRouter = require('./reference.route')
 
 router.use('/auth',authRouter)
 router.use('/phones',phonesRouter)
@@ -28,5 +29,7 @@ router.use('/polls',pollsRouter)
 router.use('/posts',postsRouter)
 router.use('/tasks',tasksRouter)
 router.use('/tabel',tabelRouter)
+router.use('/reference',referenceRouter)
+
 
 module.exports = router

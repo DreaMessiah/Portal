@@ -655,10 +655,10 @@ const OgmPrice = sequelize.define('ogmprice', {
 })
 const WorkPrice = sequelize.define('workprice', {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
-    developer:{type:DataTypes.TEXT},
+    name:{type:DataTypes.TEXT},
     tariff:{type:DataTypes.FLOAT},
     price:{type:DataTypes.INTEGER},
-    positions:{type:DataTypes.TEXT},
+    position:{type:DataTypes.TEXT},
     comment:{type:DataTypes.TEXT},
     prefix:{type:DataTypes.TEXT},
     inn:{type:DataTypes.TEXT}
