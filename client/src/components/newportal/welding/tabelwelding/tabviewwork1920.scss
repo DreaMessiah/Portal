@@ -7,9 +7,10 @@
     width: 100%;
     margin-top: 5px;
     overflow: visible;
-
+    height: 100%;
     .tabwelding_viewswork_tabel_strock {
       width: 100%;
+      min-height: calc(100% - 2px);
       display: flex;
       justify-content: start;
       .tabwelding_viewswork_tabel_strock_btnitogy {
@@ -18,7 +19,7 @@
 
       .tabwelding_viewswork_tabel_strock_head {
         width: 250px;
-        height: calc(100% - 2px);
+        min-height: 40px;
         display: flex;
         flex-direction: column;
         border: 1px solid #000;
@@ -79,7 +80,7 @@
 
         .tabwelding_viewswork_tabel_strock_head_fio {
           width: calc(100% - 10px);
-          height: calc(100% - 31px);
+          min-height: 186px;
           padding: 0 10px;
           display: flex;
           justify-content: center;

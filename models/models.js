@@ -645,13 +645,83 @@ const Priority = sequelize.define('priority', {
     label:{type:DataTypes.TEXT},
     type:{type:DataTypes.INTEGER}
 })
-
+const OgmPrice = sequelize.define('ogmprice', {
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    name:{type:DataTypes.TEXT},
+    price:{type:DataTypes.INTEGER},
+    group:{type:DataTypes.TEXT},
+    prefix:{type:DataTypes.TEXT},
+    inn:{type:DataTypes.TEXT}
+})
+const WorkPrice = sequelize.define('workprice', {
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    developer:{type:DataTypes.TEXT},
+    tariff:{type:DataTypes.FLOAT},
+    price:{type:DataTypes.INTEGER},
+    positions:{type:DataTypes.TEXT},
+    comment:{type:DataTypes.TEXT},
+    prefix:{type:DataTypes.TEXT},
+    inn:{type:DataTypes.TEXT}
+})
 const StatementsSimples = sequelize.define('statementssimples', {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     name:{type:DataTypes.TEXT},
     file:{type:DataTypes.TEXT},
 })
 
+const CrewSv = sequelize.define('crewsv',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    shifr:{type:DataTypes.TEXT},
+    namecrew:{type:DataTypes.TEXT},
+    compound:{type:DataTypes.INTEGER},
+    pointer:{type:DataTypes.INTEGER},
+    inn:{type:DataTypes.STRING}
+})
+const CrewBase = sequelize.define('crewbase',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    crewname:{type:DataTypes.STRING},
+    totalmans:{type:DataTypes.STRING},
+    comment:{type:DataTypes.STRING},
+    inn:{type:DataTypes.STRING}
+})
+const CrewDoclist = sequelize.define('crewdoclist',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    crew:{type:DataTypes.STRING},
+    name:{type:DataTypes.STRING},
+    datein:{type:DataTypes.STRING},
+    dateto:{type:DataTypes.STRING},
+    inn:{type:DataTypes.STRING},
+    krest:{type:DataTypes.INTEGER}
+})
+const CrewManlist = sequelize.define('crewmanlist',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    crew:{type:DataTypes.STRING},
+    maninfo:{type:DataTypes.STRING},
+    inn:{type:DataTypes.STRING},
+})
+const ViewsWorkSv = sequelize.define('viewsworksv',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    shifr:{type:DataTypes.STRING},
+    viewname:{type:DataTypes.TEXT},
+    volume:{type:DataTypes.INTEGER},
+    unit:{type:DataTypes.STRING},
+    norma:{type:DataTypes.STRING},
+    inn:{type:DataTypes.STRING},
+})
+const MessageSv = sequelize.define('messagesv',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    shifr:{type:DataTypes.STRING},
+    crewname:{type:DataTypes.STRING},
+    crewid:{type:DataTypes.STRING},
+    year:{type:DataTypes.STRING},
+    month:{type:DataTypes.STRING},
+    day:{type:DataTypes.STRING},
+    comment:{type:DataTypes.STRING},
+    autor:{type:DataTypes.STRING},
+    datein:{type:DataTypes.STRING},
+    inn:{type:DataTypes.STRING},
+})
+
 module.exports = {
-    StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Ktulist,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
+    MessageSv,ViewsWorkSv,CrewManlist,CrewDoclist,CrewBase,CrewSv,OgmPrice,WorkPrice,StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Ktulist,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
 }

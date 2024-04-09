@@ -5,17 +5,17 @@ import "./tabviewwork1550.scss";
 import "./tabviewwork1080.scss";
 import {TabelViewsWork} from "./TabelViewsWork";
 import {TabelMans} from "./TabelMans";
-import {ModalWin} from "../../modalwin/ModalWin";
+import {ModalWin} from "../../../modalwin/ModalWin";
 import {NewCrewModal} from "./modalactive/NewCrewModal";
-import {DataContext} from "../../../context/DataContext";
+import {DataContext} from "../../../../context/DataContext";
 import {Link, useLocation} from "react-router-dom";
-import {useObjects} from "../../../hooks/objects.hook";
-import WeldingService from "../../../services/WeldingService";
-import {useMonth} from "../../../hooks/month.hook";
+import {useObjects} from "../../../../hooks/objects.hook";
+import WeldingService from "../../../../services/WeldingService";
+import {useMonth} from "../../../../hooks/month.hook";
 
 
 
-export const Tabelform = () => {
+export const TabelformNew = () => {
 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
@@ -56,6 +56,8 @@ export const Tabelform = () => {
 
     const [tabelView,setTabelView] = useState([])
 
+    const [mycrews,setMycrews] = useState([])
+
     const [tabMans,setTabelMans] = useState([])
     // const [tabelWork, ]
 
@@ -76,7 +78,19 @@ export const Tabelform = () => {
     setCrewName(crew.crew)
     }
 
+    const getMyCrews = async () => {
+        // const shifr = thisobj.shifr
 
+            try{
+
+
+                const response = await WeldingService.getMyCrews({getShifr, getMonth, getYear})
+                console.log(response.data)
+            }catch(e){
+                console.log(e)
+            }
+
+    }
 
     useEffect(() => {
         views.forEach(tabel => {
@@ -86,16 +100,16 @@ export const Tabelform = () => {
             }
         })
         getParamObj()
-
+        getMyCrews()
         console.log(tabelView)
     },[views])
     return (
         <div className='right-block-tabwelding'>
             <div className="tabwelding_header">
                 <div className="tabwelding_header_upper">
-                    <div className="tabwelding_header_upper_backbtn">Назад</div>
+                    <div className="back-button">Назад</div>
                     <div className="tabwelding_header_upper_title"><span>{thisobj.shifr}</span> {thisMonth(getMonth)} {getYear}</div>
-                    <Link to={`/controll?id=${getId}&shifr=${getShifr}&month=${getMonth}&year=${getYear}`} className="tabwelding_header_upper_controlbtn">Контроль</Link>
+                    <Link to={`/welcontroll?id=${getId}&shifr=${getShifr}&month=${getMonth}&year=${getYear}`} className="back-button">Контроль</Link>
                 </div>
                 <div className="tabwelding_header_newcrewblock">
                     <select className="tabwelding_header_newcrewblock_select" onChange={handleSelect}>
@@ -104,7 +118,7 @@ export const Tabelform = () => {
                         <option value={item.crew} key={index}>{item.crew}</option>
                     ))}
                     </select>
-                    <div className="tabwelding_header_newcrewblock_plusbtn" onClick={() => setCrew(!crew)}>Добавить звено</div>
+                    <div className="back-button" onClick={() => setCrew(!crew)}>Добавить звено</div>
                 </div>
             </div>
             <div className="tabwelding_slice"></div>
@@ -117,7 +131,7 @@ export const Tabelform = () => {
             <div className="tabwelding_viewswork">
                 <div className="tabwelding_viewswork_upper">
                     <div className="tabwelding_viewswork_upper_title">Виды работ</div>
-                    <div className="tabwelding_viewswork_upper_plusbtn">Добавить вид</div>
+                    <div className="back-button">Добавить вид</div>
                     <div onClick={() => alert(tabelView)} className="tabwelding_viewswork_upper_date">сегодня: 01-01-2024</div>
                 </div>
             </div>
@@ -126,7 +140,7 @@ export const Tabelform = () => {
             <div className="tabwelding_tabel">
                 <div className="tabwelding_tabel_upper">
                     <div className="tabwelding_tabel_upper_title">Табель</div>
-                    <div className="tabwelding_tabel_upper_plus">Добавить</div>
+                    <div className="back-button">Добавить</div>
                 </div>
                 <TabelMans  peoples={tabMans} active={crewName} idobj={getId} shifr={getShifr} month={getMonth} year={getYear}/>
             </div>

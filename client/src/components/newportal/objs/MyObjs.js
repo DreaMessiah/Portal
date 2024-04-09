@@ -102,7 +102,7 @@ export default function MyListObjs({mass, page}) {
             <div className='top-box'>
                 <div className='left-box-portal'>
                         <div className='back-button' onClick={()=>activeModal(modal)}><p>Добавить обьект</p> <i className='fa-regular fa-plus'></i></div>
-                        <Link to={thisURL !== 0 ? openShifrBlock(0)  : `/main`} className='back-button'><p>Назад</p> <i className='fa-solid fa-rotate-left'></i></Link>
+                        <Link to={thisURL !== 0 ? openShifrBlock(0)  : `/`} className='back-button'><p>Назад</p> <i className='fa-solid fa-rotate-left'></i></Link>
                     {/*<SearchObj/>*/}
                 </div>
                 <div className='right-box'>

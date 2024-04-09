@@ -52,7 +52,7 @@ export default function DriveOnProject({mass, page}) {
         <div className='right-block'>
             <div className='top-box'>
                 <div className='left-box-portal'>
-                    <Link to={thisURL !== 0 ? openShifrBlock(0)  : `/main`} className='back-button'>
+                    <Link to={thisURL !== 0 ? openShifrBlock(0)  : `/objectsportal`} className='back-button'>
                         <p>Назад</p> <i className='fa-solid fa-rotate-left'></i>
                     </Link>
                     {/*<SearchObj/>*/}

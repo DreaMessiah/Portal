@@ -1,3 +1,4 @@
+
 const {validationResult} = require('express-validator')
 const ApiError = require('../exceptions/api.error')
 const WeldingService = require("../service/welding.service");
@@ -6,6 +7,26 @@ class WeldingController {
          try{
             const inn = req.body.inn
              const list = await WeldingService.getObjects(inn)
+            return res.json(list)
+
+        }catch (e){
+            next(e)
+        }
+    }
+    async getCrew(req,res,next) {
+        try{
+            const list = await WeldingService.getCrew()
+            return res.json(list)
+
+        }catch (e){
+            next(e)
+        }
+    }
+
+    async getMyCrews(req,res,next) {
+        try{
+            const params = req.body.params
+            const list = await WeldingService.getMyCrews(params)
             return res.json(list)
 
         }catch (e){
@@ -39,6 +60,17 @@ class WeldingController {
         try{
             const innId = req.body
             const list = await WeldingService.getYM(innId)
+            return res.json(list)
+        }catch (e){
+            next(e)
+        }
+    }
+
+    async crYM(req,res,next) {
+        try{
+            const params = req.body
+            console.log(params)
+            const list = await WeldingService.crYM(params)
             return res.json(list)
         }catch (e){
             next(e)
