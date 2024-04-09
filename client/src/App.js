@@ -62,6 +62,11 @@ import NewTabel from "./pages/newportal/objects/NewTabel";
 import {ListTab} from "./pages/objects/ListTabelNewPortal";
 import {ThisTableTabel} from "./pages/newportal/objects/TableTabel";
 import Statements from "./pages/documents/Statements";
+import {WelMY} from "./pages/newportal/welding/WelMY";
+import {WelTabel} from "./pages/newportal/welding/WelTabel";
+import {WelControll} from "./pages/newportal/controll/ControllNew";
+import {WelSett} from "./pages/newportal/welding/WeldingSett";
+import {EconomistMenu} from "./pages/newportal/economist/EconomistMenu";
 
 function App() {
     const {store} = useContext(Context)
@@ -114,10 +119,14 @@ function App() {
                         <Route path="/crews" element={<CrewsPage />} />
                         <Route path="/obj" element={<Yearwelding />} />
                         <Route path="/controll" element={<Controll />} />
+                        <Route path="/welcontroll" element={<WelControll />} />
+                        <Route path="/weldingsett" element={<WelSett />} />
                         <Route path="/createtask" element={<CreateTaskPage />} />
                         <Route path="/testtaskpage/:params" element={<TestTaskPage />} />
                         <Route path="/lk" element={<LkPage/>} />
                         <Route path="/tabelwelding" element={<Tabel/>} />
+                        <Route path="/tab-welding" element={<WelTabel/>} />
+                        <Route path="/economist" element={<EconomistMenu/>} />
                         <Route path="/lk" element={<MainPage/>} />
                         <Route path="/selected_news/:id" element={<SelNewsPage/>} />
                         <Route path="/docpasslist" element={<ListTasks/>} />
@@ -140,7 +149,7 @@ function App() {
                         <Route path="/thisobjsportal" element={<ThisObj />} />
                         <Route path="/tabelportal" element={<ListTab />} />
                         <Route path="/thistabelportal" element={<ThisTableTabel />} />
-
+                        <Route path="/welwel" element={<WelMY />} />
                     </Routes>
                 </div>
             </Router>

@@ -1,13 +1,13 @@
 import "./constrollwelding.scss"
-import {ModalBigWin} from "../../modalwin/ModaBiglWin";
+import {ModalBigWin} from "../../../modalwin/ModaBiglWin";
 import {NewCrewModal} from "../tabelwelding/modalactive/NewCrewModal";
 import React, {useEffect, useState} from "react";
 import {NewControll} from "./modal/NewControll";
-import WeldingService from "../../../services/WeldingService";
+import WeldingService from "../../../../services/WeldingService";
 import {useLocation} from "react-router-dom";
-import {useMonth} from "../../../hooks/month.hook";
+import {useMonth} from "../../../../hooks/month.hook";
 
-export const ControllWelding = () => {
+export const ControllWeldingNew = () => {
 
 
     const location = useLocation();

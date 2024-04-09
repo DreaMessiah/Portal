@@ -95,7 +95,7 @@
 
         .tabwelding_viewswork_tabel_strock_head_fio {
           width: calc(100% - 10px);
-          height: calc(100% - 31px);
+          min-height: 186px;
           padding: 0 10px;
           display: flex;
           justify-content: center;

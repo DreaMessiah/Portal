@@ -2,9 +2,10 @@ import React from "react";
 import {DatePicker, Stack} from "rsuite";
 import 'rsuite/DatePicker/styles/index.css';
 import './inputs.scss'
-export default function CmsDatePicket({placeholder,onChange,empty=false}){
-    return (
-        <Stack style={{width:"100%"}} spacing={10} direction="column" alignItems="flex-start">
+export default function CmsDatePicket({placeholder,onChange,empty=false, size='100%'}){
+     return (
+
+        <Stack style={{width:size}} spacing={10} direction="column" alignItems="flex-start">
             <DatePicker style={{
                 border:"3px dotted #aaa",
                 borderColor:empty ? 'rgba(215,26,0,0.5)' : "#aaa",
