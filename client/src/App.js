@@ -62,6 +62,7 @@ import NewTabel from "./pages/newportal/objects/NewTabel";
 import {ListTab} from "./pages/objects/ListTabelNewPortal";
 import {ThisTableTabel} from "./pages/newportal/objects/TableTabel";
 import Statements from "./pages/documents/Statements";
+import OgmPage from "./pages/ogmprice/OgmPriceRouter";
 
 function App() {
     const {store} = useContext(Context)
@@ -87,6 +88,8 @@ function App() {
             <Router>
                 <div className="App">
                     <Routes>
+                        <Route path='/worksprices' element={<OgmPage page={2}/>}/>
+                        <Route path='/ogmprices' element={<OgmPage page={1}/>}/>
                         <Route path='/tasks/list' element={<TaskRouter page={3}/>}/>
                         <Route path='/structure' element={<StructureRouter/>}/>
                         <Route path='/tasks' element={<TaskRouter/>}/>

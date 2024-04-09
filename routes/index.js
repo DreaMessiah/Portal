@@ -13,6 +13,7 @@ const filesRouter = require('./files.route')
 const pollsRouter = require('./polls.route')
 const postsRouter = require('./posts.route')
 const tasksRouter = require('./tasks.route')
+const referenceRouter = require('./reference.route')
 
 router.use('/auth',authRouter)
 router.use('/phones',phonesRouter)
@@ -26,5 +27,6 @@ router.use('/files',filesRouter)
 router.use('/polls',pollsRouter)
 router.use('/posts',postsRouter)
 router.use('/tasks',tasksRouter)
+router.use('/reference',referenceRouter)
 
 module.exports = router

@@ -43,7 +43,6 @@ export default function CmsPage(){
                         exitDeleteHandler()
                     }
                 }
-
             }catch (e){
                 console.log(e.message+': Проблема удаления опроса')
             }
