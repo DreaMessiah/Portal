@@ -8,6 +8,7 @@ import React from "react";
 import {WelThisObj} from "../../../components/newportal/welding/yearmounth/WelThisObj";
 import {NewCrewS} from "../../../components/newportal/welding/crews/NewCrew";
 import Buttons from "../../../components/newportal/economist/Buttons";
+import {Menu} from "./Menu";
 
 export function EconomistMenu(){
 
@@ -20,7 +21,8 @@ export function EconomistMenu(){
             <div className="up_path"><MainHeader /></div>
             <div className="main_path">
                 <Mainnavbar />
-                <WorkPage data={<Buttons />}/>
+                <WorkPage data={<Menu/>}/>
+
             </div>
         </div>
     )

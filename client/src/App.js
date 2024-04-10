@@ -96,6 +96,7 @@ function App() {
             <Router>
                 <div className="App">
                     <Routes>
+                        <Route path='/t13' element={<OgmPage page={3}/>}/>
                         <Route path='/worksprices' element={<OgmPage page={2}/>}/>
                         <Route path='/ogmprices' element={<OgmPage page={1}/>}/>
                         <Route path='/tasks/list' element={<TaskRouter page={3}/>}/>

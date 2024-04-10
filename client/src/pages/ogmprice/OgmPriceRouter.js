@@ -6,8 +6,7 @@ import {useEffect, useState} from "react";
 
 import WorkPricePage from "./WorkPricePage";
 import OgmPricePage from "./OgmPricePage";
-
-
+import T13Page from "./T13Page";
 
 export default function OgmPriceRouter({page= 1}){
     return (
@@ -17,6 +16,7 @@ export default function OgmPriceRouter({page= 1}){
                 <Mainnavbar />
                 {page === 1 && <WorkPage data={<OgmPricePage />}/>}
                 {page === 2 && <WorkPage data={<WorkPricePage />}/>}
+                {page === 3 && <WorkPage data={<T13Page />}/>}
             </div>
         </div>
     )

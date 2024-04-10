@@ -7,18 +7,11 @@ import {ModalWin} from "../../modalwin/ModalWin";
 import ObjsService from "../../../services/ObjsService";
 import {Context} from "../../../index";
 
-export default function Buttons() {
+export default function Buttons({text,icon,url}) {
 
     return (
-        <div className='right-block'>
-            <div className='top-box'>
-            </div>
-            <div className='btn_projects'>
-                    <div className='btn_project_block'><i className="fa-solid fa-bars"/> gdfg</div>
-            </div>
+        <div className='btn_projects'>
+            <Link to={url} className='btn_project_block'><i className={icon} />{text}</Link>
         </div>
-
-
-
     )
 }
