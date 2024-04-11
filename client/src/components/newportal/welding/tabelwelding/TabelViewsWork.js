@@ -38,136 +38,136 @@ export const TabelViewsWork = ({getTabel,active,idobj,shifr,month,year}) => {
                                         <div className="tabwelding_viewswork_tabel_strock_calendar_days__day border-r">
                                             <div className="tabwelding_v_t_s_c_d_day_title">1</div>
                                             <div className="tabwelding_v_t_s_c_d_day_plan">
-                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={strock.days.d1} onChange={handleChange}/>
+                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={(strock.d1 === 0 || strock.d1 === '0')?'':strock.d1} onChange={handleChange}/>
                                             </div>
                                             <div className="tabwelding_v_t_s_c_d_day_fact">
-                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={strock.plan.d1} onChange={handleChange}/>
+                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={(strock.p1 === 0 || strock.p1 === '0')?'':strock.p1} onChange={handleChange}/>
                                             </div>
                                         </div>
                                         <div className="tabwelding_viewswork_tabel_strock_calendar_days__day border-r">
                                             <div className="tabwelding_v_t_s_c_d_day_title">2</div>
                                             <div className="tabwelding_v_t_s_c_d_day_plan">
-                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={strock.days.d2} onChange={handleChange}/>
+                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={(strock.d2 === 0 || strock.d2 === '0')?'':strock.d2 } onChange={handleChange}/>
                                             </div>
                                             <div className="tabwelding_v_t_s_c_d_day_fact">
-                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={strock.plan.d2} onChange={handleChange}/>
+                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={(strock.p2 === 0 || strock.p2 === '0')?'':strock.p2} onChange={handleChange}/>
                                             </div>
                                         </div>
                                         <div className="tabwelding_viewswork_tabel_strock_calendar_days__day border-r">
                                             <div className="tabwelding_v_t_s_c_d_day_title">3</div>
                                             <div className="tabwelding_v_t_s_c_d_day_plan">
-                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={strock.days.d3} onChange={handleChange}/>
+                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={(strock.d3 === 0 || strock.d3 === '0')?'':strock.d3} onChange={handleChange}/>
                                             </div>
                                             <div className="tabwelding_v_t_s_c_d_day_fact">
-                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={strock.plan.d3} onChange={handleChange}/>
+                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={(strock.p3 === 0 || strock.p3 === '0')?'':strock.p3} onChange={handleChange}/>
                                             </div>
                                         </div>
                                         <div className="tabwelding_viewswork_tabel_strock_calendar_days__day border-r">
                                             <div className="tabwelding_v_t_s_c_d_day_title">4</div>
                                             <div className="tabwelding_v_t_s_c_d_day_plan">
-                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={strock.days.d4} onChange={handleChange}/>
+                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={(strock.d4 === 0 || strock.d4 === '0')?'':strock.d4} onChange={handleChange}/>
                                             </div>
                                             <div className="tabwelding_v_t_s_c_d_day_fact">
-                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={strock.plan.d4} onChange={handleChange}/>
+                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={(strock.p4 === 0 || strock.p4 === '0')?'':strock.p4} onChange={handleChange}/>
                                             </div>
                                         </div>
                                         <div className="tabwelding_viewswork_tabel_strock_calendar_days__day border-r">
                                             <div className="tabwelding_v_t_s_c_d_day_title">5</div>
                                             <div className="tabwelding_v_t_s_c_d_day_plan">
-                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={strock.days.d5} onChange={handleChange}/>
+                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={(strock.d5 === 0 || strock.d5 === '0')?'':strock.d5} onChange={handleChange}/>
                                             </div>
                                             <div className="tabwelding_v_t_s_c_d_day_fact">
-                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={strock.plan.d5} onChange={handleChange}/>
+                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={(strock.p5 === 0 || strock.p5 === '0')?'':strock.p5} onChange={handleChange}/>
                                             </div>
                                         </div>
                                         <div className="tabwelding_viewswork_tabel_strock_calendar_days__day border-r">
                                             <div className="tabwelding_v_t_s_c_d_day_title">6</div>
                                             <div className="tabwelding_v_t_s_c_d_day_plan">
-                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={strock.days.d6} onChange={handleChange}/>
+                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={(strock.d6 === 0 || strock.d6 === '0')?'':strock.d6} onChange={handleChange}/>
                                             </div>
                                             <div className="tabwelding_v_t_s_c_d_day_fact">
-                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={strock.plan.d6} onChange={handleChange}/>
+                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={(strock.p6 === 0 || strock.p6 === '0')?'':strock.p6} onChange={handleChange}/>
                                             </div>
                                         </div>
                                         <div className="tabwelding_viewswork_tabel_strock_calendar_days__day border-r">
                                             <div className="tabwelding_v_t_s_c_d_day_title">7</div>
                                             <div className="tabwelding_v_t_s_c_d_day_plan">
-                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={strock.days.d7} onChange={handleChange}/>
+                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={(strock.d7 === 0 || strock.d7 === '0')?'':strock.d7} onChange={handleChange}/>
                                             </div>
                                             <div className="tabwelding_v_t_s_c_d_day_fact">
-                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={strock.plan.d7} onChange={handleChange}/>
+                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={(strock.p7 === 0 || strock.p7 === '0')?'':strock.p7} onChange={handleChange}/>
                                             </div>
                                         </div>
                                         <div className="tabwelding_viewswork_tabel_strock_calendar_days__day border-r">
                                             <div className="tabwelding_v_t_s_c_d_day_title">8</div>
                                             <div className="tabwelding_v_t_s_c_d_day_plan">
-                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={strock.days.d8} onChange={handleChange}/>
+                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={(strock.d8 === 0 || strock.d8 === '0')?'':strock.d8} onChange={handleChange}/>
                                             </div>
                                             <div className="tabwelding_v_t_s_c_d_day_fact">
-                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={strock.plan.d8} onChange={handleChange}/>
+                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={(strock.p8 === 0 || strock.p8 === '0')?'':strock.p8} onChange={handleChange}/>
                                             </div>
                                         </div>
                                         <div className="tabwelding_viewswork_tabel_strock_calendar_days__day border-r">
                                             <div className="tabwelding_v_t_s_c_d_day_title">9</div>
                                             <div className="tabwelding_v_t_s_c_d_day_plan">
-                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={strock.days.d9} onChange={handleChange}/>
+                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={(strock.d9 === 0 || strock.d9 === '0')?'':strock.d9} onChange={handleChange}/>
                                             </div>
                                             <div className="tabwelding_v_t_s_c_d_day_fact">
-                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={strock.plan.d9} onChange={handleChange}/>
+                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={(strock.p9 === 0 || strock.p9 === '0')?'':strock.p9} onChange={handleChange}/>
                                             </div>
                                         </div>
                                         <div className="tabwelding_viewswork_tabel_strock_calendar_days__day border-r">
                                             <div className="tabwelding_v_t_s_c_d_day_title">10</div>
                                             <div className="tabwelding_v_t_s_c_d_day_plan">
-                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={strock.days.d10} onChange={handleChange}/>
+                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={(strock.d10 === 0 || strock.d10 === '0')?'':strock.d10} onChange={handleChange}/>
                                             </div>
                                             <div className="tabwelding_v_t_s_c_d_day_fact">
-                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={strock.plan.d10} onChange={handleChange}/>
+                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={(strock.p10 === 0 || strock.p10 === '0')?'':strock.p10} onChange={handleChange}/>
                                             </div>
                                         </div>
                                         <div className="tabwelding_viewswork_tabel_strock_calendar_days__day border-r">
                                             <div className="tabwelding_v_t_s_c_d_day_title">11</div>
                                             <div className="tabwelding_v_t_s_c_d_day_plan">
-                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={strock.days.d11} onChange={handleChange}/>
+                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={(strock.d11 === 0 || strock.d11 === '0')?'':strock.d11} onChange={handleChange}/>
                                             </div>
                                             <div className="tabwelding_v_t_s_c_d_day_fact">
-                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={strock.plan.d11} onChange={handleChange}/>
+                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={(strock.p11 === 0 || strock.p11 === '0')?'':strock.p11} onChange={handleChange}/>
                                             </div>
                                         </div>
                                         <div className="tabwelding_viewswork_tabel_strock_calendar_days__day border-r">
                                             <div className="tabwelding_v_t_s_c_d_day_title">12</div>
                                             <div className="tabwelding_v_t_s_c_d_day_plan">
-                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={strock.days.d12} onChange={handleChange}/>
+                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={(strock.d12 === 0 || strock.d12 === '0')?'':strock.d12} onChange={handleChange}/>
                                             </div>
                                             <div className="tabwelding_v_t_s_c_d_day_fact">
-                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={strock.plan.d12} onChange={handleChange}/>
+                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={(strock.p12 === 0 || strock.p12 === '0')?'':strock.p12} onChange={handleChange}/>
                                             </div>
                                         </div>
                                         <div className="tabwelding_viewswork_tabel_strock_calendar_days__day border-r">
                                             <div className="tabwelding_v_t_s_c_d_day_title">13</div>
                                             <div className="tabwelding_v_t_s_c_d_day_plan">
-                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={strock.days.d13} onChange={handleChange}/>
+                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={(strock.d13 === 0 || strock.d13 === '0')?'':strock.d13 } onChange={handleChange}/>
                                             </div>
                                             <div className="tabwelding_v_t_s_c_d_day_fact">
-                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={strock.plan.d13} onChange={handleChange}/>
+                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={(strock.p13 === 0 || strock.p13 === '0')?'':strock.p13 } onChange={handleChange}/>
                                             </div>
                                         </div>
                                         <div className="tabwelding_viewswork_tabel_strock_calendar_days__day border-r">
                                             <div className="tabwelding_v_t_s_c_d_day_title">14</div>
                                             <div className="tabwelding_v_t_s_c_d_day_plan">
-                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={strock.days.d14} onChange={handleChange}/>
+                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={(strock.d14 === 0 || strock.d14 === '0')?'':strock.d14 } onChange={handleChange}/>
                                             </div>
                                             <div className="tabwelding_v_t_s_c_d_day_fact">
-                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={strock.plan.d14} onChange={handleChange}/>
+                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={(strock.p14 === 0 || strock.p14 === '0')?'':strock.p14 } onChange={handleChange}/>
                                             </div>
                                         </div>
                                         <div className="tabwelding_viewswork_tabel_strock_calendar_days__day border-r">
                                             <div className="tabwelding_v_t_s_c_d_day_title">15</div>
                                             <div className="tabwelding_v_t_s_c_d_day_plan">
-                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={strock.days.d15} onChange={handleChange}/>
+                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={(strock.d15 === 0 || strock.d15 === '0')?'':strock.d15 } onChange={handleChange}/>
                                             </div>
                                             <div className="tabwelding_v_t_s_c_d_day_fact">
-                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={strock.plan.d15} onChange={handleChange}/>
+                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={(strock.p15 === 0 || strock.p15 === '0')?'':strock.p15 } onChange={handleChange}/>
                                             </div>
                                         </div>
                                         <div className="tabwelding_viewswork_tabel_strock_calendar_days__day ">
@@ -178,145 +178,145 @@ export const TabelViewsWork = ({getTabel,active,idobj,shifr,month,year}) => {
                                         <div className="tabwelding_viewswork_tabel_strock_calendar_days__day border-r">
                                             <div className="tabwelding_v_t_s_c_d_day_title">16</div>
                                             <div className="tabwelding_v_t_s_c_d_day_plan">
-                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={strock.days.d16} onChange={handleChange}/>
+                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={(strock.d16 === 0 || strock.d16 === '0')?'':strock.d16 } onChange={handleChange}/>
                                             </div>
                                             <div className="tabwelding_v_t_s_c_d_day_fact">
-                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={strock.plan.d16} onChange={handleChange}/>
+                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={(strock.p16 === 0 || strock.p16 === '0')?'':strock.p16 } onChange={handleChange}/>
                                             </div>
                                         </div>
                                         <div className="tabwelding_viewswork_tabel_strock_calendar_days__day border-r">
                                             <div className="tabwelding_v_t_s_c_d_day_title">17</div>
                                             <div className="tabwelding_v_t_s_c_d_day_plan">
-                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={strock.days.d17} onChange={handleChange}/>
+                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={(strock.d17 === 0 || strock.d17 === '0')?'':strock.d17 } onChange={handleChange}/>
                                             </div>
                                             <div className="tabwelding_v_t_s_c_d_day_fact">
-                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={strock.plan.d17} onChange={handleChange}/>
+                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={(strock.p17 === 0 || strock.p17 === '0')?'':strock.p17 } onChange={handleChange}/>
                                             </div>
                                         </div>
                                         <div className="tabwelding_viewswork_tabel_strock_calendar_days__day border-r">
                                             <div className="tabwelding_v_t_s_c_d_day_title">18</div>
                                             <div className="tabwelding_v_t_s_c_d_day_plan">
-                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={strock.days.d18} onChange={handleChange}/>
+                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={(strock.d18 === 0 || strock.d18 === '0')?'':strock.d18 } onChange={handleChange}/>
                                             </div>
                                             <div className="tabwelding_v_t_s_c_d_day_fact">
-                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={strock.plan.d18} onChange={handleChange}/>
+                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={(strock.p18 === 0 || strock.p18 === '0')?'':strock.p18 } onChange={handleChange}/>
                                             </div>
                                         </div>
                                         <div className="tabwelding_viewswork_tabel_strock_calendar_days__day border-r">
                                             <div className="tabwelding_v_t_s_c_d_day_title">19</div>
                                             <div className="tabwelding_v_t_s_c_d_day_plan">
-                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={strock.days.d19} onChange={handleChange}/>
+                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={(strock.d19 === 0 || strock.d19 === '0')?'':strock.d19} onChange={handleChange}/>
                                             </div>
                                             <div className="tabwelding_v_t_s_c_d_day_fact">
-                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={strock.plan.d19} onChange={handleChange}/>
+                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={(strock.p19 === 0 || strock.p19 === '0')?'':strock.p19 } onChange={handleChange}/>
                                             </div>
                                         </div>
                                         <div className="tabwelding_viewswork_tabel_strock_calendar_days__day border-r">
                                             <div className="tabwelding_v_t_s_c_d_day_title">20</div>
                                             <div className="tabwelding_v_t_s_c_d_day_plan">
-                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={strock.days.d20} onChange={handleChange}/>
+                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={(strock.d20 === 0 || strock.d20 === '0')?'':strock.d20 } onChange={handleChange}/>
                                             </div>
                                             <div className="tabwelding_v_t_s_c_d_day_fact">
-                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={strock.plan.d20} onChange={handleChange}/>
+                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={(strock.p20 === 0 || strock.p20 === '0')?'':strock.p20 } onChange={handleChange}/>
                                             </div>
                                         </div>
                                         <div className="tabwelding_viewswork_tabel_strock_calendar_days__day border-r">
                                             <div className="tabwelding_v_t_s_c_d_day_title">21</div>
                                             <div className="tabwelding_v_t_s_c_d_day_plan">
-                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={strock.days.d21} onChange={handleChange}/>
+                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={(strock.d21 === 0 || strock.d21 === '0')?'':strock.d21} onChange={handleChange}/>
                                             </div>
                                             <div className="tabwelding_v_t_s_c_d_day_fact">
-                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={strock.plan.d21} onChange={handleChange}/>
+                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={(strock.p21 === 0 || strock.p21 === '0')?'':strock.p21 } onChange={handleChange}/>
                                             </div>
                                         </div>
                                         <div className="tabwelding_viewswork_tabel_strock_calendar_days__day border-r">
                                             <div className="tabwelding_v_t_s_c_d_day_title">22</div>
                                             <div className="tabwelding_v_t_s_c_d_day_plan">
-                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={strock.days.d22} onChange={handleChange}/>
+                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={(strock.d22 === 0 || strock.d22 === '0')?'':strock.d22 } onChange={handleChange}/>
                                             </div>
                                             <div className="tabwelding_v_t_s_c_d_day_fact">
-                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={strock.plan.d22} onChange={handleChange}/>
+                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={(strock.p22 === 0 || strock.p22 === '0')?'':strock.p22 } onChange={handleChange}/>
                                             </div>
                                         </div>
                                         <div className="tabwelding_viewswork_tabel_strock_calendar_days__day border-r">
                                             <div className="tabwelding_v_t_s_c_d_day_title">23</div>
                                             <div className="tabwelding_v_t_s_c_d_day_plan">
-                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={strock.days.d23} onChange={handleChange}/>
+                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={(strock.d23 === 0 || strock.d23 === '0')?'':strock.d23 } onChange={handleChange}/>
                                             </div>
                                             <div className="tabwelding_v_t_s_c_d_day_fact">
-                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={strock.plan.d23} onChange={handleChange}/>
+                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={(strock.p23 === 0 || strock.p23 === '0')?'':strock.p23 } onChange={handleChange}/>
                                             </div>
                                         </div>
                                         <div className="tabwelding_viewswork_tabel_strock_calendar_days__day border-r">
                                             <div className="tabwelding_v_t_s_c_d_day_title">24</div>
                                             <div className="tabwelding_v_t_s_c_d_day_plan">
-                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={strock.days.d24} onChange={handleChange}/>
+                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={(strock.d24 === 0 || strock.d24 === '0')?'':strock.d24 } onChange={handleChange}/>
                                             </div>
                                             <div className="tabwelding_v_t_s_c_d_day_fact">
-                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={strock.plan.d24} onChange={handleChange}/>
+                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={(strock.p24 === 0 || strock.p24 === '0')?'':strock.p24 } onChange={handleChange}/>
                                             </div>
                                         </div>
                                         <div className="tabwelding_viewswork_tabel_strock_calendar_days__day border-r">
                                             <div className="tabwelding_v_t_s_c_d_day_title">25</div>
                                             <div className="tabwelding_v_t_s_c_d_day_plan">
-                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={strock.days.d25} onChange={handleChange}/>
+                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={(strock.d25 === 0 || strock.d25 === '0')?'':strock.d25 } onChange={handleChange}/>
                                             </div>
                                             <div className="tabwelding_v_t_s_c_d_day_fact">
-                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={strock.plan.d25} onChange={handleChange}/>
+                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={(strock.p25 === 0 || strock.p25 === '0')?'':strock.p25 } onChange={handleChange}/>
                                             </div>
                                         </div>
                                         <div className="tabwelding_viewswork_tabel_strock_calendar_days__day border-r">
                                             <div className="tabwelding_v_t_s_c_d_day_title">26</div>
                                             <div className="tabwelding_v_t_s_c_d_day_plan">
-                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={strock.days.d26} onChange={handleChange}/>
+                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={(strock.d26 === 0 || strock.d26 === '0')?'':strock.d26 } onChange={handleChange}/>
                                             </div>
                                             <div className="tabwelding_v_t_s_c_d_day_fact">
-                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={strock.plan.d26} onChange={handleChange}/>
+                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={(strock.p26 === 0 || strock.p26 === '0')?'':strock.p26 } onChange={handleChange}/>
                                             </div>
                                         </div>
                                         <div className="tabwelding_viewswork_tabel_strock_calendar_days__day border-r">
                                             <div className="tabwelding_v_t_s_c_d_day_title">27</div>
                                             <div className="tabwelding_v_t_s_c_d_day_plan">
-                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={strock.days.d27} onChange={handleChange}/>
+                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={(strock.d27 === 0 || strock.d27 === '0')?'':strock.d27 } onChange={handleChange}/>
                                             </div>
                                             <div className="tabwelding_v_t_s_c_d_day_fact">
-                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={strock.plan.d27} onChange={handleChange}/>
+                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={(strock.p27 === 0 || strock.p27 === '0')?'':strock.p27 } onChange={handleChange}/>
                                             </div>
                                         </div>
                                         <div className="tabwelding_viewswork_tabel_strock_calendar_days__day border-r">
                                             <div className="tabwelding_v_t_s_c_d_day_title">28</div>
                                             <div className="tabwelding_v_t_s_c_d_day_plan">
-                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={strock.days.d28} onChange={handleChange}/>
+                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={(strock.d28 === 0 || strock.d28 === '0')?'':strock.d28 } onChange={handleChange}/>
                                             </div>
                                             <div className="tabwelding_v_t_s_c_d_day_fact">
-                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={strock.plan.d28} onChange={handleChange}/>
+                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={(strock.p28 === 0 || strock.p28 === '0')?'':strock.p28 } onChange={handleChange}/>
                                             </div>
                                         </div>
                                         <div className="tabwelding_viewswork_tabel_strock_calendar_days__day border-r">
                                             <div className="tabwelding_v_t_s_c_d_day_title">29</div>
                                             <div className="tabwelding_v_t_s_c_d_day_plan">
-                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={strock.days.d29} onChange={handleChange}/>
+                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={(strock.d29 === 0 || strock.d29 === '0')?'':strock.d29 } onChange={handleChange}/>
                                             </div>
                                             <div className="tabwelding_v_t_s_c_d_day_fact">
-                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={strock.plan.d29} onChange={handleChange}/>
+                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={(strock.p29 === 0 || strock.p29 === '0')?'':strock.p29 } onChange={handleChange}/>
                                             </div>
                                         </div>
                                         <div className="tabwelding_viewswork_tabel_strock_calendar_days__day border-r">
                                             <div className="tabwelding_v_t_s_c_d_day_title">30</div>
                                             <div className="tabwelding_v_t_s_c_d_day_plan">
-                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={strock.days.d30} onChange={handleChange}/>
+                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={(strock.d30 === 0 || strock.d30 === '0')?'':strock.d30 } onChange={handleChange}/>
                                             </div>
                                             <div className="tabwelding_v_t_s_c_d_day_fact">
-                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={strock.plan.d30} onChange={handleChange}/>
+                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={(strock.p30 === 0 || strock.p30 === '0')?'':strock.p30 } onChange={handleChange}/>
                                             </div>
                                         </div>
                                         <div className="tabwelding_viewswork_tabel_strock_calendar_days__day">
                                             <div className="tabwelding_v_t_s_c_d_day_title">31</div>
                                             <div className="tabwelding_v_t_s_c_d_day_plan">
-                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={strock.days.d31} onChange={handleChange}/>
+                                                <input type='number' className="tabwelding_v_t_s_c_d_day_plan_input" defaultValue={(strock.d31 === 0 || strock.d31 === '0')?'':strock.d31 } onChange={handleChange}/>
                                             </div>
                                             <div className="tabwelding_v_t_s_c_d_day_fact">
-                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={strock.plan.d31} onChange={handleChange}/>
+                                                <input className="tabwelding_v_t_s_c_d_day_plan_input"  defaultValue={(strock.p31 === 0 || strock.p31 === '0')?'':strock.p31 } onChange={handleChange}/>
                                             </div>
                                         </div>
                                     </div>

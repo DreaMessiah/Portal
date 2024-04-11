@@ -8,8 +8,23 @@ export default class WeldingService{
         return $api.post(`/welding/getallcrew`)
     }
     static async getMyCrews(params){
-        console.log(params)
         return $api.post(`/welding/getmycrews`, params)
+
+    }
+    // getTabelSv
+    static async getTabelSv(params){
+        return $api.post(`/welding/gettabsv`, params)
+
+    }
+
+    static async createCrew(params){
+        return $api.post(`/welding/createcrew`, params)
+
+    }
+
+    static async updateManDays(params){
+        console.log(params)
+        return $api.post(`/welding/updateman`, params)
 
     }
 
@@ -26,12 +41,13 @@ export default class WeldingService{
     }
 
     static async crYM(params){
-        console.log(params)
         return $api.post(`/welding/crym`, params)
 
     }
 
     static async getObgForHook(id){
+        console.log('getObgForHook')
+        console.log(id)
         return $api.post(`/welding/getobjhook`, id)
     }
 

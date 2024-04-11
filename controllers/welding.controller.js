@@ -25,7 +25,7 @@ class WeldingController {
 
     async getMyCrews(req,res,next) {
         try{
-            const params = req.body.params
+            const params = req.body
             const list = await WeldingService.getMyCrews(params)
             return res.json(list)
 
@@ -33,6 +33,39 @@ class WeldingController {
             next(e)
         }
     }
+
+    async createCrew(req,res,next) {
+        try{
+            const params = req.body
+            const list = await WeldingService.createCrew(params)
+            return res.json(list)
+        }catch (e){
+            next(e)
+        }
+    }
+
+    async getTabelSv(req,res,next) {
+        try{
+            const params = req.body
+            const list = await WeldingService.getTabelSv(params)
+            return res.json(list)
+
+        }catch (e){
+            next(e)
+        }
+    }
+
+    async updateManDays(req,res,next) {
+        try{
+            const params = req.body
+            const list = await WeldingService.updateManDays(params)
+            return res.json(list)
+
+        }catch (e){
+            next(e)
+        }
+    }
+
 
     async viewObjSV(req,res,next) {
         try{
@@ -82,20 +115,9 @@ class WeldingController {
 
             const id = req.body.getShifr
             console.log(id)
-            console.log('-------------------------'+id+'------------------------------')
             const list = await WeldingService.getObgForHook(id)
             return res.json(list.dataValues)
         }catch (e){
-            console.log('---------------------{ХРЕНЬ}----------------------------')
-            console.log('---------------------{ХРЕНЬ}----------------------------')
-            console.log('---------------------{ХРЕНЬ}----------------------------')
-            console.log('---------------------{ХРЕНЬ}----------------------------')
-            console.log('---------------------{ХРЕНЬ}----------------------------')
-            console.log('---------------------{ХРЕНЬ}----------------------------')
-            console.log('---------------------{ХРЕНЬ}----------------------------')
-            console.log('---------------------{ХРЕНЬ}----------------------------')
-            console.log('---------------------{ХРЕНЬ}----------------------------')
-            console.log('---------------------{ХРЕНЬ}----------------------------')
             next(e)
         }
     }

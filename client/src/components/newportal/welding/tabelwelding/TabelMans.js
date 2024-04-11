@@ -1,5 +1,6 @@
 import React, {useEffect, useRef} from "react";
 import "./tabelform.scss";
+import WeldingService from "../../../../services/WeldingService";
 
 
 export const TabelMans = ({peoples,active,idobj,shifr,month,year}) => {
@@ -12,6 +13,14 @@ export const TabelMans = ({peoples,active,idobj,shifr,month,year}) => {
         console.log(itog)
     }
 
+    const updateDay = async (day, value, manid) => {
+        try{
+            const upDay = await WeldingService.updateManDays({day, value, manid})
+        }catch(e){
+            console.log(e)
+        }
+    }
+
     solution('привет')
 
 
@@ -19,19 +28,19 @@ export const TabelMans = ({peoples,active,idobj,shifr,month,year}) => {
         <div className="tabwelding_tabel_tabelman ">
             {peoples.map((man, index) => (
             <div key={index} className="tabwelding_tabel_tabelman_strock">
-                <div className="tabwelding_tabel_tabelman_strock_num">1</div>
+                <div className="tabwelding_tabel_tabelman_strock_num">{index+1}</div>
                 <div className="tabwelding_tabel_tabelman_strock_fio">{man.name}</div>
                 <div className="tabwelding_tabel_tabelman_strock_calendar">
                     <div className="tabwelding_tabel_tabelman_strock_calendar_s">
 
                             <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                                 <div className="tabwelding_tabel_tabelman_s_c_c_day_title">1</div>
-                                <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b no-left-border" value={man.days.d1}></input>
+                                <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b no-left-border" onChange={(e)=>{updateDay('d1', e.target.value, man.id)}} defaultValue={man.d1}></input>
                             </div>
 
                             <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                                 <div className="tabwelding_tabel_tabelman_s_c_c_day_title">16</div>
-                                <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b no-left-border" value={man.days.d16}></input>
+                                <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b no-left-border" onChange={(e)=>{updateDay('d16', e.target.value, man.id)}} defaultValue={man.d16}></input>
                             </div>
 
                     </div>
@@ -39,24 +48,24 @@ export const TabelMans = ({peoples,active,idobj,shifr,month,year}) => {
 
                             <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                                 <div className="tabwelding_tabel_tabelman_s_c_c_day_title">2</div>
-                                <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" value={man.days.d2}></input>
+                                <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d2', e.target.value, man.id)}} defaultValue={man.d2}></input>
                             </div>
 
                             <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                                 <div className="tabwelding_tabel_tabelman_s_c_c_day_title">17</div>
-                                <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" value={man.days.d17}></input>
+                                <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d17', e.target.value, man.id)}} defaultValue={man.d17}></input>
                             </div>
                     </div>
                     <div className="tabwelding_tabel_tabelman_strock_calendar_s">
 
                             <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                                 <div className="tabwelding_tabel_tabelman_s_c_c_day_title">3</div>
-                                <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" value={man.days.d3}></input>
+                                <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d3', e.target.value, man.id)}} defaultValue={man.d3}></input>
                             </div>
 
                             <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                                 <div className="tabwelding_tabel_tabelman_s_c_c_day_title">18</div>
-                                <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" value={man.days.d18}></input>
+                                <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d18', e.target.value, man.id)}} defaultValue={man.d18}></input>
                             </div>
 
                     </div>
@@ -64,13 +73,13 @@ export const TabelMans = ({peoples,active,idobj,shifr,month,year}) => {
 
                             <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                                 <div className="tabwelding_tabel_tabelman_s_c_c_day_title">4</div>
-                                <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" value={man.days.d4}></input>
+                                <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d4', e.target.value, man.id)}} defaultValue={man.d4}></input>
                             </div>
 
 
                             <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                                 <div className="tabwelding_tabel_tabelman_s_c_c_day_title">19</div>
-                                <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" value={man.days.d19}></input>
+                                <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d19', e.target.value, man.id)}} defaultValue={man.d19}></input>
                             </div>
 
                     </div>
@@ -78,13 +87,13 @@ export const TabelMans = ({peoples,active,idobj,shifr,month,year}) => {
 
                         <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                             <div className="tabwelding_tabel_tabelman_s_c_c_day_title">5</div>
-                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" value={man.days.d5}></input>
+                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d5', e.target.value, man.id)}} defaultValue={man.d5}></input>
                         </div>
 
 
                         <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                             <div className="tabwelding_tabel_tabelman_s_c_c_day_title">20</div>
-                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" value={man.days.d20}></input>
+                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d20', e.target.value, man.id)}} defaultValue={man.d20}></input>
                         </div>
 
                     </div>
@@ -92,13 +101,13 @@ export const TabelMans = ({peoples,active,idobj,shifr,month,year}) => {
 
                         <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                             <div className="tabwelding_tabel_tabelman_s_c_c_day_title">6</div>
-                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" value={man.days.d6}></input>
+                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d6', e.target.value, man.id)}} defaultValue={man.d6}></input>
                         </div>
 
 
                         <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                             <div className="tabwelding_tabel_tabelman_s_c_c_day_title">21</div>
-                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" value={man.days.d21}></input>
+                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d21', e.target.value, man.id)}} defaultValue={man.d21}></input>
                         </div>
 
                     </div>
@@ -106,13 +115,13 @@ export const TabelMans = ({peoples,active,idobj,shifr,month,year}) => {
 
                         <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                             <div className="tabwelding_tabel_tabelman_s_c_c_day_title">7</div>
-                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" value={man.days.d7}></input>
+                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d7', e.target.value, man.id)}} defaultValue={man.d7}></input>
                         </div>
 
 
                         <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                             <div className="tabwelding_tabel_tabelman_s_c_c_day_title">22</div>
-                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" value={man.days.d22}></input>
+                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d22', e.target.value, man.id)}} defaultValue={man.d22}></input>
                         </div>
 
                     </div>
@@ -120,13 +129,13 @@ export const TabelMans = ({peoples,active,idobj,shifr,month,year}) => {
 
                         <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                             <div className="tabwelding_tabel_tabelman_s_c_c_day_title">8</div>
-                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" value={man.days.d8}></input>
+                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d8', e.target.value, man.id)}} defaultValue={man.d8}></input>
                         </div>
 
 
                         <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                             <div className="tabwelding_tabel_tabelman_s_c_c_day_title">23</div>
-                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" value={man.days.d23}></input>
+                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d23', e.target.value, man.id)}} defaultValue={man.d23}></input>
                         </div>
 
                     </div>
@@ -134,13 +143,13 @@ export const TabelMans = ({peoples,active,idobj,shifr,month,year}) => {
 
                         <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                             <div className="tabwelding_tabel_tabelman_s_c_c_day_title">9</div>
-                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" value={man.days.d9}></input>
+                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d9', e.target.value, man.id)}} defaultValue={man.d9}></input>
                         </div>
 
 
                         <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                             <div className="tabwelding_tabel_tabelman_s_c_c_day_title">24</div>
-                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" value={man.days.d24}></input>
+                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d24', e.target.value, man.id)}} defaultValue={man.d24}></input>
                         </div>
 
                     </div>
@@ -148,13 +157,13 @@ export const TabelMans = ({peoples,active,idobj,shifr,month,year}) => {
 
                         <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                             <div className="tabwelding_tabel_tabelman_s_c_c_day_title">10</div>
-                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" value={man.days.d10}></input>
+                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d10', e.target.value, man.id)}} defaultValue={man.d10}></input>
                         </div>
 
 
                         <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                             <div className="tabwelding_tabel_tabelman_s_c_c_day_title">25</div>
-                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" value={man.days.d25}></input>
+                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d25', e.target.value, man.id)}} defaultValue={man.d25}></input>
                         </div>
 
                     </div>
@@ -162,13 +171,13 @@ export const TabelMans = ({peoples,active,idobj,shifr,month,year}) => {
 
                         <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                             <div className="tabwelding_tabel_tabelman_s_c_c_day_title">11</div>
-                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" value={man.days.d11}></input>
+                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d11', e.target.value, man.id)}} defaultValue={man.d11}></input>
                         </div>
 
 
                         <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                             <div className="tabwelding_tabel_tabelman_s_c_c_day_title">26</div>
-                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" value={man.days.d26}></input>
+                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d26', e.target.value, man.id)}} defaultValue={man.d26}></input>
                         </div>
 
                     </div>
@@ -176,13 +185,13 @@ export const TabelMans = ({peoples,active,idobj,shifr,month,year}) => {
 
                         <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                             <div className="tabwelding_tabel_tabelman_s_c_c_day_title">12</div>
-                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" value={man.days.d12}></input>
+                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d12', e.target.value, man.id)}} defaultValue={man.d12}></input>
                         </div>
 
 
                         <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                             <div className="tabwelding_tabel_tabelman_s_c_c_day_title">27</div>
-                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" value={man.days.d27}></input>
+                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d27', e.target.value, man.id)}} defaultValue={man.d27}></input>
                         </div>
 
                     </div>
@@ -190,13 +199,13 @@ export const TabelMans = ({peoples,active,idobj,shifr,month,year}) => {
 
                         <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                             <div className="tabwelding_tabel_tabelman_s_c_c_day_title">13</div>
-                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" value={man.days.d13}></input>
+                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d13', e.target.value, man.id)}} defaultValue={man.d13}></input>
                         </div>
 
 
                         <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                             <div className="tabwelding_tabel_tabelman_s_c_c_day_title">28</div>
-                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" value={man.days.d28}></input>
+                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d28', e.target.value, man.id)}} defaultValue={man.d28}></input>
                         </div>
 
                     </div>
@@ -204,13 +213,13 @@ export const TabelMans = ({peoples,active,idobj,shifr,month,year}) => {
 
                         <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                             <div className="tabwelding_tabel_tabelman_s_c_c_day_title">14</div>
-                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" value={man.days.d14}></input>
+                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d14', e.target.value, man.id)}} defaultValue={man.d14}></input>
                         </div>
 
 
                         <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                             <div className="tabwelding_tabel_tabelman_s_c_c_day_title">29</div>
-                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" value={man.days.d29}></input>
+                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d29', e.target.value, man.id)}} defaultValue={man.d29}></input>
                         </div>
 
                     </div>
@@ -218,27 +227,22 @@ export const TabelMans = ({peoples,active,idobj,shifr,month,year}) => {
 
                         <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                             <div className="tabwelding_tabel_tabelman_s_c_c_day_title">15</div>
-                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" value={man.days.d15}></input>
+                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d15', e.target.value, man.id)}} defaultValue={man.d15}></input>
                         </div>
 
 
                         <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                             <div className="tabwelding_tabel_tabelman_s_c_c_day_title">30</div>
-                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" value={man.days.d30}></input>
+                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d30', e.target.value, man.id)}} defaultValue={man.d30}></input>
                         </div>
 
                     </div>
                     <div className="tabwelding_tabel_tabelman_strock_calendar_s">
-
-                        <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
-                        </div>
-
-
+                        <div className="tabwelding_tabel_tabelman_strock_calendar_column_day"></div>
                         <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                             <div className="tabwelding_tabel_tabelman_s_c_c_day_title top-border-1px">31</div>
-                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" value={man.days.d31}></input>
+                            <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d31', e.target.value, man.id)}} defaultValue={man.d31}></input>
                         </div>
-
                     </div>
                 </div>
                 <div className="tabwelding_tabel_tabelman_strock_itogy">

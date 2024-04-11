@@ -458,23 +458,6 @@ const Ymshifr = sequelize.define('ymshifr',{
     ras:{type:DataTypes.INTEGER},
     inn:{type:DataTypes.STRING},
 })
-const Ktulist = sequelize.define('ktulist',{
-    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
-    name:{type:DataTypes.STRING},
-    tn:{type:DataTypes.STRING},
-    number_doc:{type:DataTypes.INTEGER},
-    inn:{type:DataTypes.STRING},
-    month:{type:DataTypes.STRING},
-    year:{type:DataTypes.STRING},
-    developer:{type:DataTypes.STRING},
-    shifr:{type:DataTypes.STRING},
-    object_id:{type:DataTypes.INTEGER,ref:'objects'},
-    ktudate:{type:DataTypes.DATE},
-    content:{type:DataTypes.TEXT},
-    ktuman:{type:DataTypes.STRING},
-    ktu:{type:DataTypes.FLOAT},
-    percent:{type:DataTypes.INTEGER},
-})
 const Files = sequelize.define('files',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     name:{type:DataTypes.STRING},
@@ -722,6 +705,26 @@ const MessageSv = sequelize.define('messagesv',{
     inn:{type:DataTypes.STRING},
 })
 
+const KtuDoc = sequelize.define('ktudoc',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    inn:{type:DataTypes.STRING},
+    month:{type:DataTypes.STRING},
+    year:{type:DataTypes.STRING},
+    author:{type:DataTypes.STRING},
+    comment:{type:DataTypes.STRING}
+})
+const KtuList = sequelize.define('ktulist',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    ktudoc_id:{type:DataTypes.INTEGER,ref:'ktudoc'},
+    shifr:{type:DataTypes.STRING},
+    user_tn:{type:DataTypes.STRING},
+    ktudate:{type:DataTypes.STRING},
+    content:{type:DataTypes.STRING},
+    ktuman:{type:DataTypes.STRING},
+    ktu:{type:DataTypes.FLOAT},
+    percent:{type:DataTypes.INTEGER}
+})
+
 module.exports = {
-    MessageSv,ViewsWorkSv,CrewManlist,CrewDoclist,CrewBase,CrewSv,OgmPrice,WorkPrice,StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Ktulist,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
+    KtuDoc,KtuList,MessageSv,ViewsWorkSv,CrewManlist,CrewDoclist,CrewBase,CrewSv,OgmPrice,WorkPrice,StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
 }
