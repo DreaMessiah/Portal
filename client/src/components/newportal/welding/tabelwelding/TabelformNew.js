@@ -14,6 +14,10 @@ import WeldingService from "../../../../services/WeldingService";
 import {useMonth} from "../../../../hooks/month.hook";
 import ModalFiles from "../../../modalwin/ModalFiles";
 import {useMessage} from "../../../../hooks/message.hook";
+import Select from "react-select";
+import ObjsService from "../../../../services/ObjsService";
+import {Context} from "../../../../index";
+import CmsSelect from "../../../inputs/CmsSelect";
 
 
 
@@ -66,10 +70,61 @@ export const TabelformNew = () => {
     const [allcrews,setAllcrews] = useState([])
 
     const [weldingcrews, setWeldingcrew] = useState([])
+
+    const [listMans, setListMans] = useState([])
+    const [thisMans, setThisMans] = useState([])
+
+    const  {store} = useContext(Context)
+    const inn = store.user.inn
+
     const handleSelect = e => {
         setSelect(e.target.value)
     }
     let btnsNameCrews
+    const currentDate = new Date();
+    const year = currentDate.getFullYear() + '';
+    // console.log(year)
+    const currentMonth = currentDate.getMonth(); // Получаем номер текущего месяца
+
+    const t13List = async (e) => {
+        let month = months[currentMonth];
+        let newArr
+        try {
+            const listMan = await ObjsService.getT13({inn, month, year})
+            let i = 0
+            if (listMan.data.length !== 0){
+
+                listMan.data.forEach(man => {
+                    man.label = man.name + '  ' + man.developer
+                    man.value = man.tn
+                    man.index = i
+                    i++
+                })
+                setListMans(listMan.data)
+            } else {
+                month = months[currentMonth - 1];
+                try{
+                    const listMan = await ObjsService.getT13({inn, month, year})
+                    listMan.data.forEach(man => {
+                        man.label = man.name + '  ' + man.developer
+                        man.value = man.tn
+                        man.index = i
+                        i++
+                    })
+                    setListMans(listMan.data)
+                } catch {
+
+                }
+
+            }
+
+
+            // console.log(listMans)
+        } catch {
+            alert('ебобо скрипт проверь')
+        }
+    }
+
     const activetedCrew = (button, crew) => {
         btnsNameCrews = document.querySelectorAll('.tabwelding_crews_block')
             button.classList = 'tabwelding_crews_block bgactive'
@@ -123,6 +178,8 @@ export const TabelformNew = () => {
                             views.push(item)
                         }
                     })
+                    views.sort((a, b) => a.id - b.id);
+                    mans.sort((a, b) => a.id - b.id);
                     zveno.mans = mans
                     zveno.views = views
                     crewsman.push(zveno)
@@ -142,6 +199,7 @@ export const TabelformNew = () => {
                 setTabelMans(tabel.peoples)
             }
         })
+        t13List()
         getParamObj()
         getMyCrews()
     },[views])
@@ -172,8 +230,9 @@ export const TabelformNew = () => {
             <div className="tabwelding_slice"></div>
             <div className="tabwelding_viewswork">
                 <div className="tabwelding_viewswork_upper">
-                    <div className="tabwelding_viewswork_upper_title">Виды работ</div>
-                    <div className="back-button">Добавить вид</div>
+                    <Select placeholder='Выбрать вид работы' styles={{container:(baseStyles, state) => ({...baseStyles,width:'250px'})}}/>
+                    {/*<div className="tabwelding_viewswork_upper_title">Виды работ</div>*/}
+                    <div className="back-button" style={{margin: '0 10px'}}>Добавить вид</div>
                     <div onClick={() => alert(tabelView)} className="tabwelding_viewswork_upper_date">сегодня: 01-01-2024</div>
                 </div>
             </div>
@@ -181,7 +240,8 @@ export const TabelformNew = () => {
             <div className="tabwelding_slice"></div>
             <div className="tabwelding_tabel">
                 <div className="tabwelding_tabel_upper">
-                    <div className="tabwelding_tabel_upper_title">Табель</div>
+                    <Select placeholder='Выбрать сотрудника' onChange={(e) => setThisMans(listMans[e.index])} value={thisMans} options={listMans} styles={{container:(baseStyles, state) => ({...baseStyles,width:'250px'})}}/>
+                    {/*<div className="tabwelding_tabel_upper_title">Табель</div>*/}
                     <div className="back-button">Добавить</div>
                 </div>
                 <TabelMans  peoples={mans} active={crewName} idobj={getId} shifr={getShifr} month={getMonth} year={getYear}/>

@@ -711,7 +711,8 @@ const KtuDoc = sequelize.define('ktudoc',{
     month:{type:DataTypes.STRING},
     year:{type:DataTypes.STRING},
     author:{type:DataTypes.STRING},
-    comment:{type:DataTypes.STRING}
+    comment:{type:DataTypes.STRING},
+    trash:{type:DataTypes.BOOLEAN}
 })
 const KtuList = sequelize.define('ktulist',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
@@ -722,7 +723,7 @@ const KtuList = sequelize.define('ktulist',{
     content:{type:DataTypes.STRING},
     ktuman:{type:DataTypes.STRING},
     ktu:{type:DataTypes.FLOAT},
-    percent:{type:DataTypes.INTEGER}
+    percent:{type:DataTypes.INTEGER},
 })
 
 module.exports = {

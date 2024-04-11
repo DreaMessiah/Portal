@@ -141,6 +141,11 @@ class WeldingService{
         console.log(' - ')
         console.log(' - ')
         console.log(' - ')
+        const line = await TabelSv.findOne({where:{id:param.manid}})
+        line[param.day] = param.value
+        await line.save();
+        return ''
+        // TabelSv
         // console.log("это сервис на сервере")
         // const line = await TableTabel.findOne({where:{id:day.idline}})
         // line[day.day] = day.val

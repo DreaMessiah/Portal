@@ -15,6 +15,6 @@ router.post('/getobjhook', weldingController.getObgForHook)
 router.post('/getmycrews', weldingController.getMyCrews)
 router.post('/gettabsv', weldingController.getTabelSv)
 router.post('/createcrew', weldingController.createCrew)
-router.post('/createcrew', weldingController.updateManDays)
+router.post('/updateman', weldingController.updateManDays)
 
 module.exports = router
