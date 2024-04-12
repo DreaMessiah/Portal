@@ -9,9 +9,10 @@ export const NewControll = ({list, active, setActive}) => {
 
     }
     const [arrConnection, setArrConnection] = useState(false)
-
+    const [defs, setDefs] = useState([])
 
     const pushController = (push) => {
+
 
         const controllList = document.getElementById('new_controll_list')
         const createBtn = document.getElementById('plusBtn')
@@ -24,7 +25,6 @@ export const NewControll = ({list, active, setActive}) => {
                 timeArrValues[input.id] = input.value
                 input.value = ''
             })
-
             arrConnectionList.push(timeArrValues)
 
             controllList.insertAdjacentHTML('beforeend', `
@@ -71,14 +71,22 @@ export const NewControll = ({list, active, setActive}) => {
                         </div>
                     </div>
                 `)
-        console.log(list)
+        // console.log(list)
         controllList.innerHTML = ''
-
-
+        //
+console.log(defs)
+        const olddef = defs + arrConnectionList
+        setDefs([olddef])
         arrConnectionList = []
+
+
+
         timeArrValues = {}
     }
 
+    useEffect(() => {
+// console.log(defs)
+        },[defs])
 
     return (
         <div className='new_controll'>

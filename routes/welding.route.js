@@ -16,5 +16,8 @@ router.post('/getmycrews', weldingController.getMyCrews)
 router.post('/gettabsv', weldingController.getTabelSv)
 router.post('/createcrew', weldingController.createCrew)
 router.post('/updateman', weldingController.updateManDays)
+router.post('/getviewwork', weldingController.getViewWorkSV)
+router.post('/plusvw', weldingController.plusVW)
+
 
 module.exports = router

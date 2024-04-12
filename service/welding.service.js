@@ -1,4 +1,4 @@
-const {Objects, ObjectsSV, YmSvarka, CrewBase, CrewSv, TabelSv, CrewManlist, TableTabel} = require('../models/models')
+const {Objects, ObjectsSV, YmSvarka, CrewBase, CrewSv, TabelSv, CrewManlist, TableTabel, ViewsWorkSv} = require('../models/models')
 const ObjsDto = require('../dtos/objsDto')
 const ApiError = require('../exceptions/api.error')
 class WeldingService{
@@ -55,7 +55,7 @@ class WeldingService{
 
                 const created = TabelSv.create({object_id:params.idobj,shifr:shifrname,year:params.year,month:namemonth,
                     crew:params.sel,checkin:'man',name:fio,developer:dev,tn:tn,inn:'8617014209',
-                    volume:'',unit:'',norma:''})
+                    volume:'',unit:'',norma:'',writed:0,d1:0,d2:0,d3:0,d4:0,d5:0,d6:0,d7:0,d8:0,d9:0,d10:0,d11:0,d12:0,d13:0,d14:0,d15:0,d16:0,d17:0,d18:0,d19:0,d20:0,d21:0,d22:0,d23:0,d24:0,d25:0,d26:0,d27:0,d28:0,d29:0,d30:0,d31:0})
                 // const created = await TabelSv.create({object_id:params.idobj,shifr:shifrname,year:params.year,month:namemonth,
                 //     crew:params.sel,checkin:'man',name:fio,developer:dev,tn:tn,inn:'8617014209',
                 //     volume:'',unit:'',norma:'',writed:0,d1:0,d2:0,d3:0,d4:0,d5:0,d6:0,d7:0,d8:0,d9:0,d10:0,d11:0,d12:0,d13:0,d14:0,d15:0,d16:0,d17:0,d18:0,d19:0,d20:0,d21:0,d22:0,d23:0,d24:0,d25:0,d26:0,d27:0,d28:0,d29:0,d30:0,d31:0})
@@ -112,6 +112,19 @@ class WeldingService{
         return listYM
     }
 
+    async getViewWorkSV(params){
+        console.log('params')
+        console.log(params)
+        const getobj = await Objects.findOne({where: {id:params.idshifr}})
+        const shifr = getobj.dataValues.shifr
+        console.log('объект')
+        console.log(shifr)
+        // const shifrname = getobj[0].dataValues.shifr
+        const listWorks = await ViewsWorkSv.findAll({where: {shifr:shifr}})
+        return listWorks
+    }
+
+
     async crYM(params){
         const listYM = await YmSvarka.findAll({where: {inn:params.inn, shifr:params.idstore, year:params.newyear, month:params.newmonth}, order: [['year', 'DESC'],['month', 'ASC']]})
 
@@ -151,6 +164,99 @@ class WeldingService{
         // line[day.day] = day.val
         // await line.save();
         // return ''
+
+    }
+    async plusVW(param){
+        const created = await TabelSv.create({
+            object_id: param.objid,
+            shifr: param.thisView.shifr,
+            year: param.year,
+            month: param.month,
+            crew: param.crew,
+            checkin: 'view',
+            name: param.thisView.viewname,
+            developer: '',
+            tn: '',
+            inn: '8617014209',
+            volume: '',
+            unit: '',
+            norma: '',
+            writed: 0,
+            d1: 0,
+            d2: 0,
+            d3: 0,
+            d4: 0,
+            d5: 0,
+            d6: 0,
+            d7: 0,
+            d8: 0,
+            d9: 0,
+            d10: 0,
+            d11: 0,
+            d12: 0,
+            d13: 0,
+            d14: 0,
+            d15: 0,
+            d16: 0,
+            d17: 0,
+            d18: 0,
+            d19: 0,
+            d20: 0,
+            d21: 0,
+            d22: 0,
+            d23: 0,
+            d24: 0,
+            d25: 0,
+            d26: 0,
+            d27: 0,
+            d28: 0,
+            d29: 0,
+            d30: 0,
+            d31: 0,
+            p1: 0,
+            p2: 0,
+            p3: 0,
+            p4: 0,
+            p5: 0,
+            p6: 0,
+            p7: 0,
+            p8: 0,
+            p9: 0,
+            p10: 0,
+            p11: 0,
+            p12: 0,
+            p13: 0,
+            p14: 0,
+            p15: 0,
+            p16: 0,
+            p17: 0,
+            p18: 0,
+            p19: 0,
+            p20: 0,
+            p21: 0,
+            p22: 0,
+            p23: 0,
+            p24: 0,
+            p25: 0,
+            p26: 0,
+            p27: 0,
+            p28: 0,
+            p29: 0,
+            p30: 0,
+            p31: 0,
+        })
+
+        // const listMyCrews = await TabelSv.findAll({where: {shifr:shifrname, year:params.year, month:namemonth, checkin:'man', crew:params.sel}})
+        // const line = await TabelSv.findOne({where:{id:param.manid}})
+        // line[param.day] = param.value
+        // await line.save();
+        // return ''
+        // TabelSv
+        // console.log("это сервис на сервере")
+        // const line = await TableTabel.findOne({where:{id:day.idline}})
+        // line[day.day] = day.val
+        // await line.save();
+        return created
 
     }
 

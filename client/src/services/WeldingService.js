@@ -23,10 +23,18 @@ export default class WeldingService{
     }
 
     static async updateManDays(params){
-        console.log(params)
         return $api.post(`/welding/updateman`, params)
 
     }
+
+    static async getViewWorkSV(params){
+        return $api.post(`/welding/getviewwork`, params)
+    }
+
+    static async plusVW(params){
+        return $api.post(`/welding/plusvw`, params)
+    }
+
 
     static async insertObjs(objs){
         return $api.post(`/welding/pushnewobjwelding`, objs)
@@ -46,8 +54,6 @@ export default class WeldingService{
     }
 
     static async getObgForHook(id){
-        console.log('getObgForHook')
-        console.log(id)
         return $api.post(`/welding/getobjhook`, id)
     }
 

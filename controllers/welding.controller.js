@@ -66,6 +66,29 @@ class WeldingController {
         }
     }
 
+    async getViewWorkSV(req,res,next) {
+        try{
+            const params = req.body
+            const list = await WeldingService.getViewWorkSV(params)
+            return res.json(list)
+
+        }catch (e){
+            next(e)
+        }
+    }
+
+    async plusVW(req,res,next) {
+        try{
+            const params = req.body
+            const list = await WeldingService.plusVW(params)
+            return res.json(list)
+
+        }catch (e){
+            next(e)
+        }
+    }
+
+
 
     async viewObjSV(req,res,next) {
         try{

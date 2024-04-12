@@ -42,40 +42,54 @@ export const TabelformNew = () => {
 
     const [thisobj, setThisobj] = useState({})
 
+
+
     const getParamObj = async (e) =>{
         const response = await WeldingService.getObgForHook({getShifr})
-        console.log(response.data)
         setThisobj(response.data)
     }
 
-
     const {weldingCrews} = useContext(DataContext)
-
     const [crew, setCrew] = useState(false)
-
     const [crewName, setCrewName] = useState('')
-
     const [select, setSelect] = useState('отсутствует')
-
     const [views, setViews] = useState([])
-
     const [mans, setMans] = useState([])
-
     const [tabelView,setTabelView] = useState([])
-
     const [mycrews,setMycrews] = useState([])
-
     const [tabMans,setTabelMans] = useState([])
-
     const [allcrews,setAllcrews] = useState([])
-
     const [weldingcrews, setWeldingcrew] = useState([])
 
     const [listMans, setListMans] = useState([])
     const [thisMans, setThisMans] = useState([])
 
+    const [listWorks, setListWorks] = useState([])
+    const [thisView, setThisView] = useState([])
+
     const  {store} = useContext(Context)
     const inn = store.user.inn
+
+
+
+    const getViewsWork = async () => {
+        try{
+            const idshifr = +getShifr
+            const viewsv = await WeldingService.getViewWorkSV({idshifr})
+            let viewswork = viewsv.data
+            viewswork.sort((a, b) => a.id - b.id);
+            let i = 0;
+            viewswork.forEach(view => {
+                view.label = view.viewname
+                view.value = view.id
+                view.index = i
+                i++
+            })
+            setListWorks(viewswork)
+        }catch(e){
+            console.log(e)
+        }
+    }
 
     const handleSelect = e => {
         setSelect(e.target.value)
@@ -83,7 +97,6 @@ export const TabelformNew = () => {
     let btnsNameCrews
     const currentDate = new Date();
     const year = currentDate.getFullYear() + '';
-    // console.log(year)
     const currentMonth = currentDate.getMonth(); // Получаем номер текущего месяца
 
     const t13List = async (e) => {
@@ -119,31 +132,30 @@ export const TabelformNew = () => {
             }
 
 
-            // console.log(listMans)
         } catch {
             alert('ебобо скрипт проверь')
         }
     }
 
     const activetedCrew = (button, crew) => {
-        btnsNameCrews = document.querySelectorAll('.tabwelding_crews_block')
+        if(button){
+            btnsNameCrews = document.querySelectorAll('.tabwelding_crews_block')
             button.classList = 'tabwelding_crews_block bgactive'
             btnsNameCrews.forEach(btn => {
                 if(button !== btn) {
                     btn.classList = 'tabwelding_crews_block'
                 }
             })
-        console.log(crew)
+        }
+
         weldingcrews.forEach(crews => {
-            console.log(crews)
             if(crews.crew === crew){
-                setViews(crews.views)
-                setMans(crews.mans)
+                setViews([...crews.views])
+                setMans([...crews.mans])
                 setCrewName(crews.crew)
             }
         })
     }
-
 
 
     const getMyCrews = async () => {
@@ -184,14 +196,27 @@ export const TabelformNew = () => {
                     zveno.views = views
                     crewsman.push(zveno)
                 })
-                setWeldingcrew(crewsman)
-                setAllcrews(crews)
+                setWeldingcrew([...crewsman])
+                setAllcrews([...crews])
             }catch(e){
                 console.log(e)
             }
 
     }
-
+    const plusView = async () => {
+        try{
+            const month = months[getMonth]
+            const newview = await WeldingService.plusVW({thisView, objid: getShifr, crew: crewName, month, year: getYear})
+            console.log(newview.data)
+            const viewplus = newview.data
+            setViews([...viewplus])
+            // getMyCrews()
+            // getViewsWork()
+            // activetedCrew(false, crewName)
+        }catch(e){
+            console.log(e)
+        }
+    }
     useEffect(() => {
         views.forEach(tabel => {
             if(tabel.year === getYear && tabel.month === getMonth) {
@@ -199,6 +224,7 @@ export const TabelformNew = () => {
                 setTabelMans(tabel.peoples)
             }
         })
+        getViewsWork()
         t13List()
         getParamObj()
         getMyCrews()
@@ -228,23 +254,23 @@ export const TabelformNew = () => {
                 ))}
             </div>
             <div className="tabwelding_slice"></div>
-            <div className="tabwelding_viewswork">
+            <div className="tabwelding_viewswork" style={(crewName==='')?{display: 'none'}:{display: 'flex'}}>
                 <div className="tabwelding_viewswork_upper">
-                    <Select placeholder='Выбрать вид работы' styles={{container:(baseStyles, state) => ({...baseStyles,width:'250px'})}}/>
+                    <Select placeholder='Выбрать вид работы' onChange={(e) => setThisView(listWorks[e.index])} value={thisView} options={listWorks} styles={{container:(baseStyles, state) => ({...baseStyles,width:'250px'})}}/>
                     {/*<div className="tabwelding_viewswork_upper_title">Виды работ</div>*/}
-                    <div className="back-button" style={{margin: '0 10px'}}>Добавить вид</div>
+                    <div className="back-button" style={{margin: '0 10px'}} onClick={()=>{plusView()}}>Добавить вид</div>
                     <div onClick={() => alert(tabelView)} className="tabwelding_viewswork_upper_date">сегодня: 01-01-2024</div>
                 </div>
             </div>
-            <TabelViewsWork getTabel={views} active={crewName} idobj={getId} shifr={getShifr} month={getMonth} year={getYear}/>
+            <TabelViewsWork getTabel={views} setTabel={setViews} active={crewName} idobj={getId} shifr={getShifr} month={getMonth} year={getYear}/>
             <div className="tabwelding_slice"></div>
-            <div className="tabwelding_tabel">
+            <div className="tabwelding_tabel" style={(crewName==='')?{display: 'none'}:{display: 'flex'}}>
                 <div className="tabwelding_tabel_upper">
                     <Select placeholder='Выбрать сотрудника' onChange={(e) => setThisMans(listMans[e.index])} value={thisMans} options={listMans} styles={{container:(baseStyles, state) => ({...baseStyles,width:'250px'})}}/>
                     {/*<div className="tabwelding_tabel_upper_title">Табель</div>*/}
                     <div className="back-button">Добавить</div>
                 </div>
-                <TabelMans  peoples={mans} active={crewName} idobj={getId} shifr={getShifr} month={getMonth} year={getYear}/>
+                <TabelMans  peoples={mans} setPeoples={setMans} active={crewName} idobj={getId} shifr={getShifr} month={getMonth} year={getYear}/>
             </div>
 
             {/*<NewCrewModal sel={select} active={crew} setActive={setCrew}/>*/}
