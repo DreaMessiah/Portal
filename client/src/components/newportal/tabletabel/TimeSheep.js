@@ -38,6 +38,7 @@ export const TimeSheepPortal = () => {
     const [listObjs, setListObjs] = useState([])
     const [listMans, setListMans] = useState([])
     const [thisMans, setThisMans] = useState([])
+    const [listTransport, setListTransport] = useState([])
 
     console.log(getId)
     console.log(getMonth)
@@ -54,6 +55,16 @@ export const TimeSheepPortal = () => {
     const {table_tabel} = useContext(DataContext)
     const [listPeoples, setListPeoples] = useState([])
     const options = [{value:1, label: 'GD'},{value:1, label: '4'},{value:1, label: '1'},{value:1, label: '3'},{value:1, label: '2'}]
+
+    const writeCheck = async () => {
+        try{
+            const getTabel = await WriteTabelService.getThisTabel({month: ''+month, year: year})
+        }catch(e){
+
+        }
+
+
+    }
 
     const stylesday = {
         option: (baseStyles, state) => ({
@@ -98,11 +109,17 @@ export const TimeSheepPortal = () => {
                 boxShadow: 'none',
             }
         }),
-
         indicatorsContainer:(baseStyles, state) => ({
             display:'none',
         }),
     }
+
+    const transportList = async () => {
+        const viewList = await WriteTabelService.getTransport({inn})
+        setListTransport(viewList.data)
+        console.log(viewList.data)
+    }
+
     const listMansOfTabel = async (e) => {
         let month = pushMonth(getMonth)
         let year = getYear
@@ -112,7 +129,6 @@ export const TimeSheepPortal = () => {
         // setListObjs(viewList.data)
         console.log(listTable.data)
     }
-
 
     const getMyObj = (num, param) => {
         let getParam
@@ -124,14 +140,12 @@ export const TimeSheepPortal = () => {
         return getParam
     }
 
-
     const viewAllObjs = async (e) => {
 
         const viewList = await ObjsService.getObjs({inn})
         setListObjs(viewList.data)
         console.log(viewList.data)
     }
-
 
     const t13List = async (e) => {
         let newArr
@@ -197,6 +211,7 @@ export const TimeSheepPortal = () => {
     }
 
     useEffect(() => {
+        transportList()
         viewAllObjs()
         t13List()
         listMansOfTabel()
@@ -208,10 +223,10 @@ export const TimeSheepPortal = () => {
                 <div className="tabwelding_header_upper">
                     <Link to={`/tabelportal?id=${getShifr}`} className="tabwelding_header_upper_backbtn">Назад</Link>
                     <div className="tabwelding_header_upper_title"><span>{getMyObj(getShifr, 'shifr')}</span> {pushMonth(getMonth)} {getYear}</div>
-                    <div className="tabwelding_header_upper_controlbtn">Контроль</div>
+                    <div className="tabwelding_header_upper_controlbtn">Сводка</div><div className="tabwelding_header_upper_controlbtn" onClick={()=>{writeCheck()}}>Подписать</div>
                 </div>
                 <div className="tabwelding_header_newcrewblock">
-                    <Select className='select' onChange={(e) => setThisMans(listMans[e.index])} value={thisMans} options={listMans}/>
+                    <Select placeholder="Выбрать сотрудника" className='select' onChange={(e) => setThisMans(listMans[e.index])} value={thisMans} options={listMans} styles={{container:(baseStyles, state) => ({...baseStyles,width:'250px'})}}/>
                     <div className="tabwelding_header_newcrewblock_plusbtn" onClick={()=>plusMan()}>Добавить сотрудника</div>
                     {/*<div className="tabwelding_header_newcrewblock_plusbtn" onClick={() => setCrew(!crew)}>Добавить звено</div>*/}
                 </div>
@@ -231,7 +246,7 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">1</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b border-b no-left-border_sel" onChange={(e)=>editDay('m1', e.target.value, man.id)}>
+                                        <select disabled className="tab_tabel_tabelman_s_c_c_day_content border-b border-b no-left-border_sel" onChange={(e)=>editDay('m1', e.target.value, man.id)}>
                                             <option>{man.m1}</option>
                                             <option>11</option>
                                             <option>9</option>
@@ -705,7 +720,13 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">КТУ</div>
-                                        <input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.ktu}></input>
+                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " style={{width: '48px', appearance: 'none'}} onChange={(e)=>editDay('ktu', e.target.value, man.id)}>
+                                            <option>{man.ktu}</option>
+                                            <option>0</option><option>0,1</option><option>0,2</option><option>0,3</option><option>0,4</option><option>0,5</option><option>0,6</option><option>0,7</option><option>0,8</option><option>0,9</option><option>1</option>
+                                            <option>1,1</option><option>1,2</option><option>1,3</option><option>1,4</option><option>1,5</option>
+                                            {/*<option>1,6</option><option>1,7</option><option>1,8</option><option>1,9</option><option>2</option>*/}
+                                        </select>
+                                        {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.ktu}></input>*/}
                                     </div>
 
 
@@ -721,13 +742,26 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">объект</div>
-                                        <input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.ras}></input>
+                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " style={{width: '137px', appearance: 'none'}} onChange={(e)=>editDay('ras', e.target.value, man.id)}>
+                                            <option>{man.ras}</option>
+                                            <option></option>
+                                            {listObjs.map((objects, index) => (
+                                                <option>{objects.shifr}</option>
+                                            ))}
+                                        </select>
                                     </div>
 
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">транспорт</div>
-                                        <input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.transport}></input>
+                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " style={{width: '137px', appearance: 'none'}} onChange={(e)=>editDay('transport', e.target.value, man.id)}>
+                                            <option>{man.transport.split('|')[0]}</option>
+                                            <option></option>
+                                            {listTransport.map((car, index) => (
+                                                <option value={`${car.name}|${car.price}`}>{car.name}</option>
+                                            ))}
+                                        </select>
+                                        {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.transport}></input>*/}
                                     </div>
 
                                 </div>

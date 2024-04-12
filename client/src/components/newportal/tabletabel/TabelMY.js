@@ -7,6 +7,7 @@ import ObjsService from "../../../services/ObjsService";
 import {Context} from "../../../index";
 import {useMessage} from "../../../hooks/message.hook";
 import {useMonth} from "../../../hooks/month.hook";
+import WriteTabelService from "../../../services/WriteTabelService";
 
 export const TabelNewMY = () => {
 
@@ -23,6 +24,14 @@ export const TabelNewMY = () => {
     const selectMonth = useMonth()
 
     const [listMonth, setListMonth] = useState([])
+
+    const [obj, setObj] = useState([])
+
+    const thisObj = async () => {
+        const getDataObj = await WriteTabelService.myObj({id: getId})
+        console.log(getDataObj.data)
+        setObj(getDataObj.data)
+    }
 
     const craftList = arr => {
         const listYears = []
@@ -90,15 +99,9 @@ export const TabelNewMY = () => {
     }
 
     const viewAllTabels = async (e) => {
-        // try{
             const viewList = await ObjsService.getAllTabels({inn, getId})
-
-            // setListObjs(viewList.data)
             console.log(viewList.data)
             craftList(viewList.data)
-        // }catch{
-        //     console.log('ой, опаньки')
-        // }
     }
     const viewAllObjs = async (e) => {
 
@@ -134,6 +137,7 @@ export const TabelNewMY = () => {
     console.log(newarr)
 
     useEffect(()=>{
+        thisObj()
         viewAllTabels()
         viewAllObjs()
         makeObj()
@@ -143,10 +147,10 @@ export const TabelNewMY = () => {
     return (
         <div className='right-block-ymwelding'>
             <div className='ymwelding_head'>
-                <div className='back-button'>Назад</div>
+                <Link to={`/thisobjsportal?id_object=${getId}`} className='back-button' style={{marginRight: '40px'}}>Назад</Link>
 
                 <div className='back-button'>Передать</div>
-                <div className='ymwelding_head_nameobj'><span>{getId}</span>       </div>
+                <div className='ymwelding_head_nameobj'><span>{obj.shifr}</span>{obj.nameobject}</div>
             </div>
             <div className='ymwelding_controller'>
                 <div className='ymwelding_controller_ym'>
@@ -173,11 +177,11 @@ export const TabelNewMY = () => {
                     </select>
                     <div onClick={()=>plusMonth()} className='ymwelding_controller_ym_pluss'>Создать</div>
                 </div>
-                <div className='ymwelding_controller_sistembtns'>
-                    <div className='back-button'>Звенья / Бригады</div>
-                    <div className='back-button'>Отчеты</div>
-                    <div className='back-button'>Виды работ</div>
-                </div>
+                {/*<div className='ymwelding_controller_sistembtns'>*/}
+                {/*    <div className='back-button'>Звенья / Бригады</div>*/}
+                {/*    <div className='back-button'>Отчеты</div>*/}
+                {/*    <div className='back-button'>Виды работ</div>*/}
+                {/*</div>*/}
             </div>
             <div className='ymwelding_slice'></div>
             {listMonth.map((year,index) => (
@@ -185,7 +189,7 @@ export const TabelNewMY = () => {
                 <div className='ymwelding_years_head'>{year.year}</div>
                 <div className='ymwelding_years_body'>{  year.months.map((month,index) => (
                     <div key={index}>
-                        <Link key={index} to={`/thistabelportal/?id=${index}&shifr=${month.shifr}&month=${month.month}&year=${month.year}`} className='ymwelding_years_body_month'>
+                        <Link key={index} to={`/thistabelportal/?id=${index}&shifr=${getId}&month=${month.month}&year=${month.year}`} className='ymwelding_years_body_month'>
                             <div className='ymwelding_years_body_month_text'>{selectMonth(month.month)}</div>
                             <div className='ymwelding_years_body_month_settings'> ... </div>
                         </Link>

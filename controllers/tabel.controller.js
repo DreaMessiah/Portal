@@ -3,6 +3,29 @@ const {validationResult} = require('express-validator')
 const ApiError = require('../exceptions/api.error')
 const TabelService = require("../service/tabel.service");
 class TabelController {
+
+    async myObj(req,res,next) {
+        try{
+            const id = req.body
+            const list = await TabelService.myObj(id)
+            return res.json(list)
+
+        }catch (e){
+            next(e)
+        }
+    }
+
+    async getTransport(req,res,next) {
+        try{
+            const inn = req.body
+            const list = await TabelService.getTransport(inn)
+            return res.json(list)
+
+        }catch (e){
+            next(e)
+        }
+    }
+
     async plusMan(req,res,next) {
         try{
             const man = req.body
@@ -24,6 +47,20 @@ class TabelController {
             next(e)
         }
     }
+
+    async getThisTabel(req,res,next) {
+        try{
+            const params = req.body
+            const list = await TabelService.getThisTabel(params)
+            return res.json(list)
+
+        }catch (e){
+            next(e)
+        }
+    }
+
+
+
 
 
 }

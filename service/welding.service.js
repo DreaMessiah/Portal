@@ -158,12 +158,6 @@ class WeldingService{
         line[param.day] = param.value
         await line.save();
         return ''
-        // TabelSv
-        // console.log("это сервис на сервере")
-        // const line = await TableTabel.findOne({where:{id:day.idline}})
-        // line[day.day] = day.val
-        // await line.save();
-        // return ''
 
     }
     async plusVW(param){
@@ -246,16 +240,7 @@ class WeldingService{
             p31: 0,
         })
 
-        // const listMyCrews = await TabelSv.findAll({where: {shifr:shifrname, year:params.year, month:namemonth, checkin:'man', crew:params.sel}})
-        // const line = await TabelSv.findOne({where:{id:param.manid}})
-        // line[param.day] = param.value
-        // await line.save();
-        // return ''
-        // TabelSv
-        // console.log("это сервис на сервере")
-        // const line = await TableTabel.findOne({where:{id:day.idline}})
-        // line[day.day] = day.val
-        // await line.save();
+
         return created
 
     }

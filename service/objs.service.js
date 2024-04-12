@@ -19,9 +19,6 @@ class ObjsService{
         const idobj = parseInt(tabel.getId)
         await Ymshifr.create({object_id:idobj, shifr:idobj, month:tabel.selMonth, year:tabel.selYear, inn:tabel.inn})
         const list = await Ymshifr.findAll({where: {object_id:tabel.getId, inn:tabel.inn}, order: [['year', 'DESC']]})
-
-
-
         return list
     }
 

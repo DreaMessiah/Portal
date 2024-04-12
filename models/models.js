@@ -693,7 +693,7 @@ const KtuList = sequelize.define('ktulist',{
     ktudoc_id:{type:DataTypes.INTEGER,ref:'ktudoc'},
     shifr:{type:DataTypes.STRING},
     user_tn:{type:DataTypes.STRING},
-    ktudate:{type:DataTypes.STRING},
+    ktudate:{type:DataTypes.DATE},
     content:{type:DataTypes.STRING},
     ktuman:{type:DataTypes.STRING},
     ktu:{type:DataTypes.FLOAT},

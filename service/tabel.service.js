@@ -1,4 +1,4 @@
-const {TableTabel, Tasks,Priority, Objects, User, TaskGroups, TaskConnections, TaskChains, TaskDocs, Files, DiskSpace} = require('../models/models')
+const {TableTabel, Tasks,Priority, Objects, User, TaskGroups, TaskConnections, TaskChains, TaskDocs, Files, DiskSpace, OgmPrice} = require('../models/models')
 const ApiError = require('../exceptions/api.error')
 const FilesService = require('./files.service')
 const config = require("config");
@@ -6,6 +6,12 @@ const fs = require("fs");
 const FileDto = require("../dtos/fileDto");
 
 class TabelService{
+
+    async myObj(id) {
+        const line = await Objects.findOne({where:{id:id.id}})
+        return line
+    }
+
     async plusMan(man) {
         return await TableTabel.create({
             name: man.man.name,
@@ -30,21 +36,26 @@ class TabelService{
     }
 
     async editDay(day) {
-        console.log(day)
-        console.log(' - ')
-        console.log(' - ')
-        console.log(' - ')
-        console.log("это сервис на сервере")
         const line = await TableTabel.findOne({where:{id:day.idline}})
         line[day.day] = day.val
         await line.save();
         return ''
     }
-    // editMan
-    // const user = await User.findOne({ where: { id: userId } });
-    // user.username = 'newUsername';
-    // user.email = 'newEmail@example.com';
-    // await user.save();
+
+    async getTransport(inn) {
+        const line = await OgmPrice.findAll()
+        return line
+    }
+
+    async getThisTabel(params) {
+        console.log(params)
+        console.log(' - ')
+        console.log(' - ')
+        console.log(' - ')
+        console.log("это сервис на сервере")
+        const line = await OgmPrice.findAll()
+        return line
+    }
 }
 
 module.exports = new TabelService()
