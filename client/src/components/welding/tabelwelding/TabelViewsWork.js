@@ -4,7 +4,7 @@ import React, {useEffect, useRef, useState} from "react";
 
 export const TabelViewsWork = ({getTabel,active,idobj,shifr,month,year}) => {
 
-    console.log('123-')
+    // console.log('123-')
     console.log(getTabel)
     //
     const [value, setValue] = useState('');
