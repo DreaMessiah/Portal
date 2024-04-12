@@ -25,5 +25,8 @@ router.post('/newktudoc',authMiddlewere,ReferenceController.newKtuDoc)
 router.post('/delktudoc',authMiddlewere,ReferenceController.deleteKtuDocs)
 
 
+router.post('/getktus',authMiddlewere,ReferenceController.getKtus)
+router.post('/savektus',authMiddlewere,ReferenceController.saveKtus)
+
 
 module.exports = router

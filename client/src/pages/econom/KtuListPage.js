@@ -16,17 +16,20 @@ import TextInput from "../../components/inputs/TextInput";
 import formatDate from "../../components/functions/formatDate";
 import TasksService from "../../services/TasksService";
 import MultiSelect from "../../components/inputs/MultiSelect";
+import {DatePicker} from "rsuite";
+import CmsDatePicket from "../../components/inputs/CmsDatePicket";
+import TableDatePicker from "../../components/inputs/TableDatePicker";
+import KtuInput from "../../components/inputs/KtuInput";
 
 function KtuListPage(){
-
     const location = useLocation()
     const [users,setUsers] = useState([])
     const [group,setGroup] = useState([])
-
     const [ktus,setKtus] = useState([])
+    const [ktusId,setKtusId] = useState(0)
     const [activeDelete,setActiveDelete] = useState(false)
     const [deleteIndex,setDeleteIndex] = useState(-1)
-
+    const [createEmpty,setCreateEmpty] = useState(false)
     const [empty,setEmpty] = useState([])
 
     const {store} = useContext(Context)
@@ -34,10 +37,10 @@ function KtuListPage(){
     const navigate = useNavigate()
     const loadingHandler = async (id) => {
         try {
-            //const ktuslist = await ReferenceService.fetchKtus(id)
+            const ktuslist = await ReferenceService.fetchKtus(id)
             const users = await TasksService.fetchUsers()
 
-            //if(ktuslist.data) setKtus(ktuslist.data)
+            if(ktuslist.data) setKtus(ktuslist.data)
             if(users.data) setUsers(users.data)
         }catch (e) {
             console.log(e)
@@ -46,38 +49,71 @@ function KtuListPage(){
     useEffect(() => {
         const searchParams = new URLSearchParams(location.search)
         const getId = searchParams.get('id') ? searchParams.get('id') : 0
-        console.log(getId)
+        setKtusId(getId)
         loadingHandler(getId)
     }, [location])
 
-    const changeShifrHandler = () => {
-
+    const checkEmpty = () => {
+        const n = [...empty]
+        ktus.map( (item,index) => {
+            n[index*4] = item.shifr ? !!!item.shifr.trim().length : true
+            n[index*4+1] = !!!item.ktudate
+            n[index*4+2] = item.content ? !!!item.content.trim().length : true
+            n[index*4+3] = !!!item.ktu
+        })
+        const hasTrueValue = n.some(value => value === true);
+        if( hasTrueValue ) setEmpty(n)
+        else setEmpty([])
+        return hasTrueValue
     }
-    const changeDateHandler = () => {
-
+    const changeShifrHandler = (value,index) => {
+        const newKtus = [...ktus]
+        newKtus[index].shifr = value
+        setKtus(newKtus)
     }
-    const changeContentHandler = () => {
-
+    const changeDateHandler = (value,index) => {
+        const newKtus = [...ktus]
+        newKtus[index].ktudate = value
+        setKtus(newKtus)
     }
-    const changeKtuHandler = () => {
-
+    const changeContentHandler = (value,index) => {
+        const newKtus = [...ktus]
+        newKtus[index].content = value
+        setKtus(newKtus)
     }
-    const changePercentHandler = () => {
-
+    const changeKtuHandler = (value,index) => {
+        const newKtus = [...ktus]
+        newKtus[index].ktu = value
+        setKtus(newKtus)
     }
 
     const createHandler = () => {
-        let newKtus = [...ktus]
-        group.map(item => {
-            console.log(item)
-            const fio = item.label.split('/')
-            newKtus = ([...newKtus,{id:'new',user_tn:item.value,name:fio[0],developer:fio[1],from_tn:store.user.full_name}])
-            setGroup([])
-        })
-        setKtus(newKtus)
+        setCreateEmpty(!!!group.length)
+        if(group.length){
+            let newKtus = [...ktus]
+            group.map(item => {
+                console.log(item)
+                const fio = item.label.split('/')
+                newKtus = ([...newKtus,{id:'new',user_tn:item.value,name:fio[0],developer:fio[1],from_tn:store.user.full_name,ktudate:new Date()}])
+                setGroup([])
+            })
+            setKtus(newKtus)
+        }else{
+            message('Выберете людей')
+        }
+
     }
     const saveHandler = async (index) => {
         try {
+            if(!checkEmpty()){
+                const response = await ReferenceService.saveKtus(ktusId,ktus)
+                if(response.data) {
+                    console.log(response.data)
+                    message('Протоколы обновлены')
+                }
+            }else {
+                message('Заполните недостоющие поля')
+            }
 
         }catch (e) {
             console.log(e)
@@ -126,11 +162,11 @@ function KtuListPage(){
     const rule = store.user.unit
     return (
         <div className="ogmlist">
-            <div onClick={(e) => console.log(123)} className="ogmlist_title">Дополнительные протоколы КТУ</div>
+            <div onClick={(e) => console.log(ktus)} className="ogmlist_title">Дополнительные протоколы КТУ</div>
             <div style={{marginBottom:'10px'}} className={'text'}><p>Здесь Вы можете посмотреть и создать протоколы и назначения дополнительных коэфициэнтов трудового участия.</p></div>
             <div className="ogmlist_btns ktudoc">
                 <div className="select_block_title">Сотрудники</div>
-                <div className={`select`}><MultiSelect options={users} values={group} setOptions={setGroup} empty={empty[5]} /></div>
+                <div className={`select`}><MultiSelect options={users} values={group} setOptions={setGroup} empty={createEmpty} /></div>
                 <div className={`buttons`}>
                     <div onClick={(e) => createHandler()} style={{borderRadius:'10px'}} className="ogmlist_upload">Создать</div>
                     <div onClick={(e) => saveHandler()} style={{borderRadius:'10px'}} className="ogmlist_upload">Сохранить</div>
@@ -144,23 +180,21 @@ function KtuListPage(){
                     <div className="ogmlist_list_line_group w150 title">Должность</div>
                     <div className="ogmlist_list_line_group w150 title">Создатель</div>
                     <div className="ogmlist_list_line_group w100 title">Обьект</div>
-                    <div className="ogmlist_list_line_group w50 title">Дата</div>
+                    <div className="ogmlist_list_line_group w100 title">Дата</div>
                     <div className="ogmlist_list_line_group title">Содержание</div>
                     <div className="ogmlist_list_line_group w50 title">КТУ</div>
                     <div className="ogmlist_list_line_group w50 title borderrightnone">%</div>
                 </div>
                 {ktus && ktus.map((item,index) => (
                     <div key={index} className="ogmlist_list_line bordertopnone">
-                        <div className="ogmlist_list_line_price w50">{item.id}</div>
+                        <div className={`ogmlist_list_line_price w50`}>{item.id}</div>
                         <div className="ogmlist_list_line_price w150">{item.name}</div>
                         <div className="ogmlist_list_line_group w150">{item.developer}</div>
                         <div className="ogmlist_list_line_group w150">{item.from_tn}</div>
-                        <input className={`ogmlist_list_line_group w100 inputs `} onChange={(e) => changeShifrHandler(e.target.value,index)} value={item.shifr}/>
-                        <input className={`ogmlist_list_line_group w50 inputs `} onChange={(e) => changeDateHandler(e.target.value,index)} value={item.date}/>
-                        <input className={`ogmlist_list_line_group inputs `} onChange={(e) => changeContentHandler(e.target.value,index)} value={item.prefix}/>
-
-
-                        <input className={`ogmlist_list_line_group w50 inputs `} onChange={(e) => changeDateHandler(e.target.value,index)} value={item.ktu}/>
+                        <input className={`ogmlist_list_line_group w100 inputs ${empty[index*4] && 'red-solid-border'}`} onChange={(e) => changeShifrHandler(e.target.value,index)} value={item.shifr ? item.shifr : ''}/>
+                        <TableDatePicker size={'120px'} onChange={changeDateHandler} empty={empty[index*4+1]} index={index} value={item.ktudate ? item.ktudate : ''} placeholder={item.ktudate ? item.ktudate : ''}/>
+                        <input className={`ogmlist_list_line_group inputs leftborder ${empty[index*4+2] && 'red-solid-border'}`} onChange={(e) => changeContentHandler(e.target.value,index)} value={item.content ? item.content : ''}/>
+                        <KtuInput classes={`ogmlist_list_line_group w50 inputs ${empty[index*4+3] && 'red-solid-border'}`} setValue={changeKtuHandler} index={index} value={item.ktu ? item.ktu : ''}/>
                         <div className="ogmlist_list_line_price w50 borderrightnone">{item.ktu ? item.ktu*100 : ''}</div>
                         {rule ===3 && <div onClick={() => deleteHandler(index)} className="ogmlist_list_line_del"><i className="fa-solid fa-xmark"></i></div>}
                     </div>

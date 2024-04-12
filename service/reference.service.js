@@ -1,8 +1,5 @@
-const {OgmPrice,WorkPrice, T13, KtuDoc} = require('../models/models')
-const ApiError = require('../exceptions/api.error')
-const TabelDto = require("../dtos/tabelDto");
-const { Op, where} = require('sequelize');
-const sequelize = require("sequelize");
+const {OgmPrice,WorkPrice, T13, KtuDoc, KtuList} = require('../models/models')
+
 
 class ReferenceService {
     async getWorks(inn) {
@@ -91,7 +88,7 @@ class ReferenceService {
         const old = await T13.findAll({where:{inn:inn,month:t13[0].month,year:t13[0].year}})
         if(!old) return {message:'Ошибка очистки'}
         old.map(async item => await item.destroy())
-        return await Promise.all( t13.map(async item => {return await T13.create({...item})}))
+        return await Promise.all( t13.map(async item => {return await T13.create({})}))
     }
 
     async getKtuDocs(inn){
@@ -119,5 +116,19 @@ class ReferenceService {
             return {err:true,message:'Документ уже существует'}
         }
     }
+
+    async saveKtus(id,ktus){
+        const searchktu = await KtuList.findAll({where:{ktudoc_id:id}})
+        if(searchktu){
+            searchktu.map(async item => await item.destroy())
+        }
+        return await Promise.all( ktus.map(async item => {return await KtuList.create({ktudate:item.ktudate,shifr:item.shifr,content:item.content,ktuman:item.from_tn,ktudoc_id:id,user_tn:item.user_tn,ktu:item.ktu})}))
+    }
+    async getKtus(id){
+        const ktus = await KtuList.findAll({where:{ktudoc_id:id}})
+        if(!ktus) return {message:'Документы отсутствуют'}
+        return ktus
+    }
+
 }
 module.exports = new ReferenceService()
