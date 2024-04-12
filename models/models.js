@@ -316,22 +316,6 @@ const TableTabel = sequelize.define('tabletabel',{
     dop30:{type:DataTypes.STRING},
     dop31:{type:DataTypes.STRING}
 })
-const TableZayavka = sequelize.define('tablezayavka',{
-    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
-    year:{type:DataTypes.STRING},
-    month:{type:DataTypes.STRING},
-    shifr:{type:DataTypes.STRING},
-    num:{type:DataTypes.STRING},
-    codecrew:{type:DataTypes.STRING},
-    dateburn:{type:DataTypes.STRING},
-    way:{type:DataTypes.INTEGER},
-    dostup:{type:DataTypes.STRING},
-    size:{type:DataTypes.STRING},
-    numberzayavka:{type:DataTypes.STRING},
-    inn:{type:DataTypes.STRING},
-    zav:{type:DataTypes.STRING},
-    stat:{type:DataTypes.STRING}
-})
 const Days = sequelize.define('days',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     month:{type:DataTypes.STRING},
@@ -457,23 +441,6 @@ const Ymshifr = sequelize.define('ymshifr',{
     rab:{type:DataTypes.INTEGER},
     ras:{type:DataTypes.INTEGER},
     inn:{type:DataTypes.STRING},
-})
-const Ktulist = sequelize.define('ktulist',{
-    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
-    name:{type:DataTypes.STRING},
-    tn:{type:DataTypes.STRING},
-    number_doc:{type:DataTypes.INTEGER},
-    inn:{type:DataTypes.STRING},
-    month:{type:DataTypes.STRING},
-    year:{type:DataTypes.STRING},
-    developer:{type:DataTypes.STRING},
-    shifr:{type:DataTypes.STRING},
-    object_id:{type:DataTypes.INTEGER,ref:'objects'},
-    ktudate:{type:DataTypes.DATE},
-    content:{type:DataTypes.TEXT},
-    ktuman:{type:DataTypes.STRING},
-    ktu:{type:DataTypes.FLOAT},
-    percent:{type:DataTypes.INTEGER},
 })
 const Files = sequelize.define('files',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
@@ -637,7 +604,10 @@ const Statuses = sequelize.define('statuses', {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     value:{type:DataTypes.TEXT},
     label:{type:DataTypes.TEXT},
-    type:{type:DataTypes.INTEGER}
+    type:{type:DataTypes.INTEGER},
+    color:{type:DataTypes.STRING},
+    background:{type:DataTypes.STRING},
+    unit:{type:DataTypes.INTEGER}
 })
 const Priority = sequelize.define('priority', {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
@@ -708,6 +678,28 @@ const ViewsWorkSv = sequelize.define('viewsworksv',{
     norma:{type:DataTypes.STRING},
     inn:{type:DataTypes.STRING},
 })
+
+const KtuDoc = sequelize.define('ktudoc',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    inn:{type:DataTypes.STRING},
+    month:{type:DataTypes.STRING},
+    year:{type:DataTypes.STRING},
+    author:{type:DataTypes.STRING},
+    comment:{type:DataTypes.STRING},
+    trash:{type:DataTypes.BOOLEAN}
+})
+const KtuList = sequelize.define('ktulist',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    ktudoc_id:{type:DataTypes.INTEGER,ref:'ktudoc'},
+    shifr:{type:DataTypes.STRING},
+    user_tn:{type:DataTypes.STRING},
+    ktudate:{type:DataTypes.STRING},
+    content:{type:DataTypes.STRING},
+    ktuman:{type:DataTypes.STRING},
+    ktu:{type:DataTypes.FLOAT},
+    percent:{type:DataTypes.INTEGER},
+})
+
 const MessageSv = sequelize.define('messagesv',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     shifr:{type:DataTypes.STRING},
@@ -722,6 +714,89 @@ const MessageSv = sequelize.define('messagesv',{
     inn:{type:DataTypes.STRING},
 })
 
+const ZaSv = sequelize.define('zasv',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    year:{type:DataTypes.STRING},
+    month:{type:DataTypes.STRING},
+    object_id:{type:DataTypes.STRING},
+    num:{type:DataTypes.STRING}, //номер заявки - рандом (1.2.3.4.)
+    date:{type:DataTypes.DATE},
+    total:{type:DataTypes.INTEGER}, //стыки в заявке
+    author_tn:{type:DataTypes.STRING},
+    status_id:{type:DataTypes.STRING},
+    comm:{type:DataTypes.STRING},
+})
+const TableZayavka = sequelize.define('tablezayavka',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    year:{type:DataTypes.STRING},
+    month:{type:DataTypes.STRING},
+    object_id:{type:DataTypes.STRING},
+    num:{type:DataTypes.STRING},
+    codecrew:{type:DataTypes.STRING}, //dhexye.
+    date:{type:DataTypes.STRING},
+    way:{type:DataTypes.INTEGER}, //способ сварки
+    dostup:{type:DataTypes.STRING},
+    size:{type:DataTypes.STRING},
+    zasv_id:{type:DataTypes.STRING,ref:'zasv'},
+    zav:{type:DataTypes.STRING}, //зАВОДСК НОм
+    status_id:{type:DataTypes.STRING}
+})
+
+//T13 для ручного ввода
+const HumanList = sequelize.define('humanlist',{
+    id:{type:DataTypes.INTEGER,primaryKey: true,autoIncrement:true},
+    name:{type:DataTypes.TEXT},
+    developer:{type:DataTypes.TEXT},
+    branch:{type:DataTypes.TEXT},
+    onboard:{type:DataTypes.TEXT},
+    term:{type:DataTypes.TEXT},
+    document:{type:DataTypes.TEXT},
+    tn:{type:DataTypes.TEXT},
+    groups:{type:DataTypes.TEXT},
+    status:{type:DataTypes.TEXT},
+    gender:{type:DataTypes.TEXT},
+    rk:{type:DataTypes.STRING},
+    sn:{type:DataTypes.STRING},
+    oklad:{type:DataTypes.STRING},
+    method:{type:DataTypes.TEXT},
+    month:{type:DataTypes.STRING},
+    year:{type:DataTypes.STRING},
+    inn:{type:DataTypes.STRING},
+    birthday:{type:DataTypes.STRING},
+    d1:{type:DataTypes.STRING},
+    d2:{type:DataTypes.STRING},
+    d3:{type:DataTypes.STRING},
+    d4:{type:DataTypes.STRING},
+    d5:{type:DataTypes.STRING},
+    d6:{type:DataTypes.STRING},
+    d7:{type:DataTypes.STRING},
+    d8:{type:DataTypes.STRING},
+    d9:{type:DataTypes.STRING},
+    d10:{type:DataTypes.STRING},
+    d11:{type:DataTypes.STRING},
+    d12:{type:DataTypes.STRING},
+    d13:{type:DataTypes.STRING},
+    d14:{type:DataTypes.STRING},
+    d15:{type:DataTypes.STRING},
+    d16:{type:DataTypes.STRING},
+    d17:{type:DataTypes.STRING},
+    d18:{type:DataTypes.STRING},
+    d19:{type:DataTypes.STRING},
+    d20:{type:DataTypes.STRING},
+    d21:{type:DataTypes.STRING},
+    d22:{type:DataTypes.STRING},
+    d23:{type:DataTypes.STRING},
+    d24:{type:DataTypes.STRING},
+    d25:{type:DataTypes.STRING},
+    d26:{type:DataTypes.STRING},
+    d27:{type:DataTypes.STRING},
+    d28:{type:DataTypes.STRING},
+    d29:{type:DataTypes.STRING},
+    d30:{type:DataTypes.STRING},
+    d31:{type:DataTypes.STRING}
+})
+
+
 module.exports = {
-    MessageSv,ViewsWorkSv,CrewManlist,CrewDoclist,CrewBase,CrewSv,OgmPrice,WorkPrice,StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableZayavka,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Ktulist,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
+    ZaSv,TableZayavka,HumanList,KtuDoc,KtuList,MessageSv,ViewsWorkSv,CrewManlist,CrewDoclist,CrewBase,CrewSv,OgmPrice,WorkPrice,StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
 }

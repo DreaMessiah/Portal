@@ -33,5 +33,25 @@ export default class ReferenceService{
     static async loadOgm(ogms){
         return $api.post('/reference/loadogm',{ogms})
     }
-
+    static async setT13(t13){
+        return $api.post('/reference/sett13',{t13})
+    }
+    static async getKtuDocs(){
+        return $api.get('/reference/getktudocs')
+    }
+    static async newKtuDoc(month,year,comment){
+        return $api.post('/reference/newktudoc',{month,year,comment})
+    }
+    static async delKtuDoc(id){
+        return $api.post('/reference/delktudoc',{id})
+    }
+    static async fetchKtus(id){
+        return $api.post('/reference/getktus',{id})
+    }
+    static async createKtu(tn){
+        return $api.post('/reference/createktu',{tn})
+    }
+    static async saveKtus(tn){
+        return $api.post('/reference/createktu',{tn})
+    }
 }

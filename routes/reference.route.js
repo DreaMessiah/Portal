@@ -18,4 +18,12 @@ router.post('/loadworks',authMiddlewere,ReferenceController.loadWorks)
 router.post('/saveworks',authMiddlewere,ReferenceController.saveWorks)
 router.post('/saveogm',authMiddlewere,ReferenceController.saveOgm)
 
+router.post('/sett13',authMiddlewere,ReferenceController.setT13)
+
+router.get('/getktudocs',authMiddlewere,ReferenceController.getKtuDocs)
+router.post('/newktudoc',authMiddlewere,ReferenceController.newKtuDoc)
+router.post('/delktudoc',authMiddlewere,ReferenceController.deleteKtuDocs)
+
+
+
 module.exports = router

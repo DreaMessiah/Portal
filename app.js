@@ -60,14 +60,10 @@ app.use(cors({
 //////////////
 app.use('/files', express.static(config.get('file_path')));
 app.use(cookieParser())
-app.use(express.json({ extended: true }))
-app.use(express.urlencoded({ extended: true }))
+app.use(express.json({ extended: true,limit: '3mb' }))
+app.use(express.urlencoded({ extended: true,limit: '3mb' }))
 app.use('/api', router)
-// Middleware для добавления заголовков безопасности
-app.use((req, res, next) => {
-    res.setHeader('Content-Security-Policy', 'default-src http:');
-    next();
-});
+
 app.use(errorMiddlewere) //Обязательно последний!
 //*******************************************************\
 const start = async () => {
@@ -78,6 +74,7 @@ const start = async () => {
         //await mailService.sendActivationMail('barahtasurgut@gmail.com','HuY!')
         await sequelize.authenticate()
         //await sequelize.sync({ alter: true })
+
         console.log('connect to DB')
     }catch (e){
         console.log(e)

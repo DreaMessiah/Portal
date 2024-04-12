@@ -1,7 +1,7 @@
-const {OgmPrice,WorkPrice} = require('../models/models')
+const {OgmPrice,WorkPrice, T13, KtuDoc} = require('../models/models')
 const ApiError = require('../exceptions/api.error')
 const TabelDto = require("../dtos/tabelDto");
-const { Op } = require('sequelize');
+const { Op, where} = require('sequelize');
 const sequelize = require("sequelize");
 
 class ReferenceService {
@@ -86,6 +86,38 @@ class ReferenceService {
         if(!old) return {message:'Ошибка очистки'}
         old.map(async item => await item.destroy())
         return await Promise.all( works.map(async item => {return await WorkPrice.create({...item,inn:inn})}))
+    }
+    async changeMonthT13(t13,inn){
+        const old = await T13.findAll({where:{inn:inn,month:t13[0].month,year:t13[0].year}})
+        if(!old) return {message:'Ошибка очистки'}
+        old.map(async item => await item.destroy())
+        return await Promise.all( t13.map(async item => {return await T13.create({...item})}))
+    }
+
+    async getKtuDocs(inn){
+        const ktudocs = await KtuDoc.findAll({where:{inn:inn,trash:false}})
+        if(!ktudocs) return {message:'Документы отсутствуют'}
+        return ktudocs
+    }
+    async deleteKtuDocs(id){
+        const ktudoc = await KtuDoc.findByPk(id)
+        if(!ktudoc) return {message:'Документы отсутствуют'}
+        ktudoc.trash = true
+        await ktudoc.save()
+        return {del:true,message:'Запись удалена'}
+    }
+    async newKtuDoc(month,year,user_tn,inn,comment=''){
+        const searchktu = await KtuDoc.findOne({where:{month:month,year:year,inn:inn}})
+        if(!searchktu){
+            return await KtuDoc.create({inn,month,year,author:user_tn,comment,trash:false})
+        }else{
+            if(searchktu.trash) {
+                searchktu.trash = false
+                await searchktu.save()
+                return searchktu
+            }
+            return {err:true,message:'Документ уже существует'}
+        }
     }
 }
 module.exports = new ReferenceService()

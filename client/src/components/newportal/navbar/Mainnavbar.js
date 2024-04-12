@@ -105,7 +105,6 @@ export const Mainnavbar = () => {
                         <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-coins"></i></div>
                         <div className="navbar_block_dopmenu_list_description">Экономист</div>
                     </Link>
-
                 </div>
                 {/*<div className="navbar_block_dopmenu_more">Ещё...</div>*/}
             </div>

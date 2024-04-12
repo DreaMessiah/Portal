@@ -1,0 +1,15 @@
+.menu{
+  display: flex;
+  flex-wrap: wrap;
+  .btn_projects{
+    a{
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      text-align: center;
+      i{
+        margin-bottom: 10px;
+      }
+    }
+  }
+}

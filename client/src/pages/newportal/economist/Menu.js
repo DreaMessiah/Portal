@@ -7,6 +7,8 @@ export function Menu(){
             <Buttons text={'Список и тарифы по транспорту'} icon={`fa-solid fa-car`} url={`/ogmprice`}/>
             <Buttons text={'Список и тарифы рабочим'} icon={'fa-solid fa-person-walking'} url={`/workprice`}/>
             <Buttons text={'Таблица T13'} icon={'fa-solid fa-t'} url={`/t13`}/>
+            <Buttons text={'Коэфициэнт трудового участия'} icon={'fa-solid fa-k'} url={`/ktu`}/>
+
         </div>
     )
 }

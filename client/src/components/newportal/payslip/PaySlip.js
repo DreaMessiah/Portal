@@ -10,7 +10,7 @@ import PayslipService from "../../../services/PayslipService";
 
 function PayslipPage () {
     const {store} = useContext(Context)
-    const {getMonthName,optionsMonth} = useContext(DataContext)
+    const {getMonthName,optionsMonth,optionsYear} = useContext(DataContext)
 
     const addLeadingZero = (number) => (number < 10 ? '0' : '') + number;
     const getNowMonthName = () => {
@@ -61,11 +61,7 @@ function PayslipPage () {
         window.history.back()
     }
 
-    const optionsYear = [
-        { value: '0', label: '2022' },
-        { value: '1', label: '2023' },
-        { value: '2', label: '2024' }
-    ]
+
 
     const fullDaysArray = [];
     function getSixWeeksArray(year=2024,month=1) {

@@ -69,7 +69,7 @@ import {WelControll} from "./pages/newportal/controll/ControllNew";
 import {WelSett} from "./pages/newportal/welding/WeldingSett";
 import {EconomistMenu} from "./pages/newportal/economist/EconomistMenu";
 
-import OgmPage from "./pages/ogmprice/OgmPriceRouter";
+import OgmPage from "./pages/econom/OgmPriceRouter";
 
 
 function App() {
@@ -96,9 +96,11 @@ function App() {
             <Router>
                 <div className="App">
                     <Routes>
+                        <Route path='/ktulist' element={<OgmPage page={5}/>}/>
+                        <Route path='/ktu' element={<OgmPage page={4}/>}/>
                         <Route path='/t13' element={<OgmPage page={3}/>}/>
-                        <Route path='/worksprices' element={<OgmPage page={2}/>}/>
-                        <Route path='/ogmprices' element={<OgmPage page={1}/>}/>
+                        <Route path='/workprice' element={<OgmPage page={2}/>}/>
+                        <Route path='/ogmprice' element={<OgmPage page={1}/>}/>
                         <Route path='/tasks/list' element={<TaskRouter page={3}/>}/>
                         <Route path='/structure' element={<StructureRouter/>}/>
                         <Route path='/tasks' element={<TaskRouter/>}/>

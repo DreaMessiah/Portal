@@ -1,14 +1,19 @@
 import React from "react";
 import Select from "react-select";
 
-export default function CmsSelect({placeholder,defaultValue,options,onChange,empty = false}){
+export default function CmsSelect({placeholder,defaultValue,options,onChange,empty = false,width='100%'}){
     return (
         <Select
             placeholder={placeholder}
             defaultValue={defaultValue}
             options={options}
             onChange={(e) => onChange(e)}
+
             styles={{
+                container:(baseStyles, state) => ({
+                    ...baseStyles,
+                    width:width,
+                }),
                 option: (baseStyles, state) => ({
                     ...baseStyles,
                     color: 'rgba(33, 33, 33, 1)',

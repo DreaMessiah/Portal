@@ -185,3 +185,41 @@
     color: #cccccc;
   }
 }
+.text-input-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  label,input{
+    margin-right: 20px;
+  }
+
+}
+.text-input{
+  width: calc(100% - 46px);
+  padding: 7px;
+  border: 3px dotted #CCC;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  height: 20px;
+  font-weight: 600;
+  color:rgba(18,19,56,1);
+  text-align: center;
+  outline: none;
+  transition: .2s;
+}
+
+.text-input:hover{
+  border: 3px dotted #454545;
+  transition: .2s;
+}
+
+.text-input:active{
+  border: 3px dotted #454545;
+  transition: .2s;
+}
+
+.text-input:focus{
+  border: 3px dotted #454545;
+  transition: .2s;
+}

@@ -31,8 +31,6 @@ export const ViewPOST = observer( () => {
     const [visibleCount,setVisibleCount] = useState(3)
     const message = useMessage()
 
-
-
     const loadingHandler = async (getPost) => {
         try {
             setViewId(getPost)

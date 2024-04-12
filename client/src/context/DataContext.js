@@ -7310,7 +7310,11 @@ export const DataProvider = ({ children }) => {
         ];
         return monthNames[monthIndex];
     }
-
+    const optionsYear = [
+        { value: '0', label: '2022' },
+        { value: '1', label: '2023' },
+        { value: '2', label: '2024' }
+    ]
     const optionsMonth = [
         { value: '0', label: 'январь' },
         { value: '1', label: 'февраль' },
@@ -7330,7 +7334,7 @@ export const DataProvider = ({ children }) => {
 
     return (
         <DataContext.Provider value={{
-
+            optionsYear,
             structure,
             selectedMenu,setSelectedMenu,
             COLORS,

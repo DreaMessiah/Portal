@@ -70,5 +70,10 @@ class UsersService{
         if(!users) throw ApiError.BadRequest('Ошибка получения списка пользователей')
         return {users}
     }
+    async getUserByTn(tn) {
+        const user = await User.findOne({where:{tn:tn}})
+        if(!user) return {err:true,message:'Пользователь не найден'}
+        return {user}
+    }
 }
 module.exports = new UsersService()

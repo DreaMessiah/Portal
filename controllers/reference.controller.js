@@ -1,4 +1,6 @@
 const ReferenceService = require('../service/reference.service')
+const UserService = require("../service/users.service");
+const {WorkPrice} = require("../models/models");
 class ReferenceController {
     async getWorks(req,res,next) {
         try{
@@ -99,5 +101,45 @@ class ReferenceController {
             next(e)
         }
     }
+    async setT13(req,res,next) {
+        try{
+            const {t13} = req.body
+            const data = await ReferenceService.changeMonthT13(t13,req.user.inn)
+            return res.status(200).json(data)
+        }catch (e){
+            next(e)
+        }
+    }
+    async getKtuDocs(req,res,next) {
+        try{
+            const data = await ReferenceService.getKtuDocs(req.user.inn)
+            const KtuDocs = await Promise.all( data.map(async item => {
+                const {user} = await UserService.getUserByTn(item.dataValues.author)
+                return {...item.dataValues,name:user.dataValues.full_name}
+            }))
+            return res.status(200).json(KtuDocs)
+        }catch (e){
+            next(e)
+        }
+    }
+    async deleteKtuDocs(req,res,next) {
+        try{
+            const {id} = req.body
+            const data = await ReferenceService.deleteKtuDocs(id)
+            return res.status(200).json(data)
+        }catch (e){
+            next(e)
+        }
+    }
+    async newKtuDoc(req,res,next) {
+        try{
+            const {month,year,comment} = req.body
+            const data = await ReferenceService.newKtuDoc(month,year,req.user.tn,req.user.inn,comment)
+            return res.status(200).json(data)
+        }catch (e){
+            next(e)
+        }
+    }
+
 }
 module.exports = new ReferenceController()
