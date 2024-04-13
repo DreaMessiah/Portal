@@ -120,14 +120,14 @@ export const NewControll = ({month,year,object_id,setActive,zas,setZas}) => {
                     </div>
                     {connections.map( (item,index) => (
                         <div key={index} className='new_controll_list_this_strock'>
-                            <div class='new_controll_list_this_strock_pp'>{index+1}</div>
-                            <div class='new_controll_list_this_strock_number'>{item.num}</div>
-                            <div class='new_controll_list_this_strock_shifr'>{item.codecrew}</div>
-                            <div class='new_controll_list_this_strock_date'>{formatDate(item.date)}</div>
-                            <div class='new_controll_list_this_strock_way'>{item.way}</div>
-                            <div class='new_controll_list_this_strock_access'>{item.dostup}</div>
-                            <div class='new_controll_list_this_strock_size'>{item.size}</div>
-                            <div class='new_controll_list_this_strock_tube'>{item.zav}<i onClick={(e) => deleteConnectionHandler(index)} className="fa-solid fa-xmark"></i></div>
+                            <div className='new_controll_list_this_strock_pp'>{index+1}</div>
+                            <div className='new_controll_list_this_strock_number'>{item.num}</div>
+                            <div className='new_controll_list_this_strock_shifr'>{item.codecrew}</div>
+                            <div className='new_controll_list_this_strock_date'>{formatDate(item.date)}</div>
+                            <div className='new_controll_list_this_strock_way'>{item.way}</div>
+                            <div className='new_controll_list_this_strock_access'>{item.dostup}</div>
+                            <div className='new_controll_list_this_strock_size'>{item.size}</div>
+                            <div className='new_controll_list_this_strock_tube'>{item.zav}<i onClick={(e) => deleteConnectionHandler(index)} className="fa-solid fa-xmark"></i></div>
                         </div>
                     ))}
                 </div>
