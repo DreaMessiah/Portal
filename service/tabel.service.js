@@ -71,12 +71,11 @@ class TabelService{
 
     async getItogy(params) {
         try{
-
-            // console.log(params)
-            // console.log(' - ')
-            // console.log(' - ')
-            // console.log(' - ')
-            // console.log("это сервис на сервере")
+            console.log(params)
+            console.log(' - ')
+            console.log(' - ')
+            console.log(' - ')
+            console.log("это сервис на сервере")
             // const line = await Ymshifr.findOne({where: {object_id: params.object_id, month: params.month, year:params.year}})
             // line.auto = 1
             // await line.save();

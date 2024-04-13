@@ -37,21 +37,24 @@ export const ItogsTabelForm = () => {
         {index: 2, value: 2025, label: '2025'}
     ]
 
+    let month
+    let year
+
     const getList = async () => {
         if(custmonth === '' || custyear === ''){
-            const month = nowMonth
-            const year = nowYear
+            month = nowMonth
+            year = nowYear
             console.log('нет состояния')
             console.log(month)
             console.log(year)
         } else {
-            const month = custmonth
-            const year = custyear
+            month = custmonth
+            year = custyear
             console.log('есть состояние')
             console.log(month)
             console.log(year)
         }
-        const gettabel = await WriteTabelService.getItogy()
+        const gettabel = await WriteTabelService.getItogy({month, year})
     }
 
     const clearFilter = () => {
