@@ -70,6 +70,7 @@ import {WelSett} from "./pages/newportal/welding/WeldingSett";
 import {EconomistMenu} from "./pages/newportal/economist/EconomistMenu";
 
 import OgmPage from "./pages/econom/OgmPriceRouter";
+import {ItogTabel} from "./pages/newportal/tabel/ItogTabel";
 
 
 function App() {
@@ -159,6 +160,7 @@ function App() {
                         <Route path="/tabelportal" element={<ListTab />} />
                         <Route path="/thistabelportal" element={<ThisTableTabel />} />
                         <Route path="/welwel" element={<WelMY />} />
+                        <Route path="/itogtabel" element={<ItogTabel />} />
                     </Routes>
                 </div>
             </Router>

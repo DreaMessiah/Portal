@@ -11,6 +11,9 @@ import {Context} from "../../../index";
 import Select from "react-select";
 import {DataContext} from "../../../context/DataContext";
 import WriteTabelService from "../../../services/WriteTabelService";
+import {useMessage} from "../../../hooks/message.hook";
+import ModalFiles from "../../modalwin/ModalFiles";
+import {WritedTabel} from "./modalactive/WritedTabel";
 
 
 
@@ -23,6 +26,7 @@ export const TimeSheepPortal = () => {
     let getShifr = searchParams.get('shifr');
     let getMonth = searchParams.get('month');
     let getYear = searchParams.get('year');
+    const message = useMessage()
     const  {store} = useContext(Context)
     const inn = store.user.inn
     console.log(inn)
@@ -38,6 +42,11 @@ export const TimeSheepPortal = () => {
     const [listObjs, setListObjs] = useState([])
     const [listMans, setListMans] = useState([])
     const [thisMans, setThisMans] = useState([])
+    const [wractive, setWractive] = useState(false)
+    const [blocked, setBlocked] = useState(false)
+
+
+    const [writed, setWrited] = useState(false)
     const [listTransport, setListTransport] = useState([])
 
     console.log(getId)
@@ -56,11 +65,29 @@ export const TimeSheepPortal = () => {
     const [listPeoples, setListPeoples] = useState([])
     const options = [{value:1, label: 'GD'},{value:1, label: '4'},{value:1, label: '1'},{value:1, label: '3'},{value:1, label: '2'}]
 
+    const makeWrite = async () => {
+        setWractive(!wractive)
+        if(blocked){
+
+        }
+    }
+
     const writeCheck = async () => {
         try{
-            const getTabel = await WriteTabelService.getThisTabel({month: ''+month, year: year})
-        }catch(e){
+            const getTabel = await WriteTabelService.getThisTabel({month: ''+month, year: year, object_id: getShifr})
+            const result = getTabel.data
+            if(result === 'error'){
+                message('Обратиться в поддержку')
+            } else {
+                if(result.auto === 0 || result.auto === null){
+                    setWrited(false)
+                }else{
+                    setWrited(true)
+                }
 
+            }
+        }catch(e){
+            console.log(e)
         }
 
 
@@ -211,6 +238,7 @@ export const TimeSheepPortal = () => {
     }
 
     useEffect(() => {
+        writeCheck()
         transportList()
         viewAllObjs()
         t13List()
@@ -219,11 +247,12 @@ export const TimeSheepPortal = () => {
 
     return (
         <div className='right-block-tabwelding'>
+            <ModalFiles data={<WritedTabel write={writed} setWrite={setWrited} active={wractive} setActive={setWractive} month={getMonth} year={getYear} getShifr={getShifr}/>} active={wractive} setActive={setWractive}></ModalFiles>
             <div className="tabwelding_header">
                 <div className="tabwelding_header_upper">
                     <Link to={`/tabelportal?id=${getShifr}`} className="tabwelding_header_upper_backbtn">Назад</Link>
                     <div className="tabwelding_header_upper_title"><span>{getMyObj(getShifr, 'shifr')}</span> {pushMonth(getMonth)} {getYear}</div>
-                    <div className="tabwelding_header_upper_controlbtn">Сводка</div><div className="tabwelding_header_upper_controlbtn" onClick={()=>{writeCheck()}}>Подписать</div>
+                    <div className="tabwelding_header_upper_controlbtn">Копировать</div><div style={(writed)?{display:'none'}:{display:'flex'}} className="tabwelding_header_upper_controlbtn" onClick={()=>{makeWrite()}}>Подписать</div>
                 </div>
                 <div className="tabwelding_header_newcrewblock">
                     <Select placeholder="Выбрать сотрудника" className='select' onChange={(e) => setThisMans(listMans[e.index])} value={thisMans} options={listMans} styles={{container:(baseStyles, state) => ({...baseStyles,width:'250px'})}}/>
@@ -246,7 +275,7 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">1</div>
-                                        <select disabled className="tab_tabel_tabelman_s_c_c_day_content border-b border-b no-left-border_sel" onChange={(e)=>editDay('m1', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b border-b no-left-border_sel" onChange={(e)=>editDay('m1', e.target.value, man.id)}>
                                             <option>{man.m1}</option>
                                             <option>11</option>
                                             <option>9</option>
@@ -262,7 +291,7 @@ export const TimeSheepPortal = () => {
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">16</div>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b no-left-border" onChange={irr} defaultValue={man.m16}></input>*/}
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b border-b no-left-border_sel" onChange={(e)=>editDay('m16', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b border-b no-left-border_sel" onChange={(e)=>editDay('m16', e.target.value, man.id)}>
                                             <option>{man.m16}</option>
                                             <option>11</option>
                                             <option>9</option>
@@ -277,7 +306,7 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">2</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m2', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m2', e.target.value, man.id)}>
                                             <option>{man.m2}</option>
                                             <option>11</option>
                                             <option>9</option>
@@ -290,7 +319,7 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">17</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m17', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m17', e.target.value, man.id)}>
                                             <option>{man.m17}</option>
                                             <option>11</option>
                                             <option>9</option>
@@ -305,7 +334,7 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">3</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m3', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m3', e.target.value, man.id)}>
                                             <option>{man.m3}</option>
                                             <option>11</option>
                                             <option>9</option>
@@ -318,7 +347,7 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">18</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m18', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m18', e.target.value, man.id)}>
                                             <option>{man.m18}</option>
                                             <option>11</option>
                                             <option>9</option>
@@ -334,7 +363,7 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">4</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m4', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m4', e.target.value, man.id)}>
                                             <option>{man.m4}</option>
                                             <option>11</option>
                                             <option>9</option>
@@ -348,7 +377,7 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">19</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m19', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m19', e.target.value, man.id)}>
                                             <option>{man.m19}</option>
                                             <option>11</option>
                                             <option>9</option>
@@ -364,7 +393,7 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">5</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m5', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m5', e.target.value, man.id)}>
                                             <option>{man.m5}</option>
                                             <option>11</option>
                                             <option>9</option>
@@ -378,7 +407,7 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">20</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m20', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m20', e.target.value, man.id)}>
                                             <option>{man.m20}</option>
                                             <option>11</option>
                                             <option>9</option>
@@ -394,7 +423,7 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">6</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m6', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m6', e.target.value, man.id)}>
                                             <option>{man.m6}</option>
                                             <option>11</option>
                                             <option>9</option>
@@ -408,7 +437,7 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">21</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m21', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m21', e.target.value, man.id)}>
                                             <option>{man.m21}</option>
                                             <option>11</option>
                                             <option>9</option>
@@ -424,7 +453,7 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">7</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m7', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m7', e.target.value, man.id)}>
                                             <option>{man.m7}</option>
                                             <option>11</option>
                                             <option>9</option>
@@ -438,7 +467,7 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">22</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m22', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m22', e.target.value, man.id)}>
                                             <option>{man.m22}</option>
                                             <option>11</option>
                                             <option>9</option>
@@ -454,7 +483,7 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">8</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m8', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m8', e.target.value, man.id)}>
                                             <option>{man.m8}</option>
                                             <option>11</option>
                                             <option>9</option>
@@ -468,7 +497,7 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">23</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m23', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m23', e.target.value, man.id)}>
                                             <option>{man.m23}</option>
                                             <option>11</option>
                                             <option>9</option>
@@ -484,7 +513,7 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">9</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m9', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m9', e.target.value, man.id)}>
                                             <option>{man.m9}</option>
                                             <option>11</option>
                                             <option>9</option>
@@ -498,7 +527,7 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">24</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m24', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m24', e.target.value, man.id)}>
                                             <option>{man.m24}</option>
                                             <option>11</option>
                                             <option>9</option>
@@ -514,7 +543,7 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">10</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m10', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m10', e.target.value, man.id)}>
                                             <option>{man.m10}</option>
                                             <option>11</option>
                                             <option>9</option>
@@ -528,7 +557,7 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">25</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m25', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m25', e.target.value, man.id)}>
                                             <option>{man.m25}</option>
                                             <option>11</option>
                                             <option>9</option>
@@ -544,7 +573,7 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">11</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m11', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m11', e.target.value, man.id)}>
                                             <option>{man.m11}</option>
                                             <option>11</option>
                                             <option>9</option>
@@ -558,7 +587,7 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">26</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m26', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m26', e.target.value, man.id)}>
                                             <option>{man.m26}</option>
                                             <option>11</option>
                                             <option>9</option>
@@ -574,7 +603,7 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">12</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m12', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m12', e.target.value, man.id)}>
                                             <option>{man.m12}</option>
                                             <option>11</option>
                                             <option>9</option>
@@ -588,7 +617,7 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">27</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m27', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m27', e.target.value, man.id)}>
                                             <option>{man.m27}</option>
                                             <option>11</option>
                                             <option>9</option>
@@ -604,7 +633,7 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">13</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m13', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m13', e.target.value, man.id)}>
                                             <option>{man.m13}</option>
                                             <option>11</option>
                                             <option>9</option>
@@ -618,7 +647,7 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">28</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m28', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m28', e.target.value, man.id)}>
                                             <option>{man.m28}</option>
                                             <option>11</option>
                                             <option>9</option>
@@ -634,7 +663,7 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">14</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m14', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m14', e.target.value, man.id)}>
                                             <option>{man.m14}</option>
                                             <option>11</option>
                                             <option>9</option>
@@ -648,7 +677,7 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">29</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m29', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m29', e.target.value, man.id)}>
                                             <option>{man.m29}</option>
                                             <option>11</option>
                                             <option>9</option>
@@ -664,7 +693,7 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">15</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m15', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m15', e.target.value, man.id)}>
                                             <option>{man.m15}</option>
                                             <option>11</option>
                                             <option>9</option>
@@ -678,7 +707,7 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">30</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m30', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m30', e.target.value, man.id)}>
                                             <option>{man.m30}</option>
                                             <option>11</option>
                                             <option>9</option>
@@ -698,7 +727,7 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title top-border-1px">31</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m31', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m31', e.target.value, man.id)}>
                                             <option>{man.m31}</option>
                                             <option>11</option>
                                             <option>9</option>
@@ -720,7 +749,7 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">КТУ</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " style={{width: '48px', appearance: 'none'}} onChange={(e)=>editDay('ktu', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b " style={{width: '48px', appearance: 'none'}} onChange={(e)=>editDay('ktu', e.target.value, man.id)}>
                                             <option>{man.ktu}</option>
                                             <option>0</option><option>0,1</option><option>0,2</option><option>0,3</option><option>0,4</option><option>0,5</option><option>0,6</option><option>0,7</option><option>0,8</option><option>0,9</option><option>1</option>
                                             <option>1,1</option><option>1,2</option><option>1,3</option><option>1,4</option><option>1,5</option>
@@ -742,11 +771,11 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">объект</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " style={{width: '137px', appearance: 'none'}} onChange={(e)=>editDay('ras', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b " style={{width: '137px', appearance: 'none'}} onChange={(e)=>editDay('ras', e.target.value, man.id)}>
                                             <option>{man.ras}</option>
                                             <option></option>
                                             {listObjs.map((objects, index) => (
-                                                <option>{objects.shifr}</option>
+                                                <option key={index}>{objects.shifr}</option>
                                             ))}
                                         </select>
                                     </div>
@@ -754,11 +783,11 @@ export const TimeSheepPortal = () => {
 
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day">
                                         <div className="tab_tabel_tabelman_s_c_c_day_title">транспорт</div>
-                                        <select className="tab_tabel_tabelman_s_c_c_day_content border-b " style={{width: '137px', appearance: 'none'}} onChange={(e)=>editDay('transport', e.target.value, man.id)}>
+                                        <select disabled={writed} className="tab_tabel_tabelman_s_c_c_day_content border-b " style={{width: '137px', appearance: 'none'}} onChange={(e)=>editDay('transport', e.target.value, man.id)}>
                                             <option>{man.transport.split('|')[0]}</option>
                                             <option></option>
                                             {listTransport.map((car, index) => (
-                                                <option value={`${car.name}|${car.price}`}>{car.name}</option>
+                                                <option key={index} value={`${car.name}|${car.price}`}>{car.name}</option>
                                             ))}
                                         </select>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.transport}></input>*/}

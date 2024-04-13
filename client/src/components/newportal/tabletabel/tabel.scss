@@ -365,3 +365,25 @@
     }
 
 }
+
+.itogy_form{
+
+    .title{}
+    .filter{}
+    .tbl{
+        width: calc(100vw - 300px);
+        overflow-y: auto;
+        overflow-x: auto;
+        border-right: 1px solid #000;
+        border-bottom: 1px solid #000;
+        table {
+            border-collapse: collapse; /* Объединяет границы ячеек в одну линию */
+            width: 100%; /* Ширина таблицы */
+        }
+
+        th, td {
+            border: 1px solid #000; /* Граница 1px, черного цвета */
+            padding: 8px; /* Отступ внутри ячейки */
+        }
+    }
+}

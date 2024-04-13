@@ -20,6 +20,14 @@ export default class WriteTabelService {
         return $api.post(`/tabel/thistabel`, params)
     }
 
+    static async blockedTabel(params){
+        return $api.post(`/tabel/blocked`, params)
+    }
+
+    static async getItogy(params){
+        return $api.post(`/tabel/itogy`, params)
+    }
+
 
     // static async insertObjs(objs){
     //     return $api.post(`/welding/pushnewobjwelding`, objs)

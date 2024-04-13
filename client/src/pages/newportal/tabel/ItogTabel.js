@@ -5,12 +5,9 @@ import {Mainnavbar} from "../../../components/newportal/navbar/Mainnavbar";
 import {useContext} from "react";
 import {DataContext} from "../../../context/DataContext";
 import React from "react";
-import {WelThisObj} from "../../../components/newportal/welding/yearmounth/WelThisObj";
-import {NewCrewS} from "../../../components/newportal/welding/crews/NewCrew";
-import Buttons from "../../../components/newportal/economist/Buttons";
-import {Menu} from "./Menu";
+import {ItogsTabelForm} from "../../../components/newportal/tabletabel/ItogsTabelForm";
 
-export function EconomistMenu(){
+export function ItogTabel(){
 
     const { mass_create, menu_mass, my_objs} = useContext(DataContext)
 
@@ -21,7 +18,7 @@ export function EconomistMenu(){
             <div className="up_path"><MainHeader /></div>
             <div className="main_path">
                 <Mainnavbar />
-                <WorkPage data={<Menu/>}/>
+                <WorkPage data={<ItogsTabelForm/>}/>
             </div>
         </div>
     )

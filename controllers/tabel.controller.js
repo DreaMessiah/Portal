@@ -59,6 +59,29 @@ class TabelController {
         }
     }
 
+    async blockedTabel(req,res,next) {
+        try{
+            const params = req.body
+            const list = await TabelService.blockedTabel(params)
+            return res.json(list)
+
+        }catch (e){
+            next(e)
+        }
+    }
+
+    async getItogy(req,res,next) {
+        try{
+            const params = req.body
+            const list = await TabelService.getItogy(params)
+            return res.json(list)
+
+        }catch (e){
+            next(e)
+        }
+    }
+
+
 
 
 

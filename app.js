@@ -63,7 +63,6 @@ app.use(cookieParser())
 app.use(express.json({ extended: true,limit: '3mb' }))
 app.use(express.urlencoded({ extended: true,limit: '3mb' }))
 app.use('/api', router)
-
 app.use(errorMiddlewere) //Обязательно последний!
 //*******************************************************\
 const start = async () => {

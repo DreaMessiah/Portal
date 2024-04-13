@@ -1,4 +1,4 @@
-const {TableTabel, Tasks,Priority, Objects, User, TaskGroups, TaskConnections, TaskChains, TaskDocs, Files, DiskSpace, OgmPrice} = require('../models/models')
+const {TableTabel, Tasks,Priority, Objects, User, TaskGroups, TaskConnections, TaskChains, TaskDocs, Files, DiskSpace, OgmPrice, Ymshifr} = require('../models/models')
 const ApiError = require('../exceptions/api.error')
 const FilesService = require('./files.service')
 const config = require("config");
@@ -48,14 +48,45 @@ class TabelService{
     }
 
     async getThisTabel(params) {
-        console.log(params)
-        console.log(' - ')
-        console.log(' - ')
-        console.log(' - ')
-        console.log("это сервис на сервере")
-        const line = await OgmPrice.findAll()
-        return line
+        try{
+            const line = await Ymshifr.findOne({where: {object_id: params.object_id, month: params.month, year:params.year}})
+            return line
+        }catch{
+            return 'error'
+        }
+
     }
+
+    async blockedTabel(params) {
+        try{
+            const line = await Ymshifr.findOne({where: {object_id: params.object_id, month: params.month, year:params.year}})
+            line.auto = 1
+            await line.save();
+            return line
+        }catch{
+            return 'error'
+        }
+
+    }
+
+    async getItogy(params) {
+        try{
+
+            // console.log(params)
+            // console.log(' - ')
+            // console.log(' - ')
+            // console.log(' - ')
+            // console.log("это сервис на сервере")
+            // const line = await Ymshifr.findOne({where: {object_id: params.object_id, month: params.month, year:params.year}})
+            // line.auto = 1
+            // await line.save();
+            return ''
+        }catch{
+            return 'error'
+        }
+
+    }
+
 }
 
 module.exports = new TabelService()

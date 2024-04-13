@@ -719,27 +719,20 @@ const ZaSv = sequelize.define('zasv',{
     year:{type:DataTypes.STRING},
     month:{type:DataTypes.STRING},
     object_id:{type:DataTypes.STRING},
-    num:{type:DataTypes.STRING}, //номер заявки - рандом (1.2.3.4.)
-    date:{type:DataTypes.DATE},
-    total:{type:DataTypes.INTEGER}, //стыки в заявке
     author_tn:{type:DataTypes.STRING},
-    status_id:{type:DataTypes.STRING},
-    comm:{type:DataTypes.STRING},
+    status_id:{type:DataTypes.INTEGER},
 })
 const TableZayavka = sequelize.define('tablezayavka',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
-    year:{type:DataTypes.STRING},
-    month:{type:DataTypes.STRING},
-    object_id:{type:DataTypes.STRING},
+    zasv_id:{type:DataTypes.STRING,ref:'zasv'},
     num:{type:DataTypes.STRING},
-    codecrew:{type:DataTypes.STRING}, //dhexye.
+    codecrew:{type:DataTypes.STRING},
     date:{type:DataTypes.STRING},
-    way:{type:DataTypes.INTEGER}, //способ сварки
+    way:{type:DataTypes.STRING},
     dostup:{type:DataTypes.STRING},
     size:{type:DataTypes.STRING},
-    zasv_id:{type:DataTypes.STRING,ref:'zasv'},
-    zav:{type:DataTypes.STRING}, //зАВОДСК НОм
-    status_id:{type:DataTypes.STRING}
+    zav:{type:DataTypes.STRING},
+    status_id:{type:DataTypes.INTEGER}
 })
 
 //T13 для ручного ввода
