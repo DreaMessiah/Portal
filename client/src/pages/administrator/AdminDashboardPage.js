@@ -1,11 +1,11 @@
 import React, {useContext} from "react";
 import { DataContext } from '../../context/DataContext';
-import Navbar from "../../components/Navbar";
-import SearchObj from "../../components/SearchObj";
-import ChangeObj from "../../components/ChangeObj";
+import Navbar from "../../components/old/Navbar";
+import SearchObj from "../../components/old/SearchObj";
+import ChangeObj from "../../components/old/ChangeObj";
 import BridgeLeftBar from "../../components/leftbar/BridgeLeftBar";
 import ListObjs from "../../components/welding/mainpage/ListObjs";
-import BlocksObj from "../../components/BlocksObj";
+import BlocksObj from "../../components/old/BlocksObj";
 
 export default function AdminDashboardPage(){
     const { mass_create, menu_mass,mass_blocks_admin} = useContext(DataContext)

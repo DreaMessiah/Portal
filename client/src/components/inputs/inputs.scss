@@ -1,6 +1,7 @@
 .rs-stack-item{
   width: 100%;
-
+  height: auto;
+  display: flex;
   .rs-calendar-table-cell-selected .rs-calendar-table-cell-content {
     background-color: rgb(18, 19, 56);
   }

@@ -1,8 +1,8 @@
 import React, {useContext, useEffect, useState} from "react";
 import {Link,useLocation} from 'react-router-dom';
-import {Context} from "../index";
+import {Context} from "../../index";
 import {observer} from "mobx-react-lite";
-import {useMessage} from "../hooks/message.hook";
+import {useMessage} from "../../hooks/message.hook";
 import {ToastContainer} from "react-toastify";
 
 function AuthPage(){

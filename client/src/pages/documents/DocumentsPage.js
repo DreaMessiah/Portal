@@ -1,13 +1,13 @@
 import React, {useContext, useEffect, useState} from "react";
 
-import Navbar from "../../components/Navbar";
+import Navbar from "../../components/old/Navbar";
 import BridgeLeftBar from "../../components/leftbar/BridgeLeftBar";
 import {DataContext} from "../../context/DataContext";
-import WrapButtonsObj from "../../components/WrapButtonsObj";
-import SearchObj from "../../components/SearchObj";
-import ChangeObj from "../../components/ChangeObj";
+import WrapButtonsObj from "../../components/old/WrapButtonsObj";
+import SearchObj from "../../components/old/SearchObj";
+import ChangeObj from "../../components/old/ChangeObj";
 import "../../components/listtasks/listtask3.scss";
-import NewsFooter from "../../components/NewsFooter";
+import NewsFooter from "../../components/old/NewsFooter";
 import {Context} from "../../index";
 import FileManager from "./fileManager";
 

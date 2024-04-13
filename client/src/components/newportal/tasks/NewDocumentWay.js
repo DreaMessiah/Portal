@@ -1,6 +1,6 @@
 import React, {useEffect, useLayoutEffect, useRef} from "react";
-import Navbar from "../../Navbar";
-import TitleObj from "../../TitleObj";
+import Navbar from "../../old/Navbar";
+import TitleObj from "../../old/TitleObj";
 
 export default function NewDocumentWay({dwm1}){
     const COLORS = {

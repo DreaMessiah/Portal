@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import Navbar from "../../components/Navbar";
+import Navbar from "../../components/old/Navbar";
 import {Tabelform} from "../../components/welding/tabelwelding/Tabelform";
 import BridgeLeftBar from "../../components/leftbar/BridgeLeftBar";
 import {DataContext} from "../../context/DataContext";

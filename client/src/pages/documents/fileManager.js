@@ -7,7 +7,7 @@ import {useMessage} from "../../hooks/message.hook";
 import {Context} from "../../index";
 import {ModalWin} from "../../components/modalwin/ModalWin";
 import ModalUpload from "../../components/modalwin/ModalUpload";
-import CircularProgress from "../../components/CircularProgress";
+import CircularProgress from "../../components/old/CircularProgress";
 import {useLocation} from "react-router-dom";
 import ModalFiles from "../../components/modalwin/ModalFiles";
 import Select from "react-select";

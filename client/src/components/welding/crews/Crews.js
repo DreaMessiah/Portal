@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
-import SearchObj from "../../SearchObj";
-import ChangeObj from "../../ChangeObj";
-import WrapButtonsObj from "../../WrapButtonsObj";
+import SearchObj from "../../old/SearchObj";
+import ChangeObj from "../../old/ChangeObj";
+import WrapButtonsObj from "../../old/WrapButtonsObj";
 import "./crews.scss";
 // import ListObjs from "./ListObjs";
 import {BrowserRouter as Router, Link, Route, Routes} from "react-router-dom";

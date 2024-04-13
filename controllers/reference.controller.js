@@ -141,5 +141,31 @@ class ReferenceController {
         }
     }
 
+    async getKtus(req,res,next) {
+        try{
+            const {id} = req.body
+            console.log(id)
+            const data = await ReferenceService.getKtus(id)
+
+            const Ktus = await Promise.all( data.map(async item => {
+                const {user} = await UserService.getUserByTn(item.dataValues.user_tn)
+                return {...item.dataValues,name:user.dataValues.full_name,developer:user.dataValues.developer,from_tn:item.ktuman}
+            }))
+            return res.status(200).json(Ktus)
+        }catch (e){
+            next(e)
+        }
+    }
+
+    async saveKtus(req,res,next) {
+        try{
+            const {id,ktus} = req.body
+            const data = await ReferenceService.saveKtus(id,ktus)
+            return res.status(200).json(data)
+        }catch (e){
+            next(e)
+        }
+    }
+
 }
 module.exports = new ReferenceController()

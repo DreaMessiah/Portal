@@ -2,9 +2,9 @@ import "./style.scss"
 import React, {useContext} from "react";
 import {DataContext} from "../../../context/DataContext";
 import {Link} from "react-router-dom";
-import AttachObj from "../../AttachObj";
-import PerformersObj from "../../PerformersObj";
-import ResultsObj from "../../ResultsObj";
+import AttachObj from "../../old/AttachObj";
+import PerformersObj from "../../old/PerformersObj";
+import ResultsObj from "../../old/ResultsObj";
 import NewDocumentWay from "./NewDocumentWay";
 import {useState} from "react";
 import {useEffect} from "react";

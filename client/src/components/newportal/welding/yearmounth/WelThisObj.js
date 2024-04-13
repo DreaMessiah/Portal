@@ -9,9 +9,6 @@ import {useMessage} from "../../../../hooks/message.hook";
 import {useMonth} from "../../../../hooks/month.hook";
 import Select from "react-select";
 
-
-
-
 export const WelThisObj = () => {
 
     const location = useLocation();

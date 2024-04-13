@@ -48,10 +48,9 @@ export default class ReferenceService{
     static async fetchKtus(id){
         return $api.post('/reference/getktus',{id})
     }
-    static async createKtu(tn){
-        return $api.post('/reference/createktu',{tn})
+    static async saveKtus(id,ktus){
+        return $api.post('/reference/savektus',{id,ktus})
     }
-    static async saveKtus(tn){
-        return $api.post('/reference/createktu',{tn})
-    }
+
+
 }

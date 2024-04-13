@@ -1,97 +1,85 @@
 import './newcontroll.scss'
 import {useState, useEffect} from "react";
+import TableDatePicker from "../../../../inputs/TableDatePicker";
+import formatDate from "../../../../functions/formatDate";
+import WeldingService from "../../../../../services/WeldingService";
+import {useMessage} from "../../../../../hooks/message.hook";
 
-export const NewControll = ({list, active, setActive}) => {
+export const NewControll = ({month,year,object_id,setActive,zas,setZas}) => {
+    const [num,setNum] = useState('')
+    const [codecrew,setCodecrew] = useState('')
+    const [date,setDate] = useState(new Date())
+    const [way,setWay] = useState('')
+    const [dostup,setDostup] = useState('')
+    const [size,setSize] = useState('')
+    const [zav,setZav] = useState('')
 
-    let arrConnectionList = [];
-    let timeArrValues = {}
-    const plusConnection = () => {
+    const [connections,setConnections] = useState([])
 
+    const [empty,setEmpty] = useState([])
+    const [isEmpty, setIsEmpty] = useState(false)
+
+    const message = useMessage()
+
+    const checkEmpty = () => {
+        const n = [...empty]
+        n[0] = !!!num.trim().length
+        n[1] = !!!codecrew.trim().length
+        n[2] = !!!date
+        n[3] = !!!way.trim().length
+        n[4] = !!!dostup.trim().length
+        n[5] = !!!size.trim().length
+        n[6] = !!!zav.trim().length
+        const hasTrueValue = n.some(value => value === true);
+        if( hasTrueValue ) setEmpty(n)
+        else setEmpty([])
+        return hasTrueValue
     }
-    const [arrConnection, setArrConnection] = useState(false)
-    const [defs, setDefs] = useState([])
-
-    const pushController = (push) => {
-
-
-        const controllList = document.getElementById('new_controll_list')
-        const createBtn = document.getElementById('plusBtn')
-
-        if(push) {
-
-            const inputsValue = document.querySelectorAll('.input_form')
-            inputsValue.forEach(input => {
-                console.log(input.value)
-                timeArrValues[input.id] = input.value
-                input.value = ''
-            })
-            arrConnectionList.push(timeArrValues)
-
-            controllList.insertAdjacentHTML('beforeend', `
-            <div class='new_controll_list_this_strock'>
-                <div class='new_controll_list_this_strock_pp'>${arrConnectionList.length}</div>
-                <div class='new_controll_list_this_strock_number'>${timeArrValues.number}</div>
-                <div class='new_controll_list_this_strock_shifr'>${timeArrValues.shifr}</div>
-                <div class='new_controll_list_this_strock_date'>${timeArrValues.date}</div>
-                <div class='new_controll_list_this_strock_way'>${timeArrValues.way}</div>
-                <div class='new_controll_list_this_strock_access'>${timeArrValues.access}</div>
-                <div class='new_controll_list_this_strock_size'>${timeArrValues.size}</div>
-                <div class='new_controll_list_this_strock_tube'>${timeArrValues.tube}</div>
-            </div>
-            `)
-
-
-        }
-
-        if(arrConnectionList.length > 0) {
-            createBtn.classList = 'new_controll_form_btns_create'
-        }  else {
-            createBtn.classList = 'new_controll_form_btns_create_noactive'
-        }
-
-
-    }
-
-    const createStrockControll = () => {
-        const controllList = document.getElementById('new_controll_list')
-        setActive(false)
-        list.insertAdjacentHTML('afterend', `
-                    <div class="controll_welding_list_strock">
-                        <div class="controll_welding_list_strock_pp">1</div>
-                        <div class="controll_welding_list_strock_num">А4654864</div>
-                        <div class="controll_welding_list_strock_date">28-01-2024</div>
-                        <div class="controll_welding_list_strock_total">${arrConnectionList.length}</div>
-                        <div class="controll_welding_list_strock_autor">Аббасов Артур Яшарович</div>
-                        <div class="controll_welding_list_strock_obj">390</div>
-                        <div class="controll_welding_list_strock_status">Новая</div>
-                        <div class="controll_welding_list_strock_comm">нет</div>
-                        <div class="controll_welding_list_strock_editor">
-                            <div class="controll_welding_list_strock_editor_open">Открыть</div>
-                            <div class="controll_welding_list_strock_editor_del"></div>
-                        </div>
-                    </div>
-                `)
-        // console.log(list)
-        controllList.innerHTML = ''
-        //
-console.log(defs)
-        const olddef = defs + arrConnectionList
-        setDefs([olddef])
-        arrConnectionList = []
-
-
-
-        timeArrValues = {}
-    }
-
     useEffect(() => {
-// console.log(defs)
-        },[defs])
+        if(!checkEmpty()){
+            setIsEmpty(true)
+        }else{
+            setIsEmpty(false)
+        }
+    },[num,codecrew,date,way,dostup,size,zav])
 
+    const pushConnectionHandler = () => {
+        if(isEmpty){
+            setConnections([...connections,{num,codecrew,date,way,dostup,size,zav}])
+            setEmptyInputs()
+        }
+    }
+    const setEmptyInputs = () => {
+        setNum('')
+        setCodecrew('')
+        setDate(new Date())
+        setWay('')
+        setDostup('')
+        setSize('')
+        setZav('')
+    }
+    const createZaHandler = async () => {
+        try {
+            const {data} = await WeldingService.createZa(connections,year,month,object_id)
+            if(data){
+                console.log(data)
+                setZas([...zas,data[0]])
+                message('Заявка отправлена')
+                setActive(false)
+            }
+        }catch (e){
+            console.log(e)
+        }
+    }
+    const deleteConnectionHandler = (index) => {
+        const newConnections = [...connections]
+        newConnections.splice(index, 1)
+        setConnections(newConnections)
+    }
     return (
         <div className='new_controll'>
             <div className='new_controll_form'>
-                <div className='new_controll_form_title'>Новая заявка</div>
+                <div onClick={() => console.log(date)} className='new_controll_form_title'>Новая заявка</div>
                 <div className='new_controll_form_this'>
                     <div className='new_controll_form_this_strock'>
                         <div className='new_controll_form_this_strock_number'>№ Соединения</div>
@@ -103,34 +91,47 @@ console.log(defs)
                         <div className='new_controll_form_this_strock_tube'>Зав. № труб (деталей)</div>
                     </div>
                     <div className='new_controll_form_this_strock'>
-                        <div className='new_controll_form_this_strock_number'><input className='input_form' id='number' type="text" /></div>
-                        <div className='new_controll_form_this_strock_shifr'><input className='input_form' id='shifr' type="text" /></div>
-                        <div className='new_controll_form_this_strock_date'><input className='input_form' id='date' type="text" /></div>
-                        <div className='new_controll_form_this_strock_way'><input className='input_form' id='way' type="text" /></div>
-                        <div className='new_controll_form_this_strock_access'><input className='input_form' id='access' type="text" /></div>
-                        <div className='new_controll_form_this_strock_size'><input className='input_form' id='size' type="text" /></div>
-                        <div className='new_controll_form_this_strock_tube'><input className='input_form' id='tube' type="text" /></div>
+                        <div className='new_controll_form_this_strock_number'><input value={num} onChange={(e) => setNum(e.target.value)} className={`input_form`} id='number' type="text" /></div>
+                        <div className='new_controll_form_this_strock_shifr'><input value={codecrew} onChange={(e) => setCodecrew(e.target.value)} className='input_form' id='shifr' type="text" /></div>
+                        <div className='new_controll_form_this_strock_date'><TableDatePicker size={'100%'} value={date} placeholder={'Выберете дату'} onChange={setDate} /></div>
+                        <div className='new_controll_form_this_strock_way'><input value={way} onChange={(e) => setWay(e.target.value)} className='input_form' id='way' type="text" /></div>
+                        <div className='new_controll_form_this_strock_access'><input value={dostup} onChange={(e) => setDostup(e.target.value)} className='input_form' id='access' type="text" /></div>
+                        <div className='new_controll_form_this_strock_size'><input value={size} onChange={(e) => setSize(e.target.value)} className='input_form' id='size' type="text" /></div>
+                        <div className='new_controll_form_this_strock_tube'><input value={zav} onChange={(e) => setZav(e.target.value)} className='input_form' id='tube' type="text" /></div>
                     </div>
                 </div>
                 <div className='new_controll_form_btns'>
-                    <div className='new_controll_form_btns_insert' id='plusConnection' onClick={()=>{pushController(true)}}>Добавить</div>
-                    <div className='new_controll_form_btns_create_noactive' id='plusBtn' onClick={()=>createStrockControll()}>Создать</div>
+                    <div className={`new_controll_form_btns_insert ${!isEmpty && 'noactive'}`} id='plusConnection' onClick={()=>{pushConnectionHandler()}}>Добавить</div>
+                    <div className={`new_controll_form_btns_create ${!connections.length && 'noactive'}`} id='plusBtn' onClick={()=>createZaHandler()}>Создать</div>
                 </div>
             </div>
-            <div className='new_controll_list'>
-                <div className='new_controll_list_this_strock_up' id='cap_list'></div>
-                <div className='new_controll_list_this_strock' id='title_list'>
-                    <div className='new_controll_list_this_strock_pp'>П/П</div>
-                    <div className='new_controll_list_this_strock_number'>№ Соединения</div>
-                    <div className='new_controll_list_this_strock_shifr'>Клеймо звена</div>
-                    <div className='new_controll_list_this_strock_date'>Дата сварки</div>
-                    <div className='new_controll_list_this_strock_way'>Способ сварки и положение</div>
-                    <div className='new_controll_list_this_strock_access'>Доступ к сварному соединению</div>
-                    <div className='new_controll_list_this_strock_size'>Размер св.соединения Тип св.соединения</div>
-                    <div className='new_controll_list_this_strock_tube'>Зав. № труб (деталей)</div>
+            {connections.length ?
+                <div className='new_controll_list'>
+                    <div className='new_controll_list_this_strock_up' id='cap_list'></div>
+                    <div className='new_controll_list_this_strock' id='title_list'>
+                        <div className='new_controll_list_this_strock_pp'>П/П</div>
+                        <div className='new_controll_list_this_strock_number'>№ Соединения</div>
+                        <div className='new_controll_list_this_strock_shifr'>Клеймо звена</div>
+                        <div className='new_controll_list_this_strock_date'>Дата сварки</div>
+                        <div className='new_controll_list_this_strock_way'>Способ сварки и положение</div>
+                        <div className='new_controll_list_this_strock_access'>Доступ к сварному соединению</div>
+                        <div className='new_controll_list_this_strock_size'>Размер св.соединения Тип св.соединения</div>
+                        <div className='new_controll_list_this_strock_tube'>Зав. № труб (деталей)</div>
+                    </div>
+                    {connections.map( (item,index) => (
+                        <div key={index} className='new_controll_list_this_strock'>
+                            <div class='new_controll_list_this_strock_pp'>{index+1}</div>
+                            <div class='new_controll_list_this_strock_number'>{item.num}</div>
+                            <div class='new_controll_list_this_strock_shifr'>{item.codecrew}</div>
+                            <div class='new_controll_list_this_strock_date'>{formatDate(item.date)}</div>
+                            <div class='new_controll_list_this_strock_way'>{item.way}</div>
+                            <div class='new_controll_list_this_strock_access'>{item.dostup}</div>
+                            <div class='new_controll_list_this_strock_size'>{item.size}</div>
+                            <div class='new_controll_list_this_strock_tube'>{item.zav}<i onClick={(e) => deleteConnectionHandler(index)} className="fa-solid fa-xmark"></i></div>
+                        </div>
+                    ))}
                 </div>
-                <div className='new_controll_list' id='new_controll_list'></div>
-            </div>
+                :null}
         </div>
     )
 }
