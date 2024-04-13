@@ -21,5 +21,7 @@ router.post('/updateman',authMiddlewere, weldingController.updateManDays)
 router.post('/getviewwork',authMiddlewere, weldingController.getViewWorkSV)
 router.post('/plusvw',authMiddlewere, weldingController.plusVW)
 router.post('/createza',authMiddlewere, weldingController.createZa)
+router.post('/createza',authMiddlewere, weldingController.createZa)
+
 
 module.exports = router

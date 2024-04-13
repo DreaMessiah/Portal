@@ -15,9 +15,10 @@ export const ControllWeldingNew = () => {
     const [year,setYear] = useState('')
     const [objectId,setObjectId] = useState('')
 
-    const loadingHandler = async (e) =>{
+    const loadingHandler = async (object_id,month,year) =>{
         try {
-
+            const {data} = WeldingService.fetchZasv(object_id,month,year)
+            if(data) console.log(data)
         }catch (e) {
             console.log(e)
         }

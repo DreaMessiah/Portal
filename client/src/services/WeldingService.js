@@ -40,6 +40,9 @@ export default class WeldingService{
     static async getObgForHook(id){
         return $api.post(`/welding/getobjhook`, id)
     }
+    static async fetchZasv(object_id,month,year){
+        return $api.post(`/welding/createza`, {year,month,object_id})
+    }
     static async createZa(connections,year,month,object_id){
         return $api.post(`/welding/createza`, {connections,year,month,object_id})
     }
