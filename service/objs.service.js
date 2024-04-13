@@ -13,15 +13,11 @@ class ObjsService{
         const listObjs = await Ymshifr.findAll({where: {object_id:search.getId, inn:search.inn}, order: [['year', 'DESC']]})
         return listObjs
     }
-
     async createTabels(tabel){
         console.log(tabel)
         const idobj = parseInt(tabel.getId)
         await Ymshifr.create({object_id:idobj, shifr:idobj, month:tabel.selMonth, year:tabel.selYear, inn:tabel.inn})
         const list = await Ymshifr.findAll({where: {object_id:tabel.getId, inn:tabel.inn}, order: [['year', 'DESC']]})
-
-
-
         return list
     }
 
@@ -30,7 +26,6 @@ class ObjsService{
         const newList = []
         const listObjs = await NumberObjects.findAll({where: {inn:user.inn, login:user.login}, order: [['id', 'DESC']]})
         const allObjs = await Objects.findAll({where: {inn:user.inn}, order: [['shifr', 'ASC']]})
-
             listObjs.forEach(obj=>{
                 const newObj = {}
                 allObjs.forEach(strock => {

@@ -4,10 +4,12 @@ import 'rsuite/DatePicker/styles/index.css';
 import './inputs.scss'
 export default function TableDatePicker({placeholder,onChange,empty=false,index,value, size='100px'}){
     return (
-        <Stack style={{width:size,height:'auto'}} spacing={10} direction="column" alignItems="flex-start">
+        <Stack style={{width:size,height:'auto',borderRadius:'none'}}  direction="column" alignItems="flex-start">
             <DatePicker style={{
                 border:empty ? '3px solid rgba(215,26,0,0.5)' : "none",
+                borderRadius:'0px',
                 width:"100%",
+                margin:'0',
                 height:'auto',
                 backgroundColor:'transparent',
                 outline:"none",
@@ -16,7 +18,7 @@ export default function TableDatePicker({placeholder,onChange,empty=false,index,
                     borderColor:'rgba(1, 1, 1, 1)',  // Замените цветом, который вы хотите видеть при наведении
                 },
             }}
-                        defaultValue={value ? new Date(value) : new Date()}
+                        value={value ? new Date(value) : new Date()}
                         size="md"
                         onChange={(e) => onChange(e,index)}
                         format="dd.MM.yyyy"

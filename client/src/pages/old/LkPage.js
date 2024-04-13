@@ -1,10 +1,10 @@
 import React, {useContext, useState} from "react";
 import {Link,useLocation} from 'react-router-dom';
-import Navbar from "../components/Navbar";
-import LeftMenuObj from "../components/leftbar/LeftMenuObj";
-import CreateObj from "../components/leftbar/CreateObj";
-import BridgeLeftBar from "../components/leftbar/BridgeLeftBar";
-import {DataContext} from "../context/DataContext";
+import Navbar from "../../components/old/Navbar";
+import LeftMenuObj from "../../components/leftbar/LeftMenuObj";
+import CreateObj from "../../components/leftbar/CreateObj";
+import BridgeLeftBar from "../../components/leftbar/BridgeLeftBar";
+import {DataContext} from "../../context/DataContext";
 
 export default function LkPage(){
     const [username, setUsername] = useState('');

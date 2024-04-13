@@ -4,13 +4,13 @@ import {BrowserRouter as Router, Route, Routes} from "react-router-dom"
 import './assets/styles/styles.scss'
 import './assets/styles/media1550.scss'
 
-import MainPage from "./pages/MainPage"
-import AuthPage from "./pages/AuthPage"
-import SettingsPage from "./pages/SettingsPage"
-import LkPage from "./pages/LkPage"
-import NewsPage from "./pages/NewsPage"
-import SelNewsPage from "./pages/SelNewsPage"
-import DocumentPage from "./pages/DocumentPage"
+import MainPage from "./pages/old/MainPage"
+import AuthPage from "./pages/old/AuthPage"
+import SettingsPage from "./pages/old/SettingsPage"
+import LkPage from "./pages/old/LkPage"
+import NewsPage from "./pages/old/NewsPage"
+import SelNewsPage from "./pages/old/SelNewsPage"
+import DocumentPage from "./pages/old/DocumentPage"
 import TasksPage from "./pages/tasks/old/TasksPage"
 import CreateTaskPage from "./pages/tasks/old/CreateTaskPage";
 import {Weldingmain} from "./pages/welding/Weldingmain";
@@ -30,15 +30,15 @@ import {Controll} from "./pages/controll/Controll";
 import {Context} from "./index";
 import {observer} from "mobx-react-lite";
 import PayslipPage from "./pages/payslip/PayslipPage";
-import PhonebookPage from "./pages/PhonebookPage";
+import PhonebookPage from "./pages/old/PhonebookPage";
 import {CrewsPage} from "./pages/welding/CrewsPage";
-import PeoplesPage from "./pages/PeoplesPage";
-import ODataPage from "./pages/ODataPage";
+import PeoplesPage from "./pages/old/PeoplesPage";
+import ODataPage from "./pages/old/ODataPage";
 import ChatPage from "./pages/conference/ChatPage";
-import NewstartPage from "./pages/NewstartPage";
+import NewstartPage from "./pages/old/NewstartPage";
 import LkNewPortal from "./pages/newportal/lknewportal/LkNewPortal";
-import NewPayList from "./pages/NewPayList";
-import NewPhoneBook from "./pages/NewPhoneBook";
+import NewPayList from "./pages/old/NewPayList";
+import NewPhoneBook from "./pages/old/NewPhoneBook";
 import MainTasks from "./pages/newportal/tasks/MainTasks";
 import ThisTask from "./pages/newportal/tasks/ThisTask";
 import Createnews from "./pages/newportal/news/Createnews";

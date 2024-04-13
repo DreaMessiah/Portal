@@ -1,8 +1,8 @@
 import './payslip.scss'
 import React, {useState, useEffect, useContext} from 'react';
-import NewsNavbar from "../../components/NewsNavbar"
+import NewsNavbar from "../../components/old/NewsNavbar"
 import {Link,useLocation} from "react-router-dom";
-import NewsFooter from "../../components/NewsFooter";
+import NewsFooter from "../../components/old/NewsFooter";
 import Select from 'react-select'
 import {DataContext} from "../../context/DataContext";
 import {observer} from "mobx-react-lite";

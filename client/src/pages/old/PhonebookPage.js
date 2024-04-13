@@ -1,12 +1,12 @@
 import React, {useState, useEffect, useContext, useRef} from 'react';
-import NewsNavbar from "../components/NewsNavbar"
+import NewsNavbar from "../../components/old/NewsNavbar"
 import {Link,useLocation} from "react-router-dom";
-import NewsFooter from "../components/NewsFooter";
+import NewsFooter from "../../components/old/NewsFooter";
 import {observer} from "mobx-react-lite";
-import {Context} from "../index";
-import {useMessage} from "../hooks/message.hook";
-import PhonesService from "../services/PhonesService";
-import {ModalWin} from "../components/modalwin/ModalWin";
+import {Context} from "../../index";
+import {useMessage} from "../../hooks/message.hook";
+import PhonesService from "../../services/PhonesService";
+import {ModalWin} from "../../components/modalwin/ModalWin";
 
 function PhonebookPage(){
     const {store} = useContext(Context)

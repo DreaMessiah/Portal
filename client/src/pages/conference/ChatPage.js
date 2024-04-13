@@ -1,6 +1,6 @@
 import React, {useContext, useState, useRef, useEffect} from "react";
 import { DataContext } from '../../context/DataContext';
-import Navbar from "../../components/Navbar";
+import Navbar from "../../components/old/Navbar";
 import BridgeLeftBar from "../../components/leftbar/BridgeLeftBar";
 
 import Peer from "simple-peer"

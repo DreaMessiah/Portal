@@ -1,10 +1,10 @@
 import React, {useContext, useState} from "react";
 import Select from 'react-select'
 import {DataContext} from "../../../context/DataContext";
-import Navbar from "../../../components/Navbar";
-import SearchObj from "../../../components/SearchObj";
-import ChangeObj from "../../../components/ChangeObj";
-import WrapButtonsObj from "../../../components/WrapButtonsObj";
+import Navbar from "../../../components/old/Navbar";
+import SearchObj from "../../../components/old/SearchObj";
+import ChangeObj from "../../../components/old/ChangeObj";
+import WrapButtonsObj from "../../../components/old/WrapButtonsObj";
 import BridgeLeftBar from "../../../components/leftbar/BridgeLeftBar";
 import {Link} from "react-router-dom";
 

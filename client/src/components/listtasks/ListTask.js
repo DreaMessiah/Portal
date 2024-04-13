@@ -1,9 +1,9 @@
 import "./listtask.scss";
 import React, {useContext} from "react";
 import {DataContext} from "../../context/DataContext";
-import WrapButtonsObj from "../WrapButtonsObj";
-import SearchObj from "../SearchObj";
-import ChangeObj from "../ChangeObj";
+import WrapButtonsObj from "../old/WrapButtonsObj";
+import SearchObj from "../old/SearchObj";
+import ChangeObj from "../old/ChangeObj";
 import {TableListTasks} from "./TableListTasks";
 
 

@@ -1,4 +1,6 @@
-const {Objects, ObjectsSV, YmSvarka, CrewBase, CrewSv, TabelSv, CrewManlist, TableTabel, ViewsWorkSv} = require('../models/models')
+const {Objects, ObjectsSV, YmSvarka, CrewBase, CrewSv, TabelSv, CrewManlist, TableTabel, ViewsWorkSv, ZaSv,
+    TableZayavka, KtuList
+} = require('../models/models')
 const ObjsDto = require('../dtos/objsDto')
 const ApiError = require('../exceptions/api.error')
 class WeldingService{
@@ -6,17 +8,14 @@ class WeldingService{
         const listObjs = await Objects.findAll({where: {inn:inn}})
         return listObjs
     }
-
     async getCrew(){
         const listCrew = await CrewBase.findAll()
         return listCrew
     }
-
     async getMyCrews(params){
         const listMyCrews = await CrewSv.findAll({where: {shifr:params.shifr}})
         return listMyCrews
     }
-
     async createCrew(params){
         const months = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь']
         console.log('===== TYT ====')
@@ -74,19 +73,16 @@ class WeldingService{
 
         // return listMyCrews
     }
-
     async getTabelSv(params){
         const listTabelSV = await TabelSv.findAll({where: {shifr:params.shifr, year:params.getYear, month:params.month}})
         return listTabelSV
     }
-
     async viewObjSV(params){
 
 
         const listObjs = await ObjectsSV.findAll({where: {inn:params.inn, user:params.login}})
         return listObjs
     }
-
     async pushObj(obj){
 
         const searchObj = await ObjectsSV.findOne({ where: {shifrid:obj.myObj.id, inn:obj.myObj.inn} })
@@ -106,12 +102,10 @@ class WeldingService{
         }
 
     }
-
     async getYM(innId){
         const listYM = await YmSvarka.findAll({where: {inn:innId.inn, shifr:innId.idstore}, order: [['year', 'DESC'],['month', 'ASC']]})
         return listYM
     }
-
     async getViewWorkSV(params){
         console.log('params')
         console.log(params)
@@ -123,8 +117,6 @@ class WeldingService{
         const listWorks = await ViewsWorkSv.findAll({where: {shifr:shifr}})
         return listWorks
     }
-
-
     async crYM(params){
         const listYM = await YmSvarka.findAll({where: {inn:params.inn, shifr:params.idstore, year:params.newyear, month:params.newmonth}, order: [['year', 'DESC'],['month', 'ASC']]})
 
@@ -139,16 +131,6 @@ class WeldingService{
 
 
     }
-
-    async getObgForHook(id){
-        const thisid = +id
-        const thisObj = await Objects.findOne({where: {id:thisid}})
-
-
-
-        return thisObj
-    }
-
     async updateManDays(param){
         console.log(param)
         console.log(' - ')
@@ -258,6 +240,19 @@ class WeldingService{
         // await line.save();
         return created
 
+    }
+    async getObgForHook(id){
+        const thisid = +id
+        const thisObj = await Objects.findOne({where: {id:thisid}})
+        return thisObj
+    }
+    async createZa(year,month,object_id,user_tn){
+        const za = await ZaSv.create({year,month,object_id,author_tn:user_tn,status_id:30})
+        if(!za) return {err:true,message:'Заявка не создана'}
+        return za
+    }
+    async createConnections(connections,za_id){
+        return await Promise.all( connections.map(async item => {return await TableZayavka.create({...item,zasv_id:za_id})}))
     }
 
 }

@@ -1,9 +1,9 @@
-import React, {useState, useEffect, useContext} from 'react';
-import NewsNavbar from "../components/NewsNavbar"
-import {Link,useLocation} from "react-router-dom";
-import NewsFooter from "../components/NewsFooter";
-import {observer} from "mobx-react-lite";
-import {Context} from "../index";
+import React, { useState, useEffect } from 'react';
+
+import NewsNavbar from "../../components/old/NewsNavbar"
+import {Link,useParams} from "react-router-dom";
+import NewsFooter from "../../components/old/NewsFooter";
+import PhotoViewer from "../../components/old/PhotoViewer";
 
 const news = [
     {
@@ -44,78 +44,38 @@ const news = [
 
 ]
 
-function NewsPage(){
-    const {store} = useContext(Context)
-    let shortTexts = []
-    let imageStiles = []
-    function truncateText(text, maxLength) {
-        if (text.length > maxLength) {
-            let truncated = text.substring(0, maxLength);
-            const lastSpaceIndex = truncated.lastIndexOf(' ');
-            if (lastSpaceIndex !== -1) {
-                const punctuationRegex = /[.,\/#!$%\^&\*;:{}=\-_`~()]/;
-                if (punctuationRegex.test(truncated.charAt(lastSpaceIndex - 1))) {
-                    truncated = truncated.substring(0, lastSpaceIndex - 1);
-                }
-            }
-            truncated += '...';
-            return truncated;
-        }
-        return text;
-    }
-    news.map( (item,index) => {
-        shortTexts[index] = truncateText(item.text,250)
-        imageStiles[index] = {backgroundImage: `url(${item.img + '001.jpg'})`}
-    })
+export default function SelNewsPage(){
+    const { id } = useParams();
 
-    const dataToSend = {
-        id: 1,
-        name: 'Example',
-        // Другие данные...
-    };
+    let images = []
+
+   for(let i=0;i<news[id].ni;i++){
+       images[i] = news[id].img + '00' + (i+1) + '.jpg'
+   }
+    console.log(images)
 
     return (
-        <div className='thispage'>
+        <div>
+
             <div className='newspage'>
-                <div className='main_path'>
-                    <NewsNavbar/>
-                    <div className='new_back'>
-                        <div className='info_news'>
-                            <div className='info between'>
-                                <Link className='button' to='/main'>Корпоративный Портал</Link>
-                                <Link className='button' to='/paylist'>Расчетный лист</Link>
-                                <Link className='button' to='/phonebook'>Телефонный справочник</Link>
-                            </div>
-                            <div className='polosa'></div>
-                            <div className='info'>
-                                <p>ФИО: {store.user.full_name}</p>
-                                <p>Должность: {store.t13.developer}</p>
-                                <p>Подразделение: {store.t13.branch}</p>
-                                <p>Стаж работы: {store.onboard}</p>
-                            </div>
+                <NewsNavbar/>
+                <div className='one_news_block'>
+                    <div className='block'>
+                        <Link className='back_button' to='/'><i className="fa-solid fa-caret-left"></i>Вернуться</Link>
+                        <div className='info_new'>
+                            <div className='title'><p>{news[id].title}</p></div>
+                            <div className='text'>{news[id].text}</div>
                         </div>
-                        <div className='rows_news'>
-                            {news.map( (item,index) => (
-                                <div key={index} className='news'>
-                                    <div style={imageStiles[index]} className='news_img'></div>
-                                    <div className='news_text'>
-                                        <div className='info'>
-                                            <div className='title'><p>{item.title}</p></div>
-                                            <div className='text'>{shortTexts[index]}</div>
-                                        </div>
-                                        <div className='buttom_block'><Link to={`/selected_news/${index}`}>Открыть</Link></div>
-                                    </div>
-                                </div>
-                            ))}
+                        <div className='gallery'>
+                            <PhotoViewer images={images} />
                         </div>
                     </div>
                 </div>
                 <NewsFooter/>
-                <div className='backimg'>
-                    <div className='backcol'></div>
-                </div>
+            </div>
+            <div className='backimg'>
+                <div className='backcol'></div>
             </div>
         </div>
     )
 }
-export default observer(NewsPage)

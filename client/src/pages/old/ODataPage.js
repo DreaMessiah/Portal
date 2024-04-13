@@ -1,28 +1,52 @@
 import React, {useContext, useEffect, useState} from "react";
 import {observer} from "mobx-react-lite";
-import AuthService from "../services/AuthService";
-import Navbar from "../components/Navbar";
-import BridgeLeftBar from "../components/leftbar/BridgeLeftBar";
-import {DataContext} from "../context/DataContext";
-import WrapButtonsObj from "../components/WrapButtonsObj";
-import SearchObj from "../components/SearchObj";
-import ChangeObj from "../components/ChangeObj";
+import OdataService from "../../services/OdataService";
+import Navbar from "../../components/old/Navbar";
+import BridgeLeftBar from "../../components/leftbar/BridgeLeftBar";
+import {DataContext} from "../../context/DataContext";
+import WrapButtonsObj from "../../components/old/WrapButtonsObj";
+import SearchObj from "../../components/old/SearchObj";
+import ChangeObj from "../../components/old/ChangeObj";
 
-import "../components/listtasks/listtask2.scss";
-import NewsFooter from "../components/NewsFooter";
-function PeoplesPage(){
+import * as XLSX from 'xlsx';
+
+import "../../components/listtasks/listtask2.scss";
+import NewsFooter from "../../components/old/NewsFooter";
+function OdataPage(){
     const {mass_create, menu_mass,wrap_buttons} = useContext(DataContext)
     const [users,setUsers] = useState([])
     const rule = 3
     const loading = async () => {
-        const response = await AuthService.getusers()
-        console.log(response.data.users)
-        setUsers(response.data.users)
+        try {
+            const response = await OdataService.getpeoples()
+            if (response.data) {
+                //exportToExcel(response.data)
+            }
+            console.log(response.data)
+        }catch (e) {
+            console.log(e)
+        }
+        setUsers(['123'])
     }
     useEffect(()=> {
         const promise = loading()
-        console.log(promise)
     },[])
+
+    function exportToExcel(jsonData){
+        const wb = XLSX.utils.book_new();
+        const ws_name = 'Sheet1';
+
+        const ws_data = jsonData.map( (obj,index) => {
+            return [index, obj.Description, obj.Code,obj.ДатаПриема,obj.ДатаУвольнения,obj.ОформленПоТрудовомуДоговору];
+        });
+
+        const ws = XLSX.utils.aoa_to_sheet(ws_data);
+
+        XLSX.utils.book_append_sheet(wb, ws, ws_name);
+
+        // Сохраняем файл
+        XLSX.writeFile(wb, 'output.xlsx');
+    }
 
     return(
         <div className='container'>
@@ -62,8 +86,8 @@ function PeoplesPage(){
                         : ''}
                 </div>
             </div>
-        <NewsFooter/>
+            <NewsFooter/>
         </div>
     )
 }
-export default observer(PeoplesPage)
+export default observer(OdataPage)

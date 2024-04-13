@@ -9,8 +9,6 @@ export const NewControll = ({list, active, setActive}) => {
 
     }
     const [arrConnection, setArrConnection] = useState(false)
-
-
     const pushController = (push) => {
 
         const controllList = document.getElementById('new_controll_list')
