@@ -441,6 +441,7 @@ const Ymshifr = sequelize.define('ymshifr',{
     rab:{type:DataTypes.INTEGER},
     ras:{type:DataTypes.INTEGER},
     inn:{type:DataTypes.STRING},
+    trash:{type:DataTypes.BOOLEAN}
 })
 const Files = sequelize.define('files',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
@@ -721,10 +722,11 @@ const ZaSv = sequelize.define('zasv',{
     object_id:{type:DataTypes.STRING},
     author_tn:{type:DataTypes.STRING},
     status_id:{type:DataTypes.INTEGER},
+    trash:{type:DataTypes.BOOLEAN}
 })
 const TableZayavka = sequelize.define('tablezayavka',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
-    zasv_id:{type:DataTypes.STRING,ref:'zasv'},
+    zasv_id:{type:DataTypes.INTEGER,ref:'zasv'},
     num:{type:DataTypes.STRING},
     codecrew:{type:DataTypes.STRING},
     date:{type:DataTypes.STRING},

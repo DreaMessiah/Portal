@@ -121,7 +121,7 @@
         align-items: center;
       }
       .controll_welding_list_strock_total{
-        width: 10%;
+        width: 6%;
         min-height: 40px;
         border: none;
         border-right: 1px solid #454545;
@@ -130,7 +130,7 @@
         align-items: center;
       }
       .controll_welding_list_strock_autor{
-        width: 15%;
+        width: 28%;
         min-height: 40px;
         border: none;
         border-right: 1px solid #454545;
@@ -148,13 +148,17 @@
         align-items: center;
       }
       .controll_welding_list_strock_status{
-        width: 10%;
+        width: 14%;
         min-height: 40px;
         border: none;
         border-right: 1px solid #454545;
         display: flex;
         justify-content: center;
         align-items: center;
+        text-align: center;
+      }
+      .button{
+        cursor: pointer;
       }
       .controll_welding_list_strock_comm{
         width: 13%;
@@ -180,6 +184,11 @@
           display: flex;
           justify-content: center;
           align-items: center;
+          cursor: pointer;
+        }
+        .controll_welding_list_strock_editor_open:hover{
+          background-color: #333333;
+          color: #FFFFFF;
         }
         .controll_welding_list_strock_editor_del{
           width: 25%;
@@ -187,6 +196,11 @@
           display: flex;
           justify-content: center;
           align-items: center;
+          cursor: pointer;
+        }
+        .controll_welding_list_strock_editor_del:hover{
+          background-color: rosybrown;
+          color: #FFFFFF;
         }
       }
 
@@ -206,4 +220,18 @@
 }
 .rs-input-group {
 border-radius: 0 !important;
+}
+
+.statuses{
+  width: calc(100% - 40px);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center !important;
+  align-items: center;
+  .button{
+
+    text-transform: uppercase;
+    font-weight: 600;
+    width: 50%;
+  }
 }

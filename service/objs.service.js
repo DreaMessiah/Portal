@@ -53,11 +53,9 @@ class ObjsService{
 
         return newList
     }
-    async insertObjects(obj){
-        console.log(obj)
-        const obj_id = +obj.idobj
-        await NumberObjects.create({object_id:obj_id,nameobject:'',user_id:0,papa:obj.login,inn:obj.inn,login:obj.login})
-        const listObjs = await NumberObjects.findAll({where: {inn:obj.inn, login:obj.login}, order: [['id', 'DESC']]})
+    async insertObjects(obj_id,login,inn){
+        await NumberObjects.create({object_id:obj_id,nameobject:'',user_id:0,papa:login,inn:inn,login:login})
+        const listObjs = await NumberObjects.findAll({where: {inn:inn, login:login}, order: [['id', 'DESC']]})
         return listObjs
     }
 

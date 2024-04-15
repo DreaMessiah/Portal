@@ -1,5 +1,5 @@
 const {Objects, ObjectsSV, YmSvarka, CrewBase, CrewSv, TabelSv, CrewManlist, TableTabel, ViewsWorkSv, ZaSv,
-    TableZayavka, KtuList
+    TableZayavka, KtuList, Statuses, KtuDoc
 } = require('../models/models')
 const ObjsDto = require('../dtos/objsDto')
 const ApiError = require('../exceptions/api.error')
@@ -232,13 +232,39 @@ class WeldingService{
         return thisObj
     }
     async createZa(year,month,object_id,user_tn){
-        const za = await ZaSv.create({year,month,object_id,author_tn:user_tn,status_id:30})
+        const za = await ZaSv.create({year,month,object_id,author_tn:user_tn,status_id:30,trash:false})
+        console.log(za)
         if(!za) return {err:true,message:'Заявка не создана'}
         return za
     }
     async createConnections(connections,za_id){
         return await Promise.all( connections.map(async item => {return await TableZayavka.create({...item,zasv_id:za_id})}))
     }
+    async getZasv(year,month,object_id){
+        const zasv = await ZaSv.findAll({where:{year:year,month:month,object_id:object_id,trash:false},order:[['id', 'DESC']]})
+        if(!zasv) return {message:'Документы отсутствуют'}
+        return zasv
+    }
+    async getStatuses(type,unit){
+        const sts = await Statuses.findAll({where:{type:type,unit:unit}})
+        if(!sts) return {message:'Статусы отсутствуют'}
+        return sts
+    }
+    async changeStat(za_id,stat_id){
+        const za = await ZaSv.findByPk(za_id)
+        if(!za) return {message:'Заявука отсутствует'}
+        za.status_id = stat_id
+        await za.save()
+        return za
+    }
+    async deleteZa(za_id){
+        const za = await ZaSv.findByPk(za_id)
+        if(!za) return {message:'Документы отсутствуют'}
+        za.trash = true
+        await za.save()
+        return {del:true,message:'Запись удалена'}
+    }
 
 }
+
 module.exports = new WeldingService()

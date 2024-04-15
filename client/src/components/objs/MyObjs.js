@@ -9,43 +9,17 @@ import ObjsService from "../../services/ObjsService";
 import {Context} from "../../index";
 
 export default function MyObjs({mass, page}) {
-    console.log(mass)
-    let objsLoList = [];
-
     const  {store} = useContext(Context)
-
-    const inn = store.user.inn
-    const login = store.user.login
-
-    const {btns_modules} = useContext(DataContext)
-
-    const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
-    // const history = useHistory();
-    let getId = searchParams.get('id');
-
-
-    if(getId === null){
-        getId = 0
-        console.log(getId)
-    }
-    const btnsModals = document.querySelectorAll('.btns_module')
-
-    const linkPage = link => {
-
-    }  
+    const location = useLocation()
 
     const [modal, setModal] = useState(false)
     const [listObjs, setListObjs] = useState([])
     const [viewMyObjs, setViewMyObjs] = useState([])
-    const [thisURL, setThisURL] = useState(getId)
-    const [thisU, setThisU] = useState('')
-    const [mapObjs, setMapObjs] = useState([])
-    const [title, setTitle] = useState('Добавить объект')
+    const [thisURL, setThisURL] = useState(0)
+
     const activeModal = active => {
         if(active === false){
             setModal(!active)
-            // setTitle('Добавить объект')
             console.log(modal)
         } else {
             setModal(!active)
@@ -53,49 +27,30 @@ export default function MyObjs({mass, page}) {
         }
 
     }
-
-
-
-
-    const getMyObjs = async (ist) => {
-
-            const viewList = await ObjsService.listObjsSV({inn, login})
-
-            // const newList = craftList(viewMyObjs, listObjs)
-            setViewMyObjs(viewList.data)
-            console.log(viewList.data)
-            // setMapObjs(newList)
+    const loadingHandler = async () => {
+        try {
+            const {data} = await ObjsService.listObjsSV()
+            if(data) setViewMyObjs(data)
+            const viewList = await ObjsService.getObjs()
+            setListObjs(viewList.data)
+        }catch (e) {
+            console.log(e)
+        }
     }
-
-    const viewAllObjs = async (e) => {
-
-        const viewList = await ObjsService.getObjs({inn})
-        setListObjs(viewList.data)
-        console.log(viewList.data)
-    }
-
-
-
-
-
 
     const openShifrBlock = (putId) => {
-
         setThisURL(putId)
         if(thisURL !== 0){
             console.log(thisURL)
         }
 
     }
-
     useEffect(() => {
-
-        viewAllObjs()
-        getMyObjs()
-
+        const searchParams = new URLSearchParams(location.search);
+        const getId = searchParams.get('id') ? searchParams.get('id') : 0;
+        setThisURL(getId)
+        loadingHandler()
     }, [])
-
-
 
     return (
         <div className='right-block'>
@@ -133,7 +88,7 @@ export default function MyObjs({mass, page}) {
                         </Link>
                     ))}
                     {/*<ModalWin data={<CreateObjModal inn={inn} user={login} arr={objsLoList} title={title} setTitle={setTitle} active={modal} setActive={setModal} listObj={listObjs} stateMass={setListObjs}/>} active={modal} setActive={setModal}/>*/}
-                    <ModalWin data={<PlusMyObjModal inn={inn} login={login} list={listObjs} active={modal} setActive={setModal} setViewMyObjs={setViewMyObjs}/>} active={modal} setActive={setModal}/>
+
                     {/*<ModalWin data={<PlusMyObjModal inn={inn} user={login} arr={objsLoList} title={title} setTitle={setTitle} active={modal} setActive={setModal} listObj={listObjs} stateMass={setListObjs}/>} active={modal} setActive={setModal}/>*/}
 
                 </div>

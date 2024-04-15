@@ -41,10 +41,19 @@ export default class WeldingService{
         return $api.post(`/welding/getobjhook`, id)
     }
     static async fetchZasv(object_id,month,year){
-        return $api.post(`/welding/createza`, {year,month,object_id})
+        return $api.post(`/welding/getzasv`, {year,month,object_id})
     }
     static async createZa(connections,year,month,object_id){
         return $api.post(`/welding/createza`, {connections,year,month,object_id})
+    }
+    static async fetchStatuses(type,unit){
+        return $api.post(`/welding/getstatus`, {type,unit})
+    }
+    static async changeStatus(za_id,stat_id){
+        return $api.post(`/welding/changestat`, {za_id,stat_id})
+    }
+    static async deleteZa(za_id) {
+        return $api.post(`/welding/deleteza`, {za_id})
     }
 
 }

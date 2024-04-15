@@ -1,11 +1,12 @@
 import './newcontroll.scss'
-import {useState, useEffect} from "react";
+import {useState, useEffect, useContext} from "react";
 import TableDatePicker from "../../../../inputs/TableDatePicker";
 import formatDate from "../../../../functions/formatDate";
 import WeldingService from "../../../../../services/WeldingService";
 import {useMessage} from "../../../../../hooks/message.hook";
+import {Context} from "../../../../../index";
 
-export const NewControll = ({month,year,object_id,setActive,zas,setZas}) => {
+export const NewControll = ({month,year,object_id,setActive,loading}) => {
     const [num,setNum] = useState('')
     const [codecrew,setCodecrew] = useState('')
     const [date,setDate] = useState(new Date())
@@ -13,7 +14,7 @@ export const NewControll = ({month,year,object_id,setActive,zas,setZas}) => {
     const [dostup,setDostup] = useState('')
     const [size,setSize] = useState('')
     const [zav,setZav] = useState('')
-
+    const {store} = useContext(Context)
     const [connections,setConnections] = useState([])
 
     const [empty,setEmpty] = useState([])
@@ -63,9 +64,10 @@ export const NewControll = ({month,year,object_id,setActive,zas,setZas}) => {
             const {data} = await WeldingService.createZa(connections,year,month,object_id)
             if(data){
                 console.log(data)
-                setZas([...zas,data[0]])
+                await loading(object_id,month,year)
                 message('Заявка отправлена')
                 setActive(false)
+                setConnections([])
             }
         }catch (e){
             console.log(e)

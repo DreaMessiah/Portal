@@ -7,14 +7,9 @@ class ObjsController {
 
     async delBestMan(req,res,next) {
         try{
-
             const id = req.body
-            console.log('Контроллер ID удаляемого')
-            console.log(id)
             const itogyman = await BestManService.delBestMan(id)
-            console.log(itogyman)
             return res.json(itogyman)
-
         }catch (e){
             next(e)
         }
@@ -46,8 +41,7 @@ class ObjsController {
 
     async getListObjs(req,res,next) {
          try{
-             const inn = req.body.inn
-             const list = await ObjsService.getObjects(inn)
+             const list = await ObjsService.getObjects(req.user.inn)
              return res.json(list)
 
         }catch (e){
@@ -80,34 +74,24 @@ class ObjsController {
     }
 
 
-
-
-        async showObjs(req,res,next) {
-            try{
-
-                const user = req.body
-
-                const list = await ObjsService.showObjects(user)
-                return res.json(list)
-
-            }catch (e){
-                next(e)
-            }
-        }
-
-    async insertObjs(req,res,next) {
+    async showObjs(req,res,next) {
         try{
-
-            const obj = req.body
-
-            const list = await ObjsService.insertObjects(obj)
+            const list = await ObjsService.showObjects({inn:req.user.inn,login:req.user.login})
             return res.json(list)
-
         }catch (e){
             next(e)
         }
     }
 
+    async insertObjs(req,res,next) {
+        try{
+            const {obj_id} = req.body
+            const list = await ObjsService.insertObjects(obj_id,req.user.login,req.user.inn)
+            return res.status(200).json(list)
+        }catch (e){
+            next(e)
+        }
+    }
 
     async getT13(req,res,next) {
         try{

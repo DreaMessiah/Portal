@@ -1,16 +1,16 @@
 import $api from "../http"
 
 export default class ObjsService{
-    static async getObjs(inn){
-        return $api.post(`/objects/getlistobjs`, inn)
+    static async getObjs(){
+        return $api.get(`/objects/getlistobjs`)
     }
 
-    static async listObjsSV(user){
-        return $api.post(`/objects/viewobjs`, user)
+    static async listObjsSV(){
+        return $api.get(`/objects/viewobjs`)
     }
 
-    static async insertObjs(obj){
-        return $api.post(`/objects/insertobj`, obj)
+    static async insertObjs(obj_id){
+        return $api.post(`/objects/insertobj`, {obj_id})
     }
 
     static async getAllTabels(search){
