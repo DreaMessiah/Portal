@@ -1,6 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
 import "./tabel.scss";
-import CmsDatePicket from "../inputs/CmsDatePicket";
 import Select from "react-select";
 import WriteTabelService from "../../services/WriteTabelService";
 import {useMessage} from "../../hooks/message.hook";

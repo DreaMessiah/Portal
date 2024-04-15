@@ -55,6 +55,7 @@ import {EconomistMenu} from "./pages/economist/EconomistMenu";
 
 import OgmPage from "./pages/econom/OgmPriceRouter";
 import {ItogTabel} from "./pages/tabel/ItogTabel";
+import {AllTabels} from "./pages/tabel/AllTabels";
 
 
 function App() {
@@ -133,6 +134,7 @@ function App() {
                         <Route path="/thistabelportal" element={<ThisTableTabel />} />
                         <Route path="/welwel" element={<WelMY />} />
                         <Route path="/itogtabel" element={<ItogTabel />} />
+                        <Route path="/alltabels" element={<AllTabels />} />
                     </Routes>
                 </div>
             </Router>

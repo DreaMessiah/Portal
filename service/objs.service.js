@@ -13,6 +13,13 @@ class ObjsService{
         const listObjs = await Ymshifr.findAll({where: {object_id:search.getId, inn:search.inn,[Op.or]: [{ trash: null },{ trash: false }]}, order: [['year', 'DESC']]})
         return listObjs
     }
+
+    async getTabelsForAll(search){
+        console.log(search)
+        const listObjs = await Ymshifr.findAll({where: {year: search.year, inn:search.inn,[Op.or]: [{ trash: null },{ trash: false }]}, order: [['year', 'DESC']]})
+        return listObjs
+    }
+
     async createTabels(tabel){
         console.log(tabel)
         const idobj = parseInt(tabel.getId)

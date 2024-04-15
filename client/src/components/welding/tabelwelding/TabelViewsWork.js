@@ -1,7 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import WeldingService from "../../../services/WeldingService";
-
-
+import "./tabelform.scss";
 
 export const TabelViewsWork = ({getTabel,setTabel,active,idobj,shifr,month,year}) => {
 

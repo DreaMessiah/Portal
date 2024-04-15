@@ -9,6 +9,11 @@ router.get('/viewobjs',authMiddlewere, objsController.showObjs)
 router.post('/insertobj',authMiddlewere, objsController.insertObjs)
 
 router.post('/getalltabels',authMiddlewere, objsController.getAllTabels)
+router.post('/getforall',authMiddlewere, objsController.getTabelsForAll)
+
+
+
+
 router.post('/createtabel',authMiddlewere, objsController.createTabels)
 router.post('/gett13',authMiddlewere, objsController.getT13)
 router.post('/listtabel',authMiddlewere, objsController.listTabelMans)

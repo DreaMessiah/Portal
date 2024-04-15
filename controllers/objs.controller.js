@@ -60,6 +60,17 @@ class ObjsController {
         }
     }
 
+    async getTabelsForAll(req,res,next) {
+        try{
+            const search = req.body
+            const list = await ObjsService.getTabelsForAll(search)
+            return res.status(200).json(list)
+        }catch (e){
+            next(e)
+        }
+    }
+
+
     async createTabels(req,res,next) {
         try{
 
