@@ -1,5 +1,5 @@
 import "./tabel.scss";
-import "../welding/yearmounth/viewobj.scss";
+import "./viewtab.scss";
 import {Link, useLocation} from "react-router-dom";
 import {useContext, useEffect, useState} from "react";
 import {DataContext} from "../../context/DataContext";
@@ -7,11 +7,11 @@ import ObjsService from "../../services/ObjsService";
 import {Context} from "../../index";
 import {useMessage} from "../../hooks/message.hook";
 import {useMonth} from "../../hooks/month.hook";
+import WriteTabelService from "../../services/WriteTabelService";
+import ModalFiles from "../modalwin/ModalFiles";
+import {SettingsYM} from "./modalactive/SettingsYM";
 
-
-
-
-export const TabelMY = () => {
+export const TabelNewMY = () => {
 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
@@ -26,6 +26,14 @@ export const TabelMY = () => {
     const selectMonth = useMonth()
 
     const [listMonth, setListMonth] = useState([])
+    const [settYM, setSettYM] = useState(false)
+    const [obj, setObj] = useState([])
+
+    const thisObj = async () => {
+        const getDataObj = await WriteTabelService.myObj({id: getId})
+        console.log(getDataObj.data)
+        setObj(getDataObj.data)
+    }
 
     const craftList = arr => {
         const listYears = []
@@ -51,6 +59,7 @@ export const TabelMY = () => {
 
                     monthsProps.push({
                         id: index,
+                        idym: strock.id,
                         shifr: year.idobj,
                         year: strock.year,
                         month: strock.month,
@@ -93,15 +102,9 @@ export const TabelMY = () => {
     }
 
     const viewAllTabels = async (e) => {
-        // try{
             const viewList = await ObjsService.getAllTabels({inn, getId})
-
-            // setListObjs(viewList.data)
             console.log(viewList.data)
             craftList(viewList.data)
-        // }catch{
-        //     console.log('ой, опаньки')
-        // }
     }
     const viewAllObjs = async (e) => {
 
@@ -123,20 +126,21 @@ export const TabelMY = () => {
             }
         })
 
-        // const new_arr = listObjs.filter(obj => {
-        //     if (parseInt(getId) === parseInt(obj.id)) {
-        //         return true
-        //     } else {
-        //         return false
-        //     }
-        // })[0]
-        setNewarr(new_arr[0])
+        // setNewarr(new_arr[0])
     }
         
-    console.log(getId)
-    console.log(newarr)
+    // console.log(getId)
+    // console.log(newarr)
+
+    const [idYM, setidYM] = useState(null)
+
+    const choiceYM = idym => {
+        // setidYM(null)
+        setidYM(idym)
+    }
 
     useEffect(()=>{
+        thisObj()
         viewAllTabels()
         viewAllObjs()
         makeObj()
@@ -146,9 +150,10 @@ export const TabelMY = () => {
     return (
         <div className='right-block-ymwelding'>
             <div className='ymwelding_head'>
-                <div className='ymwelding_head_btnlast'>Назад к объектам</div>
-                <div className='ymwelding_head_nameobj'><span>{getId}</span>       </div>
-                <div className='ymwelding_head_passobj'>Передать</div>
+                <Link to={`/thisobjsportal?id_object=${getId}`} className='back-button' style={{marginRight: '40px'}}>Назад</Link>
+
+                <div className='back-button'>Передать</div>
+                <div className='ymwelding_head_nameobj'><span>{obj.shifr}</span>{obj.nameobject}</div>
             </div>
             <div className='ymwelding_controller'>
                 <div className='ymwelding_controller_ym'>
@@ -175,11 +180,6 @@ export const TabelMY = () => {
                     </select>
                     <div onClick={()=>plusMonth()} className='ymwelding_controller_ym_pluss'>Создать</div>
                 </div>
-                <div className='ymwelding_controller_sistembtns'>
-                    <div className='ymwelding_controller_sistembtns_crews'>Звенья / Бригады</div>
-                    <div className='ymwelding_controller_sistembtns_itogs'>Отчеты</div>
-                    <div className='ymwelding_controller_sistembtns_viewsjob'>Виды работ</div>
-                </div>
             </div>
             <div className='ymwelding_slice'></div>
             {listMonth.map((year,index) => (
@@ -187,17 +187,17 @@ export const TabelMY = () => {
                 <div className='ymwelding_years_head'>{year.year}</div>
                 <div className='ymwelding_years_body'>{  year.months.map((month,index) => (
                     <div key={index}>
-                        <Link key={index} to={`/table-tabel/?id=${index}&shifr=${month.shifr}&month=${month.month}&year=${month.year}`} className='ymwelding_years_body_month'>
-                            <div className='ymwelding_years_body_month_text'>{selectMonth(month.month)}</div>
-                            <div className='ymwelding_years_body_month_settings'> ... </div>
-                        </Link>
+                        <div key={index}  className='ymwelding_years_body_month'>
+                            <Link to={`/thistabelportal/?id=${index}&shifr=${getId}&month=${month.month}&year=${month.year}`} className='ymwelding_years_body_month_text'>{selectMonth(month.month)}</Link>
+                            <div className='ymwelding_years_body_month_settings' onClick={()=>{ setidYM(month.idym); setSettYM(!settYM)}}> ... </div>
+                        </div>
                     </div>
                         ))}
                 </div>
             </div>
             ))
             }
-            
+            <ModalFiles data={<SettingsYM func={viewAllTabels} idym={idYM} active={settYM} setActive={setSettYM}/>} active={settYM} setActive={setSettYM}/>
         </div>
     )
 }

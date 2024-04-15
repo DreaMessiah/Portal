@@ -1,15 +1,15 @@
 import React, {useContext} from "react";
 import { DataContext } from '../../context/DataContext';
-import Navbar from "../../components/old/Navbar";
-import DocumentWay from "../../components/old/DocumentWay";
-import SearchObj from "../../components/old/SearchObj";
-import ChangeObj from "../../components/old/ChangeObj";
-import WrapButtonsObj from "../../components/old/WrapButtonsObj";
-import WorksTasksObj from "../../components/old/WorkTasksObj";
-import AttachObj from "../../components/old/AttachObj";
-import PerformersObj from "../../components/old/PerformersObj";
-import ResultsObj from "../../components/old/ResultsObj";
-import BridgeLeftBar from "../../components/leftbar/BridgeLeftBar";
+import Navbar from "../../components/OldComponents/old/Navbar";
+import DocumentWay from "../../components/OldComponents/old/DocumentWay";
+import SearchObj from "../../components/OldComponents/old/SearchObj";
+import ChangeObj from "../../components/OldComponents/old/ChangeObj";
+import WrapButtonsObj from "../../components/OldComponents/old/WrapButtonsObj";
+import WorksTasksObj from "../../components/OldComponents/old/WorkTasksObj";
+import AttachObj from "../../components/OldComponents/old/AttachObj";
+import PerformersObj from "../../components/OldComponents/old/PerformersObj";
+import ResultsObj from "../../components/OldComponents/old/ResultsObj";
+import BridgeLeftBar from "../../components/OldComponents/leftbar/BridgeLeftBar";
 
 export default function DocumentPage(){
     const { mass_create, menu_mass, wrap_buttons, task1, attach1, performers, results, dwm1} = useContext(DataContext)

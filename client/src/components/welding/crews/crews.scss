@@ -39,17 +39,24 @@
   .newcrew_btn{
     width: 250px;
     height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgb(60, 136, 1);
-    border-radius: 2px;
-    margin: 10px 0;
-    color: #FFF;
-    font-weight: 600;
-    padding: 5px 25px;
+    //display: flex;
+    //justify-content: center;
+    //align-items: center;
+    //background-color: rgb(60, 136, 1);
+    //border-radius: 2px;
+    //margin: 10px 0;
+    //color: #FFF;
+    //font-weight: 600;
+    //padding: 5px 25px;
+    //cursor: pointer;
+    background-color: rgba(60, 136, 1, 0);
+    margin-right: 20px;
+    padding: 20px 20px;
+    border: 1px solid #CCC;
+    border-radius: 4px;
     cursor: pointer;
-
+    color: #454545;
+    transition: 0.2s;
     
   }
   .newcrew_list{
@@ -66,10 +73,11 @@
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        border: 1px solid #454545;
+        border: 1px solid #454545 !important;
         width: 70%;
         height: 60px;
         border-radius: 1px;
+        margin-top: -1px;
         .newcrew_list_strock_pp{
           display: flex;
           justify-content: flex-start;
@@ -152,6 +160,67 @@
         }
       }
     }
+
+  }
+  .newcrew_block{
+    border: 4px dotted #CCC;
+    padding: 20px;
+    border-radius: 20px;
+    width: calc(100% - 40px);
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    .slash{
+      width: 100%;
+      height: 1px;
+      background-color: #CCC;
+      margin-bottom: 10px;
+    }
+    .newcrew_block_inpt{
+      display: flex;
+      padding: 5px;
+      height: 30px;
+      flex-wrap: wrap;
+      width: 300px;
+      margin-right: 20px;
+      border: 4px solid #CCC;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    .newcrew_block_inputns{
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+
+    }
+    .newcrew_block_plusman{
+      width: 100%;
+      .newcrew_block_plusman_left{
+        width: 50%;
+        .newcrew_block_plusman_right_picker{
+          width: 100%;
+          display: flex;
+        }
+        .newcrew_block_plusman__btn{
+          width: 200px;
+          height: 50px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border: 1px solid #CCC;
+          border-radius: 5px;
+          margin: 10px 0;
+          cursor: pointer;
+          transition: .2s;
+        }
+        .newcrew_block_plusman__btn:hover{
+          border: 1px solid #454545;
+          transition: .2s;
+        }
+      }
+      .newcrew_block_plusman_right{}
+    }
+
 
   }
 }

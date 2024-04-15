@@ -11,66 +11,50 @@ import LkPage from "./pages/old/LkPage"
 import NewsPage from "./pages/old/NewsPage"
 import SelNewsPage from "./pages/old/SelNewsPage"
 import DocumentPage from "./pages/old/DocumentPage"
-import TasksPage from "./pages/tasks/old/TasksPage"
 import CreateTaskPage from "./pages/tasks/old/CreateTaskPage";
-import {Weldingmain} from "./pages/welding/Weldingmain";
-import {Yearwelding} from "./pages/welding/Yearwelding";
-import {Tabel} from "./pages/welding/Tabel";
-import {TabelObj} from "./pages/tabel/Tabel";
-import {TableTabel} from "./pages/tabel/TableTabel";
 import { DataProvider } from './context/DataContext';
 import TestTaskPage from "./pages/tasks/old/TestTaskPage";
-import {ListTasks} from "./pages/listtasks/ListTasks";
-import ObjectsPage from "./pages/objects/ObjectsPage";
 import DocumentsPage from "./pages/documents/DocumentsPage";
 import FileManagerPage from "./pages/documents/fileManagerPage";
-import Thisproject from "./pages/objects/Thisproject";
-import AdminDashboardPage from "./pages/administrator/AdminDashboardPage";
-import {Controll} from "./pages/controll/Controll";
 import {Context} from "./index";
 import {observer} from "mobx-react-lite";
-import PayslipPage from "./pages/payslip/PayslipPage";
 import PhonebookPage from "./pages/old/PhonebookPage";
-import {CrewsPage} from "./pages/welding/CrewsPage";
 import PeoplesPage from "./pages/old/PeoplesPage";
 import ODataPage from "./pages/old/ODataPage";
 import ChatPage from "./pages/conference/ChatPage";
-import NewstartPage from "./pages/old/NewstartPage";
-import LkNewPortal from "./pages/newportal/lknewportal/LkNewPortal";
-import NewPayList from "./pages/old/NewPayList";
-import NewPhoneBook from "./pages/old/NewPhoneBook";
-import MainTasks from "./pages/newportal/tasks/MainTasks";
-import ThisTask from "./pages/newportal/tasks/ThisTask";
-import Createnews from "./pages/newportal/news/Createnews";
-import {ViewPOST} from "./components/newportal/news/ViewPOST";
-import Viewnews from "./pages/newportal/news/Viewnews";
-import AllListNews from "./pages/newportal/news/AllListNews";
-import Listnews from "./pages/newportal/news/Listnews";
-import ListFastBtns from "./pages/newportal/fastbtns/ListFastBtns";
+import NewstartPage from "./pages/NewstartPage";
+import LkNewPortal from "./pages/lknewportal/LkNewPortal";
+import NewPayList from "./pages/NewPayList";
+import NewPhoneBook from "./pages/NewPhoneBook";
+import MainTasks from "./pages/tasks/MainTasks";
+import ThisTask from "./pages/tasks/ThisTask";
+import Createnews from "./pages/news/Createnews";
+import Viewnews from "./pages/news/Viewnews";
+import AllListNews from "./pages/news/AllListNews";
+import Listnews from "./pages/news/Listnews";
+import ListFastBtns from "./pages/fastbtns/ListFastBtns";
 import PollsPage from "./pages/survey/PollsPage";
 import PollsCms from "./pages/survey/PollsCms";
-import HallEdit from "./pages/newportal/hallofframe/HallEdit";
+import HallEdit from "./pages/hallofframe/HallEdit";
 import ContestPage from "./pages/kidscontest/ContestPage";
 import LoadPage from "./pages/kidscontest/LoadPage";
-import MainCms from "./pages/newportal/news/MainCms";
-import Message from "./pages/newportal/message/Message";
+import MainCms from "./pages/news/MainCms";
+import Message from "./pages/message/Message";
 import TaskRouter from "./pages/tasks/TaskRouter";
 import StructureRouter from "./pages/structure/StructureRouter";
-import NewPageObjects from "./pages/newportal/objects/NewPageObjects";
-import ThisObj from "./pages/newportal/objects/ThisObj";
-import NewTabel from "./pages/newportal/objects/NewTabel";
+import NewPageObjects from "./pages/objects/NewPageObjects";
+import ThisObj from "./pages/objects/ThisObj";
 import {ListTab} from "./pages/objects/ListTabelNewPortal";
-import {ThisTableTabel} from "./pages/newportal/objects/TableTabel";
+import {ThisTableTabel} from "./pages/objects/TableTabel";
 import Statements from "./pages/documents/Statements";
-
-import {WelMY} from "./pages/newportal/welding/WelMY";
-import {WelTabel} from "./pages/newportal/welding/WelTabel";
-import {WelControll} from "./pages/newportal/controll/ControllNew";
-import {WelSett} from "./pages/newportal/welding/WeldingSett";
-import {EconomistMenu} from "./pages/newportal/economist/EconomistMenu";
+import {WelMY} from "./pages/welding/WelMY";
+import {WelTabel} from "./pages/welding/WelTabel";
+import {WelControll} from "./pages/controll/ControllNew";
+import {WelSett} from "./pages/welding/WeldingSett";
+import {EconomistMenu} from "./pages/economist/EconomistMenu";
 
 import OgmPage from "./pages/econom/OgmPriceRouter";
-import {ItogTabel} from "./pages/newportal/tabel/ItogTabel";
+import {ItogTabel} from "./pages/tabel/ItogTabel";
 
 
 function App() {
@@ -113,7 +97,6 @@ function App() {
                         <Route path="/new_lk" element={<LkNewPortal/>} />
                         <Route path='/main' element={<MainPage/>} />
                         <Route path='/statements' element={<Statements/>}/>
-                        {/*<Route path="/paylist" element={<PayslipPage/>} />*/}
                         <Route path="/newpaylist" element={<NewPayList/>} />
                         <Route path="/polls" element={<PollsPage/>} />
                         <Route path="/maintasks" element={<MainTasks/>} />
@@ -125,26 +108,15 @@ function App() {
                         <Route path="/phonebook" element={<PhonebookPage/>} />
                         <Route path="/newphonebook" element={<NewPhoneBook />} />
                         <Route path="/document" element={<DocumentPage/>} />
-                        <Route path="/welding" element={<Weldingmain />} />
-                        <Route path="/crews" element={<CrewsPage />} />
-                        <Route path="/obj" element={<Yearwelding />} />
-                        <Route path="/controll" element={<Controll />} />
                         <Route path="/welcontroll" element={<WelControll />} />
                         <Route path="/weldingsett" element={<WelSett />} />
                         <Route path="/createtask" element={<CreateTaskPage />} />
                         <Route path="/testtaskpage/:params" element={<TestTaskPage />} />
                         <Route path="/lk" element={<LkPage/>} />
-                        <Route path="/tabelwelding" element={<Tabel/>} />
                         <Route path="/tab-welding" element={<WelTabel/>} />
                         <Route path="/economist" element={<EconomistMenu/>} />
                         <Route path="/lk" element={<MainPage/>} />
                         <Route path="/selected_news/:id" element={<SelNewsPage/>} />
-                        <Route path="/docpasslist" element={<ListTasks/>} />
-                        <Route path="/objects" element={<ObjectsPage/>} />
-                        <Route path="/dashboard" element={<AdminDashboardPage/>} />
-                        <Route path="/tabel" element={<TabelObj/>} />
-                        <Route path="/table-tabel" element={<TableTabel/>} />
-                        <Route path="/thisproject" element={<Thisproject />} />
                         <Route path="/peoples" element={<PeoplesPage />} />
                         <Route path="/odata" element={<ODataPage />} />
                         <Route path="/conference" element={<ChatPage />} />

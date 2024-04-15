@@ -1,6 +1,6 @@
-import {MainHeader} from "../../components/newportal/header/Mainheader";
-import {WorkPage} from "../../components/newportal/workpage/WorkPage";
-import {Mainnavbar} from "../../components/newportal/navbar/Mainnavbar";
+import {MainHeader} from "../../components/header/Mainheader";
+import {WorkPage} from "../../components/workpage/WorkPage";
+import {Mainnavbar} from "../../components/navbar/Mainnavbar";
 import {useLocation} from "react-router-dom";
 
 export default function Contest(){

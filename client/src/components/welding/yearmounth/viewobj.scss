@@ -1,9 +1,10 @@
-.right-block-ymwelding{
+.right-block-ymweldings{
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 0px;
   width: 100%;
 }
+
 
 .ymwelding_head{
 width: 100%;
@@ -116,7 +117,10 @@ margin-bottom: 20px;
     }
   }
 }
-
+.back-button:hover{
+  opacity: 0.8;
+  transition: .2s;
+}
 .ymwelding_slice{
   width: 100%;
   height: 1px;
@@ -126,38 +130,47 @@ margin-bottom: 20px;
 
 .ymwelding_years{
   width: calc(100% - 20px);
-  border: 1px solid #000;
+  border: 4px solid #CCC;
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
   margin-bottom: 10px;
+  background-color: #FFFFFF;
+  padding-bottom: 10px;
   
   .ymwelding_years_head{
-    width: 235px;
+    width: 300px;
     height: 35px;
-    background: #617676;
+    background: rgb(18, 19, 56);
+    border-radius: 17px 0 2px 0;
     display: flex;
     justify-content: center;
     align-items: center;
     color: #FFF;
   }
   .ymwelding_years_body{
-    width: calc(95% - 5px);
+    width: calc(95% - 20px);
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
     flex-wrap: wrap;
-    padding-bottom: 10px;
-    padding-left: 5px;
+    padding: 10px;
+    .ymwelding_years_body_month:hover{
+      background-color: rgba(0,0,0,0.2);
+      transition: .2s;
+    }
     .ymwelding_years_body_month{
       display: flex;
       justify-content: space-between;
       align-items: center;
       width: 236px;
       height: 40px;
-      border: 1px solid #454545;
+      border: 4px solid #CCC;
       margin: 10px 5px 0 5px;
+      border-radius: 5px;
+      transition: .2s;
       .ymwelding_years_body_month_text{
         margin-left: 20px;
       }
@@ -174,6 +187,13 @@ margin-bottom: 20px;
         font-style: normal;
         font-weight: 600;
         line-height: normal;
+        border-radius: 1px;
+        transition: .2s;
+      }
+      .ymwelding_years_body_month_settings:hover{
+        background: #454545;
+        color: #FFFFFF;
+        transition: .2s;
       }
     }
   }

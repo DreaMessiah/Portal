@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from "react";
-import Navbar from "../../components/old/Navbar";
-import DocumentWay from "../../components/old/DocumentWay";
-import LeftIconsObj from "../../components/leftbar/LeftIconsObj";
+import Navbar from "../../components/OldComponents/old/Navbar";
+import DocumentWay from "../../components/OldComponents/old/DocumentWay";
+import LeftIconsObj from "../../components/OldComponents/leftbar/LeftIconsObj";
 
 export default function SettingsPage(){
     return (

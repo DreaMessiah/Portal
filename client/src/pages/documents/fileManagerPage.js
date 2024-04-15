@@ -1,10 +1,10 @@
 import React, {useContext, useEffect, useState} from "react";
 import {DataContext} from "../../context/DataContext";
-import "../../components/listtasks/listtask3.scss";
+import "../../components/OldComponents/listtasks/listtask3.scss";
 import FileManager from "./fileManager";
-import {MainHeader} from "../../components/newportal/header/Mainheader";
-import {Mainnavbar} from "../../components/newportal/navbar/Mainnavbar";
-import {WorkPage} from "../../components/newportal/workpage/WorkPage";
+import {MainHeader} from "../../components/header/Mainheader";
+import {Mainnavbar} from "../../components/navbar/Mainnavbar";
+import {WorkPage} from "../../components/workpage/WorkPage";
 
 function FileManagerPage(){
     return(

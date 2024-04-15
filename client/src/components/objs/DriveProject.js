@@ -8,7 +8,7 @@ import {PlusMyObjModal} from "./PlusMyObjModal";
 import ObjsService from "../../services/ObjsService";
 import {Context} from "../../index";
 
-export default function DriveProject({mass, page}) {
+export default function DriveOnProject({mass, page}) {
 
     let objsLoList = [];
 
@@ -51,19 +51,19 @@ export default function DriveProject({mass, page}) {
     return (
         <div className='right-block'>
             <div className='top-box'>
-                <div className='left-box'>
-                    <div className='obj_block_button'>
-                        <Link to={thisURL !== 0 ? openShifrBlock(0)  : `/main`}><div className='button'><p>Назад</p> <i className='fa-solid fa-rotate-left'></i></div></Link>
-                    </div>
+                <div className='left-box-portal'>
+                    <Link to={thisURL !== 0 ? openShifrBlock(0)  : `/objectsportal`} className='back-button'>
+                        <p>Назад</p> <i className='fa-solid fa-rotate-left'></i>
+                    </Link>
                     {/*<SearchObj/>*/}
                 </div>
                 <div className='right-box'>
                     {/*<ChangeObj/>*/}
                 </div>
             </div>
-            <div className='btn_project'>
+            <div className='btn_projects'>
                 {btns_modules.map((btn, index)=>(
-                    <Link key={index} to={btn.url + '?id=' + getId}  className='btn_project_block'>{btn.title}</Link>
+                    <Link key={index} to={btn.url + '?id=' + getId}  className='btn_project_block'><i className={`${btn.icon}`}/><div>{btn.title}</div></Link>
                     )
 
                 )}

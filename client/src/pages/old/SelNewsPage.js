@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
-import NewsNavbar from "../../components/old/NewsNavbar"
+import NewsNavbar from "../../components/OldComponents/old/NewsNavbar"
 import {Link,useParams} from "react-router-dom";
-import NewsFooter from "../../components/old/NewsFooter";
-import PhotoViewer from "../../components/old/PhotoViewer";
+import NewsFooter from "../../components/OldComponents/old/NewsFooter";
+import PhotoViewer from "../../components/OldComponents/old/PhotoViewer";
 
 const news = [
     {

@@ -3,8 +3,8 @@ import {observer} from "mobx-react-lite"
 import {Context} from "../../index"
 import FilesService from "../../services/FilesService";
 import {useMessage} from "../../hooks/message.hook";
-import {MainHeader} from "../../components/newportal/header/Mainheader";
-import {Mainnavbar} from "../../components/newportal/navbar/Mainnavbar";
+import {MainHeader} from "../../components/header/Mainheader";
+import {Mainnavbar} from "../../components/navbar/Mainnavbar";
 import formatDate from "../../components/functions/formatDate";
 import './statements.scss'
 

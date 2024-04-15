@@ -1,7 +1,7 @@
 import React, {useContext, useState, useRef, useEffect} from "react";
 import { DataContext } from '../../context/DataContext';
-import Navbar from "../../components/old/Navbar";
-import BridgeLeftBar from "../../components/leftbar/BridgeLeftBar";
+import Navbar from "../../components/OldComponents/old/Navbar";
+import BridgeLeftBar from "../../components/OldComponents/leftbar/BridgeLeftBar";
 
 import Peer from "simple-peer"
 import io from "socket.io-client"

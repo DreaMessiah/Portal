@@ -1,6 +1,6 @@
 import React, {useRef, useState,useContext} from "react";
 import FilesService from "../../services/FilesService";
-import CircularProgress from "../old/CircularProgress";
+import CircularProgress from "../OldComponents/old/CircularProgress";
 import {DataContext} from "../../context/DataContext";
 import {useMessage} from "../../hooks/message.hook";
 import './inputs.scss'

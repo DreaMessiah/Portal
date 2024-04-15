@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react';
-import NewsNavbar from "../../components/old/NewsNavbar"
+import NewsNavbar from "../../components/OldComponents/old/NewsNavbar"
 import {Link,useLocation} from "react-router-dom";
-import NewsFooter from "../../components/old/NewsFooter";
+import NewsFooter from "../../components/OldComponents/old/NewsFooter";
 import {observer} from "mobx-react-lite";
 import {Context} from "../../index";
 

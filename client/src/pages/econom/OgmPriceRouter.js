@@ -1,9 +1,9 @@
-import {MainHeader} from "../../components/newportal/header/Mainheader";
-import {WorkPage} from "../../components/newportal/workpage/WorkPage";
-import {Mainnavbar} from "../../components/newportal/navbar/Mainnavbar";
+import {MainHeader} from "../../components/header/Mainheader";
+import {WorkPage} from "../../components/workpage/WorkPage";
+import {Mainnavbar} from "../../components/navbar/Mainnavbar";
 
 import {useEffect, useState} from "react";
-import '../newportal/economist/econom.scss'
+import '../economist/econom.scss'
 import WorkPricePage from "./WorkPricePage";
 import OgmPricePage from "./OgmPricePage";
 import T13Page from "./T13Page";

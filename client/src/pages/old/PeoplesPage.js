@@ -1,15 +1,15 @@
 import React, {useContext, useEffect, useState} from "react";
 import {observer} from "mobx-react-lite";
 import AuthService from "../../services/AuthService";
-import Navbar from "../../components/old/Navbar";
-import BridgeLeftBar from "../../components/leftbar/BridgeLeftBar";
+import Navbar from "../../components/OldComponents/old/Navbar";
+import BridgeLeftBar from "../../components/OldComponents/leftbar/BridgeLeftBar";
 import {DataContext} from "../../context/DataContext";
-import WrapButtonsObj from "../../components/old/WrapButtonsObj";
-import SearchObj from "../../components/old/SearchObj";
-import ChangeObj from "../../components/old/ChangeObj";
+import WrapButtonsObj from "../../components/OldComponents/old/WrapButtonsObj";
+import SearchObj from "../../components/OldComponents/old/SearchObj";
+import ChangeObj from "../../components/OldComponents/old/ChangeObj";
 
-import "../../components/listtasks/listtask2.scss";
-import NewsFooter from "../../components/old/NewsFooter";
+import "../../components/OldComponents/listtasks/listtask2.scss";
+import NewsFooter from "../../components/OldComponents/old/NewsFooter";
 function PeoplesPage(){
     const {mass_create, menu_mass,wrap_buttons} = useContext(DataContext)
     const [users,setUsers] = useState([])
