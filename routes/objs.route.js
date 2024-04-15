@@ -5,7 +5,7 @@ const authMiddlewere = require('../middleware/auth.middleware')
 const objsController = require('../controllers/objs.controller')
 
 router.get('/getlistobjs',authMiddlewere, objsController.getListObjs)
-router.post('/viewobjs',authMiddlewere, objsController.showObjs)
+router.get('/viewobjs',authMiddlewere, objsController.showObjs)
 router.post('/insertobj',authMiddlewere, objsController.insertObjs)
 
 router.post('/getalltabels',authMiddlewere, objsController.getAllTabels)
