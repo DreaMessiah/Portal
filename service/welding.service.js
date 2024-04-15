@@ -264,6 +264,19 @@ class WeldingService{
         await za.save()
         return {del:true,message:'Запись удалена'}
     }
+    async getConn(za_id){
+        const connections = await TableZayavka.findAll({where:{zasv_id:+za_id}})
+        if(!connections) return {message:'Стыки отсутствуют'}
+        return connections
+    }
+    async saveConn(connections){
+        const changes = await Promise.all(connections.map( async item => {
+            const con = await TableZayavka.findByPk(item.id)
+            return await con.update(item)
+        }))
+        if(!changes) return {message:'Ошибка обновления'}
+        return changes
+    }
 
 }
 

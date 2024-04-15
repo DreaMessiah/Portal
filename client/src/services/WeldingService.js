@@ -55,5 +55,11 @@ export default class WeldingService{
     static async deleteZa(za_id) {
         return $api.post(`/welding/deleteza`, {za_id})
     }
+    static async fetchConnections(za_id) {
+        return $api.post(`/welding/getconn`, {za_id})
+    }
+    static async saveConnections(connections) {
+        return $api.post(`/welding/saveconn`, {connections})
+    }
 
 }

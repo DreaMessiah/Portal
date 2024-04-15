@@ -27,7 +27,6 @@ class PayslipController {
     }
     async getData(req,res,next) {
         try{
-            console.log(req.body)
             const {tn,month,year} = req.body
             const info = await PayslipService.getinfo(tn,month,year)
             const DaysToPayslip = await PayslipService.getdays(tn,month,year)

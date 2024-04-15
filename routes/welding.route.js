@@ -25,4 +25,7 @@ router.post('/getzasv',authMiddlewere, weldingController.getZasv)
 router.post('/getstatus',authMiddlewere, weldingController.getStatuses)
 router.post('/changestat',authMiddlewere, weldingController.changeStat)
 router.post('/deleteza',authMiddlewere, weldingController.deleteZa)
+router.post('/getconn',authMiddlewere, weldingController.getConn)
+router.post('/saveconn',authMiddlewere, weldingController.saveConn)
+
 module.exports = router
