@@ -183,5 +183,27 @@ class WeldingController {
             next(e)
         }
     }
+
+    async getConn(req,res,next) {
+        try{
+            const {za_id} = req.body
+            console.log(za_id)
+            const connections = await WeldingService.getConn(za_id)
+            return res.status(200).json(connections)
+        }catch (e){
+            next(e)
+        }
+    }
+    async saveConn(req,res,next) {
+        try{
+            const {connections} = req.body
+            const changes = await WeldingService.saveConn(connections)
+            return res.status(200).json(changes)
+        }catch (e){
+            next(e)
+        }
+    }
+
+
 }
 module.exports = new WeldingController()

@@ -10,6 +10,7 @@ import formatDate from "../../functions/formatDate";
 import ModalFiles from "../../modalwin/ModalFiles";
 import {useMessage} from "../../../hooks/message.hook";
 import ReferenceService from "../../../services/ReferenceService";
+import {ViewTable} from "./modal/ViewControll";
 
 export const ControllWeldingNew = () => {
     const location = useLocation()
@@ -18,6 +19,11 @@ export const ControllWeldingNew = () => {
     const [active, setActive] = useState(false)
     const [zas,setZas] = useState('')
     const [activeStatusChange, setActiveStatusChange] = useState(false)
+
+    const [activeView,setActiveView] = useState(false)
+    const [selView,setSelView] = useState(-1)
+    const [connections,setConnections] = useState([])
+    const [zasStatus,setZasStatus] = useState(false)
 
     const [statuses,setStatuses] = useState([])
     const [selStat,setSelStat] = useState(-1)
@@ -60,6 +66,21 @@ export const ControllWeldingNew = () => {
     const deleteHandler = index => {
         setSelDeleteZa(index)
         setActiveDeleteZa(true)
+    }
+    const viewHandler = async index => {
+        try {
+            const {data} = await WeldingService.fetchConnections(zas[index].id)
+            if(data){
+                setConnections(data)
+                setZasStatus(zas[index].status_id===30)
+                console.log(data)
+                setSelView(index)
+                setActiveView(true)
+            }
+        }catch (e) {
+            console.log(e)
+        }
+
     }
     function ChangeStatus(){
         const changeStatHandler = async (idStatus) => {
@@ -114,6 +135,7 @@ export const ControllWeldingNew = () => {
             </>
         )
     }
+
     return (
         <div className="controll_welding">
 
@@ -149,7 +171,7 @@ export const ControllWeldingNew = () => {
                         <div className="controll_welding_list_strock_obj">{item.object_shift}</div>
                         <div style={{backgroundColor:item.status_back,color:item.status_color}} onClick={(e) => statusHandler(index)} className="controll_welding_list_strock_status button">{item.status_name}</div>
                         <div className="controll_welding_list_strock_editor">
-                            <div className="controll_welding_list_strock_editor_open">Открыть</div>
+                            <div onClick={(e) => viewHandler(index)} className="controll_welding_list_strock_editor_open">Открыть</div>
                             <div onClick={(e) => deleteHandler(index)} className="controll_welding_list_strock_editor_del"><i className="fa-solid fa-xmark"></i></div>
                         </div>
                     </div>
@@ -159,6 +181,7 @@ export const ControllWeldingNew = () => {
             {/*<ModalBigWin data={<NewCrewModal sel={select} active={crew} setActive={setCrew}/>} active={crew} setActive={setCrew}/>*/}
             <ModalFiles active={activeStatusChange} setActive={setActiveStatusChange} heigth={'40vh'} data={<ChangeStatus/>}/>
             <ModalFiles active={activeDeleteZa} setActive={setActiveDeleteZa} data={<DeleteZa/>}/>
+            <ModalBigWin plusform={<ViewTable loading={loadingHandler} month={month} year={year} object_id={objectId} connections={connections} setConnections={setConnections} onRigthStatus={zasStatus} active={activeView} setActive={setActiveView}/>} active={activeView} setActive={setActiveView}/>
             <ModalBigWin plusform={<NewControll loading={loadingHandler} month={month} year={year} object_id={objectId} active={active} setActive={setActive}/>} active={active} setActive={setActive}/>
         </div>
     )

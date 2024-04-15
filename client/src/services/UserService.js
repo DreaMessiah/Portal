@@ -3,7 +3,6 @@ export default class UserService {
     static fetch() {
         return $api.get('/posts/get')
     }
-
     static loadAvatar(file){
         if(file){
             console.log(this.isImage(file.name))

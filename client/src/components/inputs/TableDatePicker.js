@@ -2,7 +2,7 @@ import React from "react";
 import {DatePicker, Stack} from "rsuite";
 import 'rsuite/DatePicker/styles/index.css';
 import './inputs.scss'
-export default function TableDatePicker({placeholder,onChange,empty=false,index,value, size='100px'}){
+export default function TableDatePicker({placeholder,onChange,empty=false,index,value, size='100px',disabled=false}){
     return (
         <Stack style={{width:size,height:'auto',borderRadius:'none'}}  direction="column" alignItems="flex-start">
             <DatePicker style={{
@@ -18,6 +18,7 @@ export default function TableDatePicker({placeholder,onChange,empty=false,index,
                     borderColor:'rgba(1, 1, 1, 1)',  // Замените цветом, который вы хотите видеть при наведении
                 },
             }}
+                        disabled={disabled}
                         value={value ? new Date(value) : new Date()}
                         size="md"
                         onChange={(e) => onChange(e,index)}

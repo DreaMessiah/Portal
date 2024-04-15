@@ -60,9 +60,6 @@ function PayslipPage () {
     const toBack = () => {
         window.history.back()
     }
-
-
-
     const fullDaysArray = [];
     function getSixWeeksArray(year=2024,month=1) {
         const today = new Date(year,month,1);
