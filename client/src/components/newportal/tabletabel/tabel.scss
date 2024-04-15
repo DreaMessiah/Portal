@@ -50,13 +50,21 @@
                 width: 40px;
                 height: 100%;
                 display: flex;
-                justify-content: center;
+                flex-direction: column;
+                justify-content: space-around;
                 align-items: center;
                 font-size: 10pt;
                 border-top: 1px solid #454545;
                 border-right: 0px;
                 border-left: 1px solid #454545;
                 border-bottom: 1px solid #454545;
+                i{
+                    color: rgb(18, 19, 56);
+                    cursor: pointer;
+                }
+                i:hover{
+                    color: rgba(18, 19, 56, 0.8);
+                }
             }
             .tab_tabel_tabelman_strock_fio{
                 width: 200px;
@@ -97,7 +105,9 @@
                     display: flex;
                     flex-direction: column;
                     justify-content: space-between;
-
+                    span{
+                        font-size: 8pt;
+                    }
                     .tab_tabel_tabelman_strock_calendar_column{
                         width: 100%;
                         height: 108px;
@@ -136,6 +146,10 @@
                             -o-appearance: none;
                             appearance: none;
                             margin-left: 0px;
+                        }
+
+                        .tab_tabel_tabelman_s_c_c_day_content:focus{
+                            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
                         }
 
                         .no-left-border{
@@ -183,7 +197,9 @@
                     display: flex;
                     flex-direction: column;
                     justify-content: space-between;
-
+                    span{
+                        font-size: 8pt;
+                    }
                     .tab_tabel_tabelman_strock_calendar_column{
                         width: 100%;
                         height: 108px;
@@ -259,6 +275,9 @@
                     display: flex;
                     flex-direction: column;
                     justify-content: space-between;
+                    span{
+                        font-size: 8pt;
+                    }
 
                     .tab_tabel_tabelman_strock_calendar_column{
                         width: 100%;
@@ -349,16 +368,17 @@
             }
 
             .tab_tabel_tabelman_strock_comment{
-                width: calc(550px / 2.5);
+                width: calc(550px / 2.5 - 10px);
                 height: 108px;
                 display: flex;
                 justify-content: flex-start;
                 //align-items: flex-start;
-                font-size: 10pt;
                 border-top: 1px solid #454545;
                 border-right: 1px solid #454545;
                 border-left: 0px solid #454545;
                 border-bottom: 1px solid #454545;
+                font-size: 8pt;
+                padding: 0 5px;
             }
         }
 
@@ -372,10 +392,18 @@
     .filter{}
     .tbl{
         width: calc(100vw - 300px);
+        //height: calc(100vh - 220px);
         overflow-y: auto;
         overflow-x: auto;
+        //white-space: nowrap;
+        scrollbar-position: start;
         border-right: 1px solid #000;
         border-bottom: 1px solid #000;
+        font-size: 8pt;
+        .head{
+            position: sticky;
+            top: 0px;
+        }
         table {
             border-collapse: collapse; /* Объединяет границы ячеек в одну линию */
             width: 100%; /* Ширина таблицы */

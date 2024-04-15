@@ -131,6 +131,39 @@ class ObjsController {
         }
     }
 
+    async getKTUdate(req,res,next) {
+        try{
+            const params = req.body
+            const list = await ObjsService.getKTUdate(params)
+            return res.json(list)
+
+        }catch (e){
+            next(e)
+        }
+    }
+
+    async copyTab(req,res,next) {
+        try{
+            const params = req.body
+            const list = await ObjsService.copyTab(params)
+            return res.json(list)
+
+        }catch (e){
+            next(e)
+        }
+    }
+
+    async delManTabel(req,res,next) {
+        try{
+            const params = req.body
+            const list = await ObjsService.delManTabel(params)
+            return res.json(list)
+
+        }catch (e){
+            next(e)
+        }
+    }
+
 
 
 }

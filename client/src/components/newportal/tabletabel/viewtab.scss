@@ -159,7 +159,12 @@ margin-bottom: 20px;
       border: 1px solid #454545;
       margin: 10px 5px 0 5px;
       .ymwelding_years_body_month_text{
-        margin-left: 20px;
+        //margin-left: 20px;
+        width: calc(236px - 60px);
+        height: 40px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
       }
       .ymwelding_years_body_month_settings{
         background: #D9D9D9;
@@ -174,6 +179,7 @@ margin-bottom: 20px;
         font-style: normal;
         font-weight: 600;
         line-height: normal;
+        cursor: pointer;
       }
     }
   }
