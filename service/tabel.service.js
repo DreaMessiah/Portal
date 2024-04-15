@@ -1,4 +1,4 @@
-const {TableTabel, Tasks,Priority, Objects, User, TaskGroups, TaskConnections, TaskChains, TaskDocs, Files, DiskSpace, OgmPrice, Ymshifr} = require('../models/models')
+const {TableTabel, Tasks,Priority, Objects, User, TaskGroups, TaskConnections, TaskChains, TaskDocs, Files, DiskSpace, OgmPrice, Ymshifr, T13} = require('../models/models')
 const ApiError = require('../exceptions/api.error')
 const FilesService = require('./files.service')
 const config = require("config");
@@ -71,16 +71,45 @@ class TabelService{
 
     async getItogy(params) {
         try{
+            const months = [
+                'январь', 'февраль', 'март', 'апрель', 'май', 'июнь',
+                'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'
+            ];
 
-            // console.log(params)
-            // console.log(' - ')
-            // console.log(' - ')
-            // console.log(' - ')
-            // console.log("это сервис на сервере")
-            // const line = await Ymshifr.findOne({where: {object_id: params.object_id, month: params.month, year:params.year}})
-            // line.auto = 1
-            // await line.save();
-            return ''
+            const getMonth = months[params.month]
+
+            console.log(params)
+            console.log(' - ')
+            console.log(' - ')
+            console.log(' - ')
+            console.log("это сервис на сервере")
+            const strocks = await TableTabel.findAll({
+                where: {
+                    month: getMonth,
+                    year: ''+params.year
+                },
+                order: [
+                    ['shifr'],
+                    ['name']
+                ]
+            });
+
+
+            return strocks
+        }catch{
+            return 'error'
+        }
+
+    }
+
+    async trashYm(line) {
+        try{
+
+            const ym = await Ymshifr.findOne({where:{id: line.id}})
+
+            ym.trash = true
+            await ym.save();
+            return 'ok'
         }catch{
             return 'error'
         }

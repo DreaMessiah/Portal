@@ -81,11 +81,15 @@ class TabelController {
         }
     }
 
+    async trashYm(req,res,next) {
+        try{
+            const line = req.body
+            const list = await TabelService.trashYm(line)
+            return res.json(list)
 
-
-
-
-
+        }catch (e){
+            next(e)
+        }
+    }
 }
-// pushObjWelding
 module.exports = new TabelController()

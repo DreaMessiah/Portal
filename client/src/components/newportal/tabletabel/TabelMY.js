@@ -8,6 +8,8 @@ import {Context} from "../../../index";
 import {useMessage} from "../../../hooks/message.hook";
 import {useMonth} from "../../../hooks/month.hook";
 import WriteTabelService from "../../../services/WriteTabelService";
+import ModalFiles from "../../modalwin/ModalFiles";
+import {SettingsYM} from "./modalactive/SettingsYM";
 
 export const TabelNewMY = () => {
 
@@ -24,7 +26,7 @@ export const TabelNewMY = () => {
     const selectMonth = useMonth()
 
     const [listMonth, setListMonth] = useState([])
-
+    const [settYM, setSettYM] = useState(false)
     const [obj, setObj] = useState([])
 
     const thisObj = async () => {
@@ -57,6 +59,7 @@ export const TabelNewMY = () => {
 
                     monthsProps.push({
                         id: index,
+                        idym: strock.id,
                         shifr: year.idobj,
                         year: strock.year,
                         month: strock.month,
@@ -123,18 +126,18 @@ export const TabelNewMY = () => {
             }
         })
 
-        // const new_arr = listObjs.filter(obj => {
-        //     if (parseInt(getId) === parseInt(obj.id)) {
-        //         return true
-        //     } else {
-        //         return false
-        //     }
-        // })[0]
-        setNewarr(new_arr[0])
+        // setNewarr(new_arr[0])
     }
         
-    console.log(getId)
-    console.log(newarr)
+    // console.log(getId)
+    // console.log(newarr)
+
+    const [idYM, setidYM] = useState(null)
+
+    const choiceYM = idym => {
+        // setidYM(null)
+        setidYM(idym)
+    }
 
     useEffect(()=>{
         thisObj()
@@ -177,11 +180,6 @@ export const TabelNewMY = () => {
                     </select>
                     <div onClick={()=>plusMonth()} className='ymwelding_controller_ym_pluss'>Создать</div>
                 </div>
-                {/*<div className='ymwelding_controller_sistembtns'>*/}
-                {/*    <div className='back-button'>Звенья / Бригады</div>*/}
-                {/*    <div className='back-button'>Отчеты</div>*/}
-                {/*    <div className='back-button'>Виды работ</div>*/}
-                {/*</div>*/}
             </div>
             <div className='ymwelding_slice'></div>
             {listMonth.map((year,index) => (
@@ -189,17 +187,17 @@ export const TabelNewMY = () => {
                 <div className='ymwelding_years_head'>{year.year}</div>
                 <div className='ymwelding_years_body'>{  year.months.map((month,index) => (
                     <div key={index}>
-                        <Link key={index} to={`/thistabelportal/?id=${index}&shifr=${getId}&month=${month.month}&year=${month.year}`} className='ymwelding_years_body_month'>
-                            <div className='ymwelding_years_body_month_text'>{selectMonth(month.month)}</div>
-                            <div className='ymwelding_years_body_month_settings'> ... </div>
-                        </Link>
+                        <div key={index}  className='ymwelding_years_body_month'>
+                            <Link to={`/thistabelportal/?id=${index}&shifr=${getId}&month=${month.month}&year=${month.year}`} className='ymwelding_years_body_month_text'>{selectMonth(month.month)}</Link>
+                            <div className='ymwelding_years_body_month_settings' onClick={()=>{ setidYM(month.idym); setSettYM(!settYM)}}> ... </div>
+                        </div>
                     </div>
                         ))}
                 </div>
             </div>
             ))
             }
-            
+            <ModalFiles data={<SettingsYM func={viewAllTabels} idym={idYM} active={settYM} setActive={setSettYM}/>} active={settYM} setActive={setSettYM}/>
         </div>
     )
 }

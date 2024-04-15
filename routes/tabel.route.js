@@ -12,12 +12,6 @@ router.post('/transpotprice',authMiddlewere, tabelController.getTransport)
 router.post('/thistabel',authMiddlewere, tabelController.getThisTabel)
 router.post('/blocked',authMiddlewere, tabelController.blockedTabel)
 router.post('/itogy',authMiddlewere, tabelController.getItogy)
-
-
-// router.post('/pushnewobjwelding', weldingController.pushObjWelding)
-// router.post('/viewobjssv', weldingController.viewObjSV)
-// router.post('/getym', weldingController.getYM)
-// router.post('/crym', weldingController.crYM)
-// router.post('/getobjhook', weldingController.getObgForHook)
+router.post('/trashym',authMiddlewere, tabelController.trashYm)
 
 module.exports = router
