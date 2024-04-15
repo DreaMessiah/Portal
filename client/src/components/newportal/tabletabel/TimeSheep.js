@@ -239,10 +239,13 @@ export const TimeSheepPortal = () => {
     }
 
     const viewAllObjs = async (e) => {
-
-        const viewList = await ObjsService.getObjs({inn})
-        setListObjs(viewList.data)
-        console.log(viewList.data)
+        try {
+            const viewList = await ObjsService.getObjs()
+            setListObjs(viewList.data)
+            console.log(viewList.data)
+        }catch (e) {
+            console.log('puizercvccvfg')
+        }
     }
 
     const t13List = async (e) => {
@@ -278,8 +281,6 @@ export const TimeSheepPortal = () => {
                 }
 
             }
-
-
             // console.log(listMans)
         } catch {
             alert('ебобо скрипт проверь')
@@ -373,8 +374,6 @@ export const TimeSheepPortal = () => {
     useEffect(()=>{
         makeList()
     }, [tabel, t13])
-
-
 
     return (
         <div className='right-block-tabwelding'>
