@@ -6,6 +6,8 @@ import {useMessage} from "../../hooks/message.hook";
 import ObjsService from "../../services/ObjsService";
 import {Context} from "../../index";
 import {Link} from "react-router-dom";
+import ModalFiles from "../modalwin/ModalFiles";
+import {AllTabelSettBTN} from "./modalactive/AllTabelSettBTN";
 
 
 
@@ -32,6 +34,7 @@ export const AllTabelsList = () => {
     const [alltabels, setAlltabels] = useState([])
     const [list, setList] = useState([])
     const [sett, setSett] = useState(false)
+    const [idtabel, setIdtabel] = useState('no')
 
     const makealltebels = async () => {
         try{
@@ -67,6 +70,7 @@ export const AllTabelsList = () => {
         setList(newlist)
     }
 
+
     useEffect(()=>{
         makealltebels()
 
@@ -92,7 +96,7 @@ export const AllTabelsList = () => {
                             {obj.tabels.map((tabels, index) => (
                                 <div key={index} className='alltabels_years_body_month' style={(tabels.auto === 1)?{border: '4px solid #454545'}:{color: '#CCC'}}>
                                     <Link to={`/thistabelportal/?id=${index}&shifr=${obj.id}&month=${tabels.month}&year=${tabels.year}`} className='alltabels_years_body_month_text'>{months[tabels.month]} {tabels.year}</Link>
-                                    <div className='alltabels_years_body_month_settings' > ... </div>
+                                    <div className='alltabels_years_body_month_settings' onClick={()=>{setIdtabel([obj, tabels]); setSett(!sett)}}> ... </div>
                                 </div>
                             ))}
                         </div>
@@ -101,6 +105,7 @@ export const AllTabelsList = () => {
 
 
             </div>
+            <ModalFiles data={<AllTabelSettBTN tab={idtabel} active={sett} setActive={setSett}/>}  active={sett} setActive={setSett}/>
         </div>
     )
 }
