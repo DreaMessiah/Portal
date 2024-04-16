@@ -56,6 +56,8 @@ import {EconomistMenu} from "./pages/economist/EconomistMenu";
 import OgmPage from "./pages/econom/OgmPriceRouter";
 import {ItogTabel} from "./pages/tabel/ItogTabel";
 import {AllTabels} from "./pages/tabel/AllTabels";
+import {HrMenu} from "./pages/hr/HrMenu";
+import HrRouter from "./pages/hr/HrRouter";
 
 
 function App() {
@@ -87,6 +89,7 @@ function App() {
                         <Route path='/t13' element={<OgmPage page={3}/>}/>
                         <Route path='/workprice' element={<OgmPage page={2}/>}/>
                         <Route path='/ogmprice' element={<OgmPage page={1}/>}/>
+                        <Route path='/gpkh' element={<HrRouter page={1}/>}/>
                         <Route path='/tasks/list' element={<TaskRouter page={3}/>}/>
                         <Route path='/structure' element={<StructureRouter/>}/>
                         <Route path='/tasks' element={<TaskRouter/>}/>
@@ -116,6 +119,7 @@ function App() {
                         <Route path="/lk" element={<LkPage/>} />
                         <Route path="/tab-welding" element={<WelTabel/>} />
                         <Route path="/economist" element={<EconomistMenu/>} />
+                        <Route path="/hr" element={<HrMenu/>} />
                         <Route path="/lk" element={<MainPage/>} />
                         <Route path="/selected_news/:id" element={<SelNewsPage/>} />
                         <Route path="/peoples" element={<PeoplesPage />} />

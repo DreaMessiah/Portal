@@ -28,16 +28,6 @@ class WeldingService{
         const listMyCrews = await TabelSv.findAll({where: {shifr:shifrname, year:params.year, month:namemonth, checkin:'man', crew:params.sel}})
         console.log('что нашел')
         console.log(listMyCrews)
-        // for(let i=0; i<1273; i++){
-        //     try{
-        //         const createds = await TabelSv.create({object_id:null,shifr:'',year:'',month:'',
-        //             crew:'',checkin:'man',name:'',developer:'',tn:'',inn:'8617014209',
-        //             volume:'',unit:'',norma:''})
-        //         console.log(createds)
-        //     } catch(e) {
-        //         console.log(e)
-        //     }
-        // }
 
 
         if(listMyCrews.length === 0){
@@ -55,15 +45,8 @@ class WeldingService{
                 const created = TabelSv.create({object_id:params.idobj,shifr:shifrname,year:params.year,month:namemonth,
                     crew:params.sel,checkin:'man',name:fio,developer:dev,tn:tn,inn:'8617014209',
                     volume:'',unit:'',norma:'',writed:0,d1:0,d2:0,d3:0,d4:0,d5:0,d6:0,d7:0,d8:0,d9:0,d10:0,d11:0,d12:0,d13:0,d14:0,d15:0,d16:0,d17:0,d18:0,d19:0,d20:0,d21:0,d22:0,d23:0,d24:0,d25:0,d26:0,d27:0,d28:0,d29:0,d30:0,d31:0})
-                // const created = await TabelSv.create({object_id:params.idobj,shifr:shifrname,year:params.year,month:namemonth,
-                //     crew:params.sel,checkin:'man',name:fio,developer:dev,tn:tn,inn:'8617014209',
-                //     volume:'',unit:'',norma:'',writed:0,d1:0,d2:0,d3:0,d4:0,d5:0,d6:0,d7:0,d8:0,d9:0,d10:0,d11:0,d12:0,d13:0,d14:0,d15:0,d16:0,d17:0,d18:0,d19:0,d20:0,d21:0,d22:0,d23:0,d24:0,d25:0,d26:0,d27:0,d28:0,d29:0,d30:0,d31:0})
 
             })
-            // const listMyCrews = await CrewSv.findAll({where: {shifr:shifrname}})
-            // return listMyCrews
-            // const mess = 'Звено: ' + params.sel + ' добавлено'
-            // return {mess}
         } else {
             console.log('Не нашел')
             console.log(params)

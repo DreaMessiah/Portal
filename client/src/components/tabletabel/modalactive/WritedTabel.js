@@ -6,7 +6,7 @@ export const WritedTabel = ({write, setWrite, active, setActive, month, year, ge
 
 const upload = async () => {
     try{
-        const updateBlocked = await WriteTabelService.blockedTabel({month: ''+month, year: year, object_id: getShifr})
+        const updateBlocked = await WriteTabelService.blockedTabel({month: ''+month, year: year, object_id: getShifr, check: 1})
         const result = updateBlocked.data
         console.log(result)
         setWrite(!write)

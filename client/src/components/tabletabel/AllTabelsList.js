@@ -39,7 +39,7 @@ export const AllTabelsList = () => {
     const makealltebels = async () => {
         try{
             const {data} = await ObjsService.getObjs({inn})
-            console.log(data)
+            // console.log(data)
 
             const tabels = await ObjsService.getTabelsForAll({year: ''+getyear, inn})
             const list = tabels.data
@@ -47,7 +47,7 @@ export const AllTabelsList = () => {
             setAlltabels(list)
 
 
-            console.log(list)
+            // console.log(list)
 
         }catch(e){
             console.log(e)
@@ -66,7 +66,7 @@ export const AllTabelsList = () => {
             newlist.push(obj)
 
         })
-        console.log(newlist)
+        // console.log(newlist)
         setList(newlist)
     }
 
@@ -105,7 +105,7 @@ export const AllTabelsList = () => {
 
 
             </div>
-            <ModalFiles data={<AllTabelSettBTN tab={idtabel} active={sett} setActive={setSett}/>}  active={sett} setActive={setSett}/>
+            <ModalFiles data={<AllTabelSettBTN func={makealltebels} tab={idtabel} active={sett} setActive={setSett}/>}  active={sett} setActive={setSett}/>
         </div>
     )
 }

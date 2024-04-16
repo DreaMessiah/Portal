@@ -59,8 +59,9 @@ class TabelService{
 
     async blockedTabel(params) {
         try{
+
             const line = await Ymshifr.findOne({where: {object_id: params.object_id, month: params.month, year:params.year}})
-            line.auto = 1
+            line.auto = params.check
             await line.save();
             return line
         }catch{
