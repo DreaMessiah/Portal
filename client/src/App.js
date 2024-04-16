@@ -59,7 +59,6 @@ import {AllTabels} from "./pages/tabel/AllTabels";
 import {HrMenu} from "./pages/hr/HrMenu";
 import HrRouter from "./pages/hr/HrRouter";
 
-
 function App() {
     const {store} = useContext(Context)
     useEffect(() => {

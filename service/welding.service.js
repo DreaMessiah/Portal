@@ -3,6 +3,7 @@ const {Objects, ObjectsSV, YmSvarka, CrewBase, CrewSv, TabelSv, CrewManlist, Tab
 } = require('../models/models')
 const ObjsDto = require('../dtos/objsDto')
 const ApiError = require('../exceptions/api.error')
+const WelmanDto = require("../dtos/welmanDto");
 class WeldingService{
     async getObjects(inn){
         const listObjs = await Objects.findAll({where: {inn:inn}})
@@ -12,6 +13,12 @@ class WeldingService{
         const listCrew = await CrewBase.findAll()
         return listCrew
     }
+    async createNewCrew(crew){
+        console.log(crew)
+        const newCrew = await CrewBase.create(crew)
+        return newCrew
+    }
+
     async getMyCrews(params){
         const listMyCrews = await CrewSv.findAll({where: {shifr:params.shifr}})
         return listMyCrews
@@ -259,6 +266,18 @@ class WeldingService{
         }))
         if(!changes) return {message:'Ошибка обновления'}
         return changes
+    }
+    async addMan(man){
+        const newMan = new WelmanDto({...man})
+        return await TabelSv.create(newMan)
+    }
+    async deleteMan(id){
+        const deleted = await TabelSv.findByPk(id)
+        if(deleted){
+            await deleted.destroy()
+            return {del:true,message:'Работник удален из списка'}
+        }
+        return {del:false,message:'Проблема удаления'}
     }
 
 }

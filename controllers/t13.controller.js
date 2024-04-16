@@ -13,5 +13,15 @@ class T13Controller {
             next(e)
         }
     }
+    async getActual(req,res,next) {
+        try{
+            const t13Data = await T13Service.getActual(req.user.inn)
+            return res.status(200).json(t13Data)
+        }catch (e){
+            next(e)
+        }
+    }
+
+
 }
 module.exports = new T13Controller()

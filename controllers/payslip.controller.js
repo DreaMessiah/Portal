@@ -27,13 +27,16 @@ class PayslipController {
     }
     async getData(req,res,next) {
         try{
-            const {tn,month,year} = req.body
-            const info = await PayslipService.getinfo(tn,month,year)
-            const DaysToPayslip = await PayslipService.getdays(tn,month,year)
-            const T13 = await T13Service.getMonthForUser(tn,month,year)
-            const ktu = await PayslipService.getktu(tn,month,year)
+            const {month,year} = req.body
+
+            const info = await PayslipService.getinfo(req.user.tn,month,year)
+            const DaysToPayslip = await PayslipService.getdays(req.user.tn,month,year)
+            const T13 = await T13Service.getMonthForUser(req.user.tn,month,year)
+            const ktu = await PayslipService.getktu(req.user.tn,month,year)
             const days = {}
-            if(DaysToPayslip){
+            const uniqueValues = new Set(Object.values(DaysToPayslip));
+            const count = uniqueValues.size;
+            if(count){
                 for (let i = 1;i <= 31;i++){
                     const key = 'd' + i
                     if(T13[key].length) days[i] = 2

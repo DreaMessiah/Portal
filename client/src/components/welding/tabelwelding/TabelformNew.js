@@ -5,11 +5,8 @@ import "./tabviewwork1550.scss";
 import "./tabviewwork1080.scss";
 import {TabelViewsWork} from "./TabelViewsWork";
 import {TabelMans} from "./TabelMans";
-import {ModalWin} from "../../modalwin/ModalWin";
 import {NewCrewModal} from "./modalactive/NewCrewModal";
-import {DataContext} from "../../../context/DataContext";
 import {Link, useLocation} from "react-router-dom";
-import {useObjects} from "../../../hooks/objects.hook";
 import WeldingService from "../../../services/WeldingService";
 import {useMonth} from "../../../hooks/month.hook";
 import ModalFiles from "../../modalwin/ModalFiles";
@@ -17,39 +14,35 @@ import {useMessage} from "../../../hooks/message.hook";
 import Select from "react-select";
 import ObjsService from "../../../services/ObjsService";
 import {Context} from "../../../index";
-import CmsSelect from "../../inputs/CmsSelect";
-
-
 
 export const TabelformNew = () => {
-
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
 
     const months = [
         'январь', 'февраль', 'март', 'апрель', 'май', 'июнь',
         'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'
-    ];
-
+    ]
     const thisMonth = useMonth()
-    const messages = useMessage()
     let getId = searchParams.get('id');
     let getShifr = searchParams.get('shifr');
     let getMonth = searchParams.get('month');
     let getYear = searchParams.get('year');
 
-    let tabelMans = []
+    const message = useMessage()
 
     const [thisobj, setThisobj] = useState({})
 
-
-
-    const getParamObj = async (e) =>{
-        const response = await WeldingService.getObgForHook({getShifr})
-        setThisobj(response.data)
+    const getParamObj = async (e) => {
+        try {
+            const {data} = await WeldingService.getObgForHook({getShifr})
+            if(data) setThisobj(data)
+            else message('Ошибка загрузки')
+        }catch (e) {
+            console.log(e)
+        }
     }
 
-    const {weldingCrews} = useContext(DataContext)
     const [crew, setCrew] = useState(false)
     const [crewName, setCrewName] = useState('')
     const [select, setSelect] = useState('отсутствует')
@@ -70,8 +63,6 @@ export const TabelformNew = () => {
     const  {store} = useContext(Context)
     const inn = store.user.inn
 
-
-
     const getViewsWork = async () => {
         try{
             const idshifr = +getShifr
@@ -90,7 +81,6 @@ export const TabelformNew = () => {
             console.log(e)
         }
     }
-
     const handleSelect = e => {
         setSelect(e.target.value)
     }
@@ -101,12 +91,10 @@ export const TabelformNew = () => {
 
     const t13List = async (e) => {
         let month = months[currentMonth];
-        let newArr
         try {
             const listMan = await ObjsService.getT13({inn, month, year})
             let i = 0
             if (listMan.data.length !== 0){
-
                 listMan.data.forEach(man => {
                     man.label = man.name + '  ' + man.developer
                     man.value = man.tn
@@ -125,18 +113,14 @@ export const TabelformNew = () => {
                         i++
                     })
                     setListMans(listMan.data)
-                } catch {
-
+                } catch(e){
+                    console.log(e)
                 }
-
             }
-
-
         } catch {
             alert('ебобо скрипт проверь')
         }
     }
-
     const activetedCrew = (button, crew) => {
         if(button){
             btnsNameCrews = document.querySelectorAll('.tabwelding_crews_block')
@@ -147,7 +131,6 @@ export const TabelformNew = () => {
                 }
             })
         }
-
         weldingcrews.forEach(crews => {
             if(crews.crew === crew){
                 setViews([...crews.views])
@@ -156,7 +139,6 @@ export const TabelformNew = () => {
             }
         })
     }
-
 
     const getMyCrews = async () => {
             try{
@@ -206,14 +188,24 @@ export const TabelformNew = () => {
     const plusView = async () => {
         try{
             const month = months[getMonth]
-            const newview = await WeldingService.plusVW({thisView, objid: getShifr, crew: crewName, month, year: getYear})
-            console.log(newview.data)
-            const viewplus = newview.data
-            setViews([...viewplus])
-            // getMyCrews()
-            // getViewsWork()
-            // activetedCrew(false, crewName)
+            const {data} = await WeldingService.plusVW({thisView, objid: getShifr, crew: crewName, month, year: getYear})
+            console.log(data)
+            if(data) setViews([...views,data])
+            else message('Ошибка добавления вида работ')
         }catch(e){
+            console.log(e)
+        }
+    }
+    const addManHandler = async () => {
+        try {
+            console.log(thisobj)
+            if (thisMans){
+                const {data} = await WeldingService.addMan({...thisMans,crew:crewName,shifr:thisobj.shifr,object_id:thisobj.id})
+                if(data){
+                    setMans([...mans,thisMans])
+                }
+            }
+        }catch (e) {
             console.log(e)
         }
     }
@@ -268,14 +260,12 @@ export const TabelformNew = () => {
                 <div className="tabwelding_tabel_upper">
                     <Select placeholder='Выбрать сотрудника' onChange={(e) => setThisMans(listMans[e.index])} value={thisMans} options={listMans} styles={{container:(baseStyles, state) => ({...baseStyles,width:'250px'})}}/>
                     {/*<div className="tabwelding_tabel_upper_title">Табель</div>*/}
-                    <div className="back-button">Добавить</div>
+                    <div onClick={(e) => addManHandler()} className="back-button">Добавить</div>
                 </div>
-                <TabelMans  peoples={mans} setPeoples={setMans} active={crewName} idobj={getId} shifr={getShifr} month={getMonth} year={getYear}/>
+                <TabelMans peoples={mans} setPeoples={setMans} active={crewName} idobj={getId} shifr={getShifr} month={getMonth} year={getYear}/>
             </div>
 
-            {/*<NewCrewModal sel={select} active={crew} setActive={setCrew}/>*/}
             <ModalFiles data={<NewCrewModal sel={select} active={crew} setActive={setCrew} monther={getMonth} year={getYear} idobj={getShifr}  allcrews={allcrews} setAllcrews={setAllcrews} setWeldingcrew={setWeldingcrew} setMycrews={setMycrews}/>} active={crew} setActive={setCrew}/>
-            {/*<ModalWin data={<NewCrewModal sel={select} active={crew} setActive={setCrew}/>} active={crew} setActive={setCrew}/>*/}
         </div>
     )
 }

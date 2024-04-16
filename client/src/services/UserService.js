@@ -26,4 +26,8 @@ export default class UserService {
         const extension = filename.split('.').pop().toLowerCase(); // получаем расширение файла и приводим его к нижнему регистру
         return imageExtensions.includes(extension); // возвращаем true, если расширение файла соответствует расширениям изображений
     }
+
+    static fetchActiualT13() {
+        return $api.get('/t13/getactual')
+    }
 }

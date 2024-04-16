@@ -14,5 +14,14 @@ class T13Service {
         const t13 = await T13.findOne({ where:{tn:tn,month:month,year:year}})
         return t13
     }
+    async getActual(inn) {
+        const lastOne = await T13.findOne({order: [['createdAt', 'DESC']]})
+        const t13 = await T13.findAll({where:{month:lastOne.dataValues.month,year:lastOne.dataValues.year,inn:inn}})
+        const T13forSelect = t13.map( item => {
+            return {...item.dataValues,value:item.dataValues.tn,label:item.dataValues.name}
+        })
+        return T13forSelect
+    }
+
 }
 module.exports = new T13Service()

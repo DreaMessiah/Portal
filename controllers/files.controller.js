@@ -91,7 +91,6 @@ class FilesController {
             next(e)
         }
     }
-
     async uploadFileDefault(req, res, next) {
         try {
             const file = req.files.file
@@ -118,7 +117,6 @@ class FilesController {
                 }
                 return res.status(200).json({message:'файл удален'})
             })
-
         } catch (e) {
             next(e)
         }
