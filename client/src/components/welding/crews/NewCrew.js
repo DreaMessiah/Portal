@@ -10,124 +10,133 @@ import React from "react";
 import WeldingService from "../../../services/WeldingService";
 import {ModalBigWin} from "../../modalwin/ModaBiglWin";
 import ModalFiles from "../../modalwin/ModalFiles";
-
+import UserService from "../../../services/UserService";
+import MultiSelect from "../../inputs/MultiSelect";
+import CheckBox from "../../inputs/CheckBox";
+import FileInput from "../../inputs/FileInput";
+import {useMessage} from "../../../hooks/message.hook";
 
 export const NewCrewS = () => {
     const [datein, setDatein] = useState()
     const [dateto, setDateto] = useState()
-    const plusCrew = () => {
-alert('Кнопка работает')
-    }
     const [active, setActive] = useState(false)
     const [listMans, setListMans] = useState([])
     const [listCrew, setListCrew] = useState([])
     const [openblock, setOpenblock] = useState(false)
     const [thisMans, setThisMans] = useState([])
+    const [empty,setEmpty] = useState([])
     const [thisDev, setThisDev] = useState([])
-    //
-    const months = [
-        'январь', 'февраль', 'март', 'апрель', 'май', 'июнь',
-        'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'
-    ];
+
+    const [name,setName] = useState('')
+    const [num,setNum] = useState('')
+    const [about,setAbout] = useState('')
+    const [group,setGroup] = useState([])
+    const [docs,setDocs] = useState([])
+
+    const [onDocuments,setOnDocuments] = useState(false)
+
     const  {store} = useContext(Context)
-    const inn = store.user.inn
+    const message = useMessage()
 
-    // const inn = '8617014209'
 
-    const currentDate = new Date();
-    const year = currentDate.getFullYear() + '';
-    // console.log(year)
-    const currentMonth = currentDate.getMonth(); // Получаем номер текущего месяца
-    let month = months[currentMonth];
-    // console.log(month)
-    const t13List = async (e) => {
-        let newArr
+    const loadingHandler = async () => {
         try {
-            const listMan = await ObjsService.getT13({inn, month, year})
-            let i = 0
-            if (listMan.data.length !== 0){
-
-                listMan.data.forEach(man => {
-                    man.label = man.name + '  ' + man.developer
-                    man.value = man.tn
-                    man.index = i
-                    i++
-                })
-                setListMans(listMan.data)
-            } else {
-                month = months[currentMonth - 1];
-                try{
-                    const listMan = await ObjsService.getT13({inn, month, year})
-                    listMan.data.forEach(man => {
-                        man.label = man.name + '  ' + man.developer
-                        man.value = man.tn
-                        man.index = i
-                        i++
-                    })
-                    setListMans(listMan.data)
-                } catch {
-
-                }
-
+            const {data} = await UserService.fetchActiualT13()
+            const crews = await WeldingService.getCrew()
+            if(data && crews.data){
+                setListMans(data)
+                setListCrew(crews.data)
             }
-
-
-            // console.log(listMans)
-        } catch {
-            alert('ебобо скрипт проверь')
+        } catch(e) {
+            console.log(e)
         }
     }
-
-    const allCrews = async () => {
-        try{
-            const response = await WeldingService.getCrew()
-            console.log(response.data)
-            setListCrew(response.data)
-        }catch(e){
-            console.log(e.error)
-        }
+    const onDocumentsHandler = () => {
+        setOnDocuments(!onDocuments)
     }
     useEffect(() => {
-        t13List()
-        allCrews()
+        loadingHandler()
     }, [])
+    const checkEmpty = () => {
+        const n = [...empty]
+
+        n[0] = !!!name.trim().length
+        n[1] = !!!num.trim().length
+        n[2] = !!!about.trim().length
+        n[3] = !!!group.length
+
+        const hasTrueValue = n.some(value => value === true)
+        if( hasTrueValue ) setEmpty(n)
+        else setEmpty([])
+
+        return !hasTrueValue
+    }
+    const setEmptyStates = () => {
+        setName('')
+        setNum('')
+        setAbout('')
+        setGroup([])
+        setDocs([])
+        setOpenblock(false)
+    }
+    const createHandler = async () => {
+        try {
+            if(checkEmpty()){
+                const crew = {crewname:name,totalmans:num,comment:about,inn:store.user.inn}
+                console.log(crew)
+                const {data} = await WeldingService.createNewCrew(crew)
+                if(data){
+                    console.log(data)
+                    setListCrew([...listCrew,data])
+                    setEmptyStates()
+                    message('Бригада добавлена')
+                }
+            }else {
+                message('Заполните необходимые данные')
+            }
+        }catch (e) {
+            console.log(e)
+        }
+    }
+
     return (
        <div className="newcrew">
            <div className="newcrew_title">Список Звеньв и Бригад</div>
-           <div className="newcrew_btn" onClick={()=>setOpenblock(!openblock)}>Добавить звено / бригаду</div>
+           <div className="newcrew_btn" onClick={()=>setOpenblock(!openblock)}>{!openblock ? 'Добавить звено / бригаду' : 'Скрыть панель'}</div>
            <div className="newcrew_block" style={(openblock)?{display: 'flex'}:{display: 'none'}}>
                <div className="newcrew_block_inputns">
-                   <input className="newcrew_block_inpt" placeholder="Введите название команды"/>
-                   <input className="newcrew_block_inpt" placeholder="Ср. кол-во человек"/>
-                   <input className="newcrew_block_inpt" placeholder="Краткое описание"/>
+                   <input value={name} onChange={(e) => setName(e.target.value)} className={`newcrew_block_inpt pul-inpt ${empty[0] && 'red-solid-border'}`} placeholder="Введите название команды"/>
+                   <input value={num} onChange={(e) => setNum(e.target.value)} className={`newcrew_block_inpt pul-inpt ${empty[1] && 'red-solid-border'}`} placeholder="Ср. кол-во человек"/>
+                   <input value={about} onChange={(e) => setAbout(e.target.value)} className={`newcrew_block_inpt ${empty[2] && 'red-solid-border'}`} placeholder="Краткое описание"/>
                </div>
                <div className="slash"></div>
-               <div className="newcrew_block_title">Добавить сотрудника</div>
-               <div className="newcrew_block_plusman">
-                   <div className="newcrew_block_plusman_left">
-                       <Select className='select' onChange={(e) => setThisMans(listMans[e.index])} value={thisMans} options={listMans}/>
-                       <div className="newcrew_block_plusman__btn">Добавить</div>
-                   </div>
-                   <div className="newcrew_block_plusman_right">
 
-                   </div>
+               <div className="newcrew_block_title">Добавить сотрудника</div>
+               <div className="newcrew_block_selects">
+                    <MultiSelect options={listMans} setOptions={setGroup} values={group} empty={empty[3]} />
                </div>
                <div className="slash"></div>
-               <div className="newcrew_block_title">Добавить документ</div>
+
+               <CheckBox label={'Добавить документы'} disable={true} checked={onDocuments} onChange={onDocumentsHandler}/>
+               {onDocuments &&
                <div className="newcrew_block_plusman">
                    <div className="newcrew_block_plusman_left">
                        <input className="newcrew_block_inpt" placeholder="Краткое описание"/>
                        <div className="newcrew_block_plusman_right_picker">
-                           <CmsDatePicket placeholder={'начало'} onChange={setDatein} size={'40%'}/><CmsDatePicket placeholder={'окончание'} onChange={setDateto} size={'40%'}/>
+                           <CmsDatePicket placeholder={'начало'} onChange={setDatein} size={'40%'}/>
+                           <span style={{width:'20px'}}></span>
+                           <CmsDatePicket placeholder={'окончание'} onChange={setDateto} size={'40%'}/>
                        </div>
-
-                       <div className="newcrew_block_plusman__btn">Добавить</div>
+                       <div className={'newcrew_block_selects'}>
+                           <FileInput files={docs} setFiles={setDocs} user_id={store.user.id} empty={empty[6]}/>
+                       </div>
                    </div>
-                   <div className="newcrew_block_plusman_right">
-
-                   </div>
+               </div>}
+               <div className={`buttons`}>
+                   <div onClick={(e) => createHandler()} className={`button`}>Добавить</div>
                </div>
            </div>
+
            <div className="newcrew_list">
                <div className="newcrew_list_strs">
                    {listCrew.map((crew, index)=>(

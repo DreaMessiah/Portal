@@ -9,9 +9,8 @@ $transwwBlackColor:rgba(60,60,60,0.5);
     top:0;
     left: 0;
     background-color: $transBlackColor;
-    z-index: -1;
+    z-index: 50;
   }
-
   .middle-modal-win , .middle-modal-win-files{
     max-width: 600px;
     width: 60%;
@@ -20,6 +19,7 @@ $transwwBlackColor:rgba(60,60,60,0.5);
     background-color: $whiteColor;
     padding: 20px;
     border-radius: 10px;
+    z-index: 100;
     .middle-modal-win-up{
       display: flex;
       flex-direction:row;

@@ -57,7 +57,6 @@ import OgmPage from "./pages/econom/OgmPriceRouter";
 import {ItogTabel} from "./pages/tabel/ItogTabel";
 import {AllTabels} from "./pages/tabel/AllTabels";
 
-
 function App() {
     const {store} = useContext(Context)
     useEffect(() => {

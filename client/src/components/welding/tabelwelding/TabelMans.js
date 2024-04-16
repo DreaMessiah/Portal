@@ -1,18 +1,16 @@
 import React, {useEffect, useRef, useState} from "react";
 import "./tabelform.scss";
 import WeldingService from "../../../services/WeldingService";
+import ModalFiles from "../../modalwin/ModalFiles";
+import {useMessage} from "../../../hooks/message.hook";
 
 
 export const TabelMans = ({peoples,setPeoples,active,idobj,shifr,month,year}) => {
     //console.log(peoples)
     const [day, setDay] = useState(peoples)
-    function solution(str){
-        // let arr = [];
-        const itog = str.substr(0,2)
-
-        //console.log(itog)
-    }
-
+    const [selectDelete,setSelectDelete] = useState(-1)
+    const [activeDelete,setActiveDelete] = useState(false)
+    const message = useMessage()
     const updateDay = async (pep, value, manid, index) => {
 
         try{
@@ -29,14 +27,47 @@ export const TabelMans = ({peoples,setPeoples,active,idobj,shifr,month,year}) =>
         }
     }
 
-    solution('привет')
+    const deleteHandler = (index) => {
+        setSelectDelete(index)
+        setActiveDelete(true)
+    }
+    function Delete() {
+        const deleteMan = async () => {
+            try {
+                const {data} = await WeldingService.deleteMan(peoples[selectDelete].id)
+                if (data.del){
+                    message(data.message)
+                    const newPeoples = [...peoples]
+                    newPeoples.splice(selectDelete,1)
+                    setPeoples(newPeoples)
+                    cancelHandler()
+                }
+            }catch (e) {
+                console.log(e)
+            }
+        }
+        const cancelHandler = () => {
+            setSelectDelete(-1)
+            setActiveDelete(false)
+        }
+        return (
+            <div className={`delete`}>
+                <div className={'title'}>Вы действительно хотели бы удалить пользователя из списка?</div>
+                <div className={`buttons`}>
+
+                    <div onClick={(e) => deleteMan()} className={`button`}>Да</div>
+                    <div onClick={(e) => cancelHandler()} className={`button`}>Нет</div>
+                </div>
+            </div>
+        )
+    }
 
 
     return (
         <div className="tabwelding_tabel_tabelman ">
             {peoples.map((man, index) => (
             <div key={index} className="tabwelding_tabel_tabelman_strock">
-                <div className="tabwelding_tabel_tabelman_strock_num">{index+1}</div>
+                <div className="tabwelding_tabel_tabelman_strock_num">{index+1} <i className="fa-solid fa-trash" onClick={()=>deleteHandler(index)}/></div>
                 <div className="tabwelding_tabel_tabelman_strock_fio">{man.name}</div>
                 <div className="tabwelding_tabel_tabelman_strock_calendar">
                     <div className="tabwelding_tabel_tabelman_strock_calendar_s">
@@ -106,21 +137,16 @@ export const TabelMans = ({peoples,setPeoples,active,idobj,shifr,month,year}) =>
 
                     </div>
                     <div className="tabwelding_tabel_tabelman_strock_calendar_s">
-
                         <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                             <div className="tabwelding_tabel_tabelman_s_c_c_day_title">6</div>
                             <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d6', e.target.value, man.id, index)}} value={(man.d6===0||man.d6==='0'||man.d6===null)?'':man.d6}></input>
                         </div>
-
-
                         <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                             <div className="tabwelding_tabel_tabelman_s_c_c_day_title">21</div>
                             <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d21', e.target.value, man.id, index)}} value={(man.d21===0||man.d21==='0'||man.d21===null)?'':man.d21}></input>
                         </div>
-
                     </div>
                     <div className="tabwelding_tabel_tabelman_strock_calendar_s">
-
                         <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                             <div className="tabwelding_tabel_tabelman_s_c_c_day_title">7</div>
                             <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d7', e.target.value, man.id, index)}} value={(man.d7===0||man.d7==='0'||man.d7===null)?'':man.d7}></input>
@@ -259,6 +285,7 @@ export const TabelMans = ({peoples,setPeoples,active,idobj,shifr,month,year}) =>
                 </div>
             </div>
                 ))}
+            <ModalFiles active={activeDelete} setActive={setActiveDelete} heigth={'30vh'} data={<Delete/>} />
         </div>
     )
 }

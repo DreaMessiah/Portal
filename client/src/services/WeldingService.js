@@ -7,6 +7,9 @@ export default class WeldingService{
     static async getCrew(){
         return $api.post(`/welding/getallcrew`)
     }
+    static async createNewCrew(crew){
+        return $api.post(`/welding/createnewcrew`,{crew})
+    }
     static async getMyCrews(params){
         return $api.post(`/welding/getmycrews`, params)
     }
@@ -61,5 +64,12 @@ export default class WeldingService{
     static async saveConnections(connections) {
         return $api.post(`/welding/saveconn`, {connections})
     }
+    static async addMan(man) {
+        return $api.post(`/welding/addweldman`, {man})
+    }
+    static async deleteMan(id) {
+        return $api.post(`/welding/deleteman`, {id})
+    }
+
 
 }

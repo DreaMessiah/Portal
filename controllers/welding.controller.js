@@ -13,11 +13,22 @@ class WeldingController {
     async getCrew(req,res,next) {
         try{
             const list = await WeldingService.getCrew()
-            return res.json(list)
+            return res.status(200).json(list)
         }catch (e){
             next(e)
         }
     }
+    async createNewCrew(req,res,next) {
+        try{
+            const {crew} = req.body
+            console.log(crew)
+            const newCrew = await WeldingService.createNewCrew(crew)
+            return res.status(200).json(newCrew)
+        }catch (e){
+            next(e)
+        }
+    }
+
     async getMyCrews(req,res,next) {
         try{
             const params = req.body
@@ -183,7 +194,6 @@ class WeldingController {
             next(e)
         }
     }
-
     async getConn(req,res,next) {
         try{
             const {za_id} = req.body
@@ -199,6 +209,24 @@ class WeldingController {
             const {connections} = req.body
             const changes = await WeldingService.saveConn(connections)
             return res.status(200).json(changes)
+        }catch (e){
+            next(e)
+        }
+    }
+    async addMan(req,res,next) {
+        try{
+            const {man} = req.body
+            const created = await WeldingService.addMan(man)
+            return res.status(200).json(created)
+        }catch (e){
+            next(e)
+        }
+    }
+    async deleteMan(req,res,next) {
+        try{
+            const {id} = req.body
+            const del = await WeldingService.deleteMan(id)
+            return res.status(200).json(del)
         }catch (e){
             next(e)
         }

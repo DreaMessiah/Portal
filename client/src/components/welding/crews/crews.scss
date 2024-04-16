@@ -39,9 +39,10 @@
   .newcrew_btn{
     width: 250px;
     height: 40px;
-    //display: flex;
-    //justify-content: center;
-    //align-items: center;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     //background-color: rgb(60, 136, 1);
     //border-radius: 2px;
     //margin: 10px 0;
@@ -50,8 +51,7 @@
     //padding: 5px 25px;
     //cursor: pointer;
     background-color: rgba(60, 136, 1, 0);
-    margin-right: 20px;
-    padding: 20px 20px;
+    padding: 10px;
     border: 1px solid #CCC;
     border-radius: 4px;
     cursor: pointer;
@@ -181,25 +181,33 @@
       padding: 5px;
       height: 30px;
       flex-wrap: wrap;
-      width: 300px;
+      width: calc(100% - 40px);
       margin-right: 20px;
       border: 4px solid #CCC;
       border-radius: 5px;
       margin-bottom: 20px;
     }
+    .pul-inpt{
+      width: calc(50% - 40px);
+
+    }
     .newcrew_block_inputns{
       display: flex;
       flex-wrap: wrap;
       width: 100%;
-
+    }
+    .newcrew_block_selects{
+      margin: 10px 0;
+      width: calc(100% - 20px);
     }
     .newcrew_block_plusman{
       width: 100%;
       .newcrew_block_plusman_left{
-        width: 50%;
+        //width: 50%;
         .newcrew_block_plusman_right_picker{
-          width: 100%;
+          width: calc(100% - 20px);
           display: flex;
+          justify-content: space-between;
         }
         .newcrew_block_plusman__btn{
           width: 200px;
@@ -223,4 +231,15 @@
 
 
   }
+}
+.checkbox-container{
+  display: flex;
+  align-items: center;
+  p{
+    font-weight: 300;
+    font-size: 0.8rem;
+  }
+}
+.checkmark{
+  border: 1px solid #aaa;
 }

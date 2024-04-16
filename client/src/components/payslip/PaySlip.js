@@ -109,7 +109,7 @@ function PayslipPage () {
             const promise = await PayslipService.getPayslipData(store.user.tn,monthState.label,yearState.label)
             setDaysState(promise.data.days)
             setKtus(promise.data.ktu)
-            if(promise.data.info[0].cost) setInfo(promise.data.info)
+            if(promise.data.info[0]) setInfo(promise.data.info)
             else{
                 setInfo([])
                 setActual(false)
