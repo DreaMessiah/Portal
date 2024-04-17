@@ -24,6 +24,12 @@ router.post('/delbest',authMiddlewere, objsController.delBestMan)
 router.post('/getktudate',authMiddlewere, objsController.getKTUdate)
 router.post('/copytabel',authMiddlewere, objsController.copyTab)
 router.post('/delmantabel',authMiddlewere, objsController.delManTabel)
+router.get('/getuserslist',authMiddlewere, objsController.getUsersList)
+router.post('/passobj',authMiddlewere, objsController.passObj)
+router.post('/usersobjs',authMiddlewere, objsController.dataOfObj)
+
+
+
 
 
 module.exports = router

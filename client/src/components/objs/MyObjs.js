@@ -7,13 +7,14 @@ import {ModalWin} from "../modalwin/ModalWin";
 import {PlusMyObjOnModal} from "./PlusMyObjModal";
 import ObjsService from "../../services/ObjsService";
 import {Context} from "../../index";
+import {useMessage} from "../../hooks/message.hook";
 
 export default function MyListObjs() {
     const  {store} = useContext(Context)
 
     const inn = store.user.inn
     const login = store.user.login
-
+    const message = useMessage()
     const location = useLocation();
 
     const [modal, setModal] = useState(false)

@@ -7,6 +7,8 @@ import {ModalWin} from "../modalwin/ModalWin";
 import {PlusMyObjModal} from "./PlusMyObjModal";
 import ObjsService from "../../services/ObjsService";
 import {Context} from "../../index";
+import ModalFiles from "../modalwin/ModalFiles";
+import PassObj from "./modalactive/PassObj";
 
 export default function DriveOnProject({mass, page}) {
 
@@ -18,8 +20,6 @@ export default function DriveOnProject({mass, page}) {
     const login = store.user.login
 
     const {btns_modules} = useContext(DataContext)
-
-    console.log(btns_modules)
 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
@@ -33,9 +33,10 @@ export default function DriveOnProject({mass, page}) {
 
 
     const [thisURL, setThisURL] = useState(getId)
-
-
-
+    const [passactive, setPassactive] = useState(false)
+    const [alluser, setAllusers] = useState([])
+    const [listuser, setListusers] = useState([])
+    const [activeusers, setActiveusers] = useState([])
 
     const openShifrBlock = (putId) => {
 
@@ -45,9 +46,41 @@ export default function DriveOnProject({mass, page}) {
 
     }
 
+    const makeList = () => {
+        let newarr = []
+        let renameobj = {}
+        listuser.forEach(user=>{
+            renameobj = user
+            alluser.forEach(man=> {
+                if(user.user_id === man.id){
+                    renameobj.full_name = man.full_name
+                }
+            })
+            newarr.push(renameobj)
+        })
+        setActiveusers(newarr)
+    }
 
+    const getListusers = async () => {
+        try{
+            const users = await ObjsService.getUsersList()
+            setAllusers(users.data)
+            const {data} = await ObjsService.dataOfObj({idobj: getId})
+            setListusers(data)
 
+        }catch(e){
 
+        }
+
+    }
+
+    useEffect(()=>{
+       getListusers()
+    }, [])
+
+    useEffect(()=>{
+        makeList()
+    }, [alluser, listuser])
     return (
         <div className='right-block'>
             <div className='top-box'>
@@ -55,6 +88,9 @@ export default function DriveOnProject({mass, page}) {
                     <Link to={thisURL !== 0 ? openShifrBlock(0)  : `/objectsportal`} className='back-button'>
                         <p>Назад</p> <i className='fa-solid fa-rotate-left'></i>
                     </Link>
+                    <div className='back-button' onClick={()=>setPassactive(!passactive)}>
+                        <p>Передать</p>
+                    </div>
                     {/*<SearchObj/>*/}
                 </div>
                 <div className='right-box'>
@@ -68,6 +104,23 @@ export default function DriveOnProject({mass, page}) {
 
                 )}
             </div>
+            <div className="autrosblock">
+                <div className="autrosblock_title">Создал (только этот пользователь может передать): </div>
+                <div className="autrosblock_papa">
+                    {activeusers.map((man, index)=>{
+                        if(+man.papa === +man.user_id){return ( <div key={index}>{man.full_name}</div> )}}
+                    )}
+                </div>
+                <div className="autrosblock_title">
+                    Пользователи, которые работают с объектом:
+                </div>
+                <div className="autrosblock_users">
+                    {activeusers.map((man, index)=>{
+                            if(+man.papa !== +man.user_id){return ( <div key={index}>{man.full_name}; </div> )}
+                    })}
+                </div>
+            </div>
+            <ModalFiles data={<PassObj getId={getId} active={passactive} setActive={setPassactive} />} active={passactive} setActive={setPassactive} />
         </div>
 
 

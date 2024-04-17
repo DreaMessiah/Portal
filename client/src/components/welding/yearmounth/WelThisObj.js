@@ -21,122 +21,6 @@ export const WelThisObj = () => {
 
     const getNameMonth = useMonth()
 
-    const arr_welding_tabel = [
-        {
-            id: 1,
-            year: 2024,
-            idobj: 1,
-            months: [
-
-                {
-                    id: 2,
-                    shifr: '386',
-                    year: '2024',
-                    month: 'январь',
-                    inn: '8617014209'
-                },
-
-                {
-                    id: 1,
-                    shifr: '386',
-                    year: '2024',
-                    month: 'февраль',
-                    inn: '8617014209'
-                }
-            ]
-        },
-        {
-            id: 2,
-            year: 2023,
-            idobj: 1,
-            months: [
-
-                {
-                    id: 6,
-                    shifr: '386',
-                    year: '2023',
-                    month: 'март',
-                    inn: '8617014209'
-                },
-
-                {
-                    id: 7,
-                    shifr: '386',
-                    year: '2023',
-                    month: 'апрель',
-                    inn: '8617014209'
-                },
-
-                {
-                    id: 8,
-                    shifr: '386',
-                    year: '2023',
-                    month: 'май',
-                    inn: '8617014209'
-                },
-
-                {
-                    id: 9,
-                    shifr: '386',
-                    year: '2023',
-                    month: 'июнь',
-                    inn: '8617014209'
-                },
-
-                {
-                    id: 10,
-                    shifr: '386',
-                    year: '2023',
-                    month: 'июль',
-                    inn: '8617014209'
-                },
-
-                {
-                    id: 11,
-                    shifr: '386',
-                    year: '2023',
-                    month: 'август',
-                    inn: '8617014209'
-                },
-
-                {
-                    id: 12,
-                    shifr: '386',
-                    year: '2023',
-                    month: 'сентябрь',
-                    inn: '8617014209'
-                },
-
-                {
-                    id: 13,
-                    shifr: '386',
-                    year: '2023',
-                    month: 'октябрь',
-                    inn: '8617014209'
-                },
-
-                {
-                    id: 14,
-                    shifr: '386',
-                    year: '2023',
-                    month: 'ноябрь',
-                    inn: '8617014209'
-                },
-
-                {
-                    id: 15,
-                    shifr: '386',
-                    year: '2023',
-                    month: 'декабрь',
-                    inn: '8617014209'
-                }
-            ]
-        },
-
-
-
-    ];
-
     const  {store} = useContext(Context)
     const inn = store.user.inn
     const login = store.user.login
@@ -144,9 +28,7 @@ export const WelThisObj = () => {
     const [ymonth, setYmonth] = useState([])
     const [newmonth, setNewmonth] = useState('stop')
     const [newyear, setNewyear] = useState('stop')
-    // const [listMans, setListMans] = useState([])
-    // const [thisMans, setThisMans] = useState([])
-
+    const [activecrew, setActiveCrew] = useState(false)
 
     const plusTabel = async (e) => {
         try{
@@ -222,7 +104,7 @@ export const WelThisObj = () => {
             <div className='ymwelding_head'>
                 <Link to='/objectsportal' className='back-button'>Назад к объектам</Link>
                 <div className='ymwelding_head_nameobj'><span>386</span>        РВСП 20000м3 №3 ЛПДС "Южный Балык". Нефтеюганское УМН. Техническое перевооружение"</div>
-                <div className='back-button'>Передать</div>
+                {/*<div className='back-button'>Передать</div>*/}
             </div>
             <div className='ymwelding_controller'>
                 <div className='ymwelding_controller_ym'>
@@ -252,7 +134,7 @@ export const WelThisObj = () => {
                     <div className='back-button' onClick={()=>plusTabel()}>Создать</div>
                 </div>
                 <div className='ymwelding_controller_sistembtns'>
-                    <div className='back-button'>Звенья / Бригады</div>
+                    <div className='back-button' onClick={()=>{setActiveCrew(!activecrew)}}>Звенья / Бригады</div>
                     <div className='back-button'>Отчеты</div>
                     <div className='back-button'>Виды работ</div>
                 </div>
@@ -273,7 +155,12 @@ export const WelThisObj = () => {
             </div>
             ))
             }
-            
+            <div className="modalcrew" style={(activecrew)?{display: 'flex'}:{display: 'none'}}>
+                <div className="modalcrew_white">
+                    <div className="modalcrew_white_krestik"></div>
+                    <div className="modalcrew_white_modal"></div>
+                </div>
+            </div>
         </div>
     )
 }

@@ -35,6 +35,16 @@ export default class ObjsService{
     static async delManTabel(params){
         return $api.post(`/objects/delmantabel`, params)
     }
+    static async getUsersList(){
+        return $api.get(`/objects/getuserslist`)
+    }
+    static async passObj(params){
+        return $api.post(`/objects/passobj`, params)
+    }
+    static async dataOfObj(params){
+        return $api.post(`/objects/usersobjs`, params)
+    }
+
 
 
 

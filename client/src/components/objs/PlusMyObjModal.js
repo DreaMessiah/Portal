@@ -3,17 +3,21 @@ import '../welding/mainpage/objs.scss'
 // import axios from "axios";
 import {useEffect, useState} from "react";
 import ObjsService from "../../services/ObjsService";
+import {useMessage} from "../../hooks/message.hook";
 
 
 export const PlusMyObjOnModal = ({loading,list, active, setActive, setViewMyObjs}) => {
 
     const [title, setTitle] = useState('Добавить объект')
     const [thisobj, setThisobj] = useState(0)
-
+    const message = useMessage()
     const createObj = async () => {
         try{
             const {data} = await ObjsService.insertObjs(thisobj)
             console.log(data)
+            if(data[1] === 'haven'){
+                message(`Объект уже используется, необходимо, чтобы его Вам передал: ${data[2]}`)
+            }
             setActive(!active)
             await loading()
         } catch (e){

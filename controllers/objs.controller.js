@@ -87,7 +87,7 @@ class ObjsController {
 
     async showObjs(req,res,next) {
         try{
-            const list = await ObjsService.showObjects({inn:req.user.inn,login:req.user.login})
+            const list = await ObjsService.showObjects({inn:req.user.inn,user_id:req.user.id})
             return res.json(list)
         }catch (e){
             next(e)
@@ -97,7 +97,7 @@ class ObjsController {
     async insertObjs(req,res,next) {
         try{
             const {obj_id} = req.body
-            const list = await ObjsService.insertObjects(obj_id,req.user.login,req.user.inn)
+            const list = await ObjsService.insertObjects(obj_id,req.user.login,req.user.id,req.user.inn)
             return res.status(200).json(list)
         }catch (e){
             next(e)
@@ -158,6 +158,42 @@ class ObjsController {
             next(e)
         }
     }
+
+    async getUsersList(req,res,next) {
+        try{
+
+            const list = await ObjsService.getUsersList()
+            return res.json(list)
+
+        }catch (e){
+            next(e)
+        }
+    }
+
+    async passObj(req,res,next) {
+        try{
+            const params = req.body
+            console.log(params)
+            params.papa = req.user.id
+            const list = await ObjsService.passObj(params)
+            return res.json(list)
+
+        }catch (e){
+            next(e)
+        }
+    }
+    async dataOfObj(req,res,next) {
+        try{
+            const params = req.body
+            const list = await ObjsService.dataOfObj(params)
+            return res.json(list)
+
+        }catch (e){
+            next(e)
+        }
+    }
+
+
 
 
 

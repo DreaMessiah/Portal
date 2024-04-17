@@ -94,11 +94,11 @@ export const Mainnavbar = () => {
                         <div className="navbar_block_dopmenu_list_description">Детский конкурс</div>
                     </Link>
                     <Link to='/objectsportal' className={`navbar_block_dopmenu_list_strock`}>
-                        <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-children"></i></div>
+                        <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-object-ungroup"></i></div>
                         <div className="navbar_block_dopmenu_list_description">Объекты</div>
                     </Link>
                     <Link to='/weldingsett' className={`navbar_block_dopmenu_list_strock`}>
-                        <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-children"></i></div>
+                        <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-wand-magic-sparkles"></i></div>
                         <div className="navbar_block_dopmenu_list_description">Сварщик</div>
                     </Link>
                     <Link to='/economist' className={`navbar_block_dopmenu_list_strock`}>

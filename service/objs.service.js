@@ -1,4 +1,4 @@
-const {Objects, NumberObjects, Ymshifr, T13, TableTabel, KtuList} = require('../models/models')
+const {Objects, NumberObjects, Ymshifr, T13, TableTabel, KtuList, User} = require('../models/models')
 const ObjsDto = require('../dtos/objsDto')
 const ApiError = require('../exceptions/api.error')
 const {DataTypes, Op, Sequelize} = require("sequelize");
@@ -31,12 +31,11 @@ class ObjsService{
     async showObjects(user){
         const newArr = []
         const newList = []
-        const listObjs = await NumberObjects.findAll({where: {inn:user.inn, login:user.login}, order: [['id', 'DESC']]})
+        const listObjs = await NumberObjects.findAll({where: {inn:user.inn, user_id:user.user_id}, order: [['id', 'DESC']]})
         const allObjs = await Objects.findAll({where: {inn:user.inn}, order: [['shifr', 'ASC']]})
             listObjs.forEach(obj=>{
                 const newObj = {}
                 allObjs.forEach(strock => {
-
                     if(strock.id === obj.object_id){
                         newObj.id = strock.id
                         newObj.shifr = strock.shifr
@@ -60,10 +59,19 @@ class ObjsService{
 
         return newList
     }
-    async insertObjects(obj_id,login,inn){
-        await NumberObjects.create({object_id:obj_id,nameobject:'',user_id:0,papa:login,inn:inn,login:login})
-        const listObjs = await NumberObjects.findAll({where: {inn:inn, login:login}, order: [['id', 'DESC']]})
-        return listObjs
+    async insertObjects(obj_id,login,iduser,inn){
+
+        const haveObj = await NumberObjects.findOne({where: {object_id:obj_id}})
+        if(haveObj){
+            const papa = await User.findOne({where: {id:haveObj.papa}})
+            return [haveObj, 'haven', papa.full_name]
+        }else{
+            await NumberObjects.create({object_id:obj_id,nameobject:'',user_id:iduser,papa:iduser,inn:inn,login:login})
+            const listObjs = await NumberObjects.findAll({where: {inn:inn,user_id:iduser}, order: [['id', 'DESC']]})
+            return listObjs
+        }
+
+
     }
 
     async getT13(params){
@@ -271,6 +279,39 @@ console.log(newmonth)
             return 'Что-то пошло не так'
         }
     }
+
+    async getUsersList(){
+        try{
+            const listMan = await User.findAll({
+                attributes: { exclude: ['password', 'avatar', 'inn', 'admin', 'moderator', 'editcom', 'passport', 'phone', 'phonecompany', 'snils', 'unit'] }
+            })
+            return listMan
+        }catch(e){
+            console.log(e)
+        }
+
+    }
+    async passObj(params){
+        try{
+            const result = await NumberObjects.create({object_id:params.object_id,nameobject:'',user_id:params.user_id,papa:params.papa,inn:'8617014209',login:params.login})
+            return result
+        }catch(e){
+            console.log(e)
+        }
+
+    }
+    async dataOfObj(params){
+        try{
+            const listMan = await NumberObjects.findAll({where: {object_id: params.idobj}})
+            return listMan
+        }catch(e){
+            console.log(e)
+        }
+
+    }
+
+
+
 
 }
 module.exports = new ObjsService()
