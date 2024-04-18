@@ -352,6 +352,8 @@ export const TimeSheepPortal = () => {
     const [idman, setIdman] = useState('no')
     const [nameman, setNameman] = useState('no')
     const [devman, setDevman] = useState('no')
+    const [izm, setIzm] = useState('')
+
 
 
     const deleteMan = (id, name, developer) =>{
@@ -360,6 +362,20 @@ export const TimeSheepPortal = () => {
         setNameman(name)
         setDevman(developer)
         setDelwin(!delwin)
+    }
+
+    function isNumeric(value) {
+        return !isNaN(parseFloat(value)) && isFinite(value);
+    }
+
+    const rayDay = day => {
+        let p = 0
+        if(isNumeric(day)){
+            p = 1
+        } else {
+            p = 0
+        }
+        return p
     }
 
     useEffect(() => {
@@ -396,7 +412,7 @@ export const TimeSheepPortal = () => {
                 <div className="tab_tabel_tabelman ">
                     {list.map((man, index) => (
                         <div key={index} className="tab_tabel_tabelman_strock">
-                            <div className="tab_tabel_tabelman_strock_num">{index + 1}<i class="fa-solid fa-trash" onClick={()=>deleteMan(man.id, man.name, man.developer)}/></div>
+                            <div className="tab_tabel_tabelman_strock_num">{index + 1}<i style={(writed)? {display:'none'}:{display:'block'}} class="fa-solid fa-trash" onClick={()=>deleteMan(man.id, man.name, man.developer)}/></div>
                             <div className="tab_tabel_tabelman_strock_fio">
                                 <div className="tab_tabel_tabelman_strock_fio_name">{man.name}</div>
                                 <div className="tab_tabel_tabelman_strock_fio_dev">{man.developer}</div>
@@ -877,7 +893,8 @@ export const TimeSheepPortal = () => {
                             </div>
                             <div className="tab_tabel_tabelman_strock_itogy">
                                 <div className="tab_tabel_tabelman_strock_itogy-header">Итого</div>
-                                <div className="tab_tabel_tabelman_strock_itogy-sum">0</div>
+                                <div className="tab_tabel_tabelman_strock_itogy-sum">
+                                    { rayDay(man.m1)+rayDay(man.m2)+rayDay(man.m3)+rayDay(man.m4)+rayDay(man.m5)+rayDay(man.m6)+rayDay(man.m7)+rayDay(man.m8)+rayDay(man.m9)+rayDay(man.m10)+rayDay(man.m11)+rayDay(man.m12)+rayDay(man.m13)+rayDay(man.m14)+rayDay(man.m15)+rayDay(man.m16)+rayDay(man.m17)+rayDay(man.m18)+rayDay(man.m19)+rayDay(man.m20)+rayDay(man.m21)+rayDay(man.m22)+rayDay(man.m23)+rayDay(man.m24)+rayDay(man.m25)+rayDay(man.m26)+rayDay(man.m27)+rayDay(man.m28)+rayDay(man.m29)+rayDay(man.m30)+rayDay(man.m31)}</div>
                             </div>
                             <div className="tab_tabel_tabelman_strock_dop">
                                 <div className="tab_tabel_tabelman_strock_calendar_s">
