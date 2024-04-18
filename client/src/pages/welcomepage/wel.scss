@@ -1,25 +1,356 @@
-.welcomepage{
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-image: url("../../assets/images/backimg.jpg");
+$wwhiteColor:rgba(255,255,255,1);
+$whiteColor:rgba(236,236,236,1);
+$whiteHoverColor:rgba(200,200,200,1);
+$blackColor:rgba(30,30,30,1);
+$greyColor:rgba(116,116,116,1);
+$wgreyColor:rgba(217,217,217,1);
+$wwgreyColor:rgba(240,240,240,1);
+$dgreyColor:rgba(97,118,118,1);
+$darkGreyColor:rgba(80,80,80,1);
+$redColor:rgba(215,26,0,1);
+$dredColor:rgba(215,26,0,0.5);
+$dblueColor:rgba(30,74,139,1);
+$wblueColor:rgba(50,157,217,1);
+$purpleColor:rgba(147, 112, 219, 1);
+$orangeColor:#FEAA2D;
+$blueColor:#00E4E4;
+$greenColor:#04B800;
+$fileColor:rgba(253,224,183,1);
+$yellowColor:rgba(255, 255, 0, 1);
+$transBlackColor:rgba(30,30,30,0.8);
+$transwwBlackColor:rgba(60,60,60,0.5);
+$transwBlackColor:rgba(30,30,30,0.6);
+$transBlueColor: rgba(2, 24, 68, 0.7);
+$transdBlueColor:rgba(13,17,52,0.81);
+$transWhiteColor:rgba(230,230,230,0.7);
 
-  .imgback{
-    background-color: rgba(2, 24, 68, 0.7);
+$headerHeight:80px;
+$newsheaderHeight:115px;
+
+$objwidth:384px;
+$calendarwidth:384px;
+$workswidth:420px;
+$worksHeight:220px;
+
+@media screen and (min-width: 500px){
+  .welcomepage{
     width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    .welcomepage_white{
-      width: 80vw;
-      height: 80vh;
-      background-color: #FFFFFF;
-      border-radius: 20px;
-      padding: 20px;
-    }
-  }
+    background-image: url("../../assets/images/backimg.jpg");
 
+    .imgback{
+      background-color: rgba(2, 24, 68, 0.7);
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .auth_back{
+        width: 100%;
+        height: 100%;
+        //background-color: $transBlueColor;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .auth_form{
+          width: 280px;
+          //text-align: center;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          .auth_line{
+            width: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .logo{
+              width: 120px;
+              height: 120px;
+
+              margin-top: 0px;
+              margin-bottom: 20px;
+              background-image: url("../../assets/images/logorsu.svg");
+              background-size: cover;
+
+            }
+            .title_back{
+              width: 140px;
+              color: #FFF;
+            }
+          }
+
+          .inauth{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            label{
+              color: #FFF;
+              font-weight: 700;
+              opacity: 0.8;
+            }
+            input:focus, input:-webkit-autofill, input {
+              width: 100%;
+              padding: 8px;
+              margin-top: 5px;
+              margin-bottom: 15px;
+              background-color: transparent !important;
+              border: none;
+              border-bottom: 1px solid $whiteColor;
+              color: $wwhiteColor !important;
+              -webkit-text-fill-color: $wwhiteColor !important;
+              outline: none;
+              transition: background-color 6000s ease-in-out 0s;
+            }
+            input:-webkit-autofill,
+            input:-webkit-autofill:hover,
+            input:-webkit-autofill:focus,
+            input:-webkit-autofill:active {
+              transition: background-color 6000s ease-in-out 0s; /* выставляется желаемая задержка */
+            }
+            input::placeholder{
+              color: $whiteColor;
+              font-size: 0.7rem;
+              text-transform: uppercase;
+            }
+            .button {
+              width: calc(100%);
+              background-color: $whiteColor;
+              color: $dgreyColor;
+              margin-top: 10px;
+              padding: 10px;
+              cursor: pointer;
+              border: 5px solid $whiteColor;
+              font-weight: 700;
+              text-align: center;
+              text-transform: uppercase;
+            }
+          }
+
+        }
+      }
+      .welcomepage_white{
+        width: 80vw;
+        height: 80vh;
+        background-color: #FFFFFF;
+        border-radius: 20px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+        opacity: 0; /* Начальное значение непрозрачности (блок скрыт) */
+        animation: fadeIn 0.5s forwards;
+        .title{
+          margin-left: 20px;
+          font-size: 20pt;
+        }
+        .welcomepage_white_mess{
+          height: 65%;
+          overflow-y: auto;
+          width: calc(100% - 40px);
+          padding: 20px;
+          //border: 2px solid #454545;
+        }
+        .fz152{
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          .fz152_text{
+            span{
+              border-bottom: 1px dotted #454545;
+              cursor: pointer;
+
+            }
+            margin-bottom: -18px;
+          }
+        }
+
+
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0; /* Начальное значение непрозрачности */
+        }
+        to {
+          opacity: 1; /* Конечное значение непрозрачности */
+        }
+      }
+    }
+
+  }
+}
+@media screen and (max-width: 500px){
+  .welcomepage{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("../../assets/images/backimg.jpg");
+
+    .imgback{
+      background-color: rgba(2, 24, 68, 0.7);
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .auth_back{
+        width: 100%;
+        height: 100%;
+        //background-color: $transBlueColor;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .auth_form{
+          width: 280px;
+          //text-align: center;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          .auth_line{
+            width: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .logo{
+              width: 120px;
+              height: 120px;
+
+              margin-top: 0px;
+              margin-bottom: 20px;
+              background-image: url("../../assets/images/logorsu.svg");
+              background-size: cover;
+
+            }
+            .title_back{
+              width: 140px;
+              color: #FFF;
+            }
+          }
+
+          .inauth{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            label{
+              color: #FFF;
+              font-weight: 700;
+              opacity: 0.8;
+            }
+            input:focus, input:-webkit-autofill, input {
+              width: 100%;
+              padding: 8px;
+              margin-top: 5px;
+              margin-bottom: 15px;
+              background-color: transparent !important;
+              border: none;
+              border-bottom: 1px solid $whiteColor;
+              color: $wwhiteColor !important;
+              -webkit-text-fill-color: $wwhiteColor !important;
+              outline: none;
+              transition: background-color 6000s ease-in-out 0s;
+            }
+            input:-webkit-autofill,
+            input:-webkit-autofill:hover,
+            input:-webkit-autofill:focus,
+            input:-webkit-autofill:active {
+              transition: background-color 6000s ease-in-out 0s; /* выставляется желаемая задержка */
+            }
+            input::placeholder{
+              color: $whiteColor;
+              font-size: 0.7rem;
+              text-transform: uppercase;
+            }
+            .button {
+              width: calc(100%);
+              background-color: $whiteColor;
+              color: $dgreyColor;
+              margin-top: 10px;
+              padding: 10px;
+              cursor: pointer;
+              border: 5px solid $whiteColor;
+              font-weight: 700;
+              text-align: center;
+              text-transform: uppercase;
+            }
+          }
+
+        }
+      }
+      .welcomepage_white{
+        width: 80vw;
+        height: 90vh;
+        background-color: #FFFFFF;
+        border-radius: 20px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+        opacity: 0; /* Начальное значение непрозрачности (блок скрыт) */
+        animation: fadeIn 0.5s forwards;
+        .title{
+          margin-left: 20px;
+        }
+        .welcomepage_white_mess{
+          height: 65%;
+          overflow-y: auto;
+          width: calc(100% - 40px);
+          padding: 20px;
+          //border: 2px solid #454545;
+        }
+        .fz152{
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          .fz152_text{
+            span{
+              border-bottom: 1px dotted #454545;
+              cursor: pointer;
+
+            }
+            margin-bottom: -18px;
+          }
+        }
+
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0; /* Начальное значение непрозрачности */
+        }
+        to {
+          opacity: 1; /* Конечное значение непрозрачности */
+        }
+      }
+    }
+
+  }
+}
+
+.welcomepage_white_btns{
+  width: 100%;
+  height: 60px;
+  .welcomepage_white_btns_ok{
+    width: calc(100% - 40px);
+    height: 60px;
+    padding: 0 20px;
+    border-radius: 10px;
+    border: 1px solid #454545;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.2s;
+    cursor: pointer;
+  }
+  .welcomepage_white_btns_ok:hover{
+    opacity: 0.8;
+    background-color: #E9E9E9;
+    transition: 0.2s;
+  }
 }
