@@ -80,6 +80,27 @@ const T13 = sequelize.define('t13', {
     d30:{type:DataTypes.STRING},
     d31:{type:DataTypes.STRING}
 })
+const T13Uni = sequelize.define('t13uni', {
+    id:{type:DataTypes.INTEGER,primaryKey: true,autoIncrement:true},
+    name:{type:DataTypes.TEXT},
+    developer:{type:DataTypes.TEXT},
+    branch:{type:DataTypes.TEXT},
+    onboard:{type:DataTypes.TEXT},
+    term:{type:DataTypes.TEXT},
+    document:{type:DataTypes.TEXT},
+    tn:{type:DataTypes.TEXT,unique: true},
+    groups:{type:DataTypes.TEXT},
+    status:{type:DataTypes.TEXT},
+    gender:{type:DataTypes.TEXT},
+    rk:{type:DataTypes.STRING},
+    sn:{type:DataTypes.STRING},
+    oklad:{type:DataTypes.STRING},
+    method:{type:DataTypes.TEXT},
+    month:{type:DataTypes.STRING},
+    year:{type:DataTypes.STRING},
+    inn:{type:DataTypes.STRING},
+    birthday:{type:DataTypes.STRING},
+})
 const Company = sequelize.define('company',{
     id:{type:DataTypes.INTEGER,primaryKey: true,autoIncrement:true},
     inn:{type:DataTypes.STRING},
@@ -670,6 +691,12 @@ const CrewManlist = sequelize.define('crewmanlist',{
     maninfo:{type:DataTypes.STRING},
     inn:{type:DataTypes.STRING},
 })
+const CrewMans = sequelize.define('crewmans',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    crew_id:{type:DataTypes.INTEGER},
+    user_tn:{type:DataTypes.STRING},
+    inn:{type:DataTypes.STRING},
+})
 const ViewsWorkSv = sequelize.define('viewsworksv',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     shifr:{type:DataTypes.STRING},
@@ -791,7 +818,15 @@ const HumanList = sequelize.define('humanlist',{
     d31:{type:DataTypes.STRING}
 })
 
+T13Uni.hasMany(CrewMans, { foreignKey: 'user_tn', sourceKey: 'tn',constraints: false})
+HumanList.hasMany(CrewMans, { foreignKey: 'user_tn', sourceKey: 'tn',constraints: false})
+
+CrewMans.belongsTo(T13Uni,  { foreignKey: 'user_tn', targetKey: 'tn',constraints: false})
+CrewMans.belongsTo(HumanList, { foreignKey: 'user_tn', targetKey: 'tn',constraints: false});
+
+CrewBase.hasMany(CrewMans, { foreignKey: 'crew_id', sourceKey: 'id' });
+CrewMans.belongsTo(CrewBase, { foreignKey: 'crew_id', targetKey: 'id' });
 
 module.exports = {
-    ZaSv,TableZayavka,HumanList,KtuDoc,KtuList,MessageSv,ViewsWorkSv,CrewManlist,CrewDoclist,CrewBase,CrewSv,OgmPrice,WorkPrice,StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
+    T13Uni,CrewMans,ZaSv,TableZayavka,HumanList,KtuDoc,KtuList,MessageSv,ViewsWorkSv,CrewManlist,CrewDoclist,CrewBase,CrewSv,OgmPrice,WorkPrice,StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
 }

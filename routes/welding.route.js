@@ -30,7 +30,9 @@ router.post('/saveconn',authMiddlewere, weldingController.saveConn)
 router.post('/addweldman',authMiddlewere, weldingController.addMan)
 router.post('/deleteman',authMiddlewere, weldingController.deleteMan)
 router.post('/createnewcrew',authMiddlewere, weldingController.createNewCrew)
-
+router.post('/loadmanstocrew',authMiddlewere, weldingController.loadMansToCrew)
+router.post('/loadcrewdata',authMiddlewere, weldingController.loadCrewData)
+router.post('/savecrewmans',authMiddlewere, weldingController.saveCrewMans)
 
 
 module.exports = router

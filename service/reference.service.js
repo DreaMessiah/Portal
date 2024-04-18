@@ -1,4 +1,5 @@
-const {OgmPrice,WorkPrice, T13, KtuDoc, KtuList} = require('../models/models')
+ const {OgmPrice,WorkPrice, T13, KtuDoc, KtuList, T13Uni} = require('../models/models')
+ const T13Dto = require("../dtos/t13Dto");
 
 
 class ReferenceService {
@@ -88,7 +89,23 @@ class ReferenceService {
         const old = await T13.findAll({where:{inn:inn,month:t13[0].month,year:t13[0].year}})
         if(!old) return {message:'Ошибка очистки'}
         old.map(async item => await item.destroy())
-        return await Promise.all( t13.map(async item => {return await T13.create({})}))
+        const olduni = await T13Uni.findAll()
+        if(!olduni) return {message:'Ошибка очистки'}
+        olduni.map(async item => await item.destroy())
+        let existingItem = []
+        const T13new = await Promise.all( t13.map(async item => {
+            if(!existingItem.includes(item.tn)) {
+                try {
+                    await T13Uni.create(new T13Dto(item)).then(() => {
+                        existingItem.push(item.tn)
+                    })
+                } catch (error) {
+                    console.log(existingItem + ' Повторяющийся тип')
+                }
+            }
+            return await T13.create(item)
+        }))
+        return T13new
     }
 
     async getKtuDocs(inn){

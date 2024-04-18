@@ -5,6 +5,6 @@ const authMiddlewere = require('../middleware/auth.middleware')
 
 router.post('/get',authMiddlewere,T13Controller.get)
 router.get('/getactual',authMiddlewere,T13Controller.getActual)
-
+router.get('/getworkers',authMiddlewere,T13Controller.getWorkers)
 
 module.exports = router

@@ -2,7 +2,7 @@
   display: flex !important;
 }
 
-.modal {
+.modal,.modal-table {
   position: fixed;
   top: 0;
   left: 0;
@@ -12,7 +12,7 @@
   justify-content: center;
   align-items: center;
 }
-.modal_win{
+.modal_win,.modal_win-table{
   position: fixed;
   top: 0;
   left: 0;

@@ -21,7 +21,14 @@ class T13Controller {
             next(e)
         }
     }
-
+    async getWorkers(req,res,next) {
+        try{
+            const workers = await T13Service.getWorkers(req.user.inn)
+            return res.status(200).json(workers)
+        }catch (e){
+            next(e)
+        }
+    }
 
 }
 module.exports = new T13Controller()

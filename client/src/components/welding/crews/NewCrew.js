@@ -1,20 +1,18 @@
 import "./crews.scss"
-import {Link} from "react-router-dom";
 import CmsDatePicket from "../../inputs/CmsDatePicket";
 import {useState} from "react";
 import {useContext, useEffect} from "react";
 import {Context} from "../../../index";
-import ObjsService from "../../../services/ObjsService";
-import Select from "react-select";
 import React from "react";
 import WeldingService from "../../../services/WeldingService";
-import {ModalBigWin} from "../../modalwin/ModaBiglWin";
-import ModalFiles from "../../modalwin/ModalFiles";
 import UserService from "../../../services/UserService";
 import MultiSelect from "../../inputs/MultiSelect";
 import CheckBox from "../../inputs/CheckBox";
 import FileInput from "../../inputs/FileInput";
 import {useMessage} from "../../../hooks/message.hook";
+import ModalFiles from "../../modalwin/ModalFiles";
+import ModalForTable from "../../modalwin/ModalForTable";
+import CmsSelect from "../../inputs/CmsSelect";
 
 export const NewCrewS = () => {
     const [datein, setDatein] = useState()
@@ -31,17 +29,22 @@ export const NewCrewS = () => {
     const [num,setNum] = useState('')
     const [about,setAbout] = useState('')
     const [group,setGroup] = useState([])
+    const [oldgroup,setOldGroup] = useState([])
     const [docs,setDocs] = useState([])
+
+    const [selectedCrew,setSelectedCrew] = useState(-1)
+    const [crewMans,setCrewMans] = useState([])
+    const [crewData,setCrewData] = useState([])
+    const [onChangeCrewMans,setOnChangeCrewMans] = useState(false)
 
     const [onDocuments,setOnDocuments] = useState(false)
 
     const  {store} = useContext(Context)
     const message = useMessage()
 
-
     const loadingHandler = async () => {
         try {
-            const {data} = await UserService.fetchActiualT13()
+            const {data} = await UserService.getWorkers()
             const crews = await WeldingService.getCrew()
             if(data && crews.data){
                 setListMans(data)
@@ -57,6 +60,18 @@ export const NewCrewS = () => {
     useEffect(() => {
         loadingHandler()
     }, [])
+    useEffect(() => {
+        if(selectedCrew>=0){
+            loadCrewHandler()
+        }
+    },[selectedCrew])
+    useEffect(() => {
+        if (JSON.stringify(group) === JSON.stringify(oldgroup)) {
+            setOnChangeCrewMans(false)
+        } else {
+            setOnChangeCrewMans(true)
+        }
+    },[group])
     const checkEmpty = () => {
         const n = [...empty]
 
@@ -79,14 +94,39 @@ export const NewCrewS = () => {
         setDocs([])
         setOpenblock(false)
     }
+    const loadCrewHandler = async () => {
+        try{
+            if(selectedCrew >= 0){
+                const {data} = await WeldingService.loadMansToCrew(listCrew[selectedCrew].id)
+                const crewData = await WeldingService.loadCrewData(listCrew[selectedCrew].id)
+                if(data && crewData.data){
+                    setCrewMans(data)
+                    setCrewData(crewData.data)
+                    const selectedGroup = []
+                    listMans.map(item => {
+                        data.map(row => {
+                          if(row.humanlist) if (row.humanlist.tn === item.tn) selectedGroup.push(item)
+                          if(row.t13uni) if (row.t13uni.tn === item.tn) selectedGroup.push(item)
+                        })
+                    })
+                    setGroup(selectedGroup.map(item => ({ ...item })))
+                    setOldGroup(selectedGroup.map(item => ({ ...item })))
+                }
+            }
+        }catch (e) {
+            console.log(e)
+        }
+    }
+    const selectCrewHandler = (index) => {
+        setActive(!active)
+        setSelectedCrew(index)
+    }
     const createHandler = async () => {
         try {
             if(checkEmpty()){
                 const crew = {crewname:name,totalmans:num,comment:about,inn:store.user.inn}
-                console.log(crew)
-                const {data} = await WeldingService.createNewCrew(crew)
+                const {data} = await WeldingService.createNewCrew(crew,group)
                 if(data){
-                    console.log(data)
                     setListCrew([...listCrew,data])
                     setEmptyStates()
                     message('Бригада добавлена')
@@ -98,7 +138,57 @@ export const NewCrewS = () => {
             console.log(e)
         }
     }
+    const delmanHandler = (index) => {
+        const newGroup = [...group]
+        newGroup.splice(index,1)
+        setGroup(newGroup)
 
+    }
+    const cancelHandler = () => {
+        setActive(false)
+        setSelectedCrew(-1)
+    }
+    const saveCrewHandler = async() => {
+        try {
+            if(onChangeCrewMans){
+                const {data} = await WeldingService.saveCrewMans(crewData.id,group)
+                if(data) message('Список изменен')
+                else message('Ошибка изменения списка')
+                cancelHandler()
+            }
+        }catch (e) {
+            console.log(e)
+        }
+    }
+    function ViewCrew(){
+
+        return (
+            <div className={'modal_crew_view'}>
+                <div className={'title'}>{crewData.crewname}</div>
+                <div className={`p`}>{crewData.comment}</div>
+                <div className={`pm`}>Среднее количество работников: {crewData.totalmans}</div>
+                <div className={`view_crew`}>
+                    {group.length && group.map((item,index) => (
+                        <div key={index} className="view_crew_row">
+                            <div className="view_crew_colimn c1">{index+1}</div>
+                            <div className="view_crew_colimn c2">{item.name}</div>
+                            <div className="view_crew_colimn c3">{item.developer}</div>
+                            <div className="view_crew_colimn c4">{item.tn}</div>
+                            <div className="view_crew_colimn c5"><i onClick={(e) => delmanHandler(index)} className="fa-solid fa-xmark"></i></div>
+                        </div>
+                    ))}
+                </div>
+                <div className={`view-select`}>
+                    <MultiSelect options={listMans} setOptions={setGroup} values={group} />
+                </div>
+
+                <div className={`buttons view_crew_btn`}>
+                    <div onClick={(e) => saveCrewHandler()} className={`button ${!onChangeCrewMans && 'noactive'}`}>Сохранить</div>
+                    <div onClick={(e) => cancelHandler()} className={`button`}>Отменить</div>
+                </div>
+            </div>
+        )
+    }
     return (
        <div className="newcrew">
            <div className="newcrew_title">Список Звеньв и Бригад</div>
@@ -144,7 +234,7 @@ export const NewCrewS = () => {
                            <div className="newcrew_list_strock_pp">{index+1}</div>
                            <div className="newcrew_list_strock_name">{crew.crewname}</div>
                            <div className="newcrew_list_strock_num">{crew.comment}</div>
-                           <div className="newcrew_list_strock_open" onClick={()=>{setActive(!active); }}>Открыть</div>
+                           <div className="newcrew_list_strock_open" onClick={()=>selectCrewHandler(index)}>Открыть</div>
                        </div>
                    ))}
 
@@ -156,7 +246,7 @@ export const NewCrewS = () => {
                    {/*</div>*/}
                </div>
            </div>
-           <ModalFiles heigth = {'80vh'} width={'80vh'} data={'gdfg'} active={active} setActive={setActive} />
+           <ModalForTable heigth = {'80vh'} data={<ViewCrew/>} active={active} setActive={setActive} />
        </div>
     )
 
