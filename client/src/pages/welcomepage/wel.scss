@@ -1,0 +1,25 @@
+.welcomepage{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../../assets/images/backimg.jpg");
+
+  .imgback{
+    background-color: rgba(2, 24, 68, 0.7);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .welcomepage_white{
+      width: 80vw;
+      height: 80vh;
+      background-color: #FFFFFF;
+      border-radius: 20px;
+      padding: 20px;
+    }
+  }
+
+}

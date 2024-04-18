@@ -58,6 +58,7 @@ import {ItogTabel} from "./pages/tabel/ItogTabel";
 import {AllTabels} from "./pages/tabel/AllTabels";
 import {HrMenu} from "./pages/hr/HrMenu";
 import HrRouter from "./pages/hr/HrRouter";
+import {Welcomepage} from "./pages/welcomepage/Welcomepage";
 
 function App() {
     const {store} = useContext(Context)
@@ -138,6 +139,7 @@ function App() {
                         <Route path="/welwel" element={<WelMY />} />
                         <Route path="/itogtabel" element={<ItogTabel />} />
                         <Route path="/alltabels" element={<AllTabels />} />
+                        <Route path="/welcome" element={<Welcomepage />} />
                     </Routes>
                 </div>
             </Router>
