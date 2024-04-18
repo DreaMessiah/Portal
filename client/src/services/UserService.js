@@ -30,4 +30,8 @@ export default class UserService {
     static fetchActiualT13() {
         return $api.get('/t13/getactual')
     }
+    static getWorkers() {
+        return $api.get('/t13/getworkers')
+    }
+
 }

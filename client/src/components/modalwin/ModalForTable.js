@@ -2,9 +2,9 @@ import "./modalupload.scss";
 
 
 
-export default function ModalFiles ( {heigth = '30vh', width = '1000px',data, active, setActive}){
+export default function ModalForTable ( {heigth = '30vh', width = '1000px',data, active, setActive}){
     return (
-        <div className={`modal ${active ? 'modal_active' : ''}`}>
+        <div className={`modal modal-for-table ${active ? 'modal_active' : ''}`}>
 
             <div style={{height:heigth,width:width}} className='middle-modal-win-files'>
                 <div className='middle-modal-win-up'>

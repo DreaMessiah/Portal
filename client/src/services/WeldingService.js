@@ -7,8 +7,8 @@ export default class WeldingService{
     static async getCrew(){
         return $api.post(`/welding/getallcrew`)
     }
-    static async createNewCrew(crew){
-        return $api.post(`/welding/createnewcrew`,{crew})
+    static async createNewCrew(crew,group){
+        return $api.post(`/welding/createnewcrew`,{crew,group})
     }
     static async getMyCrews(params){
         return $api.post(`/welding/getmycrews`, params)
@@ -69,6 +69,15 @@ export default class WeldingService{
     }
     static async deleteMan(id) {
         return $api.post(`/welding/deleteman`, {id})
+    }
+    static async loadMansToCrew(id) {
+        return $api.post(`/welding/loadmanstocrew`, {id})
+    }
+    static async loadCrewData(id) {
+        return $api.post(`/welding/loadcrewdata`, {id})
+    }
+    static async saveCrewMans(id,group) {
+        return $api.post(`/welding/savecrewmans`, {id,group})
     }
 
 

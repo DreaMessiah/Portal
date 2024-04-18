@@ -20,9 +20,10 @@ class WeldingController {
     }
     async createNewCrew(req,res,next) {
         try{
-            const {crew} = req.body
-            console.log(crew)
+            const {crew,group} = req.body
+            console.log(group)
             const newCrew = await WeldingService.createNewCrew(crew)
+            await WeldingService.createNewCrewGroup(newCrew.id,group)
             return res.status(200).json(newCrew)
         }catch (e){
             next(e)
@@ -231,6 +232,34 @@ class WeldingController {
             next(e)
         }
     }
+    async loadMansToCrew(req,res,next) {
+        try{
+            const {id} = req.body
+            const mans = await WeldingService.loadMansToCrew(id)
+            return res.status(200).json(mans)
+        }catch (e){
+            next(e)
+        }
+    }
+    async loadCrewData(req,res,next) {
+        try{
+            const {id} = req.body
+            const crew = await WeldingService.loadCrewData(id)
+            return res.status(200).json(crew)
+        }catch (e){
+            next(e)
+        }
+    }
+    async saveCrewMans(req,res,next) {
+        try{
+            const {id,group} = req.body
+            const crew = await WeldingService.saveCrewMans(id,group)
+            return res.status(200).json(crew)
+        }catch (e){
+            next(e)
+        }
+    }
+
 
 
 }

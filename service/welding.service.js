@@ -1,9 +1,10 @@
 const {Objects, ObjectsSV, YmSvarka, CrewBase, CrewSv, TabelSv, CrewManlist, TableTabel, ViewsWorkSv, ZaSv,
-    TableZayavka, KtuList, Statuses, KtuDoc
+    TableZayavka, KtuList, Statuses, KtuDoc, CrewMans, T13Uni, HumanList, T13
 } = require('../models/models')
 const ObjsDto = require('../dtos/objsDto')
 const ApiError = require('../exceptions/api.error')
 const WelmanDto = require("../dtos/welmanDto");
+const T13Dto = require("../dtos/t13Dto");
 class WeldingService{
     async getObjects(inn){
         const listObjs = await Objects.findAll({where: {inn:inn}})
@@ -14,11 +15,17 @@ class WeldingService{
         return listCrew
     }
     async createNewCrew(crew){
-        console.log(crew)
         const newCrew = await CrewBase.create(crew)
         return newCrew
     }
-
+    async createNewCrewGroup(id,group){
+        if(group.length){
+            await group.map(async item => {
+                await CrewMans.create({crew_id:id,user_tn:item.tn,inn:item.inn})
+            })
+        }
+        return true
+    }
     async getMyCrews(params){
         const listMyCrews = await CrewSv.findAll({where: {shifr:params.shifr}})
         return listMyCrews
@@ -279,6 +286,35 @@ class WeldingService{
         }
         return {del:false,message:'Проблема удаления'}
     }
+    async loadMansToCrew(id){
+        const list = await CrewMans.findAll({where:{crew_id:id},
+            include: [
+                { model: T13Uni, attributes: ['name','developer','tn'] },
+                { model: HumanList, attributes: ['name','developer','tn'] }
+            ]
+        })
+        if(!list) return {err:true,message:'Люди привязанные к данной бригаде отсутствуют'}
+        return list
+    }
+    async loadCrewData(id){
+        const crew = await CrewBase.findByPk(id)
+        return crew
+    }
+    async saveCrewMans(id,group){
+        const crew = await CrewBase.findByPk(id)
+        if(crew){
+            const mans = await CrewMans.findAll({where:{crew_id:id}})
+            mans.map(async item => await item.destroy())
+            if(group.length){
+                await group.map(async item => {
+                    await CrewMans.create({crew_id:id,user_tn:item.tn,inn:item.inn})
+                })
+                return true
+            }
+        }
+        return false
+    }
+
 
 }
 

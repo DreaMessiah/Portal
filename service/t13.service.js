@@ -1,5 +1,5 @@
 const ApiError = require('../exceptions/api.error')
-const {User,T13} = require("../models/models");
+const {User,T13, T13Uni, HumanList} = require("../models/models");
 const T13Dto = require("../dtos/t13Dto");
 
 class T13Service {
@@ -22,6 +22,13 @@ class T13Service {
         })
         return T13forSelect
     }
-
+    async getWorkers(inn){
+        const t13 = await T13Uni.findAll({where:{inn:inn}})
+        const hu = await HumanList.findAll()
+        const workers = [...t13,...hu]
+        return workers.map(item => {
+            return {...item.dataValues,value:item.dataValues.tn,label:item.dataValues.name}
+        })
+    }
 }
 module.exports = new T13Service()
