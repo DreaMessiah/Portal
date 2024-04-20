@@ -5,10 +5,13 @@ import {API_URL} from "../http";
 
 export default class Store {
     user = {}
+    uni = {}
     avatar = ''
     t13 = {}
     onboard = ''
     isAuth = false
+    isTn = false
+    isCreated = false
     isLoading = false
     constructor() {
         makeAutoObservable(this)
@@ -16,9 +19,18 @@ export default class Store {
     setAuth(bool){
         this.isAuth = bool
     }
+    setTn(bool){
+        this.isTn = bool
+    }
+    setIsCreated(bool){
+        this.isCreated = bool
+    }
     setUser(user){
         this.user = user
         if(!this.user.avatar) this.user.avatar = 'face.png'
+    }
+    setUni(uni){
+        this.uni = uni
     }
     setAvatar(avatar){
         this.user.avatar = avatar
@@ -41,14 +53,37 @@ export default class Store {
             this.setUser(response.data.user)
             await this.checkT13()
         }catch (e){
-            console.log(e)
-            return e.response?.data?.message
-
+            return e
         }
     }
-    async registration(login,password,tn,full_name,id,email,inn,moderator,account,unit) {
+    async tnenter(tn) {
         try{
-            const response = await AuthService.registration(login,password,tn,full_name,id,email,inn,moderator,account,unit)
+            const response = await AuthService.tnenter(tn)
+            this.setTn(true)
+            this.setUni(response.data.uni)
+        }catch (e){
+            return e
+        }
+    }
+    async createUser(login,password) {
+        try {
+            const response = await AuthService.createUser(login,password,this.uni.tn,this.uni.name,this.uni.developer)
+            this.setIsCreated(true)
+            this.setUser(response.data.user)
+            this.setUni(response.data.uni)
+        }catch (e) {
+            return e
+        }
+    }
+    async setFz152(tn) {
+        await AuthService.setFz152(tn)
+        this.setUni({})
+        this.setTn(false)
+        this.setIsCreated(false)
+    }
+    async registration(login,password,tn,full_name,email,inn,moderator,account,unit) {
+        try{
+            const response = await AuthService.registration(login,password,tn,full_name,email,inn,moderator,account,unit)
             localStorage.setItem('token',response.data.accessToken)
             this.setAuth(true)
             this.setUser(response.data.user)
@@ -66,11 +101,14 @@ export default class Store {
             console.log(e.response?.data?.message)
         }
     }
+
     async checkAuth(){
         this.setLoading(true)
         try{
             const response = await axios.get(`${API_URL}/auth/refresh`,{withCredentials:true})
             localStorage.setItem('token',response.data.accessToken)
+            console.log(response.data.user)
+            this.setIsCreated(!!!response.data.user.checked)
             this.setAuth(true)
             this.setUser(response.data.user)
             this.setAvatar(response.data.user.avatar)

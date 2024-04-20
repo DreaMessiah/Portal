@@ -6,7 +6,19 @@ const authMiddlewere = require('../middleware/auth.middleware')
 
 router.post('/login',usersController.login)
 router.post('/logout',usersController.logout)
+router.post('/tnenter',usersController.tnenter)
+router.post('/setfz152',usersController.setfz152)
+
 router.get('/refresh',usersController.refresh)
+
+router.post('/createuser',
+    body('password').isLength({min:3, max:32}).withMessage('Длинна пароля должна быть не мешьше 8ми и не больше 32х символов'),
+    body('login').isLength({ min: 4, max: 20 }).withMessage('Имя пользователя должно быть от 4 до 20 символов')
+        .matches(/^[a-z0-9]+$/).withMessage('Имя пользователя должно содержать только латинские буквы и цифры')
+        .not().isEmpty().withMessage('Имя пользователя не должно быть пустым')
+    ,usersController.createuser)
+
+
 router.post('/registration',
     body('email').isEmail().withMessage('Некорректный EMail адрес'),
     body('password').isLength({min:3, max:32}).withMessage('Длинна пароля должна быть не мешьше 8ми и не больше 32х символов'),

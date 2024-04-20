@@ -14,6 +14,7 @@ import {useMessage} from "../../../hooks/message.hook";
 import Select from "react-select";
 import ObjsService from "../../../services/ObjsService";
 import {Context} from "../../../index";
+import UserService from "../../../services/UserService";
 
 export const TabelformNew = () => {
     const location = useLocation();
@@ -30,9 +31,7 @@ export const TabelformNew = () => {
     let getYear = searchParams.get('year');
 
     const message = useMessage()
-
     const [thisobj, setThisobj] = useState({})
-
     const getParamObj = async (e) => {
         try {
             const {data} = await WeldingService.getObgForHook({getShifr})
@@ -97,7 +96,7 @@ export const TabelformNew = () => {
     const t13List = async (e) => {
         let month = months[currentMonth];
         try {
-            const listMan = await ObjsService.getT13({inn, month, year})
+            const listMan = await UserService.getWorkers()
             let i = 0
             if (listMan.data.length !== 0){
                 listMan.data.forEach(man => {

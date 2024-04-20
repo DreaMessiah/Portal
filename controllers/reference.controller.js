@@ -110,6 +110,16 @@ class ReferenceController {
             next(e)
         }
     }
+    async setPayslip(req,res,next) {
+        try{
+            const {payslip} = req.body
+            const data = await ReferenceService.changeMonthPayslip(payslip,req.user.inn)
+            return res.status(200).json(data)
+        }catch (e){
+            next(e)
+        }
+    }
+
     async getKtuDocs(req,res,next) {
         try{
             const data = await ReferenceService.getKtuDocs(req.user.inn)

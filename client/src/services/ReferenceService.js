@@ -36,6 +36,11 @@ export default class ReferenceService{
     static async setT13(t13){
         return $api.post('/reference/sett13',{t13})
     }
+
+    static async setPayslip(payslip){
+        return $api.post('/reference/setpayslip',{payslip})
+    }
+
     static async getKtuDocs(){
         return $api.get('/reference/getktudocs')
     }

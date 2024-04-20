@@ -5,7 +5,7 @@ import './assets/styles/styles.scss'
 import './assets/styles/media1550.scss'
 
 import MainPage from "./pages/old/MainPage"
-import AuthPage from "./pages/old/AuthPage"
+import AuthPage from "./pages/AuthPage"
 import SettingsPage from "./pages/old/SettingsPage"
 import LkPage from "./pages/old/LkPage"
 import NewsPage from "./pages/old/NewsPage"
@@ -69,24 +69,48 @@ function App() {
         if(localStorage.getItem('token')){
             store.checkAuth()
         }
+        console.log(store.uni.name)
     },[])
     if(store.isLoading){
         return <div>Загрузка...</div>
     }
+    if(store.isCreated) return (
+        <Router>
+            <div className="App">
+                <Routes>
+                    <Route path="/*" element={<Welcomepage />} />
+                    <Route path="/fz152" element={<Fz152 />} />
+                </Routes>
+            </div>
+        </Router>
+    )
+    if(store.isTn) return (
+        <Router>
+            <div className="App">
+                <Routes>
+                    <Route path="/*" element={<MakeLogin />} />
+                </Routes>
+            </div>
+        </Router>
+    )
     if(!store.isAuth) return (
         <Router>
             <div className="App">
                 <Routes>
                     <Route path='*' element={<AuthPage/>} />
+                    <Route path="/tnenter" element={<TnEnter />} />
                 </Routes>
             </div>
         </Router>
     )
+
     return (
         <DataProvider>
             <Router>
                 <div className="App">
                     <Routes>
+                        <Route path='/*' element={<NewstartPage/>}/>
+                        <Route path='/loadpayslip' element={<OgmPage page={6}/>}/>
                         <Route path='/ktulist' element={<OgmPage page={5}/>}/>
                         <Route path='/ktu' element={<OgmPage page={4}/>}/>
                         <Route path='/t13' element={<OgmPage page={3}/>}/>
@@ -142,10 +166,6 @@ function App() {
                         <Route path="/welwel" element={<WelMY />} />
                         <Route path="/itogtabel" element={<ItogTabel />} />
                         <Route path="/alltabels" element={<AllTabels />} />
-                        <Route path="/welcome" element={<Welcomepage />} />
-                        <Route path="/fz152" element={<Fz152 />} />
-                        <Route path="/makeLogin" element={<MakeLogin />} />
-                        <Route path="/tnenter" element={<TnEnter />} />
                     </Routes>
                 </div>
             </Router>

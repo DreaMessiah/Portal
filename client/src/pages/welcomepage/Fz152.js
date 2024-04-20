@@ -1,6 +1,7 @@
 import React from "react";
 import "./wel.scss"
 import CheckBox from "../../components/inputs/CheckBox";
+import {Link} from "react-router-dom";
 
 export function Fz152(){
     return (
@@ -33,7 +34,7 @@ export function Fz152(){
 
                     </div>
                     <div className="welcomepage_white_btns">
-                        <div className="welcomepage_white_btns_ok">Принять и продолжить</div>
+                        <Link to={'/welcome?ok=true'} className="welcomepage_white_btns_ok">Принять и продолжить</Link>
                     </div>
                 </div>
             </div>

@@ -1,4 +1,4 @@
- const {OgmPrice,WorkPrice, T13, KtuDoc, KtuList, T13Uni} = require('../models/models')
+ const {OgmPrice,WorkPrice, T13, KtuDoc, KtuList, T13Uni, Payslip} = require('../models/models')
  const T13Dto = require("../dtos/t13Dto");
 
 
@@ -106,6 +106,12 @@ class ReferenceService {
             return await T13.create(item)
         }))
         return T13new
+    }
+    async changeMonthPayslip(payslip,inn){
+        const old = await Payslip.findAll({where:{inn:inn,month:payslip[0].month,year:payslip[0].year+'',type:payslip[0].type}})
+        if(!old) return {message:'Ошибка очистки'}
+        old.map(async item => await item.destroy())
+        return await Promise.all( payslip.map(async item => { return await Payslip.create(item) }))
     }
 
     async getKtuDocs(inn){

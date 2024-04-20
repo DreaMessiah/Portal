@@ -21,6 +21,19 @@ class UsersController {
             next(e)
         }
     }
+    async createuser(req,res,next) {
+        try{
+            const errors = validationResult(req)
+            if(!errors.isEmpty()) next(ApiError.BadRequest('Ошибка при валидации',errors.array()))
+            else{
+                const {tn,full_name,login,password,developer} = req.body
+                const userData = await userService.createuser(tn,full_name,login,'new@new.ru',password,'8617014209',developer)
+                return res.json(userData)
+            }
+        }catch (e){
+            next(e)
+        }
+    }
     async login(req,res,next) {
         try{
             const {login,password} = req.body
@@ -31,12 +44,30 @@ class UsersController {
             next(e)
         }
     }
+    async setfz152(req,res,next) {
+        try{
+            const {tn} = req.body
+            const fz = await userService.setfz152(tn)
+            return res.json(fz)
+        }catch (e) {
+            next(e)
+        }
+    }
     async logout(req,res,next) {
         try{
             const refreshToken = req.cookies['refreshToken']
             const token = await userService.logout(refreshToken)
             res.clearCookie('refreshToken')
             return res.json(token)
+        }catch (e){
+            next(e)
+        }
+    }
+    async tnenter(req,res,next) {
+        try{
+            const {tn} = req.body
+            const tnData = await userService.tnenter(tn)
+            return res.json(tnData)
         }catch (e){
             next(e)
         }
@@ -55,7 +86,7 @@ class UsersController {
         try{
             const refreshToken = req.cookies['refreshToken']
             const userData = await userService.refresh(refreshToken)
-            res.cookie('refreshToken',userData.refreshToken,{maxAge:30*24*60*60*1000,httpOnly:true})
+            res.cookie('refreshToken',userData.refreshToken,{maxAge:30*24*60*60*1000,httpOnly:true}) // sameSite:'None',secure:true
             return res.json(userData)
         }catch (e){
             next(e)

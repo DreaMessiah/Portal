@@ -32,7 +32,6 @@ class FilesService {
 
     async compressResizeAndSaveImage(filePath,quality, width, height) {
         try {
-
             const buffer = await sharp(filePath).resize({ width, height, position: 'center' }).jpeg({ quality }).toBuffer()
             fs.writeFile(filePath, buffer, (err) => {
                 if (err) {
@@ -44,6 +43,32 @@ class FilesService {
             })
         } catch (error) {
             console.error('Ошибка при сжатии, изменении размера и перезаписи изображения:', error)
+        }
+    }
+    async compressProportionalImage(filePath, quality, maxWidth, maxHeight) {
+        try {
+            const image = sharp(filePath)
+            const metadata = await image.metadata()
+            const { width, height } = metadata
+
+            let resizeOptions = {}
+            if (width > height) {
+                resizeOptions = { width: maxWidth }
+            } else {
+                resizeOptions = { height: maxHeight }
+            }
+
+            const buffer = await image.rotate().resize(resizeOptions).jpeg({ quality,withoutEnlargement: true }).toBuffer()
+            fs.writeFile(filePath, buffer, (err) => {
+                if (err) {
+                    console.error('Ошибка при сохранении файла:', err)
+                    return;
+                }
+                sharp.cache(false)
+                console.log('Изображение успешно сохранено.')
+            });
+        } catch (error) {
+            console.error('Ошибка при сжатии, изменении размера и перезаписи изображения:', error);
         }
     }
     createDir(file){

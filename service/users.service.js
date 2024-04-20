@@ -1,6 +1,7 @@
-const {User, DiskSpace} = require('../models/models')
+const {User, DiskSpace, T13Uni} = require('../models/models')
 const bcrypt = require('bcrypt')
 const UserDto = require('../dtos/usersDto')
+const T13UniDto = require('../dtos/t13UniDto')
 const tokenService = require('../service/token.service')
 const ApiError = require('../exceptions/api.error')
 class UsersService{
@@ -13,6 +14,17 @@ class UsersService{
         const tokens = tokenService.generateTokens({...userDto})
         await tokenService.saveToken(userDto.id, tokens.refreshToken)
         return {...tokens,user: userDto}
+    }
+
+    async createuser(tn,full_name,login,email,password,inn,developer) {
+        const candidate = await User.findOne({where: {login:login}})
+        if(candidate) throw ApiError.BadRequest(`Пользователь с логином ${login} уже существует`)
+        const hashPassword = await bcrypt.hash(password,15)
+        const user = await User.create({tn,full_name,login,email,password:hashPassword,inn,unit:0,developer})
+        const uni = await T13Uni.findOne({ where:{tn:tn} })
+        const t13UniDto = new T13UniDto(uni)
+        const userDto = new UserDto(user)
+        return {user: userDto,uni:t13UniDto}
     }
     async login(login,password) {
         const user = await User.findOne({ where:{login:login} })
@@ -31,6 +43,23 @@ class UsersService{
         //console.log(await bcrypt.hash(password,15))
         return {...tokens,user: userDto}
     }
+
+    async setfz152(tn) {
+        const user = await User.findOne({ where:{tn:tn} })
+        if(!user) throw ApiError.BadRequest('Ошибка сервера, пройдите регистрацию снова')
+        user.checked = true
+        await user.save()
+        return {user:new UserDto(user)}
+    }
+    async tnenter(tn) {
+        const user = await User.findOne({ where:{tn:tn} })
+        if(user) throw ApiError.BadRequest('Пользователь с таким табельным номером уже существует')
+        const uni = await T13Uni.findOne({ where:{tn:tn} })
+        if(!uni) throw ApiError.BadRequest('Табельный номер не зарегестрирован в системе')
+        const t13UniDto = new T13UniDto(uni)
+        return {uni: t13UniDto}
+    }
+
     async changePassword(id,oldPass,newPass){
         const user = await User.findOne({where: {id:id}})
         if(!user) return {err:true,message:'Пользователя с таким именем не существует'}
