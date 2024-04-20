@@ -20,7 +20,7 @@ export function MakeLogin(){
     const checkEmpty = () => {
         const n = [empty]
 
-        const log = isCorrectLogin(login)
+        const log = isCorrectLogin(login,password)
         const pass = checkPassword(password,repassword)
 
         if(log.err) message(log.message)

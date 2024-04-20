@@ -59,7 +59,6 @@ class WeldingService{
         // console.log('что нашел')
         // console.log(listMyCrews)
 
-
         if(listMyCrews.length === 0){
             // console.log('Делаем create')
             // console.log(params.crew.crew_id)
