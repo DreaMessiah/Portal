@@ -43,10 +43,11 @@ class WeldingService{
         console.log('что нашел')
         console.log(listMyCrews)
 
-
         if(listMyCrews.length === 0){
             console.log('Делаем create')
+            console.log(params)
             const getDevSV = await CrewManlist.findAll({where: {crew:params.sel}})
+
             getDevSV.forEach( man=>{
                 console.log(man.dataValues)
                 const str = man.dataValues.maninfo
@@ -59,7 +60,6 @@ class WeldingService{
                 const created = TabelSv.create({object_id:params.idobj,shifr:shifrname,year:params.year,month:namemonth,
                     crew:params.sel,checkin:'man',name:fio,developer:dev,tn:tn,inn:'8617014209',
                     volume:'',unit:'',norma:'',writed:0,d1:0,d2:0,d3:0,d4:0,d5:0,d6:0,d7:0,d8:0,d9:0,d10:0,d11:0,d12:0,d13:0,d14:0,d15:0,d16:0,d17:0,d18:0,d19:0,d20:0,d21:0,d22:0,d23:0,d24:0,d25:0,d26:0,d27:0,d28:0,d29:0,d30:0,d31:0})
-
             })
         } else {
             console.log('Не нашел')

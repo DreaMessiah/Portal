@@ -2156,6 +2156,12 @@ html{
 .red-color{
   color: $dredColor;
 }
+.red-color-label{
+  color: $dredColor !important;
+}
+.red-solid-button-border{
+  border-bottom: 1px solid $dredColor !important;
+}
 .red-dotted-border{
   border-color: $dredColor !important;
 }
@@ -2175,3 +2181,14 @@ html{
 //  text-decoration: underline !important;
 //  color: #333333;
 //}
+
+.auth_form{
+  .first-link{
+    margin: 20px 0;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    text-decoration: underline !important;
+  }
+}

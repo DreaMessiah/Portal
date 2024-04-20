@@ -19,6 +19,7 @@ router.post('/saveworks',authMiddlewere,ReferenceController.saveWorks)
 router.post('/saveogm',authMiddlewere,ReferenceController.saveOgm)
 
 router.post('/sett13',authMiddlewere,ReferenceController.setT13)
+router.post('/setpayslip',authMiddlewere,ReferenceController.setPayslip)
 
 router.get('/getktudocs',authMiddlewere,ReferenceController.getKtuDocs)
 router.post('/newktudoc',authMiddlewere,ReferenceController.newKtuDoc)

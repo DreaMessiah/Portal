@@ -199,8 +199,8 @@ export default function SettingPage({idd}){
                     </label>
 
                     {checkedImage ?
-                        <div style={{backgroundImage: `url(/files/polls/${surImage.image})`}} onClick={(e) => surImage.ref.current.click()} className={`image ${empty[102] ? 'red-border' : ''}`}>
-                            <i className="fa-solid fa-upload"></i>
+                        <div style={surImage.image ? {backgroundImage: `url(/files/polls/${surImage.image})`}:{}} onClick={(e) => surImage.ref.current.click()} className={`image ${empty[102] ? 'red-border' : ''}`}>
+                            {!surImage.image ? <i className="fa-solid fa-upload"></i> : ''}
                             <input onChange={(e) => loadImage(e,-1)} ref={surImage.ref} className='hidden-upload' type='file'/>
                         </div>
                         : null}

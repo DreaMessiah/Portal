@@ -18,50 +18,6 @@ const LkNew = () => {
     const [editParams, setEditParams] = useState(false)
     const [activeModalPass, setActiveModalPass] = useState(false)
 
-/*
-    const btnEdit = document.getElementById('edit_personal_data')
-    const btnSave = document.getElementById('save_personal_data')
-    const blockFIO = document.getElementById('blockFIO')
-    const inputFIO = document.getElementById('inputFIO')
-    const blockDEV = document.getElementById('blockDEV')
-    const inputDEV = document.getElementById('inputDEV')
-    const blockOTDEL = document.getElementById('blockOTDEL')
-    const inputOTDEL = document.getElementById('inputOTDEL')
-    const blockTN = document.getElementById('blockTN')
-    const inputTN = document.getElementById('inputTN')
-    const editPROFILE = document.getElementById('editPROFILE')
-    const openEditor = () => {
-        if(editParams === false){
-            setEditParams(true)
-        }
-        btnEdit.style.display = 'none'
-        btnSave.style.display = 'flex'
-        blockFIO.style.display = 'none'
-        inputFIO.style.display = 'flex'
-        blockDEV.style.display = 'none'
-        inputDEV.style.display = 'flex'
-        blockOTDEL.style.display = 'none'
-        inputOTDEL.style.display = 'flex'
-        blockTN.style.display = 'none'
-        inputTN.style.display = 'flex'
-    }
-    const saveEditor = () => {
-        if(editParams === true){
-            setEditParams(false)
-        }
-        btnEdit.style.display = 'flex'
-        btnSave.style.display = 'none !important'
-        blockFIO.style.display = 'flex'
-        inputFIO.style.display = 'none !important'
-        blockDEV.style.display = 'flex'
-        inputDEV.style.display = 'none !important'
-        blockOTDEL.style.display = 'flex'
-        inputOTDEL.style.display = 'none !important'
-        blockTN.style.display = 'flex'
-        inputTN.style.display = 'none !important'
-    }
-*/
-
     function ChangePassword(){
         const [oldPass,setOldPass] = useState('')
         const [newPassFirst,setNewPassFirst] = useState('')

@@ -57,6 +57,7 @@ $worksHeight:220px;
         justify-content: center;
         .auth_form{
           width: 280px;
+          margin-top: -130px;
           //text-align: center;
           display: flex;
           flex-direction: column;
@@ -92,10 +93,16 @@ $worksHeight:220px;
               font-weight: 700;
               opacity: 0.8;
             }
+            .name{
+              text-align: center;
+              margin: 20px 0;
+              font-size: 1.1rem;
+              font-weight: 400;
+            }
             input:focus, input:-webkit-autofill, input {
               width: 100%;
               padding: 8px;
-              margin-top: 5px;
+              margin-top: 10px;
               margin-bottom: 15px;
               background-color: transparent !important;
               border: none;

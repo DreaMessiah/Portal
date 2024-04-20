@@ -27,7 +27,6 @@ export default class FilesService{
         }else{
             return {err:false,message:'Файл не выбран'}
         }
-
     }
     static loadPollsImage(file){
         if(file){
@@ -42,7 +41,6 @@ export default class FilesService{
         }else{
             return {err:false,message:'Файл не выбран'}
         }
-
     }
     static isImage(filename) {
         const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp']; // расширения изображений

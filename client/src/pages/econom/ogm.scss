@@ -107,6 +107,14 @@
         min-width: 120px; /* задаем ширину для "широких" столбцов */
         max-width: 120px;
       }
+      .wbig-column{
+        min-width: 300px; /* задаем ширину для "широких" столбцов */
+        max-width: 300px;
+      }
+      .big-column{
+        min-width: 200px; /* задаем ширину для "широких" столбцов */
+        max-width: 200px;
+      }
     }
     .title{
       font-size: 1.2rem;

@@ -10,6 +10,7 @@ export function Menu(){
             <Buttons text={'Коэфициэнт трудового участия'} icon={'fa-solid fa-k'} url={`/ktu`}/>
             <Buttons text={'Итоговый табель'} icon={'fa-solid fa-table-list'} url={`/itogtabel`}/>
             <Buttons text={'Все табеля'} icon={'fa-solid fa-toilets-portable'} url={`/alltabels`}/>
+            <Buttons text={'Расчетный лист'} icon={'fa-solid fa-file-invoice-dollar'} url={`/loadpayslip`}/>
         </div>
     )
 }

@@ -1,8 +1,8 @@
 import React, {useContext, useEffect, useState} from "react";
 import {Link,useLocation} from 'react-router-dom';
-import {Context} from "../../index";
+import {Context} from "../index";
 import {observer} from "mobx-react-lite";
-import {useMessage} from "../../hooks/message.hook";
+import {useMessage} from "../hooks/message.hook";
 import {ToastContainer} from "react-toastify";
 
 function AuthPage(){
@@ -16,15 +16,13 @@ function AuthPage(){
     const handleSubmit = async (event) => {
         event.preventDefault()
         const promise = await store.login(login,password)
-        if(promise){
-            if(promise.length) {
-                setEmpty(true)
-                message(promise)
-            }
+
+        if(promise?.response?.data?.message){
+            setEmpty(true)
+            message(promise.response.data.message)
         }else{
             setEmpty(false)
         }
-
     }
     useEffect(() => {
         const handleKeyDown = (event) => {
@@ -47,13 +45,13 @@ function AuthPage(){
                         <div className='inauth'>
                             <input className={`${empty && 'red-auth-border'}`} type="text" placeholder='Имя пользователя:' value={login} onChange={e => setLogin(e.target.value)} autoComplete="off"/>
                             <input className={`${empty && 'red-auth-border'}`} type="password" placeholder='Пароль' value={password} onChange={e => setPassword(e.target.value)} autoComplete="off" />
-                            <div className='button' onClick={(e) => handleSubmit(e)} >Войти</div>
+                            <div className='button' onClick={(e) => handleSubmit(e)}>Войти</div>
+                            <Link to={'/tnenter'} className="first-link">первый вход на портал</Link>
                         </div>
                     </div>
                 </div>
                 <ToastContainer />
             </div>
-
     )
 }
 export default observer(AuthPage)

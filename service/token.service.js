@@ -8,6 +8,10 @@ class TokenService{
         const refreshToken = jwt.sign(payload, config.get('jwtRefreshSecret'),{expiresIn:'30d'})
         return {accessToken,refreshToken}
     }
+    generateTnToken(payload){
+        const tnToken = jwt.sign(payload, config.get('jwtDeviceSecret'),{expiresIn:'1m'})
+        return tnToken
+    }
     // Доработать ЛОГИКУ работы с deviceToken!!!!!!!!!!!!!!!!!!!!!
     async saveToken(userId,refreshToken,deviceToken){
         const tokenData = await Token.findOne({ where: {user_id:userId} })
