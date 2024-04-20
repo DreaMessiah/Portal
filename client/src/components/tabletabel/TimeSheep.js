@@ -242,7 +242,7 @@ export const TimeSheepPortal = () => {
         try {
             const viewList = await ObjsService.getObjs()
             setListObjs(viewList.data)
-            console.log(viewList.data)
+            // console.log(viewList.data)
         }catch (e) {
             console.log('puizercvccvfg')
         }
@@ -325,7 +325,7 @@ export const TimeSheepPortal = () => {
     const pushKTU = tn => {
         let ktumess = []
         ktu.forEach(item => {
-            console.log(item)
+            // console.log(item)
             if(item.user_tn === tn){
 
                 ktumess.push('КТУ по СЗ: '+item.ktu+' | Содержание: '+item.content)
@@ -412,7 +412,7 @@ export const TimeSheepPortal = () => {
                 <div className="tab_tabel_tabelman ">
                     {list.map((man, index) => (
                         <div key={index} className="tab_tabel_tabelman_strock">
-                            <div className="tab_tabel_tabelman_strock_num">{index + 1}<i style={(writed)? {display:'none'}:{display:'block'}} class="fa-solid fa-trash" onClick={()=>deleteMan(man.id, man.name, man.developer)}/></div>
+                            <div className="tab_tabel_tabelman_strock_num">{index + 1}<i style={(writed)? {display:'none'}:{display:'block'}} className="fa-solid fa-trash" onClick={()=>deleteMan(man.id, man.name, man.developer)}/></div>
                             <div className="tab_tabel_tabelman_strock_fio">
                                 <div className="tab_tabel_tabelman_strock_fio_name">{man.name}</div>
                                 <div className="tab_tabel_tabelman_strock_fio_dev">{man.developer}</div>
@@ -441,13 +441,13 @@ export const TimeSheepPortal = () => {
 
                                         <select disabled={(man.d16 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b border-b no-left-border_sel" onChange={(e)=>editDay('m16', e.target.value, man.id)}>
 
-                                                <option>{(man.d16 === '')?man.m16:man.d16}</option>
-                                                <option>11</option>
-                                                <option>9</option>
-                                                <option>8</option>
-                                                <option>7</option>
-                                                <option>4</option>
-
+                                            <option>{(man.d16 === '')?man.m16:man.d16}</option>
+                                            <option>11</option>
+                                            <option>9</option>
+                                            <option>8</option>
+                                            <option>7</option>
+                                            <option>4</option>
+                                            <option></option>
                                         </select>
 
                                     </div>
@@ -464,6 +464,7 @@ export const TimeSheepPortal = () => {
                                             <option>8</option>
                                             <option>7</option>
                                             <option>4</option>
+                                            <option></option>
                                         </select>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m2}></input>*/}
                                     </div>
@@ -477,6 +478,7 @@ export const TimeSheepPortal = () => {
                                             <option>8</option>
                                             <option>7</option>
                                             <option>4</option>
+                                            <option></option>
                                         </select>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m17}></input>*/}
                                     </div>
@@ -492,6 +494,7 @@ export const TimeSheepPortal = () => {
                                             <option>8</option>
                                             <option>7</option>
                                             <option>4</option>
+                                            <option></option>
                                         </select>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m3}></input>*/}
                                     </div>
@@ -505,6 +508,7 @@ export const TimeSheepPortal = () => {
                                             <option>8</option>
                                             <option>7</option>
                                             <option>4</option>
+                                            <option></option>
                                         </select>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m18}></input>*/}
                                     </div>
@@ -521,6 +525,7 @@ export const TimeSheepPortal = () => {
                                             <option>8</option>
                                             <option>7</option>
                                             <option>4</option>
+                                            <option></option>
                                         </select>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m4}></input>*/}
                                     </div>
@@ -535,6 +540,7 @@ export const TimeSheepPortal = () => {
                                             <option>8</option>
                                             <option>7</option>
                                             <option>4</option>
+                                            <option></option>
                                         </select>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m19}></input>*/}
                                     </div>
@@ -551,6 +557,7 @@ export const TimeSheepPortal = () => {
                                             <option>8</option>
                                             <option>7</option>
                                             <option>4</option>
+                                            <option></option>
                                         </select>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m5}></input>*/}
                                     </div>
@@ -565,6 +572,7 @@ export const TimeSheepPortal = () => {
                                             <option>8</option>
                                             <option>7</option>
                                             <option>4</option>
+                                            <option></option>
                                         </select>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m20}></input>*/}
                                     </div>
@@ -581,6 +589,7 @@ export const TimeSheepPortal = () => {
                                             <option>8</option>
                                             <option>7</option>
                                             <option>4</option>
+                                            <option></option>
                                         </select>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m6}></input>*/}
                                     </div>
@@ -595,6 +604,7 @@ export const TimeSheepPortal = () => {
                                             <option>8</option>
                                             <option>7</option>
                                             <option>4</option>
+                                            <option></option>
                                         </select>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m21}></input>*/}
                                     </div>
@@ -611,6 +621,7 @@ export const TimeSheepPortal = () => {
                                             <option>8</option>
                                             <option>7</option>
                                             <option>4</option>
+                                            <option></option>
                                         </select>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m7}></input>*/}
                                     </div>
@@ -625,6 +636,7 @@ export const TimeSheepPortal = () => {
                                             <option>8</option>
                                             <option>7</option>
                                             <option>4</option>
+                                            <option></option>
                                         </select>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m22}></input>*/}
                                     </div>
@@ -641,6 +653,7 @@ export const TimeSheepPortal = () => {
                                             <option>8</option>
                                             <option>7</option>
                                             <option>4</option>
+                                            <option></option>
                                         </select>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m8}></input>*/}
                                     </div>
@@ -655,6 +668,7 @@ export const TimeSheepPortal = () => {
                                             <option>8</option>
                                             <option>7</option>
                                             <option>4</option>
+                                            <option></option>
                                         </select>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m23}></input>*/}
                                     </div>
@@ -671,6 +685,7 @@ export const TimeSheepPortal = () => {
                                             <option>8</option>
                                             <option>7</option>
                                             <option>4</option>
+                                            <option></option>
                                         </select>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m9}></input>*/}
                                     </div>
@@ -685,6 +700,7 @@ export const TimeSheepPortal = () => {
                                             <option>8</option>
                                             <option>7</option>
                                             <option>4</option>
+                                            <option></option>
                                         </select>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m24}></input>*/}
                                     </div>
@@ -701,6 +717,7 @@ export const TimeSheepPortal = () => {
                                             <option>8</option>
                                             <option>7</option>
                                             <option>4</option>
+                                            <option></option>
                                         </select>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m10}></input>*/}
                                     </div>
@@ -715,6 +732,7 @@ export const TimeSheepPortal = () => {
                                             <option>8</option>
                                             <option>7</option>
                                             <option>4</option>
+                                            <option></option>
                                         </select>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m25}></input>*/}
                                     </div>
@@ -731,6 +749,7 @@ export const TimeSheepPortal = () => {
                                             <option>8</option>
                                             <option>7</option>
                                             <option>4</option>
+                                            <option></option>
                                         </select>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m11}></input>*/}
                                     </div>
@@ -745,6 +764,7 @@ export const TimeSheepPortal = () => {
                                             <option>8</option>
                                             <option>7</option>
                                             <option>4</option>
+                                            <option></option>
                                         </select>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m26}></input>*/}
                                     </div>
@@ -761,6 +781,7 @@ export const TimeSheepPortal = () => {
                                             <option>8</option>
                                             <option>7</option>
                                             <option>4</option>
+                                            <option></option>
                                         </select>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m12}></input>*/}
                                     </div>
@@ -775,6 +796,7 @@ export const TimeSheepPortal = () => {
                                             <option>8</option>
                                             <option>7</option>
                                             <option>4</option>
+                                            <option></option>
                                         </select>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m27}></input>*/}
                                     </div>
@@ -791,6 +813,7 @@ export const TimeSheepPortal = () => {
                                             <option>8</option>
                                             <option>7</option>
                                             <option>4</option>
+                                            <option></option>
                                         </select>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m13}></input>*/}
                                     </div>
@@ -805,6 +828,7 @@ export const TimeSheepPortal = () => {
                                             <option>8</option>
                                             <option>7</option>
                                             <option>4</option>
+                                            <option></option>
                                         </select>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m28}></input>*/}
                                     </div>
@@ -821,6 +845,7 @@ export const TimeSheepPortal = () => {
                                             <option>8</option>
                                             <option>7</option>
                                             <option>4</option>
+                                            <option></option>
                                         </select>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m14}></input>*/}
                                     </div>
@@ -835,6 +860,7 @@ export const TimeSheepPortal = () => {
                                             <option>8</option>
                                             <option>7</option>
                                             <option>4</option>
+                                            <option></option>
                                         </select>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m29}></input>*/}
                                     </div>
@@ -851,6 +877,7 @@ export const TimeSheepPortal = () => {
                                             <option>8</option>
                                             <option>7</option>
                                             <option>4</option>
+                                            <option></option>
                                         </select>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m15}></input>*/}
                                     </div>
@@ -865,6 +892,7 @@ export const TimeSheepPortal = () => {
                                             <option>8</option>
                                             <option>7</option>
                                             <option>4</option>
+                                            <option></option>
                                         </select>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m30}></input>*/}
                                     </div>
@@ -885,6 +913,7 @@ export const TimeSheepPortal = () => {
                                             <option>8</option>
                                             <option>7</option>
                                             <option>4</option>
+                                            <option></option>
                                         </select>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m31}></input>*/}
                                     </div>

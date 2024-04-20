@@ -260,6 +260,42 @@ class WeldingController {
         }
     }
 
+    async getCrewForObject(req,res,next) {
+        try{
+            const {param} = req.body
+            const crew = await WeldingService.getCrewForObject(param)
+            return res.status(200).json(crew)
+        }catch (e){
+            next(e)
+        }
+    }
+    async delCrewForObject(req,res,next) {
+        try{
+            const {param} = req.body
+            const crew = await WeldingService.delCrewForObject(param)
+            return res.status(200).json(crew)
+        }catch (e){
+            next(e)
+        }
+    }
+    async plusCrewOnObj(req,res,next) {
+        try{
+            const {crew} = req.body
+            const plus = await WeldingService.plusCrewOnObj(crew)
+            return res.status(200).json(plus)
+        }catch (e){
+            next(e)
+        }
+    }
+    async summFactDays(req,res,next) {
+        try{
+            const {object} = req.body
+            const summ = await WeldingService.summFactDays(object)
+            return res.status(200).json(summ)
+        }catch (e){
+            next(e)
+        }
+    }
 
 
 }

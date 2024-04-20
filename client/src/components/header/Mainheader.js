@@ -21,6 +21,19 @@ export const MainHeader = () => {
     if(screenWidth < 550){
         widther = '60vh'
     }
+
+    const stopbody = back => {
+        const body = document.querySelector('.workpage_block')
+
+        if(back === true){
+            body.style.position = 'fixed'
+            body.style.top = '0px'
+        } else {
+            body.style.position = 'relative'
+            body.style.top = 'auto'
+        }
+    }
+
     return (
         <div className="head_block">
             <div className="menu_burger" style={(burger)?{display: 'flex'}:{display: 'none'}}>
@@ -56,10 +69,10 @@ export const MainHeader = () => {
                         <div className="navbar_block_menu_strock_icon icon_doc"></div>
                         <div className="navbar_block_menu_strock_description">Документы</div>
                     </Link>
-                    <Link onClick={(e) => setSelectedMenu(6)} to='/maintasks' className={`navbar_block_menu_strock ${selectedMenu===6 && 'selected'}`}>
-                        <div className="navbar_block_menu_strock_icon icon_task"></div>
-                        <div className="navbar_block_menu_strock_description">Задачи и Проекты</div>
-                    </Link>
+                    {/*<Link onClick={(e) => setSelectedMenu(6)} to='/maintasks' className={`navbar_block_menu_strock ${selectedMenu===6 && 'selected'}`}>*/}
+                    {/*    <div className="navbar_block_menu_strock_icon icon_task"></div>*/}
+                    {/*    <div className="navbar_block_menu_strock_description">Задачи и Проекты</div>*/}
+                    {/*</Link>*/}
                     {/*<div className="navbar_block_menu_strock">*/}
                     {/*    <div className="navbar_block_menu_strock_icon icon_lk"></div>*/}
                     {/*    <div className="navbar_block_menu_strock_description">Личный кабинет</div>*/}
@@ -107,6 +120,22 @@ export const MainHeader = () => {
                             <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-children"></i></div>
                             <div className="navbar_block_dopmenu_list_description">Детский конкурс</div>
                         </Link>
+                        <Link to='/objectsportal' className={`navbar_block_dopmenu_list_strock`}>
+                            <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-object-ungroup"></i></div>
+                            <div className="navbar_block_dopmenu_list_description">Объекты</div>
+                        </Link>
+                        <Link to='/weldingsett' className={`navbar_block_dopmenu_list_strock`}>
+                            <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-wand-magic-sparkles"></i></div>
+                            <div className="navbar_block_dopmenu_list_description">Сварщик</div>
+                        </Link>
+                        <Link to='/economist' className={`navbar_block_dopmenu_list_strock`}>
+                            <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-coins"></i></div>
+                            <div className="navbar_block_dopmenu_list_description">Экономист</div>
+                        </Link>
+                        <Link to='/hr' className={`navbar_block_dopmenu_list_strock`}>
+                            <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-person-circle-plus"></i></div>
+                            <div className="navbar_block_dopmenu_list_description">Кадры</div>
+                        </Link>
                         {/*<Link to='/objectsportal' className={`navbar_block_dopmenu_list_strock`}>*/}
                         {/*    <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-children"></i></div>*/}
                         {/*    <div className="navbar_block_dopmenu_list_description">Объекты</div>*/}
@@ -126,7 +155,7 @@ export const MainHeader = () => {
                     <div style={{backgroundImage:`url(/files/profile/${store.user.avatar})`}} className="head_block_lk_photo"></div>
                     <div className="head_block_lk_name">{store.user.full_name}</div>
                 </Link>
-                <div className="head_block_burger" onClick={()=>setBurger(!burger)}><i className="fa-solid fa-bars"/></div>
+                <div className="head_block_burger" onClick={()=>{setBurger(!burger); stopbody(!burger)}}><i className="fa-solid fa-bars"/></div>
                 <div className="head_block_callback" onClick={() => store.logout()}>Выйти</div>
                 <div className="head_block_questions" onClick={()=>setActive(true)}>?</div>
                 <ModalFiles heigth={widther} data={<QuestionDirector setActive={setActive} />} active={active} setActive={setActive}/>

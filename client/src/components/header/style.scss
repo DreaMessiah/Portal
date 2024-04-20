@@ -3,10 +3,11 @@
   top: 60px;
   left: 0px;
   width: 100vw;
-  height: calc(100% - 60px);
+  height: calc(100vh - 60px);
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-y: scroll;
   justify-content: flex-start;
   background-color: rgba(18,19,56,1);
   color: #FFFFFF;
@@ -16,7 +17,7 @@
     align-items: center;
     width: calc(100% - 40px);
     max-width: 350px;
-    height: 50px;
+    min-height: 60px;
     border-bottom: 1px solid #FFFFFF;
     .navbar_block_menu_strock_icon{
       width: 30px;

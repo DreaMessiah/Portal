@@ -59,6 +59,7 @@ export const TabelformNew = () => {
 
     const [listWorks, setListWorks] = useState([])
     const [thisView, setThisView] = useState([])
+    const [thisselcrew, setThisselcrew] = useState([])
 
     const  {store} = useContext(Context)
     const inn = store.user.inn
@@ -82,7 +83,11 @@ export const TabelformNew = () => {
         }
     }
     const handleSelect = e => {
-        setSelect(e.target.value)
+
+        const value = e.target.value
+        console.log(value)
+        const arr = value.split('|')
+        setSelect({id: arr[1],crewname: arr[0]})
     }
     let btnsNameCrews
     const currentDate = new Date();
@@ -144,10 +149,11 @@ export const TabelformNew = () => {
             try{
                 const obj = await WeldingService.getObgForHook({getShifr})
                 const shifr = obj.data.shifr
-                const response = await WeldingService.getMyCrews({shifr, getMonth, getYear})
+                const response = await WeldingService.getMyCrews({object_id: getShifr, shifr, getMonth, getYear})
                 setMycrews(response.data)
+                console.log(response.data)
                 const month = months[getMonth]
-                const tabel = await WeldingService.getTabelSv({shifr, month, getYear})
+                const tabel = await WeldingService.getTabelSv({object_id: getShifr, shifr, month, getYear})
                 const listtabels = tabel.data
 
                 const crews = []
@@ -230,12 +236,14 @@ export const TabelformNew = () => {
                     <Link to={`/welcontroll?id=${getId}&shifr=${getShifr}&month=${getMonth}&year=${getYear}`} className="back-button">Контроль</Link>
                 </div>
                 <div className="tabwelding_header_newcrewblock">
-                    <select className="tabwelding_header_newcrewblock_select" onChange={handleSelect}>
-                        <option></option>
-                        {mycrews.map( (item,index) =>(
-                            <option defaultValue={item.namecrew} key={index}>{item.namecrew}</option>
-                        ))}
-                    </select>
+                    {/*<select className="tabwelding_header_newcrewblock_select" onChange={handleSelect}>*/}
+                    {/*    <option></option>*/}
+                    {/*    {mycrews.map( (item,index) =>(*/}
+                    {/*        <option defaultValue={item.namecrew+'|'+item.id} key={index}>{item.namecrew}</option>*/}
+                    {/*    ))}*/}
+                    {/*</select>*/}
+                    <Select placeholder='Выбрать звено' onChange={(e) => setThisselcrew(mycrews[e.index])} value={thisselcrew} options={mycrews} styles={{container:(baseStyles, state) => ({...baseStyles,width:'236px',marginRight:' 6px'})}}/>
+
                     <div className="back-button" onClick={() => setCrew(!crew)}>Добавить звено</div>
                 </div>
             </div>
@@ -265,7 +273,7 @@ export const TabelformNew = () => {
                 <TabelMans peoples={mans} setPeoples={setMans} active={crewName} idobj={getId} shifr={getShifr} month={getMonth} year={getYear}/>
             </div>
 
-            <ModalFiles data={<NewCrewModal sel={select} active={crew} setActive={setCrew} monther={getMonth} year={getYear} idobj={getShifr}  allcrews={allcrews} setAllcrews={setAllcrews} setWeldingcrew={setWeldingcrew} setMycrews={setMycrews}/>} active={crew} setActive={setCrew}/>
+            <ModalFiles data={<NewCrewModal sel={thisselcrew} active={crew} setActive={setCrew} monther={getMonth} year={getYear} idobj={getShifr}  allcrews={allcrews} setAllcrews={setAllcrews} setWeldingcrew={setWeldingcrew} setMycrews={setMycrews}/>} active={crew} setActive={setCrew}/>
         </div>
     )
 }

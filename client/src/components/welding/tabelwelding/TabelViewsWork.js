@@ -15,6 +15,7 @@ export const TabelViewsWork = ({getTabel,setTabel,active,idobj,shifr,month,year}
             setTabel(newstrocks)
             setDay(pep)
 
+
             const int = +valuee
             console.log({pep,int,manid})
             const upDay = await WeldingService.updateManDays({day:pep,value:int,manid})
@@ -23,6 +24,15 @@ export const TabelViewsWork = ({getTabel,setTabel,active,idobj,shifr,month,year}
         }
     }
 
+
+    const summItogy = () => {
+        try{
+            return '45'
+        }catch(e){
+            console.log(e)
+        }
+
+    }
     // const handleChange = (event) => {
     //     setValue(event.target.value);
     // }
@@ -30,7 +40,11 @@ export const TabelViewsWork = ({getTabel,setTabel,active,idobj,shifr,month,year}
     return (
         <div className="tabelviewwork">
             <p>{value}</p>
-            {getTabel.map((strock, index) => (
+            {getTabel.map((strock, index) =>{
+                console.log(strock)
+                const summp = strock.p1 + strock.p2 + strock.p3 + strock.p4 + strock.p5 + strock.p6 + strock.p7 + strock.p8 + strock.p9 + strock.p10 + strock.p11 + strock.p12 + strock.p13 + strock.p14 + strock.p15 + strock.p16 + strock.p17 + strock.p18 + strock.p19 + strock.p20 + strock.p21 + strock.p22 + strock.p23 + strock.p24 + strock.p25 + strock.p26 + strock.p27 + strock.p28 + strock.p29 + strock.p30 + strock.p31;
+                const summd = strock.d1 + strock.d2 + strock.d3 + strock.d4 + strock.d5 + strock.d6 + strock.d7 + strock.d8 + strock.d9 + strock.d10 + strock.d11 + strock.d12 + strock.d13 + strock.d14 + strock.d15 + strock.d16 + strock.d17 + strock.d18 + strock.d19 + strock.d20 + strock.d21 + strock.d22 + strock.d23 + strock.d24 + strock.d25 + strock.d26 + strock.d27 + strock.d28 + strock.d29 + strock.d30 + strock.d31;
+                return (
                 <div key={index} className="tabwelding_viewswork">
                     <div className="tabwelding_viewswork_tabel">
                         <div className="tabwelding_viewswork_tabel_strock">
@@ -38,8 +52,8 @@ export const TabelViewsWork = ({getTabel,setTabel,active,idobj,shifr,month,year}
                                 <div className="tabwelding_viewswork_tabel_strock_head_up">
                                     <div className="tabwelding_viewswork_t_s_h_up_num">{index+1}</div>
                                     <div className="tabwelding_viewswork_t_s_h_up_btns">
-                                        <div className="tabwelding_viewswork_t_s_h_up_btns_submit">Подписать</div>
-                                        <div className="tabwelding_viewswork_t_s_h_up_btns_delete">D</div>
+                                        {/*<div className="tabwelding_viewswork_t_s_h_up_btns_submit">Подписать</div>*/}
+                                        <div className="tabwelding_viewswork_t_s_h_up_btns_delete"><i className="fa-solid fa-trash" /></div>
                                     </div>
                                 </div>
                                 <div className="tabwelding_viewswork_tabel_strock_head_fio">{strock.name}</div>
@@ -346,8 +360,8 @@ export const TabelViewsWork = ({getTabel,setTabel,active,idobj,shifr,month,year}
                                         <div className="tabwelding_viewswork_tabel_strock_ii_fact">Факт</div>
                                     </div>
                                     <div className="tabwelding_viewswork_tabel_strock_ii_pf_res">
-                                        <div className="tabwelding_viewswork_tabel_strock_ii_res_plan">456</div>
-                                        <div className="tabwelding_viewswork_tabel_strock_ii_res_fact">945</div>
+                                        <div className="tabwelding_viewswork_tabel_strock_ii_res_plan">{summp}</div>
+                                        <div className="tabwelding_viewswork_tabel_strock_ii_res_fact">{summd}</div>
                                     </div>
                                 </div>
                             </div>
@@ -357,12 +371,12 @@ export const TabelViewsWork = ({getTabel,setTabel,active,idobj,shifr,month,year}
                             <div className="tabwelding_viewswork_tabel_strock_project">
                                 <div className="tabwelding_viewswork_tabel_strock_title">по<br/>
                                     проекту</div>
-                                <div className="tabwelding_viewswork_tabel_strock_res">465</div>
+                                <div className="tabwelding_viewswork_tabel_strock_res">{strock.volume}</div>
                             </div>
                             <div className="tabwelding_viewswork_tabel_strock_start">
                                 <div className="tabwelding_viewswork_tabel_strock_title">Итого с<br/>
                                     начала</div>
-                                <div className="tabwelding_viewswork_tabel_strock_res">3234</div>
+                                <div className="tabwelding_viewswork_tabel_strock_res">{strock.allfact}</div>
                             </div>
                             <div className="tabwelding_viewswork_tabel_strock_delta">
                                 <div className="tabwelding_viewswork_tabel_strock_title">
@@ -370,27 +384,27 @@ export const TabelViewsWork = ({getTabel,setTabel,active,idobj,shifr,month,year}
                                         <path d="M1.47372 17.5L11 1L20.5263 17.5H1.47372Z" stroke="black"/>
                                     </svg>
                                 </div>
-                                <div className="tabwelding_viewswork_tabel_strock_res">324</div>
+                                <div className="tabwelding_viewswork_tabel_strock_res">{strock.volume - strock.allfact}</div>
                             </div>
-                            <div className="tabwelding_viewswork_tabel_strock_norma">
-                                <div className="tabwelding_viewswork_tabel_strock_title">Итого норма<br/>
-                                    времени</div>
-                                <div className="tabwelding_viewswork_tabel_strock_res">645</div>
-                            </div>
-                            <div className="tabwelding_viewswork_tabel_strock_cover">
-                                <div className="tabwelding_viewswork_tabel_strock_title">Выра<br/>
-                                    ботка %</div>
-                                <div className="tabwelding_viewswork_tabel_strock_res">645</div>
-                            </div>
+                            {/*<div className="tabwelding_viewswork_tabel_strock_norma">*/}
+                            {/*    <div className="tabwelding_viewswork_tabel_strock_title">Итого норма<br/>*/}
+                            {/*        времени</div>*/}
+                            {/*    <div className="tabwelding_viewswork_tabel_strock_res">0</div>*/}
+                            {/*</div>*/}
+                            {/*<div className="tabwelding_viewswork_tabel_strock_cover">*/}
+                            {/*    <div className="tabwelding_viewswork_tabel_strock_title">Выра<br/>*/}
+                            {/*        ботка %</div>*/}
+                            {/*    <div className="tabwelding_viewswork_tabel_strock_res">0</div>*/}
+                            {/*</div>*/}
                             <div className="tabwelding_viewswork_tabel_strock_complite">
                                 <div className="tabwelding_viewswork_tabel_strock_title">Выпол<br/>
                                     нение %</div>
-                                <div className="tabwelding_viewswork_tabel_strock_res">8567</div>
+                                <div className="tabwelding_viewswork_tabel_strock_res">{(+strock.allfact/+strock.volume*100).toFixed(0)}%</div>
                             </div>
                         </div>
                     </div>
                 </div>
-           ))}
+           )})}
 
 
         </div>

@@ -16,7 +16,7 @@ export const NewCrewModal = ({sel, active, setActive, monther, year, idobj, allc
         sel = 'отсутствует'
         message = `Выберете звено для добавления`
     } else {
-        message = `Желаете добавить новое звено ${sel} в табель?`
+        message = `Желаете добавить новое звено ${sel.crewname} в табель?`
     }
     const getMyCrews = async () => {
         try{
@@ -67,7 +67,7 @@ export const NewCrewModal = ({sel, active, setActive, monther, year, idobj, allc
 
     const plusCrew = async () => {
         try{
-            const createdCrew = await WeldingService.createCrew({sel, monther, year, idobj})
+            const createdCrew = await WeldingService.createCrew({crew: sel, monther, year, idobj})
             setActive(!active)
             messages(createdCrew)
             getMyCrews()

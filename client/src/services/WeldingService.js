@@ -79,6 +79,20 @@ export default class WeldingService{
     static async saveCrewMans(id,group) {
         return $api.post(`/welding/savecrewmans`, {id,group})
     }
+    static async getCrewForObject(param) {
+        return $api.post(`/welding/getlistcrew`, {param})
+    }
+    static async delCrewForObject(param) {
+        return $api.post(`/welding/delcrewobj`, {param})
+    }
+    static async plusCrewOnObj(crew) {
+        return $api.post(`/welding/pluscrewonobj`, {crew})
+    }
+    static async summFactDays(object) {
+        return $api.post(`/welding/summitogy`, {object})
+    }
+
+
 
 
 }

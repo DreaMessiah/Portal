@@ -65,21 +65,29 @@
               display: flex;
               justify-content: center;
               align-items: center;
-              background: #4CC4C5;
+              //background: #4CC4C5;
               cursor: pointer;
               transition: 0.2s;
+              i{
+                transition: .2s
+              }
             }
 
             .tabwelding_viewswork_t_s_h_up_btns_delete:hover {
               opacity: 0.8;
               transition: 0.2s;
+              i{
+                color: #454545;
+                opacity: 0.9;
+                transition: .2s;
+              }
             }
           }
         }
 
         .tabwelding_viewswork_tabel_strock_head_fio {
           width: calc(100% - 10px);
-          height: calc(100% - 31px);
+          height: 186px;
           padding: 0 10px;
           display: flex;
           justify-content: center;

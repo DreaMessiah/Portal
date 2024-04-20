@@ -72,10 +72,10 @@
   .tabwelding_header_newcrewblock{
     margin-top: 15px;
     display: flex;
-    //flex-wrap: wrap;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: flex-start;
     align-items: center;
-    width: calc(236px);
+    width: 100%;
     margin-bottom: 20px;
     .tabwelding_header_newcrewblock_select{
       width: 236px;
@@ -86,7 +86,7 @@
     }
     .tabwelding_header_newcrewblock_plusbtn{
       width: 236px;
-      height: 40px;
+      height: 36px;
       background: #617676;
       display: flex;
       justify-content: center;
@@ -97,6 +97,10 @@
     .tabwelding_header_newcrewblock_plusbtn:hover{
       opacity: 0.9;
     }
+    .back-button{
+      height: 18px;
+
+    }
   }
 }
 .tabwelding_crews {
@@ -104,7 +108,7 @@
 }
 @media screen and (min-width: 1200px) {
   .tabwelding_crews {
-    width: calc(100% - 80px);
+    width: calc(100% - 0px);
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
@@ -364,8 +368,9 @@
         border-bottom: 1px solid #454545;
         font-size: 10pt;
         display: flex;
+        flex-direction: column;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
         padding: 0 5px;
       }
       .tabwelding_tabel_tabelman_strock_calendar{
@@ -373,15 +378,12 @@
         height: 108px;
         display: flex;
         justify-content: flex-start;
-        //align-items: flex-start;
         font-size: 10pt;
         border-top: 1px solid #454545;
         border-right: 0px;
         border-left: 1px solid #454545;
         border-bottom: 1px solid #454545;
         .tabwelding_tabel_tabelman_strock_calendar_s{
-          //width: 100%;
-          //height: 108px;
           display: flex;
           flex-direction: column;
           justify-content: space-between;

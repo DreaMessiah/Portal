@@ -667,7 +667,9 @@ const CrewSv = sequelize.define('crewsv',{
     namecrew:{type:DataTypes.TEXT},
     compound:{type:DataTypes.INTEGER},
     pointer:{type:DataTypes.INTEGER},
-    inn:{type:DataTypes.STRING}
+    inn:{type:DataTypes.STRING},
+    object_id:{type:DataTypes.INTEGER},
+    crew_id:{type:DataTypes.INTEGER}
 })
 const CrewBase = sequelize.define('crewbase',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
@@ -825,12 +827,6 @@ HumanList.hasMany(CrewMans, { foreignKey: 'user_tn', sourceKey: 'tn',constraints
 
 CrewMans.belongsTo(T13Uni,  { foreignKey: 'user_tn', targetKey: 'tn',constraints: false})
 CrewMans.belongsTo(HumanList, { foreignKey: 'user_tn', targetKey: 'tn',constraints: false});
-
-CrewBase.hasMany(CrewMans, { foreignKey: 'crew_id', sourceKey: 'id' });
-CrewMans.belongsTo(CrewBase, { foreignKey: 'crew_id', targetKey: 'id' });
-
-T13.hasMany(CrewMans, { foreignKey: 'user_tn', sourceKey: 'tn' });
-CrewMans.belongsTo(T13,  { foreignKey: 'user_tn', targetKey: 'tn' })
 
 CrewBase.hasMany(CrewMans, { foreignKey: 'crew_id', sourceKey: 'id' });
 CrewMans.belongsTo(CrewBase, { foreignKey: 'crew_id', targetKey: 'id' });

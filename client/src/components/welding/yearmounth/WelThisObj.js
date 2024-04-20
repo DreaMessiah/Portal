@@ -29,6 +29,55 @@ export const WelThisObj = () => {
     const [newmonth, setNewmonth] = useState('stop')
     const [newyear, setNewyear] = useState('stop')
     const [activecrew, setActiveCrew] = useState(false)
+    const [listcrew, setListcrew] = useState([])
+    const [allcrews, setAllcrews] = useState([])
+    const [thiscrews, setThiscrew] = useState([])
+
+    const getListCrew = async () => {
+        try{
+            allCrews()
+            const {data} = await WeldingService.getCrewForObject({object_id: idstore})
+            console.log(data)
+            setListcrew(data)
+        }catch(e){
+            console.log(e)
+        }
+    }
+
+    const delCrewOfList = async idcrew => {
+        try{
+            const del = await WeldingService.delCrewForObject({idcrew})
+            if(del.data.del){
+                message(del.data.message)
+                getListCrew()
+            }else{
+                message(del.data.message)
+            }
+
+        }catch(e){
+            console.log(e)
+        }
+
+    }
+
+    const allCrews = async () => {
+        try{
+
+            const list = await WeldingService.getCrew()
+            console.log(list.data)
+            let i = 0
+            const newarr = list.data
+            list.data.forEach(crew => {
+                crew.label = crew.crewname
+                crew.value = crew.id
+                crew.index = i
+                i++
+            })
+            setAllcrews(newarr)
+        }catch(e){
+            console.log(e)
+        }
+    }
 
     const plusTabel = async (e) => {
         try{
@@ -95,8 +144,21 @@ export const WelThisObj = () => {
         }
     }
 
+    const plusCrewOfObj = async () => {
+        console.log(thiscrews)
+        const plus = await WeldingService.plusCrewOnObj({object_id: idstore,crew: thiscrews})
+        if(plus.data){
+            getListCrew()
+            message('Звено добавлено')
+        }else{
+            message('данное звено уже существует')
+        }
+
+    }
+
     useEffect(() => {
         createList()
+        getListCrew()
     },[])
 
     return (
@@ -157,8 +219,27 @@ export const WelThisObj = () => {
             }
             <div className="modalcrew" style={(activecrew)?{display: 'flex'}:{display: 'none'}}>
                 <div className="modalcrew_white">
-                    <div className="modalcrew_white_krestik"></div>
-                    <div className="modalcrew_white_modal"></div>
+                    <div className="modalcrew_white_krestik">
+                        <i className="fa-solid fa-xmark"  onClick={()=>{setActiveCrew(!activecrew)}}/>
+                    </div>
+                    <div className="modalcrew_white_modal">
+                        <div className="modalcrew_white_modal_title">Звенья/Бригады на объекте</div>
+                        <div className="modalcrew_white_modal_plus">Добавить звено / бригаду</div>
+                        <Select placeholder='Выбрать звено' onChange={(e) => setThiscrew(allcrews[e.index])} value={thiscrews} options={allcrews}/>
+                        <div className="modalcrew_white_modal_btn" onClick={()=>plusCrewOfObj()}>Добавить</div>
+                        <div className="modalcrew_white_modal_list">
+                            {listcrew.map((crew, index)=>(
+                                <div key={index} className="modalcrew_white_modal_list_crew">
+                                    <div className="modalcrew_white_modal_list_crew_name">{crew.namecrew}</div>
+                                    <div className="modalcrew_white_modal_list_crew_krest">
+                                        <i className="fa-solid fa-xmark" onClick={()=>delCrewOfList(crew.id)}/>
+                                    </div>
+                                </div>
+                            ))}
+
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
