@@ -308,7 +308,7 @@ export const TabelMans = ({peoples,setPeoples,active,idobj,shifr,month,year}) =>
 
                             </div>
                             <div className="tabwelding_tabel_tabelman_strock_calendar_s">
-                                <div className="tabwelding_tabel_tabelman_strock_calendar_column_day"></div>
+                                <div className="tabwelding_tabel_tabelman_strock_calendar_column_day noday"></div>
                                 <div className="tabwelding_tabel_tabelman_strock_calendar_column_day">
                                     <div className="tabwelding_tabel_tabelman_s_c_c_day_title top-border-1px">31</div>
                                     <input type='number' className="tabwelding_tabel_tabelman_s_c_c_day_content border-b" onChange={(e)=>{updateDay('d31', e.target.value, man.id, index)}} value={(man.d31===0||man.d31==='0'||man.d31===null)?'':man.d31}></input>
@@ -318,7 +318,7 @@ export const TabelMans = ({peoples,setPeoples,active,idobj,shifr,month,year}) =>
                         <div className="tabwelding_tabel_tabelman_strock_itogy">
                             <div className="tabwelding_tabel_tabelman_strock_itogy-header">Итого</div>
                             <div className="tabwelding_tabel_tabelman_strock_itogy-sum">
-                                часов: {summch}<br />дней: {summd}</div>
+                                <span>часов: {summch}</span><span>дней: {summd}</span></div>
                         </div>
                     </div>
                 )

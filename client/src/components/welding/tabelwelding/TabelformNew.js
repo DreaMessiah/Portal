@@ -3,6 +3,7 @@ import "./tabelform.scss";
 import "./tabviewwork1920.scss";
 import "./tabviewwork1550.scss";
 import "./tabviewwork1080.scss";
+import "./tabviewworkMobile.scss";
 import {TabelViewsWork} from "./TabelViewsWork";
 import {TabelMans} from "./TabelMans";
 import {NewCrewModal} from "./modalactive/NewCrewModal";
@@ -59,7 +60,7 @@ export const TabelformNew = () => {
     const [listWorks, setListWorks] = useState([])
     const [thisView, setThisView] = useState([])
     const [thisselcrew, setThisselcrew] = useState([])
-
+    const [crewopened, setCrewopened] = useState(false)
     const  {store} = useContext(Context)
     const inn = store.user.inn
 
@@ -234,6 +235,7 @@ export const TabelformNew = () => {
                     <div className="tabwelding_header_upper_title"><span>{thisobj.shifr}</span> {thisMonth(getMonth)} {getYear}</div>
                     <Link to={`/welcontroll?id=${getId}&shifr=${getShifr}&month=${getMonth}&year=${getYear}`} className="back-button">Контроль</Link>
                 </div>
+
                 <div className="tabwelding_header_newcrewblock">
                     {/*<select className="tabwelding_header_newcrewblock_select" onChange={handleSelect}>*/}
                     {/*    <option></option>*/}
@@ -248,11 +250,13 @@ export const TabelformNew = () => {
             </div>
             <div className="tabwelding_slice"></div>
             <div className="tabwelding_crews">
+                <div className="open_wel_crew" onClick={()=>setCrewopened(!crewopened)}>{(crewopened)?'Свернуть':'Выбрать бригаду'}</div>
                 {allcrews.map( (item,index) =>(
-                <div className="tabwelding_crews_block" key={index} onClick={e => {activetedCrew(e.target, item)}}>{item}</div>
+                <div className="tabwelding_crews_block" style={(crewopened)?{display: 'flex'}:{display: 'none'}} key={index} onClick={e => {activetedCrew(e.target, item); setCrewopened(!crewopened)}}>{item}</div>
                 ))}
             </div>
             <div className="tabwelding_slice"></div>
+            <div>{crewName}</div>
             <div className="tabwelding_viewswork" style={(crewName==='')?{display: 'none'}:{display: 'flex'}}>
                 <div className="tabwelding_viewswork_upper">
                     <Select placeholder='Выбрать вид работы' onChange={(e) => setThisView(listWorks[e.index])} value={thisView} options={listWorks} styles={{container:(baseStyles, state) => ({...baseStyles,width:'250px'})}}/>
