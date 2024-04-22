@@ -5,6 +5,7 @@ import FilesService from "../../services/FilesService";
 import {useMessage} from "../../hooks/message.hook";
 import PostService from "../../services/PostService";
 import {Context} from "../../index";
+import LoadingSpinner from "../loading/LoadingSpinner";
 
 
 export const CreatePOST = () => {
@@ -14,6 +15,7 @@ export const CreatePOST = () => {
     const [startRef,setStartRef] = useState([{id:-1,title:'',content:'',ref:useRef(null),image:''}])
     const [empty,setEmpty] = useState([])
     const [viewId,setViewId] = useState(0)
+    const [loading,setLoading] = useState(false)
     const [oncomment,setOncomment] = useState(false)
     const navigate = useNavigate()
     const message = useMessage()
@@ -43,22 +45,31 @@ export const CreatePOST = () => {
         setTemp(newblocks)
     }
     const loadImage = async (e,index=0,num = 0) => {
-        const response = await FilesService.loadImage(e.target.files[0])
-        if(response.err) message('Файл не является изображением')
-        if(response.data){
-            if(index ===-1){
-                const updatedStartRef = [...startRef]
-                updatedStartRef[0].image = response.data.path
-                setStartRef(updatedStartRef)
-            }else{
-                console.log(temp)
-                const updatedInputs = [...temp]
-                updatedInputs[index-1].images[num] = response.data.path
-                console.log(updatedInputs[index])
-                setTemp(updatedInputs)
+        setLoading(true)
+        try {
+            const response = await FilesService.loadImage(e.target.files[0])
+            if(response.err) message('Файл не является изображением')
+            if(response.data){
+                if(index ===-1){
+                    const updatedStartRef = [...startRef]
+                    updatedStartRef[0].image = response.data.path
+                    setStartRef(updatedStartRef)
+                }else{
+                    console.log(temp)
+                    const updatedInputs = [...temp]
+                    updatedInputs[index-1].images[num] = response.data.path
+                    console.log(updatedInputs[index])
+                    setTemp(updatedInputs)
+                }
             }
+            if(empty.length) checkEmpty()
+        }catch (e) {
+            console.log(e)
+        }finally {
+            setLoading(false)
         }
-        if(empty.length) checkEmpty()
+
+
     }
     const createDto = (data) => {
         if(data.length){
@@ -194,9 +205,9 @@ export const CreatePOST = () => {
                             ):''}
                             {(block.name === 'triple')?(
                                 <div className={`create_new_post_worklist_content_tripleimgs ${empty[(index)*100] || empty[(index)*100+1] || empty[(index)*100 + 2] ? 'red-border' : ''}`}>
-                                    <div style={block.images[0].length ? {backgroundImage: `url(/files/${block.images[0]})`} : {}} onClick={(e) => block.ref[0].current.click()} className={`create_new_post_worklist_content_tripleimgs_img ${empty[(index)*100] ? 'red-border' : ''}`}><i className="fa-solid fa-upload"></i><input onChange={(e) => loadImage(e,index,0)} ref={block.ref[0]} className='hidden-upload' type='file'/></div>
-                                    <div style={block.images[1].length ? {backgroundImage: `url(/files/${block.images[1]})`} : {}} onClick={(e) => block.ref[1].current.click()} className={`create_new_post_worklist_content_tripleimgs_img ${empty[(index)*100+1] ? 'red-border' : ''}`}><i className="fa-solid fa-upload"></i><input onChange={(e) => loadImage(e,index,1)} ref={block.ref[1]} className='hidden-upload' type='file'/></div>
-                                    <div style={block.images[2].length ? {backgroundImage: `url(/files/${block.images[2]})`} : {}} onClick={(e) => block.ref[2].current.click()} className={`create_new_post_worklist_content_tripleimgs_img ${empty[(index)*100+2] ? 'red-border' : ''}`}><i className="fa-solid fa-upload"></i><input onChange={(e) => loadImage(e,index,2)} ref={block.ref[2]} className='hidden-upload' type='file'/></div>
+                                    <div style={block.images[0].length ? {backgroundImage: `url(/files/news/images/${block.images[0]})`} : {}} onClick={(e) => block.ref[0].current.click()} className={`create_new_post_worklist_content_tripleimgs_img ${empty[(index)*100] ? 'red-border' : ''}`}><i className="fa-solid fa-upload"></i><input onChange={(e) => loadImage(e,index,0)} ref={block.ref[0]} className='hidden-upload' type='file'/></div>
+                                    <div style={block.images[1].length ? {backgroundImage: `url(/files/news/images/${block.images[1]})`} : {}} onClick={(e) => block.ref[1].current.click()} className={`create_new_post_worklist_content_tripleimgs_img ${empty[(index)*100+1] ? 'red-border' : ''}`}><i className="fa-solid fa-upload"></i><input onChange={(e) => loadImage(e,index,1)} ref={block.ref[1]} className='hidden-upload' type='file'/></div>
+                                    <div style={block.images[2].length ? {backgroundImage: `url(/files/news/images/${block.images[2]})`} : {}} onClick={(e) => block.ref[2].current.click()} className={`create_new_post_worklist_content_tripleimgs_img ${empty[(index)*100+2] ? 'red-border' : ''}`}><i className="fa-solid fa-upload"></i><input onChange={(e) => loadImage(e,index,2)} ref={block.ref[2]} className='hidden-upload' type='file'/></div>
                                 </div>
                             ):''}
                             {(block.name === 'description')?(
@@ -237,6 +248,7 @@ export const CreatePOST = () => {
             :
             <div>У Вас нет прав на просмотр данного ресурса</div>
             }
+            {loading ? (<LoadingSpinner/>) : null}
         </>
     )
 }

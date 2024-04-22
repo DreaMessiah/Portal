@@ -7,6 +7,7 @@ import FilesService from "../../services/FilesService";
 
 import { useNavigate } from 'react-router-dom';
 import {Context} from "../../index";
+import LoadingSpinner from "../../components/loading/LoadingSpinner";
 export default function SettingPage({idd}){
     const [id,setId] = useState(idd)
     const [surveys,setSurveys] = useState(null)
@@ -21,6 +22,7 @@ export default function SettingPage({idd}){
     const [questions,setQuestions] = useState([])
     const [empty,setEmpty] = useState([])
     const [flagCreate,setFlagCreate] = useState(false)
+    const [loading,setLoading] = useState(false)
     const message = useMessage()
     const navigate = useNavigate();
     const {store} = useContext(Context)
@@ -117,6 +119,7 @@ export default function SettingPage({idd}){
         return hasTrueValue
     }
     const loadImage = async (e) => {
+        setLoading(true)
         try {
             const response = await FilesService.loadPollsImage(e.target.files[0])
             if(response.err) message('Файл не является изображением')
@@ -127,6 +130,8 @@ export default function SettingPage({idd}){
             }
         }catch (e){
             message(e)
+        }finally {
+            setLoading(false)
         }
     }
     const questionsHandler = (value,index) => {
@@ -249,6 +254,7 @@ export default function SettingPage({idd}){
             :
                 <div>У Вас нет прав для просмотра данного ресурса</div>
             }
+            {loading ? (<LoadingSpinner/>) : null}
         </>
     )
 }

@@ -116,7 +116,7 @@ class UsersController {
                 return res.status(400).json({message: 'Файл с таким именем уже существует'})
             }
             await file.mv(path)
-            //await FilesService.compressResizeAndSaveImage(path,80, 300, 400)
+            await FilesService.compressResizeAndSaveImage(path,80, 300, 400)
             const avatar = `${newname}.${type}`
 
             await User.update({ avatar: avatar }, { where: { id: req.user.id } });

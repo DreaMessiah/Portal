@@ -141,7 +141,7 @@ class FilesController {
                 return res.status(400).json({message: 'Файл с таким именем уже существует'})
             }
             await file.mv(path)
-            //await FilesService.compressProportionalImage(path,80, 1280, 720)
+            await FilesService.compressProportionalImage(path,80, 1280, 720)
             return res.status(200).json({path:`${newname}.${type}`})
         }catch (e) {
             next(e)
@@ -163,7 +163,7 @@ class FilesController {
             }
             await file.mv(path)
 
-            //await FilesService.compressProportionalImage(path,80, 1280, 720)
+            await FilesService.compressProportionalImage(path,80, 1280, 720)
 
             return res.status(200).json({path:`${newname}.${type}`})
         }catch (e) {
