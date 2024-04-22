@@ -198,7 +198,7 @@ export const TabelViewsWork = ({getTabel,setTabel,active,idobj,shifr,month,year}
                                                 <input className="tabwelding_v_t_s_c_d_day_plan_input"  value={(strock.p15 === 0 || strock.p15 === '0')?'':strock.p15 } onChange={(e)=>{handleChange('p15', e.target.value, strock.id, index)}}/>
                                             </div>
                                         </div>
-                                        <div className="tabwelding_viewswork_tabel_strock_calendar_days__day ">
+                                        <div className="tabwelding_viewswork_tabel_strock_calendar_days__day disnone">
                                             <div className="tabwelding_v_t_s_c_d_day_title"></div>
                                         </div>
                                     </div>
@@ -365,41 +365,43 @@ export const TabelViewsWork = ({getTabel,setTabel,active,idobj,shifr,month,year}
                                     </div>
                                 </div>
                             </div>
-                            <div className="tabwelding_viewswork_tabel_strock_btnitogy">
-                                <div  className="tabwelding_viewswork_tabel_strock_btnitogy_title">Итоги</div>
-                            </div>
-                            <div className="tabwelding_viewswork_tabel_strock_project">
-                                <div className="tabwelding_viewswork_tabel_strock_title">по<br/>
-                                    проекту</div>
-                                <div className="tabwelding_viewswork_tabel_strock_res">{strock.volume}</div>
-                            </div>
-                            <div className="tabwelding_viewswork_tabel_strock_start">
-                                <div className="tabwelding_viewswork_tabel_strock_title">Итого с<br/>
-                                    начала</div>
-                                <div className="tabwelding_viewswork_tabel_strock_res">{strock.allfact}</div>
-                            </div>
-                            <div className="tabwelding_viewswork_tabel_strock_delta">
-                                <div className="tabwelding_viewswork_tabel_strock_title">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="50%" height="50%" viewBox="0 0 22 18" fill="none">
-                                        <path d="M1.47372 17.5L11 1L20.5263 17.5H1.47372Z" stroke="black"/>
-                                    </svg>
+                            <div className="strockdata">
+                                <div className="tabwelding_viewswork_tabel_strock_btnitogy">
+                                    <div  className="tabwelding_viewswork_tabel_strock_btnitogy_title">Итоги</div>
                                 </div>
-                                <div className="tabwelding_viewswork_tabel_strock_res">{strock.volume - strock.allfact}</div>
-                            </div>
-                            {/*<div className="tabwelding_viewswork_tabel_strock_norma">*/}
-                            {/*    <div className="tabwelding_viewswork_tabel_strock_title">Итого норма<br/>*/}
-                            {/*        времени</div>*/}
-                            {/*    <div className="tabwelding_viewswork_tabel_strock_res">0</div>*/}
-                            {/*</div>*/}
-                            {/*<div className="tabwelding_viewswork_tabel_strock_cover">*/}
-                            {/*    <div className="tabwelding_viewswork_tabel_strock_title">Выра<br/>*/}
-                            {/*        ботка %</div>*/}
-                            {/*    <div className="tabwelding_viewswork_tabel_strock_res">0</div>*/}
-                            {/*</div>*/}
-                            <div className="tabwelding_viewswork_tabel_strock_complite">
-                                <div className="tabwelding_viewswork_tabel_strock_title">Выпол<br/>
-                                    нение %</div>
-                                <div className="tabwelding_viewswork_tabel_strock_res">{(+strock.allfact/+strock.volume*100).toFixed(0)}%</div>
+                                <div className="tabwelding_viewswork_tabel_strock_project">
+                                    <div className="tabwelding_viewswork_tabel_strock_title">по<br/>
+                                        проекту</div>
+                                    <div className="tabwelding_viewswork_tabel_strock_res">{strock.volume}</div>
+                                </div>
+                                <div className="tabwelding_viewswork_tabel_strock_start">
+                                    <div className="tabwelding_viewswork_tabel_strock_title">Итого с<br/>
+                                        начала</div>
+                                    <div className="tabwelding_viewswork_tabel_strock_res">{strock.allfact}</div>
+                                </div>
+                                <div className="tabwelding_viewswork_tabel_strock_delta">
+                                    <div className="tabwelding_viewswork_tabel_strock_title">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="50%" height="50%" viewBox="0 0 22 18" fill="none">
+                                            <path d="M1.47372 17.5L11 1L20.5263 17.5H1.47372Z" stroke="black"/>
+                                        </svg>
+                                    </div>
+                                    <div className="tabwelding_viewswork_tabel_strock_res">{strock.volume - strock.allfact}</div>
+                                </div>
+                                {/*<div className="tabwelding_viewswork_tabel_strock_norma">*/}
+                                {/*    <div className="tabwelding_viewswork_tabel_strock_title">Итого норма<br/>*/}
+                                {/*        времени</div>*/}
+                                {/*    <div className="tabwelding_viewswork_tabel_strock_res">0</div>*/}
+                                {/*</div>*/}
+                                {/*<div className="tabwelding_viewswork_tabel_strock_cover">*/}
+                                {/*    <div className="tabwelding_viewswork_tabel_strock_title">Выра<br/>*/}
+                                {/*        ботка %</div>*/}
+                                {/*    <div className="tabwelding_viewswork_tabel_strock_res">0</div>*/}
+                                {/*</div>*/}
+                                <div className="tabwelding_viewswork_tabel_strock_complite">
+                                    <div className="tabwelding_viewswork_tabel_strock_title">Выпол<br/>
+                                        нение %</div>
+                                    <div className="tabwelding_viewswork_tabel_strock_res">{(+strock.allfact/+strock.volume*100).toFixed(0)}%</div>
+                                </div>
                             </div>
                         </div>
                     </div>
