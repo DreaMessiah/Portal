@@ -151,7 +151,7 @@ export const ControllWeldingNew = () => {
 
             </div>
             <div className="controll_welding_list" id="controll_welding_list">
-                <div className="controll_welding_list_strock" id="list_strock">
+                <div className="controll_welding_list_strock titcontroll" id="list_strock">
                     <div className="controll_welding_list_strock_pp">п/п</div>
                     <div className="controll_welding_list_strock_num">Заявка</div>
                     <div className="controll_welding_list_strock_date">Дата</div>
@@ -163,10 +163,10 @@ export const ControllWeldingNew = () => {
                 </div>
                 {zas && zas.map((item,index) => (
                     <div key={index} className="controll_welding_list_strock">
-                        <div className="controll_welding_list_strock_pp">{index}</div>
+                        <div className="controll_welding_list_strock_pp">{index + 1 } <span className='numbertext'> п/п</span> </div>
                         <div className="controll_welding_list_strock_num">{item.id}</div>
                         <div className="controll_welding_list_strock_date">{formatDate(item.createdAt)}</div>
-                        <div className="controll_welding_list_strock_total">{item.total}</div>
+                        <div className="controll_welding_list_strock_total"><span>кол-во: </span>{item.total}</div>
                         <div className="controll_welding_list_strock_autor">{item.author_name}</div>
                         <div className="controll_welding_list_strock_obj">{item.object_shift}</div>
                         <div style={{backgroundColor:item.status_back,color:item.status_color}} onClick={(e) => statusHandler(index)} className="controll_welding_list_strock_status button">{item.status_name}</div>
