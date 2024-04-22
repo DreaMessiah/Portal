@@ -433,7 +433,7 @@
 
 @media screen and (max-width: 500px){
   .quest_director{
-    width: 350px;
+    max-width: 350px;
     .quest_director_up{
       display: flex;
       flex-direction: column;

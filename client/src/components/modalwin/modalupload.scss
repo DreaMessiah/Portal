@@ -1,68 +1,69 @@
 $transBlackColor:rgba(30,30,30,0.8);
 $whiteColor:rgba(236,236,236,1);
 $transwwBlackColor:rgba(60,60,60,0.5);
-.modal{
-  .modal-back{
-    position: absolute;
-    width: 100%;
-    height: 100vh;
-    top:0;
-    left: 0;
-    background-color: $transBlackColor;
-    z-index: 50;
-  }
-  .middle-modal-win , .middle-modal-win-files{
-    max-width: 600px;
-    width: 60%;
-    min-width: 400px;
-    height: 50vh;
-    background-color: $whiteColor;
-    padding: 20px;
-    border-radius: 10px;
-    z-index: 100;
-    .middle-modal-win-up{
-      display: flex;
-      flex-direction:row;
-      justify-content: space-around;
-      width: 100%;
-      .left-border{
-        border-top: 2px dotted $transwwBlackColor;
-        border-left: 2px dotted $transwwBlackColor;
-        border-radius: 5px 5px 0 0;
-        width: 92%;
 
-      }
-      .right-border{
-        width: 8%;
-        text-align: center;
-        border-radius: 0 0 0 5px;
-        margin-top: 3px;
-        margin-left: -2px;
-        border-left: 2px dotted $transwwBlackColor;
-        i{
-          width: 90%;
-          margin-left: -4px;
-          border-bottom: 2px dotted $transwwBlackColor;
-          font-size: 1.6rem;
-          cursor: pointer;
-          padding-bottom: 8px;
-        }
-        i:hover{
-          color: rgba(118,119,156,1);
-        }
-      }
-    }
-    .middle-modal-win-data{
-      border-left: 2px dotted $transwwBlackColor;
-      border-right: 2px dotted $transwwBlackColor;
-      border-bottom: 2px dotted $transwwBlackColor;
-      border-radius: 0 5px 5px 5px;
-      height: calc(100% - 40px);
-    }
-  }
-
-}
 @media screen and (min-width: 800px){
+  .modal{
+    .modal-back{
+      position: absolute;
+      width: 100%;
+      height: 100vh;
+      top:0;
+      left: 0;
+      background-color: $transBlackColor;
+      z-index: 50;
+    }
+    .middle-modal-win , .middle-modal-win-files{
+      max-width: 600px;
+      //width: 60%;
+      min-width: 345px;
+      height: 50vh;
+      background-color: $whiteColor;
+      padding: 20px;
+      border-radius: 10px;
+      z-index: 100;
+      .middle-modal-win-up{
+        display: flex;
+        flex-direction:row;
+        justify-content: space-around;
+        width: 100%;
+        .left-border{
+          border-top: 2px dotted $transwwBlackColor;
+          border-left: 2px dotted $transwwBlackColor;
+          border-radius: 5px 5px 0 0;
+          width: 92%;
+
+        }
+        .right-border{
+          width: 8%;
+          text-align: center;
+          border-radius: 0 0 0 5px;
+          margin-top: 3px;
+          margin-left: -2px;
+          border-left: 2px dotted $transwwBlackColor;
+          i{
+            width: 90%;
+            margin-left: -4px;
+            border-bottom: 2px dotted $transwwBlackColor;
+            font-size: 1.6rem;
+            cursor: pointer;
+            padding-bottom: 8px;
+          }
+          i:hover{
+            color: rgba(118,119,156,1);
+          }
+        }
+      }
+      .middle-modal-win-data{
+        border-left: 2px dotted $transwwBlackColor;
+        border-right: 2px dotted $transwwBlackColor;
+        border-bottom: 2px dotted $transwwBlackColor;
+        border-radius: 0 5px 5px 5px;
+        height: calc(100% - 40px);
+      }
+    }
+
+  }
   .middle-modal-win-files{
     .inputs{
       display: flex;
@@ -94,9 +95,72 @@ $transwwBlackColor:rgba(60,60,60,0.5);
   }
 }
 
-@media screen and (min-width: 300px) and (max-width: 800px) {
+@media screen and (max-width: 800px) {
+  .modal{
+    max-width: 100vw;
+    .modal-back{
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      top:0;
+      left: 0;
+      background-color: $transBlackColor;
+      z-index: 50;
+    }
+    .middle-modal-win , .middle-modal-win-files{
+      max-width: 550px !important;
+      //width: 1000px;
+      min-width: 320px;
+      height: 50vh;
+      background-color: $whiteColor;
+      padding: 10px;
+      border-radius: 10px;
+      z-index: 100;
+      .middle-modal-win-up{
+        display: flex;
+        flex-direction:row;
+        justify-content: space-around;
+        //max-width: 300px;
+        .left-border{
+          border-top: 2px dotted $transwwBlackColor;
+          border-left: 2px dotted $transwwBlackColor;
+          border-radius: 5px 5px 0 0;
+          width: 92%;
+
+        }
+        .right-border{
+          width: 8%;
+          text-align: center;
+          border-radius: 0 0 0 5px;
+          margin-top: 3px;
+          margin-left: -2px;
+          border-left: 2px dotted $transwwBlackColor;
+          i{
+            width: 90%;
+            margin-left: -4px;
+            border-bottom: 2px dotted $transwwBlackColor;
+            font-size: 1.6rem;
+            cursor: pointer;
+            padding-bottom: 8px;
+          }
+          i:hover{
+            color: rgba(118,119,156,1);
+          }
+        }
+      }
+      .middle-modal-win-data{
+        border-left: 2px dotted $transwwBlackColor;
+        border-right: 2px dotted $transwwBlackColor;
+        border-bottom: 2px dotted $transwwBlackColor;
+        border-radius: 0 5px 5px 5px;
+        height: calc(100% - 40px);
+      }
+    }
+
+  }
   .middle-modal-win-files{
-      max-width: 90% !important;
+      width: 80% !important;
+      //width: 375px;
     .inputs{
       display: flex;
       input{
@@ -135,73 +199,73 @@ $transwwBlackColor:rgba(60,60,60,0.5);
   }
 }
 
-
-.modal{
-  .modal-back{
-    position: absolute;
-    width: 100%;
-    height: 100vh;
-    top:0;
-    left: 0;
-    background-color: $transBlackColor;
-    z-index: 50;
-  }
-  .middle-modal-win , .middle-modal-win-files{
-    max-width: 600px;
-    width: 60%;
-    min-width: 400px;
-    height: 50vh;
-    background-color: $whiteColor;
-    padding: 20px;
-    border-radius: 10px;
-    z-index: 100;
-    .middle-modal-win-up{
-      display: flex;
-      flex-direction:row;
-      justify-content: space-around;
-      width: 100%;
-      .left-border{
-        border-top: 2px dotted $transwwBlackColor;
-        border-left: 2px dotted $transwwBlackColor;
-        border-radius: 5px 5px 0 0;
-        width: 92%;
-
-      }
-      .right-border{
-        width: 8%;
-        text-align: center;
-        border-radius: 0 0 0 5px;
-        margin-top: 3px;
-        margin-left: -2px;
-        border-left: 2px dotted $transwwBlackColor;
-        i{
-          width: 90%;
-          margin-left: -4px;
-          border-bottom: 2px dotted $transwwBlackColor;
-          font-size: 1.6rem;
-          cursor: pointer;
-          padding-bottom: 8px;
-        }
-        i:hover{
-          color: rgba(118,119,156,1);
-        }
-      }
-    }
-    .middle-modal-win-data{
-      border-left: 2px dotted $transwwBlackColor;
-      border-right: 2px dotted $transwwBlackColor;
-      border-bottom: 2px dotted $transwwBlackColor;
-      border-radius: 0 5px 5px 5px;
-      height: calc(100% - 40px);
-    }
-  }
-
-}
-
-.modal-for-table{
-  .middle-modal-win-files{
-    min-width: 600px;
-    width: 1000px;
-    max-width: 1200px;
-  }
-}
+//
+//.modal{
+//  .modal-back{
+//    position: absolute;
+//    width: 100%;
+//    height: 100vh;
+//    top:0;
+//    left: 0;
+//    background-color: $transBlackColor;
+//    z-index: 50;
+//  }
+//  .middle-modal-win , .middle-modal-win-files{
+//    max-width: 600px;
+//    width: 60%;
+//    min-width: 400px;
+//    height: 50vh;
+//    background-color: $whiteColor;
+//    padding: 20px;
+//    border-radius: 10px;
+//    z-index: 100;
+//    .middle-modal-win-up{
+//      display: flex;
+//      flex-direction:row;
+//      justify-content: space-around;
+//      width: 100%;
+//      .left-border{
+//        border-top: 2px dotted $transwwBlackColor;
+//        border-left: 2px dotted $transwwBlackColor;
+//        border-radius: 5px 5px 0 0;
+//        width: 92%;
+//
+//      }
+//      .right-border{
+//        width: 8%;
+//        text-align: center;
+//        border-radius: 0 0 0 5px;
+//        margin-top: 3px;
+//        margin-left: -2px;
+//        border-left: 2px dotted $transwwBlackColor;
+//        i{
+//          width: 90%;
+//          margin-left: -4px;
+//          border-bottom: 2px dotted $transwwBlackColor;
+//          font-size: 1.6rem;
+//          cursor: pointer;
+//          padding-bottom: 8px;
+//        }
+//        i:hover{
+//          color: rgba(118,119,156,1);
+//        }
+//      }
+//    }
+//    .middle-modal-win-data{
+//      border-left: 2px dotted $transwwBlackColor;
+//      border-right: 2px dotted $transwwBlackColor;
+//      border-bottom: 2px dotted $transwwBlackColor;
+//      border-radius: 0 5px 5px 5px;
+//      height: calc(100% - 40px);
+//    }
+//  }
+//
+//}
+//
+//.modal-for-table{
+//  .middle-modal-win-files{
+//    min-width: 600px;
+//    width: 1000px;
+//    max-width: 1200px;
+//  }
+//}
