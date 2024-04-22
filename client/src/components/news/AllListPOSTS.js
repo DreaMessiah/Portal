@@ -42,7 +42,7 @@ export const AllListPOSTS = () => {
                 <div className="news_block_list">
                     {posts.map((item,index) => (
                         <Link key={index} to={`/viewpost?post=${item.id}`} className="news_block_list_box">
-                            <div className="news_block_list_box_img" style={item.image ? {backgroundImage: `url(/files${item.image})`} : {}}></div>
+                            <div className="news_block_list_box_img" style={item.image ? {backgroundImage: `url(/files/news/images/${item.image})`} : {}}></div>
                             <div className="news_block_list_box_content">
                                 <div className="news_block_list_box_content_a">
                                     <div className="news_block_list_box_content_xyz">

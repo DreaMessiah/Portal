@@ -168,7 +168,7 @@ export const ViewPOST = observer( () => {
             {post &&
                 <div className="view_new_post_worklist">
                     <div className="view_new_post_worklist_header" >{post[0].title}</div>
-                    <div style={post[0].image.length ? {backgroundImage:`url(/files${post[0].image})`} : {}} className={`view_new_post_worklist_mainimg ${+viewId === 15 && 'biggest'}`}></div>
+                    <div style={post[0].image.length ? {backgroundImage:`url(/files/news/images/${post[0].image})`} : {}} className={`view_new_post_worklist_mainimg ${+viewId === 15 && 'biggest'}`}></div>
                     <div className="view_new_post_worklist_content">
                         <div className="view_new_post_worklist_content_smalltext">{post[0].content}</div>
 
@@ -176,17 +176,17 @@ export const ViewPOST = observer( () => {
                             <span key={index}>
                             {item.name === 'title' && <div className="view_new_post_worklist_content_title">{item.content}</div>}
                                 {item.name === 'content' && <div className="view_new_post_worklist_content_longtext">{item.content}</div>}
-                                {item.name === 'image' && <div style={item.image[0].length ? {backgroundImage:`url(/files${item.image[0]})`} : {}} className="view_new_post_worklist_mainimg big"></div>}
+                                {item.name === 'image' && <div style={item.image[0].length ? {backgroundImage:`url(/files/news/images/${item.image[0]})`} : {}} className="view_new_post_worklist_mainimg big"></div>}
                                 {item.name === 'triple' &&
                                     <div className="view_new_post_worklist_content_tripleimgs">
-                                        <div style={item.image[0].length ? {backgroundImage:`url(/files${item.image[0]})`} : {}} className="view_new_post_worklist_content_tripleimgs_img"></div>
-                                        <div style={item.image[1].length ? {backgroundImage:`url(/files${item.image[1]})`} : {}} className="view_new_post_worklist_content_tripleimgs_img"></div>
-                                        <div style={item.image[2].length ? {backgroundImage:`url(/files${item.image[2]})`} : {}} className="view_new_post_worklist_content_tripleimgs_img"></div>
+                                        <div style={item.image[0].length ? {backgroundImage:`url(/files/news/images/${item.image[0]})`} : {}} className="view_new_post_worklist_content_tripleimgs_img"></div>
+                                        <div style={item.image[1].length ? {backgroundImage:`url(/files/news/images/${item.image[1]})`} : {}} className="view_new_post_worklist_content_tripleimgs_img"></div>
+                                        <div style={item.image[2].length ? {backgroundImage:`url(/files/news/images/${item.image[2]})`} : {}} className="view_new_post_worklist_content_tripleimgs_img"></div>
                                     </div>
                                 }
                                 {item.name === 'description' &&
                                     <div className="view_new_post_worklist_content_imgtext">
-                                        <div style={item.image[0].length ? {backgroundImage:`url(/files${item.image[0]})`} : {}} className="view_new_post_worklist_content_imgtext_img"></div>
+                                        <div style={item.image[0].length ? {backgroundImage:`url(/files/news/images/${item.image[0]})`} : {}} className="view_new_post_worklist_content_imgtext_img"></div>
                                         <div className="view_new_post_worklist_content_imgtext_text">{item.content}</div>
                                     </div>
                                 }

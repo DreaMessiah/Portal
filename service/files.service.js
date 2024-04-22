@@ -4,6 +4,8 @@ const {Files, StatementsSimples} = require('../models/models')
 const ApiError = require("../exceptions/api.error");
 const {Sequelize} = require('sequelize')
 const sharp = require("sharp");
+const PATH = require('path');
+
 class FilesService {
     async get(id,parent) {
         const dirs = await Files.findAll({where: {user_id:id,parent_id:parent,type:'dir'}})
@@ -72,8 +74,11 @@ class FilesService {
         }
     }
     createDir(file){
-        const filePath = `${config.get('file_path')}\\${file.user_id}\\${file.path}`
-        const userPath = `${config.get('file_path')}\\${file.user_id}`
+        //const filePath = `${config.get('file_path')}\\${file.user_id}\\${file.path}`
+        //const userPath = `${config.get('file_path')}\\${file.user_id}`
+
+        const filePath = PATH.join(`${config.get('file_path')},${file.user_id},${file.path}`)
+        const userPath = PATH.join(`${config.get('file_path')},${file.user_id}`)
 
         return new Promise(((resolve,reject) => {
             try{
@@ -90,7 +95,9 @@ class FilesService {
         }))
     }
     async createPathTask(path){
-        const taskPath = `${config.get('file_path')}\\tasks\\${path}`
+        //const taskPath = `${config.get('file_path')}\\tasks\\${path}`
+        const taskPath = PATH.join(`${config.get('file_path')},'tasks',${path}`)
+
         if(!fs.existsSync(taskPath)){
             await fs.mkdir(taskPath, (err) => {
                 if (err) {

@@ -107,7 +107,6 @@ export default class Store {
         try{
             const response = await axios.get(`${API_URL}/auth/refresh`,{withCredentials:true})
             localStorage.setItem('token',response.data.accessToken)
-            console.log(response.data.user)
             this.setIsCreated(!!!response.data.user.checked)
             this.setAuth(true)
             this.setUser(response.data.user)
