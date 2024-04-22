@@ -352,8 +352,8 @@ export const TabelViewsWork = ({getTabel,setTabel,active,idobj,shifr,month,year}
                             </div>
 
                             <div className="tabwelding_viewswork_tabel_strock_itogy">
-                                <div className="tabwelding_viewswork_tabel_strock_title open-flex">Итого за<br/>
-                                    месяц</div>
+                                <div className="tabwelding_viewswork_tabel_strock_title open-flex"><span>Итого за</span>
+                                <span>месяц</span></div>
                                 <div className="tabwelding_viewswork_tabel_strock_ii">
                                     <div className="tabwelding_viewswork_tabel_strock_ii_pf_t">
                                         <div className="tabwelding_viewswork_tabel_strock_ii_plan">План</div>
