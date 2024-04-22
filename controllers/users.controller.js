@@ -7,6 +7,7 @@ const config = require("config")
 const fs = require("fs")
 const {Avatar, T13, User} = require("../models/models");
 const sequelize = require("sequelize");
+const PATH = require("path");
 
 class UsersController {
     async registration(req,res,next) {
@@ -108,12 +109,14 @@ class UsersController {
 
             const type = file.name.split('.').pop()
 
-            const path = `${config.get('public_path')}profile\\${newname}.${type}`
+            //const path = `${config.get('public_path')}profile\\${newname}.${type}`
+            const path = PATH.join(`${config.get('public_path')}`,'profile',`${newname}.${type}`);
+            console.log(path)
             if(fs.existsSync(path)){
                 return res.status(400).json({message: 'Файл с таким именем уже существует'})
             }
             await file.mv(path)
-            await FilesService.compressResizeAndSaveImage(path,80, 300, 400)
+            //await FilesService.compressResizeAndSaveImage(path,80, 300, 400)
             const avatar = `${newname}.${type}`
 
             await User.update({ avatar: avatar }, { where: { id: req.user.id } });

@@ -26,7 +26,7 @@ export const SinglePost = ({id}) => {
         <>
             {post &&
             <Link to={`/viewpost?post=${post.id}`} className="news_block_list_box">
-                <div className="news_block_list_box_img" style={post.image ? {backgroundImage: `url(/files${post.image})`} : {}}></div>
+                <div className="news_block_list_box_img" style={post.image ? {backgroundImage: `url(/files/news/images/${post.image})`} : {}}></div>
                 <div className="news_block_list_box_content">
                     <div className="news_block_list_box_content_a">
                         <div className="news_block_list_box_content_xyz">
