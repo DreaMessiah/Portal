@@ -129,7 +129,8 @@ export const NewControll = ({month,year,object_id,setActive,loading}) => {
                             <div className='new_controll_list_this_strock_way'>{item.way}</div>
                             <div className='new_controll_list_this_strock_access'>{item.dostup}</div>
                             <div className='new_controll_list_this_strock_size'>{item.size}</div>
-                            <div className='new_controll_list_this_strock_tube'>{item.zav}<i onClick={(e) => deleteConnectionHandler(index)} className="fa-solid fa-xmark"></i></div>
+                            <div className='new_controll_list_this_strock_tube'>{item.zav}</div>
+                            <i onClick={(e) => deleteConnectionHandler(index)} className="fa-solid fa-xmark"></i>
                         </div>
                     ))}
                 </div>
