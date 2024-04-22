@@ -432,6 +432,46 @@
 }
 
 @media screen and (max-width: 500px){
+  .quest_director{
+    width: 350px;
+    .quest_director_up{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .quest_director_up_title{
+          font-size: 12pt;
+        text-align: center;
+      }
+      .quest_director_up_customer{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 400px;
+        .quest_director_up_customer_name{
+          min-width: calc(100% - 100px);
+          padding: 0 50px
+        }
+      }
+      .quest_director_up_theme{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 400px;
+        .quest_director_up_theme_name{
+          min-width: calc(100% - 100px);
+          padding: 0 50px
+        }
+      }
+      .quest_director_up_question{
+        width: 80%;
+      }
+    }
+    .quest_director_btns{
+      .quest_director_btns_cancel{}
+      .quest_director_btns_post{}
+    }
+  }
+
   .head_block{
     padding: 0 20px;
     display: flex;
