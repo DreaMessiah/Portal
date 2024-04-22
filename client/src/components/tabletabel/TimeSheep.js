@@ -354,7 +354,48 @@ export const TimeSheepPortal = () => {
     const [devman, setDevman] = useState('no')
     const [izm, setIzm] = useState('')
 
+    const winread = day => {
 
+
+
+
+        const userAgent = navigator.userAgent;
+        let operatingSystem;
+
+        if (/Windows/.test(userAgent)) {
+            operatingSystem = "Windows";
+        } else if (/Mac OS|Macintosh/.test(userAgent)) {
+            operatingSystem = "Mac OS";
+        } else if (/Linux/.test(userAgent)) {
+            operatingSystem = "Linux";
+        } else if (/Android/.test(userAgent)) {
+            operatingSystem = "Android";
+        } else if (/iOS|iPhone|iPad|iPod/.test(userAgent)) {
+            operatingSystem = "iOS";
+        } else {
+            operatingSystem = "Unknown";
+        }
+
+        console.log("Операционная система пользователя:", operatingSystem);
+
+
+
+
+        const screenWidth = window.innerWidth;
+        console.log(screenWidth)
+        const currentDate = new Date();
+        const currentDay = currentDate.getDate();
+        if((operatingSystem === 'Android' || operatingSystem === 'iOS') && day !== currentDay){
+            return {display:'none'}
+        } else if((operatingSystem === 'Android' || operatingSystem === 'iOS') && day !== currentDay -1 && day !== 1){
+            return {display:'none'}
+        } else if((operatingSystem === 'Android' || operatingSystem === 'iOS') && day !== currentDay +1 && day !== 31){
+            return {display:'none'}
+        } else {
+            return {display:'flex'}
+        }
+    }
+    winread()
 
     const deleteMan = (id, name, developer) =>{
 
@@ -395,7 +436,7 @@ export const TimeSheepPortal = () => {
         <div className='right-block-tabwelding'>
             <ModalFiles data={<DelManTabel func={listMansOfTabel} idmandel={idman} namemandel={nameman} devmandel={devman}  active={delwin} setActive={setDelwin} month={getMonth} year={getYear} getShifr={getShifr}/>} active={delwin} setActive={setDelwin}></ModalFiles>
             <ModalFiles data={<WritedTabel write={writed} setWrite={setWrited} active={wractive} setActive={setWractive} month={getMonth} year={getYear} getShifr={getShifr}/>} active={wractive} setActive={setWractive}></ModalFiles>
-            <div className="tabwelding_header">
+            <div className="tabwel_header">
                 <div className="tabwelding_header_upper">
                     <Link to={`/tabelportal?id=${getShifr}`} className="tabwelding_header_upper_backbtn">Назад</Link>
                     <div className="tabwelding_header_upper_title"><span>{getMyObj(getShifr, 'shifr')}</span> {pushMonth(getMonth)} {getYear}</div>
@@ -420,7 +461,7 @@ export const TimeSheepPortal = () => {
                             <div className="tab_tabel_tabelman_strock_calendar">
                                 <div className="tab_tabel_tabelman_strock_calendar_s">
 
-                                    <div className="tab_tabel_tabelman_strock_calendar_column_day">
+                                    <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(1)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title" style={(getDayWeek(1)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>1</div>
                                         <select disabled={(man.d1 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b border-b no-left-border_sel" onChange={(e)=>editDay('m1', e.target.value, man.id)}>
                                             <option>{(man.d1 === '')?man.m1:man.d1}</option>
@@ -435,7 +476,7 @@ export const TimeSheepPortal = () => {
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b no-left-border" onChange={irr} defaultValue={man.m1}></input>*/}
                                     </div>
 
-                                    <div className="tab_tabel_tabelman_strock_calendar_column_day">
+                                    <div className="tab_tabel_tabelman_strock_calendar_column_day"  style={winread(16)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title" style={(getDayWeek(16)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>16</div>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b no-left-border" onChange={irr} defaultValue={man.m16}></input>*/}
 
@@ -455,7 +496,7 @@ export const TimeSheepPortal = () => {
                                 </div>
                                 <div className="tab_tabel_tabelman_strock_calendar_s">
 
-                                    <div className="tab_tabel_tabelman_strock_calendar_column_day">
+                                    <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(2)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title" style={(getDayWeek(2)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>2</div>
                                         <select disabled={(man.d2 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m2', e.target.value, man.id)}>
                                             <option>{(man.d2 === '')?man.m2:man.d2}</option>
@@ -469,7 +510,7 @@ export const TimeSheepPortal = () => {
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m2}></input>*/}
                                     </div>
 
-                                    <div className="tab_tabel_tabelman_strock_calendar_column_day">
+                                    <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(17)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title" style={(getDayWeek(17)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>17</div>
                                         <select disabled={(man.d17 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m17', e.target.value, man.id)}>
                                             <option>{(man.d17 === '')?man.m17:man.d17}</option>
@@ -485,7 +526,7 @@ export const TimeSheepPortal = () => {
                                 </div>
                                 <div className="tab_tabel_tabelman_strock_calendar_s">
 
-                                    <div className="tab_tabel_tabelman_strock_calendar_column_day">
+                                    <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(3)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title" style={(getDayWeek(3)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>3</div>
                                         <select disabled={(man.d3 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m3', e.target.value, man.id)}>
                                             <option>{(man.d3 === '')?man.m3:man.d3}</option>
@@ -499,7 +540,7 @@ export const TimeSheepPortal = () => {
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m3}></input>*/}
                                     </div>
 
-                                    <div className="tab_tabel_tabelman_strock_calendar_column_day">
+                                    <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(18)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title" style={(getDayWeek(18)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>18</div>
                                         <select disabled={(man.d18 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m18', e.target.value, man.id)}>
                                             <option>{(man.d18 === '')?man.m18:man.d18}</option>
@@ -516,7 +557,7 @@ export const TimeSheepPortal = () => {
                                 </div>
                                 <div className="tab_tabel_tabelman_strock_calendar_s">
 
-                                    <div className="tab_tabel_tabelman_strock_calendar_column_day">
+                                    <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(4)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title" style={(getDayWeek(4)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>4</div>
                                         <select disabled={(man.d4 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m4', e.target.value, man.id)}>
                                             <option>{(man.d4 === '')?man.m4:man.d4}</option>
@@ -531,7 +572,7 @@ export const TimeSheepPortal = () => {
                                     </div>
 
 
-                                    <div className="tab_tabel_tabelman_strock_calendar_column_day">
+                                    <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(19)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title" style={(getDayWeek(19)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>19</div>
                                         <select disabled={(man.d19 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m19', e.target.value, man.id)}>
                                             <option>{(man.d19 === '')?man.m19:man.d19}</option>
@@ -548,7 +589,7 @@ export const TimeSheepPortal = () => {
                                 </div>
                                 <div className="tab_tabel_tabelman_strock_calendar_s">
 
-                                    <div className="tab_tabel_tabelman_strock_calendar_column_day">
+                                    <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(5)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title" style={(getDayWeek(5)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>5</div>
                                         <select disabled={(man.d5 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m5', e.target.value, man.id)}>
                                             <option>{(man.d5 === '')?man.m5:man.d5}</option>
@@ -563,7 +604,7 @@ export const TimeSheepPortal = () => {
                                     </div>
 
 
-                                    <div className="tab_tabel_tabelman_strock_calendar_column_day">
+                                    <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(20)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title" style={(getDayWeek(20)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>20</div>
                                         <select disabled={(man.d20 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m20', e.target.value, man.id)}>
                                             <option>{(man.d20 === '')?man.m20:man.d20}</option>
@@ -580,7 +621,7 @@ export const TimeSheepPortal = () => {
                                 </div>
                                 <div className="tab_tabel_tabelman_strock_calendar_s">
 
-                                    <div className="tab_tabel_tabelman_strock_calendar_column_day">
+                                    <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(6)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title" style={(getDayWeek(6)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>6</div>
                                         <select disabled={(man.d6 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m6', e.target.value, man.id)}>
                                             <option>{(man.d6 === '')?man.m6:man.d6}</option>
@@ -595,7 +636,7 @@ export const TimeSheepPortal = () => {
                                     </div>
 
 
-                                    <div className="tab_tabel_tabelman_strock_calendar_column_day">
+                                    <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(21)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title" style={(getDayWeek(21)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>21</div>
                                         <select disabled={(man.d21 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m21', e.target.value, man.id)}>
                                             <option>{(man.d21 === '')?man.m21:man.d21}</option>
@@ -612,7 +653,7 @@ export const TimeSheepPortal = () => {
                                 </div>
                                 <div className="tab_tabel_tabelman_strock_calendar_s">
 
-                                    <div className="tab_tabel_tabelman_strock_calendar_column_day">
+                                    <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(7)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title" style={(getDayWeek(7)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>7</div>
                                         <select disabled={(man.d7 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m7', e.target.value, man.id)}>
                                             <option>{(man.d7 === '')?man.m7:man.d7}</option>
@@ -627,7 +668,7 @@ export const TimeSheepPortal = () => {
                                     </div>
 
 
-                                    <div className="tab_tabel_tabelman_strock_calendar_column_day">
+                                    <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(22)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title" style={(getDayWeek(22)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>22</div>
                                         <select disabled={(man.d22 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m22', e.target.value, man.id)}>
                                             <option>{(man.d22 === '')?man.m22:man.d22}</option>
@@ -644,7 +685,7 @@ export const TimeSheepPortal = () => {
                                 </div>
                                 <div className="tab_tabel_tabelman_strock_calendar_s">
 
-                                    <div className="tab_tabel_tabelman_strock_calendar_column_day">
+                                    <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(8)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title" style={(getDayWeek(8)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>8</div>
                                         <select disabled={(man.d8 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m8', e.target.value, man.id)}>
                                             <option>{(man.d8 === '')?man.m8:man.d8}</option>
@@ -659,7 +700,7 @@ export const TimeSheepPortal = () => {
                                     </div>
 
 
-                                    <div className="tab_tabel_tabelman_strock_calendar_column_day">
+                                    <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(23)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title" style={(getDayWeek(23)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>23</div>
                                         <select disabled={(man.d23 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m23', e.target.value, man.id)}>
                                             <option>{(man.d23 === '')?man.m23:man.d23}</option>
@@ -676,7 +717,7 @@ export const TimeSheepPortal = () => {
                                 </div>
                                 <div className="tab_tabel_tabelman_strock_calendar_s">
 
-                                    <div className="tab_tabel_tabelman_strock_calendar_column_day">
+                                    <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(9)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title" style={(getDayWeek(9)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>9</div>
                                         <select disabled={(man.d9 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m9', e.target.value, man.id)}>
                                             <option>{(man.d9 === '')?man.m9:man.d9}</option>
@@ -691,7 +732,7 @@ export const TimeSheepPortal = () => {
                                     </div>
 
 
-                                    <div className="tab_tabel_tabelman_strock_calendar_column_day">
+                                    <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(24)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title" style={(getDayWeek(24)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>24</div>
                                         <select disabled={(man.d24 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m24', e.target.value, man.id)}>
                                             <option>{(man.d24 === '')?man.m24:man.d24}</option>
@@ -708,7 +749,7 @@ export const TimeSheepPortal = () => {
                                 </div>
                                 <div className="tab_tabel_tabelman_strock_calendar_s">
 
-                                    <div className="tab_tabel_tabelman_strock_calendar_column_day">
+                                    <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(10)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title" style={(getDayWeek(10)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>10</div>
                                         <select disabled={(man.d10 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m10', e.target.value, man.id)}>
                                             <option>{(man.d10 === '')?man.m10:man.d10}</option>
@@ -723,7 +764,7 @@ export const TimeSheepPortal = () => {
                                     </div>
 
 
-                                    <div className="tab_tabel_tabelman_strock_calendar_column_day">
+                                    <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(25)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title" style={(getDayWeek(25)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>25</div>
                                         <select disabled={(man.d25 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m25', e.target.value, man.id)}>
                                             <option>{(man.d25 === '')?man.m25:man.d25}</option>
@@ -740,7 +781,7 @@ export const TimeSheepPortal = () => {
                                 </div>
                                 <div className="tab_tabel_tabelman_strock_calendar_s">
 
-                                    <div className="tab_tabel_tabelman_strock_calendar_column_day">
+                                    <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(11)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title" style={(getDayWeek(11)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>11</div>
                                         <select disabled={(man.d11 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m11', e.target.value, man.id)}>
                                             <option>{(man.d11 === '')?man.m11:man.d11}</option>
@@ -755,7 +796,7 @@ export const TimeSheepPortal = () => {
                                     </div>
 
 
-                                    <div className="tab_tabel_tabelman_strock_calendar_column_day">
+                                    <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(26)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title" style={(getDayWeek(26)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>26</div>
                                         <select disabled={(man.d26 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m26', e.target.value, man.id)}>
                                             <option>{(man.d26 === '')?man.m26:man.d26}</option>
@@ -772,7 +813,7 @@ export const TimeSheepPortal = () => {
                                 </div>
                                 <div className="tab_tabel_tabelman_strock_calendar_s">
 
-                                    <div className="tab_tabel_tabelman_strock_calendar_column_day">
+                                    <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(12)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title" style={(getDayWeek(12)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>12</div>
                                         <select disabled={(man.d12 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m12', e.target.value, man.id)}>
                                             <option>{(man.d12 === '')?man.m12:man.d12}</option>
@@ -787,7 +828,7 @@ export const TimeSheepPortal = () => {
                                     </div>
 
 
-                                    <div className="tab_tabel_tabelman_strock_calendar_column_day">
+                                    <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(27)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title" style={(getDayWeek(27)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>27</div>
                                         <select disabled={(man.d27 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m27', e.target.value, man.id)}>
                                             <option>{(man.d27 === '')?man.m27:man.d27}</option>
@@ -804,7 +845,7 @@ export const TimeSheepPortal = () => {
                                 </div>
                                 <div className="tab_tabel_tabelman_strock_calendar_s">
 
-                                    <div className="tab_tabel_tabelman_strock_calendar_column_day">
+                                    <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(13)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title" style={(getDayWeek(13)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>13</div>
                                         <select disabled={(man.d13 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m13', e.target.value, man.id)}>
                                             <option>{(man.d13 === '')?man.m13:man.d13}</option>
@@ -819,7 +860,7 @@ export const TimeSheepPortal = () => {
                                     </div>
 
 
-                                    <div className="tab_tabel_tabelman_strock_calendar_column_day">
+                                    <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(28)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title" style={(getDayWeek(28)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>28</div>
                                         <select disabled={(man.d28 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m28', e.target.value, man.id)}>
                                             <option>{(man.d28 === '')?man.m28:man.d28}</option>
@@ -836,7 +877,7 @@ export const TimeSheepPortal = () => {
                                 </div>
                                 <div className="tab_tabel_tabelman_strock_calendar_s">
 
-                                    <div className="tab_tabel_tabelman_strock_calendar_column_day">
+                                    <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(14)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title" style={(getDayWeek(14)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>14</div>
                                         <select disabled={(man.d14 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m14', e.target.value, man.id)}>
                                             <option>{(man.d14 === '')?man.m14:man.d14}</option>
@@ -851,7 +892,7 @@ export const TimeSheepPortal = () => {
                                     </div>
 
 
-                                    <div className="tab_tabel_tabelman_strock_calendar_column_day">
+                                    <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(29)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title" style={(getDayWeek(29)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>29</div>
                                         <select disabled={(man.d29 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m29', e.target.value, man.id)}>
                                             <option>{(man.d29 === '')?man.m29:man.d29}</option>
@@ -868,7 +909,7 @@ export const TimeSheepPortal = () => {
                                 </div>
                                 <div className="tab_tabel_tabelman_strock_calendar_s">
 
-                                    <div className="tab_tabel_tabelman_strock_calendar_column_day">
+                                    <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(15)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title" style={(getDayWeek(15)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>15</div>
                                         <select disabled={(man.d15 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m15', e.target.value, man.id)}>
                                             <option>{(man.d15 === '')?man.m15:man.d15}</option>
@@ -883,7 +924,7 @@ export const TimeSheepPortal = () => {
                                     </div>
 
 
-                                    <div className="tab_tabel_tabelman_strock_calendar_column_day">
+                                    <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(30)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title" style={(getDayWeek(30)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>30</div>
                                         <select disabled={(man.d30 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m30', e.target.value, man.id)}>
                                             <option>{(man.d30 === '')?man.m30:man.d30}</option>
@@ -900,11 +941,11 @@ export const TimeSheepPortal = () => {
                                 </div>
                                 <div className="tab_tabel_tabelman_strock_calendar_s">
 
-                                    <div className="tab_tabel_tabelman_strock_calendar_column_day">
+                                    <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(31)}>
                                     </div>
 
 
-                                    <div className="tab_tabel_tabelman_strock_calendar_column_day">
+                                    <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(31)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title top-border-1px" style={(getDayWeek(31)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>31</div>
                                         <select disabled={(man.d31 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m31', e.target.value, man.id)}>
                                             <option>{(man.d31 === '')?man.m31:man.d31}</option>
