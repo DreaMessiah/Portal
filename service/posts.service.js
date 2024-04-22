@@ -63,6 +63,7 @@ class PostsService{
         post.clicks++
         await post.save()
         const postDto = [{name:'main',title:post.title,image:post.image,content:post.text,oncomment:post.oncomment}]
+        console.log(post)
         const data = JSON.parse(post.json_data)
         data.map( item => {
             postDto.push({name:item.name,content: item.content,image:item.images})

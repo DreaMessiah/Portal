@@ -91,8 +91,8 @@ const LkNew = () => {
           </div>
       )
     }
-
     const loadImage = async (e) => {
+        setLoading(true)
         try {
             const response = await UserService.loadAvatar(e.target.files[0])
             if(response){
@@ -104,6 +104,8 @@ const LkNew = () => {
             }
         }catch (e) {
             console.log(e)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -130,6 +132,7 @@ const LkNew = () => {
             </div>
             <ModalFiles data={<ChangePassword/>} active={activeModalPass} setActive={setActiveModalPass} heigth={"40vh"}/>
             {loading ? (<LoadingSpinner/>) : null}
+
         </div>
     )
 }

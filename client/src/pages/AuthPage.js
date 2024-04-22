@@ -15,7 +15,7 @@ function AuthPage(){
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-        const promise = await store.login(login,password)
+        const promise = await store.login(login.toLowerCase(),password)
 
         if(promise?.response?.data?.message){
             setEmpty(true)
