@@ -18,7 +18,7 @@ export default function DriveOnProject({mass, page}) {
 
     const inn = store.user.inn
     const login = store.user.login
-
+    const rule = store.user.unit
     const {btns_modules} = useContext(DataContext)
 
     const location = useLocation();
@@ -99,7 +99,7 @@ export default function DriveOnProject({mass, page}) {
             </div>
             <div className='btn_projects'>
                 {btns_modules.map((btn, index)=>(
-                    <Link key={index} to={btn.url + '?id=' + getId}  className='btn_project_block'><i className={`${btn.icon}`}/><div>{btn.title}</div></Link>
+                    <Link style={((rule > 1 && btn.title === 'Сварщики') || (rule > 0 && btn.title !== 'Сварщики'))?{display: 'flex'}:{display: 'none'}} key={index} to={btn.url + '?id=' + getId}  className='btn_project_block'><i className={`${btn.icon}`}/><div>{btn.title}</div></Link>
                     )
 
                 )}

@@ -57,16 +57,16 @@ export const FastBtns = () => {
                         Мои документы
                     </div>
                 </Link>
-                <Link to={'/maintasks'} className="fastbtns_block_btn">
+                <Link to={'/newpaylist'} className="fastbtns_block_btn">
                     <div className="fastbtns_block_btn_box" style={{backgroundColor: '#F4EEF6'}}>
                     </div>
                     <div className="fastbtns_block_btn_radius" style={{backgroundColor: '#F4E6F1'}}>
                     </div>
                     <div className="fastbtns_block_btn_icon">
-                        <i className="fa-solid fa-timeline" style={{color: '#D0B4D6'}}></i>
+                        <i className="fa-solid fa-receipt" style={{color: '#D0B4D6'}}></i>
                     </div>
                     <div className="fastbtns_block_btn_text">
-                        Мои задачи
+                        Расчётка
                     </div>
                 </Link>
             </div>

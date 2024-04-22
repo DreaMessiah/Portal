@@ -5,6 +5,18 @@ const BestManService = require("../service/mainpage.service");
 
 class ObjsController {
 
+
+    async thisObj(req,res,next) {
+        try{
+            const object_id = req.body
+            console.log('-------------------------------'+object_id.object_id)
+            const shifr = await ObjsService.thisObj(object_id)
+            return res.json(shifr)
+        }catch (e){
+            next(e)
+        }
+    }
+
     async delBestMan(req,res,next) {
         try{
             const id = req.body

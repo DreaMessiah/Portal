@@ -40,10 +40,10 @@ export const Mainnavbar = () => {
                     <div className="navbar_block_menu_strock_icon icon_doc"></div>
                     <div className="navbar_block_menu_strock_description">Документы</div>
                 </Link>
-                <Link onClick={(e) => setSelectedMenu(6)} to='/maintasks' className={`navbar_block_menu_strock ${selectedMenu===6 && 'selected'}`}>
-                    <div className="navbar_block_menu_strock_icon icon_task"></div>
-                    <div className="navbar_block_menu_strock_description">Задачи и Проекты</div>
-                </Link>
+                {/*<Link onClick={(e) => setSelectedMenu(6)} to='/maintasks' className={`navbar_block_menu_strock ${selectedMenu===6 && 'selected'}`}>*/}
+                {/*    <div className="navbar_block_menu_strock_icon icon_task"></div>*/}
+                {/*    <div className="navbar_block_menu_strock_description">Задачи и Проекты</div>*/}
+                {/*</Link>*/}
                 {/*<div className="navbar_block_menu_strock">*/}
                 {/*    <div className="navbar_block_menu_strock_icon icon_lk"></div>*/}
                 {/*    <div className="navbar_block_menu_strock_description">Личный кабинет</div>*/}
@@ -83,7 +83,7 @@ export const Mainnavbar = () => {
                         <div className="navbar_block_dopmenu_list_icon"><i className="fa-brands fa-slack"></i></div>
                         <div className="navbar_block_dopmenu_list_description">Бланки заявлений</div>
                     </Link>
-                    {rule === 3 &&
+                    {(rule === 99 || rule === 3) &&
                     <Link to={'/createnews'} className={`navbar_block_dopmenu_list_strock`}>
                         <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-thumbtack"></i></div>
                         <div className="navbar_block_dopmenu_list_description">Добавить новость</div>

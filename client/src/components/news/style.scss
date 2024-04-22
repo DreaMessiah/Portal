@@ -190,18 +190,35 @@
       padding: 20px;
       background-color: #FFF;
       border-radius: 10px;
-      .create_new_post_worklist_header{
-        width: calc(100% - 46px);
-        padding: 20px;
-        border: 3px dotted #CCC;
-        border-radius: 10px;
-        font-size: 24pt;
-        font-weight: 600;
-        color:rgba(18,19,56,1);
-        text-align: center;
-        outline: none;
-        transition: .2s;
+      @media screen and (min-width: 600px) {
+        .create_new_post_worklist_header{
+          width: calc(100% - 46px);
+          padding: 20px;
+          border: 3px dotted #CCC;
+          border-radius: 10px;
+          font-size: 24pt;
+          font-weight: 600;
+          color:rgba(18,19,56,1);
+          text-align: center;
+          outline: none;
+          transition: .2s;
+        }
       }
+      @media screen and (max-width: 600px) {
+        .create_new_post_worklist_header{
+          width: calc(100% - 46px);
+          padding: 20px;
+          border: 3px dotted #CCC;
+          border-radius: 10px;
+          font-size: 16pt;
+          font-weight: 600;
+          color:rgba(18,19,56,1);
+          text-align: center;
+          outline: none;
+          transition: .2s;
+        }
+      }
+
 
       .create_new_post_worklist_header:hover{
         border: 3px dotted #454545;
@@ -1684,7 +1701,9 @@
 
       .create_new_post_tools_plusblock{}
       .create_new_post_tools_devbtn{}
-      .create_new_post_tools_publish{}
+      .create_new_post_tools_publish{
+        padding: 8px;
+      }
       div{
         margin-right: 20px;
         padding: 20px 20px;
@@ -1712,7 +1731,7 @@
         padding: 20px;
         border: 3px dotted #CCC;
         border-radius: 10px;
-        font-size: 24pt;
+        font-size: 16pt;
         font-weight: 600;
         color:rgba(18,19,56,1);
         text-align: center;
@@ -1862,6 +1881,7 @@
 
         .plus_btn_create_strock{
           display: flex;
+          flex-wrap: wrap;
           border: none;
           min-height: 10px;
           transition: .2s;

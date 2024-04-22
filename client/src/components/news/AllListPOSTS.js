@@ -31,7 +31,7 @@ export const AllListPOSTS = () => {
         <div className="news_block">
             <div className="news_block_title">
                 <div className="news_block_title_name">НОВОСТИ</div>
-                {rule === 3 &&
+                {(rule === 3 || rule === 99) &&
                     <>
                         <Link to="/createnews" className="news_block_title_create">СОЗДАТЬ</Link>
                         <Link to={`/settingnews`} className="news_block_title_create">РЕДАКТИРОВАТЬ</Link>

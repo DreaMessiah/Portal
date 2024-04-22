@@ -1,6 +1,10 @@
 import $api from "../http"
 
 export default class ObjsService{
+
+    static async thisObj(object_id){
+        return $api.post(`/objects/thisobj`, object_id)
+    }
     static async getObjs(){
         return $api.get(`/objects/getlistobjs`)
     }

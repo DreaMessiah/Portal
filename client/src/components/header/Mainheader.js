@@ -137,7 +137,7 @@ export const MainHeader = () => {
                             <div className="navbar_block_dopmenu_list_description">Кадры</div>
                         </Link>
 
-                        <div onClick={() => store.logout()} className={`navbar_block_dopmenu_list_strock`}>
+                        <div onClick={() => store.logout()} className={`navbar_block_dopmenu_list_strock`} style={{marginBottom: '20x'}}>
                             <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-right-from-bracket"></i></div>
                             <div className="navbar_block_dopmenu_list_description">Выйти</div>
                         </div>

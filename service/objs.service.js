@@ -3,6 +3,13 @@ const ObjsDto = require('../dtos/objsDto')
 const ApiError = require('../exceptions/api.error')
 const {DataTypes, Op, Sequelize} = require("sequelize");
 class ObjsService{
+
+    async thisObj(object_id){
+        console.log(object_id)
+        const obj = await Objects.findAll({where: {id:+object_id.object_id}})
+        return obj
+    }
+
     async getObjects(inn){
         const listObjs = await Objects.findAll({where: {inn:inn}, order: [['shifr', 'ASC']]})
         return listObjs

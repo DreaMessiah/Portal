@@ -8,6 +8,7 @@ import {observer} from "mobx-react-lite";
 import {useMessage} from "../../../hooks/message.hook";
 import {useMonth} from "../../../hooks/month.hook";
 import Select from "react-select";
+import ObjsService from "../../../services/ObjsService";
 
 export const WelThisObj = () => {
 
@@ -32,6 +33,21 @@ export const WelThisObj = () => {
     const [listcrew, setListcrew] = useState([])
     const [allcrews, setAllcrews] = useState([])
     const [thiscrews, setThiscrew] = useState([])
+    const [thisobj, setThisobj] = useState({})
+
+
+    const getThisObj = async () => {
+        console.log('это id : ' + idstore)
+        try{
+            console.log('это id : ' + idstore)
+            const {data} = await ObjsService.thisObj({object_id: idstore})
+            console.log(data)
+            setThisobj(data[0])
+        }catch(e){
+            console.log(e)
+        }
+    }
+
 
     const getListCrew = async () => {
         try{
@@ -157,6 +173,7 @@ export const WelThisObj = () => {
     }
 
     useEffect(() => {
+        getThisObj()
         createList()
         getListCrew()
     },[])
@@ -165,7 +182,7 @@ export const WelThisObj = () => {
         <div className='right-block-ymweldings'>
             <div className='ymwelding_head'>
                 <Link to='/objectsportal' className='back-button'>Назад к объектам</Link>
-                <div className='ymwelding_head_nameobj'><span>386</span>        РВСП 20000м3 №3 ЛПДС "Южный Балык". Нефтеюганское УМН. Техническое перевооружение"</div>
+                <div className='ymwelding_head_nameobj'><span>{thisobj.shifr}</span>{thisobj.nameobject}</div>
                 {/*<div className='back-button'>Передать</div>*/}
             </div>
             <div className='ymwelding_controller'>

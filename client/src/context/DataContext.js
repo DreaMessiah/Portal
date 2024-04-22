@@ -4075,7 +4075,7 @@ export const DataProvider = ({ children }) => {
         // сварщики
         {
             name: 'welding',
-            title: 'Сварщки',
+            title: 'Сварщики',
             url: '/welwel',
             icon: 'fa-solid fa-wand-magic-sparkles',
             toid: 1

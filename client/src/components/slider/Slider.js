@@ -21,15 +21,15 @@ export const Slider = () => {
         loadingHandler()
     },[])
     return (
-        <div className="slider_block" style={{backgroundImage: `url('/files/news/contest/2.jpeg')`}}>
+        <div className="slider_block" style={{backgroundImage: `url('/news/contest/imgrussia.jpg')`, backgroundColor: 'rgba(255,255,255,0.9)'}}>
             <div style={(!checkContest && !checkAnswers) ? {marginTop:'-10px'}:{}} className={`data`}>
                 <div className='text'>
-                    <p>Конкурс детского рисунка</p>
-                    <p className='big'>"День Победы глазами детей"</p></div>
+                    <p  style={{backgroundColor: 'rgba(255,255,255,0.7)', padding: '0 5px'}}>Конкурс детского рисунка</p>
+                    <p  style={{backgroundColor: 'rgba(255,255,255,0.7)', padding: '0 5px'}} className='big'>"Я рисую мою Россию"</p></div>
                     {!checkContest ? <Link to={'/load-contest'} className={`button`}>подать заявку</Link> : null}
-                    {!checkAnswers ? <Link to={'/kids-contest'} className={`button`}>Проголосовать</Link> : null}
+                    {/*{!checkAnswers ? <Link to={'/kids-contest'} className={`button`}>Проголосовать</Link> : null}*/}
                     { (checkAnswers && checkContest) ? <Link to={'/kids-contest'} className={`button`}>Посмотреть работы</Link> : null}
-                    <Link className={`small-link`} to={'/viewpost?post=23'}>условия конкурса</Link>
+                    <Link style={{backgroundColor: 'rgba(255,255,255,0.7)', padding: '0 5px'}} className={`small-link`} to={'/viewpost?post=23'}> условия конкурса </Link>
             </div>
 
             <div className={`overlay`}></div>
