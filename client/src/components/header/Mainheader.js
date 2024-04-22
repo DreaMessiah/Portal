@@ -86,10 +86,10 @@ export const MainHeader = () => {
                         <div className="navbar_block_menu_strock_description">Расчётка</div>
                     </Link>
                     <div className={`navbar_block_dopmenu_list`}>
-                        <div className={`navbar_block_dopmenu_list_strock`}>
-                            <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-cake-candles"></i></div>
-                            <div className="navbar_block_dopmenu_list_description">Дни рождения</div>
-                        </div>
+                        {/*<a  href={`/#happybirthday`}  className={`navbar_block_dopmenu_list_strock`}>*/}
+                        {/*    <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-cake-candles"></i></div>*/}
+                        {/*    <div className="navbar_block_dopmenu_list_description">Дни рождения</div>*/}
+                        {/*</a>*/}
                         <Link to='/polls' className={`navbar_block_dopmenu_list_strock`}>
                             <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-toggle-off"></i></div>
                             <div className="navbar_block_dopmenu_list_description">Опросы</div>
@@ -117,25 +117,30 @@ export const MainHeader = () => {
                             </Link>
                         }
                         <Link to='/kids-contest' className={`navbar_block_dopmenu_list_strock`}>
-                            <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-children"></i></div>
-                            <div className="navbar_block_dopmenu_list_description">Детский конкурс</div>
+                            <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-trophy"/></div>
+                            <div className="navbar_block_dopmenu_list_description">Конкурс</div>
                         </Link>
-                        <Link to='/objectsportal' className={`navbar_block_dopmenu_list_strock`}>
+                        <Link style={(rule !== 0)?{display: 'flex'}:{display: 'none'}} to='/objectsportal' className={`navbar_block_dopmenu_list_strock`}>
                             <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-object-ungroup"></i></div>
                             <div className="navbar_block_dopmenu_list_description">Объекты</div>
                         </Link>
-                        <Link to='/weldingsett' className={`navbar_block_dopmenu_list_strock`}>
+                        <Link style={(rule === 5)?{display: 'flex'}:{display: 'none'}} to='/weldingsett' className={`navbar_block_dopmenu_list_strock`}>
                             <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-wand-magic-sparkles"></i></div>
                             <div className="navbar_block_dopmenu_list_description">Сварщик</div>
                         </Link>
-                        <Link to='/economist' className={`navbar_block_dopmenu_list_strock`}>
+                        <Link style={(rule === 3)?{display: 'flex'}:{display: 'none'}} to='/economist' className={`navbar_block_dopmenu_list_strock`}>
                             <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-coins"></i></div>
                             <div className="navbar_block_dopmenu_list_description">Экономист</div>
                         </Link>
-                        <Link to='/hr' className={`navbar_block_dopmenu_list_strock`}>
+                        <Link style={(rule === 3 || rule === 4)?{display: 'flex'}:{display: 'none'}} to='/hr' className={`navbar_block_dopmenu_list_strock`}>
                             <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-person-circle-plus"></i></div>
                             <div className="navbar_block_dopmenu_list_description">Кадры</div>
                         </Link>
+
+                        <div onClick={() => store.logout()} className={`navbar_block_dopmenu_list_strock`}>
+                            <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-right-from-bracket"></i></div>
+                            <div className="navbar_block_dopmenu_list_description">Выйти</div>
+                        </div>
                         {/*<Link to='/objectsportal' className={`navbar_block_dopmenu_list_strock`}>*/}
                         {/*    <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-children"></i></div>*/}
                         {/*    <div className="navbar_block_dopmenu_list_description">Объекты</div>*/}

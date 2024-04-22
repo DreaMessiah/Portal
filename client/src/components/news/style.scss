@@ -1277,7 +1277,7 @@
             background-image: url("img/bundle.png");
             background-size: cover;
             background-position: center center;
-            height: 400px;
+            height: 300px;
             padding: 10px 20px;
             border-radius: 10px;
             cursor: pointer;
@@ -1286,7 +1286,7 @@
           }
 
           .view_new_post_worklist_content_imgtext_text{
-            font-size: 16pt;
+            font-size: 12pt;
             font-weight: 500;
           }
         }
@@ -1618,9 +1618,13 @@
               font-weight: 800;
               margin-top: 5px;
               margin-bottom: 5px;
+              font-size: 11pt;
+              padding: 5px;
             }
             .news_block_list_box_content_description{
               margin-bottom: 15px;
+              font-size: 10pt;
+              padding: 5px;
             }
           }
           .news_block_list_box_content_btns{
@@ -1634,11 +1638,15 @@
             .rigth{
               display: flex;
               justify-content: right;
+              font-size: 10pt;
+              padding: 0 5px 5px 5px;
             }
             .left{
               display: flex;
               flex-direction: row;
               justify-content: left;
+              padding: 0 5px 5px 5px;
+
             }
             .views{
               margin: 0 10px;
@@ -1937,28 +1945,31 @@
     .view_new_post_tools{
       display: flex;
       justify-content: space-between;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       margin-top: 10px;
-      padding: 10px 20px;
+      padding: 0px 0px;
 
       span{
         display: flex;
         justify-content: center;
         align-items: center;
       }
-      .view_new_post_tools_plusblock{}
+      .view_new_post_tools_plusblock{
+        padding: 5px;
+      }
       .view_new_post_tools_devbtn{}
       .view_new_post_tools_publish.disable{
         display: none;
       }
       div,a{
         margin-right: 20px;
-        padding: 20px 20px;
+        padding: 5px 5px;
         border: 1px solid #CCC;
         border-radius: 4px;
         cursor: pointer;
         color: #454545;
         transition: 0.2s;
+
       }
       div:hover,a:hover{
         color: rgba(18,19,56,1);
@@ -1975,7 +1986,7 @@
       .view_new_post_worklist_header{
         width: calc(100% - 40px);
         padding: 20px;
-        font-size: 24pt;
+        font-size: 16pt;
         font-weight: 600;
         color:rgba(18,19,56,1);
         text-align: center;
@@ -1992,7 +2003,7 @@
         background-size: cover;
         background-position: center center;
         width: calc(100% - 46px);
-        height:200px;
+        height: 200px;
         margin: 10px 0 0 0;
         padding: 10px 20px;
         border-radius: 10px;
@@ -2002,27 +2013,28 @@
          height: 400px;
        }
       .biggest{
-        height: 500px;
+        height: 200px;
       }
       .view_new_post_worklist_content{
         margin-top: 10px;
         display: flex;
         flex-direction: column;
         .view_new_post_worklist_content_smalltext{
-          font-size: 16pt;
+          font-size: 12pt;
           font-weight: 600;
         }
         .view_new_post_worklist_content_title{
           font-size: 18pt;
         }
         .view_new_post_worklist_content_longtext{
-          font-size: 16pt;
+          font-size: 11pt;
         }
         .view_new_post_worklist_content_imgtext{
           display: flex;
           justify-content: space-between;
+          flex-wrap: wrap;
           div{
-            width: calc(90% / 2)
+            width: calc(90%)
           }
           .view_new_post_worklist_content_imgtext_img{
             display: flex;
@@ -2041,7 +2053,7 @@
           }
 
           .view_new_post_worklist_content_imgtext_text{
-            font-size: 16pt;
+            font-size: 11pt;
             font-weight: 500;
           }
         }

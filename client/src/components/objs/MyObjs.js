@@ -16,7 +16,7 @@ export default function MyListObjs() {
     const login = store.user.login
     const message = useMessage()
     const location = useLocation();
-
+    const rule = store.user.unit
     const [modal, setModal] = useState(false)
     const [listObjs, setListObjs] = useState([])
     const [viewMyObjs, setViewMyObjs] = useState([])
@@ -52,7 +52,7 @@ export default function MyListObjs() {
         <div className='right-block'>
             <div className='top-box'>
                 <div className='left-box-portal'>
-                        <div className='back-button' onClick={(e) => setModal(true)}><p>Добавить обьект</p> <i className='fa-regular fa-plus'></i></div>
+                        <div style={(rule > 1)?{display: 'flex'}:{display: 'none'}} className='back-button' onClick={(e) => setModal(true)}><p>Добавить обьект</p> <i className='fa-regular fa-plus'></i></div>
                         <Link to={thisURL !== 0 ? openShifrBlock(0)  : `/`} className='back-button'><p>Назад</p> <i className='fa-solid fa-rotate-left'></i></Link>
                 </div>
                 <div className='right-box'>
