@@ -467,12 +467,17 @@
       }
 
       .tabwelding_viewswork_tabel_strock_itogy {
-        width: 100%;
+        width: calc(100% - 20px);
         min-height: 40px;
         display: flex;
         flex-direction: column;
-        border: 1px solid #000;
-        margin-left: -1px;
+        border: none;
+        background-color: #FFFFFF;
+        margin-left: 0px;
+        padding: 10px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        margin-top: 5px;
 
 
         .tabwelding_viewswork_tabel_strock_ii {
