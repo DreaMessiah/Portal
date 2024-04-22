@@ -467,8 +467,15 @@
       }
     }
     .quest_director_btns{
-      .quest_director_btns_cancel{}
-      .quest_director_btns_post{}
+      width: 300px;
+      .quest_director_btns_cancel{
+        margin: 0px;
+        padding: 5px;
+      }
+      .quest_director_btns_post{
+        margin: 0px;
+        padding: 5px;
+      }
     }
   }
 
