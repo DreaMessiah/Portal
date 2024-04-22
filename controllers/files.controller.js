@@ -156,8 +156,6 @@ class FilesController {
             const path = PATH.join(config.get('public_path'), 'polls', `${newname}.${type}`);
             //const path = `${config.get('public_path')}polls\\${newname}.${type}`
 
-            console.log(path)
-
             if(fs.existsSync(path)){
                 return res.status(400).json({message: 'Файл с таким именем уже существует'})
             }

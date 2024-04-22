@@ -34,6 +34,7 @@ export const ViewPOST = observer( () => {
     const loadingHandler = async (getPost) => {
         try {
             setViewId(getPost)
+            console.log(getPost)
             const response = await PostService.fetchPost(getPost)
             if(response.data){
                 setPost(response.data)

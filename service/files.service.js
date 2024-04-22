@@ -35,7 +35,7 @@ class FilesService {
     async compressResizeAndSaveImage(filePath,quality, width, height) {
         try {
             const buffer = await sharp(filePath).resize({ width, height, position: 'center' }).jpeg({ quality }).toBuffer()
-            fs.writeFile(filePath, buffer, (err) => {
+            fs.writeFileSync(filePath, buffer, (err) => {
                 if (err) {
                     console.error('Ошибка при сохранении файла:', err);
                     return
@@ -60,8 +60,8 @@ class FilesService {
                 resizeOptions = { height: maxHeight }
             }
 
-            const buffer = await image.rotate().resize(resizeOptions).jpeg({ quality,withoutEnlargement: true }).toBuffer()
-            fs.writeFile(filePath, buffer, (err) => {
+            const buffer = await image.rotate().resize(resizeOptions).jpeg({ quality }).toBuffer()
+            fs.writeFileSync(filePath, buffer, (err) => {
                 if (err) {
                     console.error('Ошибка при сохранении файла:', err)
                     return;

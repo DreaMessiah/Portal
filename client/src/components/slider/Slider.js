@@ -5,7 +5,7 @@ import PollsService from "../../services/PollsService";
 
 export const Slider = () => {
     const [checkContest,setCheckContest] = useState(true)
-    const [checkAnswers,setCheckAnswers] = useState(true)
+    const [checkAnswers,setCheckAnswers] = useState(false)
 
     const loadingHandler = async () => {
         try {

@@ -69,7 +69,6 @@ function App() {
         if(localStorage.getItem('token')){
             store.checkAuth()
         }
-        console.log(store.uni.name)
     },[])
     if(store.isLoading){
         return <div>Загрузка...</div>

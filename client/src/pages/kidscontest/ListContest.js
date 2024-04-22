@@ -18,7 +18,7 @@ function ListContest(){
     const [all,setAll] = useState(false)
     const {store} = useContext(Context)
     const message = useMessage()
-    const [isVote,setIsVote] = useState(false)
+    const [isVote,setIsVote] = useState(true)
     const [used,setUsed] = useState(0)
     const openImageFullscreen = (index) => {
         setCurrentImageIndex(index)
@@ -68,7 +68,8 @@ function ListContest(){
             }
 
             const check = await PollsService.checkVoteKids()
-            if(check.data.check){
+
+            if(check.data){
                 setIsVote(check.data.check)
                 if(check.data.check){
                     //message('Вы уже проголосовали')
@@ -230,7 +231,7 @@ function ListContest(){
                     </div>
                 )}
             </div>
-            { !isVote && all && works.length ? <div onClick={() => voteHandler()} className={`send-contest ${all && 'flex'}`}>Проголосовать</div> : null}
+            { !isVote && all && works.length>5 && ( <div className={`send-contest ${all && 'flex'}`} onClick={(e) => voteHandler()} >Проголосовать</div> )}
             { !isVote && used>0 && !all && works.length ? <div className={`send-contest grey ${used>0 && !all && 'flex'}`}>{used === 4 ? `Выберете еще ${5-used} номинацию` : `Выберете еще ${5-used} номинации`}</div> : null}
         </div>
     )

@@ -6,6 +6,7 @@ import {useMessage} from "../../hooks/message.hook";
 import PhoneInput from "../../components/inputs/PhoneInput";
 import PollsService from "../../services/PollsService";
 import MailInput from "../../components/inputs/MailInput";
+import LoadingSpinner from "../../components/loading/LoadingSpinner";
 
 
 export default function LoadContest(){
@@ -19,6 +20,7 @@ export default function LoadContest(){
     const [phone, setPhone] = useState('')
     const [mail, setMail] = useState('')
     const [check, setCheck] = useState(false)
+    const [loading,setLoading] = useState(false)
     const loadingHandler = async () => {
         try{
             const check = await PollsService.checkExitsContests()
@@ -73,6 +75,7 @@ export default function LoadContest(){
         }
     }
     const loadImage = async (index,e) => {
+        setLoading(true)
         try {
             const response = await FilesService.loadPollsImage(e.target.files[0])
             if(response.err) message('Файл не является изображением')
@@ -87,6 +90,8 @@ export default function LoadContest(){
             }
         }catch (e){
             message(e)
+        }finally {
+            setLoading(false)
         }
     }
     const addWorkHandler = () => {
@@ -117,8 +122,9 @@ export default function LoadContest(){
                     return newItem
                 })
                 console.log(contests)
-                const response = PollsService.newWorks(contests,phone,mail)
+                const response = await PollsService.newWorks(contests,phone,mail)
                 if(response.data) console.log(response.data)
+                message('Работа опубликована')
                 navigate('/kids-contest')
             }
         }catch (e) {
@@ -177,7 +183,7 @@ export default function LoadContest(){
 
                         </div>
                         <div style={works[index].image.length ? {backgroundImage: `url(/files/polls/${works[index].image})`} : {}} onClick={(e) => works[index].ref.current.click()} className={`image ${empty[(index+1)*100] ? 'red-border' : ''}`}>
-                            <i className="fa-solid fa-upload"></i>
+                            <i className="fa-solid fa-upload"></i>{works[index].image}
                             <input onChange={(e) => loadImage(index,e)} ref={works[index].ref} className='hidden-upload' type='file'/>
                         </div>
                     </span>
@@ -195,7 +201,7 @@ export default function LoadContest(){
                 <Link to='/' style={{marginBottom:'30px'}} className='back-button'><i className="fa-solid fa-arrow-left"></i>Назад</Link>
                 <h5>Вы уже подавали заявку</h5>
             </div>
-        }
+        }{loading ? (<LoadingSpinner/>) : null}
         </>
     )
 }
