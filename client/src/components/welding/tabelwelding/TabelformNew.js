@@ -16,6 +16,7 @@ import Select from "react-select";
 import ObjsService from "../../../services/ObjsService";
 import {Context} from "../../../index";
 import UserService from "../../../services/UserService";
+import LoadingSpinner from "../../loading/LoadingSpinner";
 
 export const TabelformNew = () => {
     const location = useLocation();
@@ -144,8 +145,9 @@ export const TabelformNew = () => {
             }
         })
     }
-
+    const [loading,setLoading] = useState(false)
     const getMyCrews = async () => {
+        setLoading(true)
             try{
                 const obj = await WeldingService.getObgForHook({getShifr})
                 const shifr = obj.data.shifr
@@ -188,6 +190,8 @@ export const TabelformNew = () => {
                 setAllcrews([...crews])
             }catch(e){
                 console.log(e)
+            }finally {
+                setLoading(false)
             }
 
     }
@@ -277,6 +281,7 @@ export const TabelformNew = () => {
             </div>
 
             <ModalFiles data={<NewCrewModal sel={thisselcrew} active={crew} setActive={setCrew} monther={getMonth} year={getYear} idobj={getShifr}  allcrews={allcrews} setAllcrews={setAllcrews} setWeldingcrew={setWeldingcrew} setMycrews={setMycrews}/>} active={crew} setActive={setCrew}/>
+            {loading ? (<LoadingSpinner/>) : null}
         </div>
     )
 }

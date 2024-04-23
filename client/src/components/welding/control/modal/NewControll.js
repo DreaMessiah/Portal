@@ -83,8 +83,8 @@ export const NewControll = ({month,year,object_id,setActive,loading}) => {
             <div className='new_controll_form'>
                 <div onClick={() => console.log(date)} className='new_controll_form_title'>Новая заявка</div>
                 <div className='new_controll_form_this'>
-                    <div className='new_controll_form_this_strock'>
-                        <div className='new_controll_form_this_strock_number'>№ Соединения</div>
+                    <div className='new_controll_form_this_strock' id="title_strock">
+                        <div className='new_controll_form_this_strock_number' >№ Соединения</div>
                         <div className='new_controll_form_this_strock_shifr'>Клеймо звена</div>
                         <div className='new_controll_form_this_strock_date'>Дата сварки</div>
                         <div className='new_controll_form_this_strock_way'>Способ сварки и положение</div>
@@ -93,13 +93,14 @@ export const NewControll = ({month,year,object_id,setActive,loading}) => {
                         <div className='new_controll_form_this_strock_tube'>Зав. № труб (деталей)</div>
                     </div>
                     <div className='new_controll_form_this_strock'>
-                        <div className='new_controll_form_this_strock_number'><input value={num} onChange={(e) => setNum(e.target.value)} className={`input_form`} id='number' type="text" /></div>
-                        <div className='new_controll_form_this_strock_shifr'><input value={codecrew} onChange={(e) => setCodecrew(e.target.value)} className='input_form' id='shifr' type="text" /></div>
-                        <div className='new_controll_form_this_strock_date'><TableDatePicker size={'100%'} value={date} placeholder={'Выберете дату'} onChange={setDate} /></div>
-                        <div className='new_controll_form_this_strock_way'><input value={way} onChange={(e) => setWay(e.target.value)} className='input_form' id='way' type="text" /></div>
-                        <div className='new_controll_form_this_strock_access'><input value={dostup} onChange={(e) => setDostup(e.target.value)} className='input_form' id='access' type="text" /></div>
-                        <div className='new_controll_form_this_strock_size'><input value={size} onChange={(e) => setSize(e.target.value)} className='input_form' id='size' type="text" /></div>
-                        <div className='new_controll_form_this_strock_tube'><input value={zav} onChange={(e) => setZav(e.target.value)} className='input_form' id='tube' type="text" /></div>
+                        <div className='new_controll_form_this_strock_number'><input placeholder="№ соединения" value={num} onChange={(e) => setNum(e.target.value)} className={`input_form`} id='number' type="text" /></div>
+                        <div className='new_controll_form_this_strock_shifr'><input placeholder="клеймо" value={codecrew} onChange={(e) => setCodecrew(e.target.value)} className='input_form' id='shifr' type="text" /></div>
+                        <div className='new_controll_form_this_strock_date bigger'><TableDatePicker size={'100%'} value={date} placeholder={'Выберете дату'} onChange={setDate} /></div>
+                        <div className='new_controll_form_this_strock_date small'><input type="date" value={date} onChange={(e)=>setDate(e.target.value)}/></div>
+                        <div className='new_controll_form_this_strock_way'><input placeholder="способ св." value={way} onChange={(e) => setWay(e.target.value)} className='input_form' id='way' type="text" /></div>
+                        <div className='new_controll_form_this_strock_access'><input  placeholder="доступ к св.с." value={dostup} onChange={(e) => setDostup(e.target.value)} className='input_form' id='access' type="text" /></div>
+                        <div className='new_controll_form_this_strock_size'><input placeholder="размер и тип" value={size} onChange={(e) => setSize(e.target.value)} className='input_form' id='size' type="text" /></div>
+                        <div className='new_controll_form_this_strock_tube'><input placeholder="Зав.№ деталей" value={zav} onChange={(e) => setZav(e.target.value)} className='input_form' id='tube' type="text" /></div>
                     </div>
                 </div>
                 <div className='new_controll_form_btns'>

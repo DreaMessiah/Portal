@@ -22,7 +22,7 @@
         font-size: 16pt;
         margin-bottom: 10px;
       }
-      .new_controll_form_this{
+      .view_controll_form_this{
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -30,14 +30,14 @@
         width: 100%;
         height: 100%;
         @media screen and (min-width: 1300px) {
-          .new_controll_form_this_strock {
+          .view_controll_form_this_strock {
             display: flex;
             justify-content: flex-start;
             align-items: flex-start;
             width: 100%;
             min-height: 40px;
 
-            .new_controll_form_this_strock_number {
+            .view_controll_form_this_strock_number {
               width: 10%;
               height: 100%;
               border: 1px solid #454545;
@@ -49,7 +49,7 @@
               background-color: #D9D9D9;
             }
 
-            .new_controll_form_this_strock_shifr {
+            .view_controll_form_this_strock_shifr {
               width: 10%;
               height: 100%;
               border: 1px solid #454545;
@@ -61,7 +61,7 @@
               background-color: #D9D9D9;
             }
 
-            .new_controll_form_this_strock_date {
+            .view_controll_form_this_strock_date {
               width: 15%;
               height: 100%;
               border: 1px solid #454545;
@@ -73,7 +73,7 @@
               background-color: #D9D9D9;
             }
 
-            .new_controll_form_this_strock_way {
+            .view_controll_form_this_strock_way {
               width: 15%;
               height: 100%;
               border: 1px solid #454545;
@@ -85,7 +85,7 @@
               background-color: #D9D9D9;
             }
 
-            .new_controll_form_this_strock_access {
+            .view_controll_form_this_strock_access {
               width: 15%;
               height: 100%;
               border: 1px solid #454545;
@@ -97,7 +97,7 @@
               background-color: #D9D9D9;
             }
 
-            .new_controll_form_this_strock_size {
+            .view_controll_form_this_strock_size {
               width: 15%;
               height: 100%;
               border: 1px solid #454545;
@@ -109,7 +109,7 @@
               background-color: #D9D9D9;
             }
 
-            .new_controll_form_this_strock_tube {
+            .view_controll_form_this_strock_tube {
               width: 20%;
               height: 100%;
               border: 1px solid #454545;
@@ -141,7 +141,7 @@
           }
         }
         @media screen and (max-width: 1300px) {
-          .new_controll_form_this_strock {
+          .view_controll_form_this_strock {
             display: flex;
             justify-content: flex-start;
             align-items: flex-start;
@@ -149,7 +149,7 @@
             min-height: 40px;
             font-size: 10pt;
 
-            .new_controll_form_this_strock_number {
+            .view_controll_form_this_strock_number {
               width: 10%;
               height: 100%;
               border: 1px solid #454545;
@@ -161,7 +161,7 @@
               background-color: #D9D9D9;
             }
 
-            .new_controll_form_this_strock_shifr {
+            .view_controll_form_this_strock_shifr {
               width: 10%;
               height: 100%;
               border: 1px solid #454545;
@@ -173,7 +173,7 @@
               background-color: #D9D9D9;
             }
 
-            .new_controll_form_this_strock_date {
+            .view_controll_form_this_strock_date {
               width: 15%;
               height: 100%;
               border: 1px solid #454545;
@@ -185,7 +185,7 @@
               background-color: #D9D9D9;
             }
 
-            .new_controll_form_this_strock_way {
+            .view_controll_form_this_strock_way {
               width: 15%;
               height: 100%;
               border: 1px solid #454545;
@@ -197,7 +197,7 @@
               background-color: #D9D9D9;
             }
 
-            .new_controll_form_this_strock_access {
+            .view_controll_form_this_strock_access {
               width: 15%;
               height: 100%;
               border: 1px solid #454545;
@@ -209,7 +209,7 @@
               background-color: #D9D9D9;
             }
 
-            .new_controll_form_this_strock_size {
+            .view_controll_form_this_strock_size {
               width: 15%;
               height: 100%;
               border: 1px solid #454545;
@@ -221,7 +221,7 @@
               background-color: #D9D9D9;
             }
 
-            .new_controll_form_this_strock_tube {
+            .view_controll_form_this_strock_tube {
               width: 20%;
               height: 100%;
               border: 1px solid #454545;
@@ -583,7 +583,7 @@
         font-size: 16pt;
         margin-bottom: 10px;
       }
-      .new_controll_form_this{
+      .view_controll_form_this{
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -593,19 +593,23 @@
         #title_strock{
           display: none;
         }
-          .new_controll_form_this_strock {
+          .view_controll_form_this_strock {
             display: flex;
             justify-content: flex-start;
             flex-wrap: wrap;
             align-items: flex-start;
-            width: 100%;
+            width: calc(100% - 20px);
+            padding: 10px;
             height: content-box !important;
             font-size: 10pt;
+            background-color: #CCC;
+            border-radius: 10px;
+            margin-bottom: 8px;
             #title_strock{
               display: none;
             }
-            .new_controll_form_this_strock_number {
-              width: 120px;
+            .view_controll_form_this_strock_number {
+              min-width: 120px;
               height: 20px;
               display: flex;
               justify-content: center;
@@ -614,10 +618,12 @@
               background-color: #ffffff;
               padding: 10px;
               border: 1px solid #CCC;
+              border-radius: 10px;
+              margin: 0 5px 5px 0;
             }
 
-            .new_controll_form_this_strock_shifr {
-              width: 120px;
+            .view_controll_form_this_strock_shifr {
+              min-width: 120px;
               height: 20px;
               display: flex;
               justify-content: center;
@@ -626,9 +632,11 @@
               background-color: #ffffff;
               padding: 10px;
               border: 1px solid #CCC;
+              border-radius: 10px;
+              margin: 0 5px 5px 0;
             }
 
-            .new_controll_form_this_strock_date {
+            .view_controll_form_this_strock_date {
               width: 120px;
               height: 20px;
               display: flex;
@@ -638,10 +646,12 @@
               background-color: #ffffff;
               padding: 10px;
               border: 1px solid #CCC;
+              border-radius: 10px;
+              margin: 0 5px 5px 0;
             }
 
-            .new_controll_form_this_strock_way {
-              width: 120px;
+            .view_controll_form_this_strock_way {
+              min-width: 120px;
               height: 20px;
               display: flex;
               justify-content: center;
@@ -650,10 +660,12 @@
               background-color: #ffffff;
               padding: 10px;
               border: 1px solid #CCC;
+              border-radius: 10px;
+              margin: 0 5px 5px 0;
             }
 
-            .new_controll_form_this_strock_access {
-              width: 120px;
+            .view_controll_form_this_strock_access {
+              min-width: 120px;
               height: 20px;
               display: flex;
               justify-content: center;
@@ -662,10 +674,12 @@
               background-color: #ffffff;
               padding: 10px;
               border: 1px solid #CCC;
+              border-radius: 10px;
+              margin: 0 5px 5px 0;
             }
 
-            .new_controll_form_this_strock_size {
-              width: 120px;
+            .view_controll_form_this_strock_size {
+              min-width: 120px;
               height: 20px;
               display: flex;
               justify-content: center;
@@ -674,10 +688,12 @@
               background-color: #ffffff;
               padding: 10px;
               border: 1px solid #CCC;
+              border-radius: 10px;
+              margin: 0 5px 5px 0;
             }
 
-            .new_controll_form_this_strock_tube {
-              width: 120px;
+            .view_controll_form_this_strock_tube {
+              min-width: 120px;
               height: 20px;
               display: flex;
               justify-content: center;
@@ -686,6 +702,8 @@
               background-color: #ffffff;
               padding: 10px;
               border: 1px solid #CCC;
+              border-radius: 10px;
+              margin: 0 5px 5px 0;
             }
 
             input {

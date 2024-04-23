@@ -1,5 +1,6 @@
 .modal_active{
   display: flex !important;
+  z-index: 100;
 }
 
 .modal,.modal-table {
@@ -94,7 +95,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  z-index: 1000;
+  z-index: 2000;
   padding: 10px;
   //margin-top: -80%;
   .modal_win_wight_up{
