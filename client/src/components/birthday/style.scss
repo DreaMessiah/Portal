@@ -201,7 +201,7 @@
     }
   }
 }
-@media screen and (max-width: 500px){
+@media screen and (min-width: 380px) and (max-width: 500px){
   .frame_block_birthday {
     background-color: #FFF;
     width: calc(100% - 5px);
@@ -262,7 +262,80 @@
           .frame_block_birthday_main_man_name{}
           .frame_block_birthday_main_man_dev{}
           .frame_block_birthday_main_man_date{}
-          .frame_block_birthday_main_man_years{}
+          .frame_block_birthday_main_man_years{
+            display: none;
+          }
+        }
+
+      }
+
+    }
+  }
+}
+@media screen and (max-width: 380px){
+  .frame_block_birthday {
+    background-color: #FFF;
+    width: calc(100% - 5px);
+    min-height: 300px;
+    height: 100%;
+    margin-left: -20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    .frame_block_birthday_main{
+      width: 100%;
+      min-height: 100%;
+      background-color: #FFF;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      .frame_block_birthday_main_man{
+        display: flex;
+        //flex-direction: column;
+        justify-content: flex-start;
+        width: 100%;
+        //min-height: content-box;
+        margin: 10px;
+        background-color: #F1F1F1;
+        border-radius: 10px;
+        position: relative;
+
+        .todaybirthday{
+          position: absolute;
+          bottom: 10px;
+          right: 20px;
+          font-size: 18pt;
+        }
+        .frame_block_birthday_main_man_photo{
+          max-width: 150px;
+          width: 40%;
+          height: 210px;
+          border-radius: 10px 0 0 10px;
+          background-size: cover;
+          background-position: center center;
+        }
+        .frame_block_birthday_main_man_text{
+          width: calc(60%);
+          height: 190px;
+          padding: 10px;
+          div{
+            background-color: #FFFFFF;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 5px 0;
+            font-size: 10pt;
+          }
+          .frame_block_birthday_main_man_name{}
+          .frame_block_birthday_main_man_dev{}
+          .frame_block_birthday_main_man_date{}
+          .frame_block_birthday_main_man_years{
+            display: none;
+          }
         }
 
       }
