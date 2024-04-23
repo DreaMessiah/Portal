@@ -1976,10 +1976,14 @@
       }
       .view_new_post_tools_plusblock{
         padding: 5px;
+        margin-right: 5px !important;
       }
       .view_new_post_tools_devbtn{}
       .view_new_post_tools_publish.disable{
         display: none;
+      }
+      .view_new_post_tools_publish{
+        margin-right: 5px !important;
       }
       div,a{
         margin-right: 20px;

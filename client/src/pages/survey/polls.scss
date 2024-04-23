@@ -182,7 +182,6 @@ $dredColor:rgba(215,26,0,0.5);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-
     .survey-box {
       background-color: rgba(255, 255, 255, 0.8);
       padding: 20px;
@@ -198,7 +197,7 @@ $dredColor:rgba(215,26,0,0.5);
 
       h3 {
         font-weight: 600;
-        font-size: 1.8rem;
+        font-size: 1.2rem;
         margin: 20px 20px 150px 20px;
         color: rgb(255, 255, 255);
         background-color: rgba(0, 0, 0, 0.7);
@@ -288,7 +287,7 @@ $dredColor:rgba(215,26,0,0.5);
         .survey-table {
           width: calc(70% - 40px);
           min-width: 300px;
-          margin: 0px;
+          margin-left: -10px;
 
           .survey-table-header {
             display: flex;
@@ -371,6 +370,7 @@ $dredColor:rgba(215,26,0,0.5);
 @media screen and (min-width: 700px){
   .survey-table {
     width: 100%;
+    min-width: 332px;
     border-collapse: collapse;
     margin-bottom: 20px;
     .table_list_cap{
@@ -389,6 +389,7 @@ $dredColor:rgba(215,26,0,0.5);
     .survey-row {
       display: flex;
       width: 100%;
+
       cursor: pointer;
 
       &:last-child {
