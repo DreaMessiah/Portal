@@ -32,7 +32,6 @@ function PhoneBookList(){
     useEffect( () => {
         autoResize()
         loadingHandler()
-        console.log(store.user.account)
     },[])
 
     const loadingHandler = async () => {
@@ -229,7 +228,7 @@ function PhoneBookList(){
                                     <div className="table-cell">Должность</div>
                                     <div className="table-cell">ФИО</div>
                                     <div className="table-cell">Городской</div>
-                                    <div style={rule === 0 ? {display: 'none'} : {display: 'flex'}} className="table-cell">Сотовый</div>
+                                    <div style={ (rule === 0 || rule === 1) ? {display: 'none'} : {display: 'flex'}} className="table-cell">Сотовый</div>
                                     <div className="table-cell small">АТС</div>
                                     <div className="table-cell">Адрес электронной почты</div>
                                 </div>
@@ -239,7 +238,7 @@ function PhoneBookList(){
                                                 <div><textarea value={row.position} onChange={(e) => changeContactHandler(e,rowIndex,'position')} onInput={(e) => autoResize(e)} className='text' disabled={change ? false : true}>{row.position}</textarea></div>
                                                 <div><textarea value={row.name} onChange={(e) => changeContactHandler(e,rowIndex,'name')} onInput={() => autoResize()} className='text' disabled={change ? false : true}>{row.name}</textarea></div>
                                                 <div><textarea value={row.city_phone} onChange={(e) => changeContactHandler(e,rowIndex,'city_phone')} onInput={() => autoResize()} className='text' disabled={change ? false : true}>{row.city_phone}</textarea></div>
-                                                <div style={rule === 0 ? {display: 'none'} : {display: 'flex'}}><textarea value={row.mobile_phone} onChange={(e) => changeContactHandler(e,rowIndex,'mobile_phone')} onInput={() => autoResize()} className='text' disabled={change ? false : true}>{row.mobile_phone}</textarea></div>
+                                                <div style={ (rule === 0 || rule === 1) ? {display: 'none'} : {display: 'flex'}}><textarea value={row.mobile_phone} onChange={(e) => changeContactHandler(e,rowIndex,'mobile_phone')} onInput={() => autoResize()} className='text' disabled={change ? false : true}>{row.mobile_phone}</textarea></div>
                                                 <div className='small'><textarea value={row.ats} onChange={(e) => changeContactHandler(e,rowIndex,'ats')} onInput={() => autoResize()} className='text' disabled={change ? false : true}>{row.ats}</textarea></div>
                                                 <div><textarea value={row.email} onChange={(e) => changeContactHandler(e,rowIndex,'email')} onInput={() => autoResize()} className='text' disabled={change ? false : true}>{row.email}</textarea></div>
                                                 {change ? <Ctrl index={rowIndex} /> : ''}
