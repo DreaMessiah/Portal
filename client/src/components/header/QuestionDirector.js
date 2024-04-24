@@ -20,7 +20,7 @@ export const QuestionDirector = ({setActive}) => {
     const postMess = async () => {
         try {
             if(!checkEmpty()){
-                const mail = await PhonesService.sendMail(aup.mail,title,text)
+                const mail = await PhonesService.sendMail(aup.mail,title,text,aup.tn)
                 message(mail.data.message)
                 setActive(false)
             }else{

@@ -16,7 +16,7 @@ export default class PhonesService{
     static getManagers(){
         return $api.get('/phones/getmanagers')
     }
-    static sendMail(to,title,text){
-        return $api.post('/phones/sendmail',{to,title,text})
+    static sendMail(to,title,text,tn){
+        return $api.post('/phones/sendmail',{to,title,text,tn})
     }
 }
