@@ -30,7 +30,7 @@ export const ListMessages = () => {
         try {
             const response = await MessagesService.getMyChats(my_tn)
             const result = response.data
-            console.log(response.data)
+            // console.log(response.data)
             const toarr = []
             const to_mess = []
 
@@ -77,7 +77,7 @@ export const ListMessages = () => {
             itogyArr.forEach(chat => {
                 users.forEach(user => {
                     if(chat.tn_to === user.tn){
-                        if(user.avatar === ''){
+                        if(user.avatar === '' || user.avatar === null || user.avatar === undefined){
                             chat.ava_to = 'face.png'
                         } else {
                             chat.ava_to = user.avatar
@@ -87,7 +87,7 @@ export const ListMessages = () => {
                         chat.full_name = user.full_name
                     }
                     if(chat.tn_from === user.tn){
-                        if(user.avatar === ''){
+                        if(user.avatar === '' || user.avatar === null || user.avatar === undefined){
                             chat.ava_from = 'face.png'
                         } else {
                             chat.ava_from = user.avatar
@@ -138,7 +138,7 @@ export const ListMessages = () => {
                             full_name = man.full_name
                         }
                     })
-                    if(avatar == ''){
+                    if(avatar == '' || avatar === null || avatar === undefined){
                         mess.avatar = 'face.png'
                     } else {
                         mess.avatar = avatar
@@ -174,7 +174,7 @@ export const ListMessages = () => {
                         full_name = man.full_name
                     }
                 })
-                if(avatar == ''){
+                if(avatar == '' || avatar === null || avatar === undefined){
                     mess.avatar = 'face.png'
                 } else {
                     mess.avatar = avatar
@@ -230,7 +230,7 @@ export const ListMessages = () => {
                             full_name = man.full_name
                         }
                     })
-                    if(avatar == ''){
+                    if(avatar == '' || avatar === null || avatar === undefined){
                         mess.avatar = 'face.png'
                     } else {
                         mess.avatar = avatar
@@ -271,7 +271,7 @@ export const ListMessages = () => {
                             full_name = man.full_name
                         }
                     })
-                    if(avatar == ''){
+                    if(avatar == '' || avatar === null || avatar === undefined){
                         mess.avatar = 'face.png'
                     } else {
                         mess.avatar = avatar
@@ -322,7 +322,7 @@ export const ListMessages = () => {
                             <div className="new_mess_create_select">
                             <Select classNamePrefix='custom-select' placeholder="Выбрать получателя" onChange={e=>setThisMans(e)} value={thisMans} options={users}/>
                             </div>
-                            <div className="new_mess_create_btn" onClick={()=>makeLetter(true)}><i className="fa-solid fa-magnifying-glass"/><div class="name-btns">Написать</div></div>
+                            <div className="new_mess_create_btn" onClick={()=>makeLetter(true)}><i className="fa-solid fa-magnifying-glass"/><div className="name-btns">Написать</div></div>
                         </div>
                     </div>
                     <div className="list_messages_col_title_left">
@@ -372,7 +372,7 @@ export const ListMessages = () => {
                 {/*autorch*/}
                 <div className={`history_mess ${(openmess === true) ? 'activate' : ''}`} >
                     <div className="history_mess_pen" >
-                        <textarea className="history_mess_pen_letter" id='textmess' onChange={(e)=>setTextarea(e.target.value)}>{textarea}</textarea>
+                        <textarea className="history_mess_pen_letter" id='textmess' value={textarea} onChange={(e)=>setTextarea(e.target.value)}>{textarea}</textarea>
                         <div className="history_mess_pen_btn" onClick={()=>passMess()}>Отправить <i className="fa-regular fa-paper-plane"/></div>
                     </div>
                     <div className="history_mess_list" >
