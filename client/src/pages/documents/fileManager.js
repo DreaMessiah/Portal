@@ -40,12 +40,12 @@ function FileManager(){
 
     const rule = 3
 
+
     const searchParams = new URLSearchParams(location.search)
     const getParent = searchParams.get('parent') ? searchParams.get('parent') : 0
 
     const loadingHandler = async () => {
         try{
-            console.log('Parent = ', getParent)
             const response = await FilesService.fetchFiles(store.user.id,getParent)
             selectPathHandler(getParent)
             if(response.data){
@@ -59,6 +59,7 @@ function FileManager(){
     const selectPathHandler = async (parent,type = 'dir') => {
         try{
             if(type === 'dir'){
+                setSelectFile(-2)
                 const response = await FilesService.fetchFiles(store.user.id,parent)
                 updateQueryStringParameter('parent',parent)
                 setParentId(parent)
@@ -68,7 +69,7 @@ function FileManager(){
                     if(pathResponce.data) setPath(pathResponce.data)
                 }
             }else{
-                message('Это не директория')
+                message('Файл не доступен для врор')
             }
         }catch (e){
             console.log(e.message+': Проблема загрузки списка документов')
@@ -89,7 +90,23 @@ function FileManager(){
     const copyHandler = async () => {
 
     }
-
+    const downloadHandler = async () => {
+        console.log(documents[selectFile])
+        try {
+            const response = await FilesService.downloadFile(documents[selectFile].id)
+            if(response.status === 200) {
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', documents[selectFile].name)
+                document.body.appendChild(link);
+                link.click();
+                window.URL.revokeObjectURL(url);
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    }
     useEffect(()=> {
         function handleOutsideClick(event) {
             if (containerRef.current && !containerRef.current.contains(event.target)) {
@@ -240,7 +257,7 @@ function FileManager(){
     }
 
     return (
-        <div ref={containerRef} className='file-manager' onClick={(e) => console.log(path,parentId)}>
+        <div ref={containerRef} className='file-manager'>
             <div className='file-buttons'>
                 <div onClick={(e) => setActiveUploadM(true)} className='button grey'><i className="fa-solid fa-upload"></i>Загрузить</div>
                 <div onClick={(e) => setActiveCreateM(true)} className='button'><i className="fa-solid fa-folder-plus"></i>Создать</div>
@@ -250,8 +267,8 @@ function FileManager(){
                         {/*<div id='btn' className='button'><i className="fa-solid fa-file-export"></i>Переместить</div>*/}
                         {/*<div id='btn' onClick={(e) => setActiveM(true)} className='button'><i className="fa-solid fa-trash-arrow-up"></i>Удалить</div>*/}
                         {/*<div id='btn' className='button'><i className="fa-solid fa-file-pen"></i>Переименовать</div>*/}
-                        {selectFile !== 'dir' ? ''
-                            // <div id='btn' className='button'><i className="fa-solid fa-download"></i>Скачать</div>
+                        {selectFile>=0 && documents[selectFile].type !== 'dir' ?
+                             <div id='btn' onClick={() => downloadHandler()} className='button'><i className="fa-solid fa-download"></i>Скачать</div>
                             :null}
                     </>
                     : null}

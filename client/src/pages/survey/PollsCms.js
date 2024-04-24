@@ -49,7 +49,7 @@ export default function PollsCms(){
             <div className="up_path"><MainHeader /></div>
             <div className="main_path">
                 <Mainnavbar />
-                {rule === 3 ?
+                { (rule === 99 || store.user.account==='superadmin') ?
                 <>
                     {!getSurvey ? <WorkPage data={<CmsPage />}/> : <WorkPage data={<SettingPage idd={getSurvey}/>}/>}
                 </>

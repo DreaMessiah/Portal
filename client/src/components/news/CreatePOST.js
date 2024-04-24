@@ -166,7 +166,7 @@ export const CreatePOST = () => {
     const rule = store.user.unit
     return (
         <>
-            {(rule === 3 || rule === 99) ?
+            {(store.user.account==='superadmin' || rule === 99) ?
         <div className="create_new_post">
             <div onClick={(e) => console.log(startRef)} className="create_new_post_title">Создание новости</div>
             <div className="create_new_post_tools">

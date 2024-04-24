@@ -32,6 +32,7 @@ function PhoneBookList(){
     useEffect( () => {
         autoResize()
         loadingHandler()
+        console.log(store.user.account)
     },[])
 
     const loadingHandler = async () => {
@@ -209,7 +210,7 @@ function PhoneBookList(){
     return (
 
                 <div className='phonebook'>
-                    <div style={rule !== 3 ? {justifyContent:'flex-start'}:{}} className='buttons-box'>
+                    <div style={rule !== 99 && store.user.account !== 'superadmin' ? {justifyContent:'flex-start'}:{}} className='buttons-box'>
                         <div className='left box'>
                             <Link className='button' to='/'><i className="fa-solid fa-caret-left"></i>Вернуться</Link>
                             {change && !onCreateContact ? <div onClick={() => createTitleHandler()} className='button'>{onCreateTitle ? <p><i className="fa-solid fa-save"/>Сохранить заголовок</p> : <p><i className="fa-solid fa-plus"/>Добавить заголовок</p>}</div> : ''}
@@ -218,10 +219,10 @@ function PhoneBookList(){
                         </div>
                         <div className='right box'>
                             {change ? <div onClick={() => cancelAllHandler()} className='button'><i className="fa-solid fa-cancel"></i>Отменить</div> : ''}
-                            {rule === 3 ? <div onClick={() => saveChangesHandler()} className='button'><i className="fa-solid fa-gears"></i>{change ? 'Сохранить' : 'Редактировать' }</div> : ''}
+                            {rule === 99 || store.user.account === 'superadmin' ? <div onClick={() => saveChangesHandler()} className='button'><i className="fa-solid fa-gears"></i>{change ? 'Сохранить' : 'Редактировать' }</div> : ''}
                         </div>
                     </div>
-                    <div style={rule !== 3 ? {marginTop:'0',marginLeft:'0'} : {}} className='phonebook-box'>
+                    <div style={rule !== 99 && store.user.account !== 'superadmin' ? {marginTop:'0',marginLeft:'0'} : {}} className='phonebook-box'>
                         <div>
                             <div className="table-container">
                                 <div className="table-row header">

@@ -58,7 +58,7 @@ export default function PollsList(){
                     )) : null}
                 </div>
 
-                {rule === 3 ?
+                { (rule === 99 || store.user.account==='superadmin') ?
                     <div className='next'>
                         <Link to='/polls/cms' className='button'>Редактор</Link>
                     </div>

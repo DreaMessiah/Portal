@@ -87,6 +87,8 @@ export default class FilesService{
     static downloadStatement(id){
         return $api.post('/files/downloadstatement',{id},{responseType:'blob'})
     }
-
+    static downloadFile(id){
+        return $api.post('/files/downloadfile',{id},{responseType:'blob'})
+    }
 
 }

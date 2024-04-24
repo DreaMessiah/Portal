@@ -185,7 +185,7 @@ export default function SettingPage({idd}){
 
     return (
         <>
-            {rule===3 ?
+            { (rule===99 || store.user.account==='superadmin') ?
                 <div className="survey-setting">
                 <div onClick={(e) => console.log(id)} className='create-title'>Редактирование опроса</div>
                 <div className='save-box'>

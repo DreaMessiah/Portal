@@ -108,6 +108,12 @@ class FilesService {
             })
         }
     }
+    createPathUser(user){
+        const folderPath = PATH.join(`${config.get('file_path')}`,`${user}`)
+        if (!fs.existsSync(folderPath)) {
+            fs.mkdirSync(folderPath);
+        }
+    }
     generateRandomFileName() {
         const timestamp = new Date().getTime();
         const randomNumber = Math.floor(Math.random() * 10000);

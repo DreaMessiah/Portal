@@ -49,7 +49,7 @@ export const HallOfFrame = () => {
         <div className="frame_block">
             <div className="frame_block_title">
                 <div className="frame_block_title_name">Доска почёта</div>
-                {rule === 3 &&
+                { (rule === 99 || store.user.account === 'superadmin') &&
                 <Link to="/halledit" className="frame_block_title_edit">Редактировать</Link>
                 }
             </div>

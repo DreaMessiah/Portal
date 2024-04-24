@@ -210,6 +210,22 @@ class FilesController {
             next(e)
         }
     }
+    async downloadFile(req,res,next){
+        try{
+            const {id} = req.body
+            const file = await Files.findByPk(id)
+            if(!file) return res.status(400).json({message: 'Файл не найден'})
+            if(file.type !== 'dir'){
+                const path = `${config.get('public_path')}${req.user.id}\\${file.name}`
+                if(fs.existsSync(path)){
+                    return res.download(path,file.name)
+                }
+            }
+            return res.status(400).json({message: 'Файл не найден'})
+        }catch (e) {
+            next(e)
+        }
+    }
 }
 
 module.exports = new FilesController()

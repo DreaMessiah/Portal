@@ -29,6 +29,7 @@ class UsersController {
             else{
                 const {tn,full_name,login,password,developer} = req.body
                 const userData = await userService.createuser(tn,full_name,login,'new@new.ru',password,'8617014209',developer)
+                FilesService.createPathUser(userData.user.id)
                 return res.json(userData)
             }
         }catch (e){

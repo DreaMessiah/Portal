@@ -210,7 +210,7 @@ export const ViewPOST = observer( () => {
                                     <div className="history_mess_list_block_content" >
                                         <div className="history_mess_list_block_content_name" >
                                             <p>{mess.full_name} {changeComment===index && '(Редактирование комментария)'}</p>
-                                            { ( rule === 3 || store.user.tn === mess.creator_tn ) ?
+                                            { ( store.user.account==='superadmin' || rule === 99 || store.user.tn === mess.creator_tn ) ?
                                             <p className={`icons`} >
                                                 {store.user.tn === mess.creator_tn &&
                                                     <>

@@ -73,7 +73,7 @@ export default function CmsPage(){
 
     return (
         <>
-            {rule === 3 ?
+            {(rule === 99 || store.user.account==='superadmin') ?
                 <>
                     <div className='cms-head'>
                         <Link to='/polls' style={{marginBottom: '30px'}} className='back-button'><i
