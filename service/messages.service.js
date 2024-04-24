@@ -1,4 +1,4 @@
-const {Messages} = require('../models/models')
+const {Messages, TabelSv} = require('../models/models')
 const ApiError = require('../exceptions/api.error')
 const TabelDto = require("../dtos/tabelDto");
 const { Op } = require('sequelize');
@@ -30,31 +30,22 @@ class MessagesService {
             },
             order: [['createdAt', 'DESC']]
         });
+
+        for(const mess of listMess){
+            console.log(mess.dataValues)
+            const thismess = mess.dataValues
+            if(thismess.tn_from === chat.tn_to){
+                const reading = await Messages.findOne({where:{id:thismess.id}})
+                reading.read = true
+                await reading.save();
+            }
+        }
+
         return listMess
 
     }
 
-    // async getMyChats(tn) {
-    //     console.log('Сервис сервера!!!!!')
-    //     console.log(tn)
-    //     const listChats = await Messages.findAll({
-    //         where: {
-    //             [Op.or]: [
-    //                 { tn_to: tn},
-    //                 { tn_from: tn }
-    //             ]
-    //         },
-    //
-    //         order: [['createdAt', 'DESC']]
-    //     });
-    //
-    //     return listChats
-    //
-    // }
-
     async getMyChats(tn) {
-        console.log('Сервис сервера!!!!!')
-        console.log(tn)
         const listChatsTo = await Messages.findAll({
             where: { tn_to: tn },
             order: [['createdAt', 'DESC']]
@@ -64,12 +55,6 @@ class MessagesService {
             where: { tn_from: tn },
             order: [['createdAt', 'DESC']]
         });
-        console.log(listChatsFrom)
-        // const listChatsTo = await Messages.findAll({
-        //     where: {tn_from:tn},
-        //     group: ['messages.tn_to','messages.id'],
-        //     order: [['createdAt', 'DESC']]
-        // });
         const uniqueChats = [...listChatsTo, ...listChatsFrom]
 
         const sortedList = uniqueChats.sort((a, b) => {
@@ -80,6 +65,14 @@ class MessagesService {
         return sortedList
 
     }
+
+    async searchMess(tn) {
+        const listMess = await Messages.findAll({where: {tn_to: tn.tn, read: false}});
+        return listMess
+
+    }
+
+
 
 }
 module.exports = new MessagesService()

@@ -9,11 +9,14 @@ import {ModalWin} from "../modalwin/ModalWin";
 import ModalFiles from "../modalwin/ModalFiles";
 import {Mainnavbar} from "../navbar/Mainnavbar";
 import {DataContext} from "../../context/DataContext";
+import MessagesService from "../../services/MessagesService";
+import {useEffect} from "react";
 
 export const MainHeader = () => {
     const {store} = useContext(Context)
     const [active, setActive] = useState(false)
     const [burger, setBurger] = useState(false)
+    const [newmess, setNewmess] = useState(0)
     const {selectedMenu,setSelectedMenu} = useContext(DataContext)
     const rule = store.user.unit
     const screenWidth = window.innerWidth;
@@ -33,7 +36,21 @@ export const MainHeader = () => {
             body.style.top = 'auto'
         }
     }
+    const my_tn = store.user.tn
 
+    const searchMess = async () => {
+        try{
+            const havenewmess = await MessagesService.searchMess({tn: my_tn})
+            setNewmess(havenewmess.data.length)
+        }catch(e){
+            console.log(e)
+        }
+    }
+
+
+    useEffect(()=>{
+        searchMess()
+    }, [])
     return (
         <div className="head_block">
             <div className="menu_burger" style={(burger)?{display: 'flex'}:{display: 'none'}}>
@@ -57,7 +74,7 @@ export const MainHeader = () => {
                                 alignItems: 'center',
                                 color: '#FFF',
                                 fontSize: '16pt'
-                            }}><i className="fa-regular fa-comment"></i></div>
+                            }}><i className="fa-regular fa-comment"></i><div className="messindicate" style={(newmess > 0)?{display: 'flex'}:{display: 'none'}}></div></div>
                             <div className="navbar_block_menu_strock_description">Сообщения</div>
                         </Link>
                     }

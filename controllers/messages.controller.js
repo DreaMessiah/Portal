@@ -2,12 +2,8 @@ const MessagesService = require('../service/messages.service')
 class MessagesController {
     async postMess(req,res,next) {
         try{
-            // раскрыть объект тут
             const {mess} = req.body
-            // console.log(mess)
             const messData = await MessagesService.pushMess(mess)
-            console.log('-------- THIS messData on controller --------------')
-            console.log(res.json(messData))
             return res.json(messData)
         }catch (e){
             next(e)
@@ -27,12 +23,19 @@ class MessagesController {
     async getMyChats(req,res,next) {
         try{
             const {tn} = req.body
-            console.log(tn)
-            console.log('^^^^^^^^^^^ ТУТА ^^^^^^^^^')
             const chatsData = await MessagesService.getMyChats(tn)
             return res.json(chatsData)
+        }catch (e){
+            next(e)
+        }
+    }
 
-            //console.log('ОБББББББББББББББББББРРРРРРРРРРРРРРРРААААААААААААААААТТТТТТТТТТТТТТТНННННННННООООООООО')
+    async searchMess(req,res,next) {
+        try{
+            const tn = req.body.tn
+            const chatsData = await MessagesService.searchMess(tn)
+            return res.json(chatsData)
+
         }catch (e){
             next(e)
         }

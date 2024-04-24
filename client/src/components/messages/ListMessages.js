@@ -9,6 +9,7 @@ import {useContext} from "react";
 import {Context} from "../../index";
 import FilesService from "../../services/FilesService";
 import MessagesService from "../../services/MessagesService";
+import shortenText from "../functions/shortenText";
 
 export const ListMessages = () => {
     const [newmess, setNewmess] = useState(false)
@@ -110,12 +111,13 @@ export const ListMessages = () => {
     const openChat = () => {
 
     }
+
+
     const passMess = async () => {
         // console.log(textarea)
         if(textarea !== '' && thisMans){
             thisMans.message = textarea
             thisMans.tn_from = userstore.tn
-            thisMans.tn_to = thisMans.tn_to
             thisMans.title = ''
             thisMans.files = []
             thisMans.trash = false
@@ -215,11 +217,9 @@ export const ListMessages = () => {
             setTextarea('')
                 thisMans.tn_from = userstore.tn
                 thisMans.tn_to = thisMans.tn
-
             try{
                 const response = await MessagesService.getMess(thisMans)
                 const result = response.data
-                // console.log(result)
                 result.forEach(mess => {
                     let avatar = ''
                     let full_name = ''
@@ -341,7 +341,7 @@ export const ListMessages = () => {
                             <div className="list_messages_col_str_mess_left">
                                 <div className="list_messages_col_str_mess_left_name">{chat.name_to}</div>
                                 <div className="list_messages_col_str_mess_left_text" style={{fontSize: '10pt'}}>автор: - {chat.name_from}</div>
-                                <div className="list_messages_col_str_mess_left_text">{chat.text}</div>
+                                <div className="list_messages_col_str_mess_left_text">{shortenText(chat.text, 7)} . . .</div>
                             </div>
                             <div className="list_messages_col_str_mess_right"><div className="list_messages_col_str_mess_right_date">{backDate(chat.createdAt)}</div></div>
 
@@ -375,7 +375,18 @@ export const ListMessages = () => {
                         <div className="history_mess_pen_btn" onClick={()=>passMess()}>Отправить <i className="fa-regular fa-paper-plane"/></div>
                     </div>
                     <div className="history_mess_list" >
-                        {thismess.map((mess, index) => (
+                        {thismess.map((mess, index) => {
+                            let statusmess
+                            if(mess.tn_from === my_tn && !mess.read){
+                                statusmess = 'Отправлено'
+                            } else if(mess.tn_from === my_tn && mess.read){
+                                statusmess = 'Прочитано'
+                            } else if(mess.tn_to === my_tn && !mess.read){
+                                statusmess = 'Новое________'
+                            } else if(mess.tn_to === my_tn && mess.read){
+                                statusmess = 'Прочитано'
+                            }
+                            return(
                             <div className="history_mess_list_block " key={index}>
                                 <div className="history_mess_list_block_ava" style={{backgroundImage: `url("files/profile/${mess.avatar}")` }}></div>
                                 <div className="history_mess_list_block_content" >
@@ -384,12 +395,13 @@ export const ListMessages = () => {
                                     <div className="history_mess_list_block_content_dateandstatus" >
                                         <div className="history_mess_list_block_content_date" >{backDate(mess.createdAt)}</div>
                                         <div className="history_mess_list_block_content_status" >
-                                            {(mess.tn_from === my_tn && !mess.read)?'Отправлено':'Новое______'}
+                                            {statusmess}
+
                                             </div>
                                     </div>
                                 </div>
                             </div>
-                        ))}
+                        )})}
                     </div>
                 </div>
 
@@ -402,13 +414,13 @@ export const ListMessages = () => {
 
 
         </div>
-            <div className="menu_mess">
-                <div className="menu_mess_list">
-                    <div className="menu_mess_list_btn">Все чаты</div>
-                    <div className="menu_mess_list_btn">Непрочитанные</div>
-                    <div className="menu_mess_list_btn">Архив</div>
-                </div>
-            </div>
+        {/*    <div className="menu_mess">*/}
+        {/*    <div className="menu_mess_list">*/}
+        {/*        <div className="menu_mess_list_btn">Все чаты</div>*/}
+        {/*        <div className="menu_mess_list_btn">Непрочитанные</div>*/}
+        {/*        <div className="menu_mess_list_btn">Архив</div>*/}
+        {/*    </div>*/}
+        {/*</div>*/}
         </div>
     )
 }
