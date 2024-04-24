@@ -69,7 +69,7 @@ export const SettingPost = () => {
     const rule = store.user.unit
     return (
         <>
-        {(rule === 3 && store.user.account==='superadmin') ?
+        {(rule === 99 && store.user.account==='superadmin') ?
             <>
                 <div className='cms-head'>
                     <Link to='/alllistnews' style={{marginBottom:'30px'}} className='back-button'><i className="fa-solid fa-arrow-left"></i>Назад</Link>

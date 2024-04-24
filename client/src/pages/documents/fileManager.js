@@ -69,7 +69,7 @@ function FileManager(){
                     if(pathResponce.data) setPath(pathResponce.data)
                 }
             }else{
-                message('Файл не доступен для врор')
+                message('Файл не доступен для просмотра')
             }
         }catch (e){
             console.log(e.message+': Проблема загрузки списка документов')

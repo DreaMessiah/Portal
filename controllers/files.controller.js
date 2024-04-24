@@ -201,7 +201,7 @@ class FilesController {
             const {id} = req.body
             const statement = await StatementsSimples.findOne({where:{id:id}})
             if(!statement) return res.status(400).json({message: 'Файл не найден'})
-            const path = `${config.get('public_path')}statements\\${statement.file}`
+            const path = PATH.join(`${config.get('public_path')}`,'statements',`${statement.file}`)
             if(fs.existsSync(path)){
                 return res.download(path,statement.file)
             }
@@ -214,11 +214,13 @@ class FilesController {
         try{
             const {id} = req.body
             const file = await Files.findByPk(id)
+            console.log(file.dataValues.name)
             if(!file) return res.status(400).json({message: 'Файл не найден'})
             if(file.type !== 'dir'){
-                const path = `${config.get('public_path')}${req.user.id}\\${file.name}`
+                const path = PATH.join(`${config.get('public_path')}`,`${req.user.id}`,`${file.dataValues.name}`)
+                console.log(path)
                 if(fs.existsSync(path)){
-                    return res.download(path,file.name)
+                    return res.download(path,file.dataValues.name)
                 }
             }
             return res.status(400).json({message: 'Файл не найден'})
