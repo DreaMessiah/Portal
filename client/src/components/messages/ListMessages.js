@@ -116,7 +116,7 @@ export const ListMessages = () => {
         if(textarea !== '' && thisMans){
             thisMans.message = textarea
             thisMans.tn_from = userstore.tn
-            thisMans.tn_to = thisMans.tn
+            thisMans.tn_to = thisMans.tn_to
             thisMans.title = ''
             thisMans.files = []
             thisMans.trash = false
@@ -384,14 +384,13 @@ export const ListMessages = () => {
                                     <div className="history_mess_list_block_content_message" >{mess.text}</div>
                                     <div className="history_mess_list_block_content_dateandstatus" >
                                         <div className="history_mess_list_block_content_date" >{backDate(mess.createdAt)}</div>
-                                        <div className="history_mess_list_block_content_status" >Прочитано</div>
+                                        <div className="history_mess_list_block_content_status" >
+                                            {(mess.tn_from === my_tn && !mess.read)?'Отправлено':'Новое______'}
+                                            </div>
                                     </div>
                                 </div>
                             </div>
                         ))}
-
-
-
                     </div>
                 </div>
 

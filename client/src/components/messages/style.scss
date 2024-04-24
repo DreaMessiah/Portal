@@ -806,9 +806,10 @@
       z-index: 10;
     }
     .list_messages_col{
-      width: 100%;
+      width: calc(100% + 40px);
       height: 100%;
       border-radius: 15px;
+      margin-left: -10px;
       z-index: 0;
       .list_messages_col_title{
         width: calc(100% - 26px);
@@ -1075,16 +1076,16 @@
             justify-content: flex-start;
             align-items: flex-start;
             .history_mess_list_block_ava{
-              width: 60px;
-              height: 60px;
+              width: 40px;
+              height: 40px;
               background-size: 100%;
               background-position: center center;
               background-repeat: no-repeat;
               border-radius: 50%;
-              margin-right: 20px;
+              margin-right: 10px;
             }
             .history_mess_list_block_content{
-              width: calc(100% - 120px);
+              width: calc(100% - 90px);
               padding: 10px;
               border-radius: 10px;
               background-color: #F1F1F1;
@@ -1092,15 +1093,17 @@
               .history_mess_list_block_content_name{
                 font-weight: 600;
                 margin: 10px;
+                font-size: 10pt;
               }
               .history_mess_list_block_content_message{
                 margin: 10px;
+                font-size: 10pt;
               }
               .history_mess_list_block_content_dateandstatus{
                 width: 100%;
                 display: flex;
                 justify-content: flex-end;
-                font-size: 10pt;
+                font-size: 8pt;
                 .history_mess_list_block_content_date{
                   margin-right: 20px;
                 }
