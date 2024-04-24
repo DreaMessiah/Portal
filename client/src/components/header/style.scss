@@ -25,6 +25,22 @@
       //background-color: rgba(18,19,56,1);
       border-radius: 2px;
       margin-right: 20px;
+      position: relative;
+      .messindicate{
+        position: absolute;
+        top: -2px;
+        right: -3px;
+        width: 8px;
+        height: 8px;
+        border-radius: 8px;
+        background-color: red;
+        animation: blink 2s infinite alternate;
+      }
+      @keyframes blink {
+        0% { opacity: 1; }
+        50% { opacity: 0.6; }
+        100% { opacity: 1; }
+      }
     }
     .navbar_block_menu_strock_description{
       color: #FFFFFF;

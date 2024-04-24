@@ -1,13 +1,30 @@
 import "./style.scss"
 import {Link} from "react-router-dom";
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {DataContext} from "../../context/DataContext";
 import {Context} from "../../index";
+import MessagesService from "../../services/MessagesService";
 
 export const Mainnavbar = () => {
+    const [newmess, setNewmess] = useState(0)
     const {selectedMenu,setSelectedMenu} = useContext(DataContext)
     const {store} = useContext(Context)
     const rule = store.user.unit
+    const my_tn = store.user.tn
+
+    const searchMess = async () => {
+        try{
+            const havenewmess = await MessagesService.searchMess({tn: my_tn})
+            setNewmess(havenewmess.data.length)
+        }catch(e){
+            console.log(e)
+        }
+    }
+
+
+    useEffect(()=>{
+        searchMess()
+    }, [])
     return (
         <div className="navbar_block">
             <div className="navbar_block_menu">
@@ -28,7 +45,7 @@ export const Mainnavbar = () => {
                             alignItems: 'center',
                             color: '#FFF',
                             fontSize: '16pt'
-                        }}><i className="fa-regular fa-comment"></i></div>
+                        }}><i className="fa-regular fa-comment"></i><div className="messindicate" style={(newmess > 0)?{display: 'flex'}:{display: 'none'}}></div> </div>
                         <div className="navbar_block_menu_strock_description">Сообщения</div>
                     </Link>
                 }

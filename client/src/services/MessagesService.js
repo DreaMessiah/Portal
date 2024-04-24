@@ -15,4 +15,9 @@ export default class MessagesService{
         return $api.post('/mess/getmychats',{tn})
     }
 
+    static async searchMess(tn){
+        return $api.post('/mess/searchmess',{tn})
+    }
+
+
 }
