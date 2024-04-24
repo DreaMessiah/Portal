@@ -341,7 +341,7 @@ export const Messager = () => {
                                 <div className="list_messages_col_str_mess_left">
                                     <div className="list_messages_col_str_mess_left_name">{chat.name_to}</div>
                                     <div className="list_messages_col_str_mess_left_text" style={{fontSize: '10pt'}}>автор: - {chat.name_from}</div>
-                                    <div className="list_messages_col_str_mess_left_text">{chat.text}</div>
+                                    <div className="list_messages_col_str_mess_left_text">{chat.text.slice(0, 100)}...</div>
                                 </div>
                                 <div className="list_messages_col_str_mess_right"><div className="list_messages_col_str_mess_right_date">{backDate(chat.createdAt)}</div></div>
 
