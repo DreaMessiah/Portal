@@ -37,8 +37,8 @@ class PhonesController {
     }
     async sendmail(req,res,next) {
         try{
-            const {to,title,text} = req.body
-            await mailService.sendQuestionToManager(to,title,text,req.user)
+            const {to,title,text,tn} = req.body
+            await mailService.sendQuestionToManager(to,title,text,req.user,tn)
             return res.status(200).json({message:'Сообщение отправлено'})
         }catch (e) {
             next(e)

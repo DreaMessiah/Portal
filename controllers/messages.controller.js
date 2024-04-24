@@ -4,7 +4,7 @@ class MessagesController {
         try{
             const {mess} = req.body
             const messData = await MessagesService.pushMess(mess)
-            return res.json(messData)
+            return res.status(200).json(messData)
         }catch (e){
             next(e)
         }
@@ -14,7 +14,7 @@ class MessagesController {
         try{
             const {chat} = req.body
             const messData = await MessagesService.getMess(chat)
-            return res.json(messData)
+            return res.status(200).json(messData)
         }catch (e){
             next(e)
         }
@@ -24,7 +24,7 @@ class MessagesController {
         try{
             const {tn} = req.body
             const chatsData = await MessagesService.getMyChats(tn)
-            return res.json(chatsData)
+            return res.status(200).json(chatsData)
         }catch (e){
             next(e)
         }
@@ -34,7 +34,7 @@ class MessagesController {
         try{
             const tn = req.body.tn
             const chatsData = await MessagesService.searchMess(tn)
-            return res.json(chatsData)
+            return res.status(200).json(chatsData)
 
         }catch (e){
             next(e)

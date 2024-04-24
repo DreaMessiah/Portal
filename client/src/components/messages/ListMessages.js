@@ -336,7 +336,7 @@ export const ListMessages = () => {
                 </div>
                 {allchats.map((chat, index)=>(
                     <div key={index} className="list_messages_col_str" onClick={()=>{ makeLetter(true, chat)}} style={(openmess === false) ? {display:'flex'} : {display:'none'}}>
-                        <div className="list_messages_col_str_ava" style={{backgroundImage: `url("/files/profile/${chat.ava_to}")`}}></div>
+                        <div className="list_messages_col_str_ava" style={(chat.ava_to)?{backgroundImage: `url("/files/profile/${chat.ava_to}")`}:{}}></div>
                         <div className="list_messages_col_str_mess">
                             <div className="list_messages_col_str_mess_left">
                                 <div className="list_messages_col_str_mess_left_name">{chat.name_to}</div>
@@ -396,8 +396,7 @@ export const ListMessages = () => {
                                         <div className="history_mess_list_block_content_date" >{backDate(mess.createdAt)}</div>
                                         <div className="history_mess_list_block_content_status" >
                                             {statusmess}
-
-                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
