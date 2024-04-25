@@ -665,11 +665,11 @@ html{
 
 .auth{
   height: 100vh;
-  width: 100%;
+  width: 100vw;
   background-image: url('../images/backimg.jpg');
   background-size: cover;
   .auth_back{
-    width: 100%;
+    width: 100vw !important;
     height: 100%;
     background-color: $transBlueColor;
     display: flex;
@@ -692,12 +692,13 @@ html{
 
       }
       .inauth{
-        width: 100%;
+        width: 100vw;
         display: flex;
         flex-direction: column;
         align-items: center;
         input:focus, input:-webkit-autofill, input {
           width: 100%;
+          max-width: 300px;
           padding: 8px;
           margin-top: 5px;
           margin-bottom: 15px;
@@ -721,7 +722,8 @@ html{
           text-transform: uppercase;
         }
         .button {
-          width: calc(100%);
+          width: 100%;
+          max-width: 300px;
           background-color: $whiteColor;
           color: $dgreyColor;
           margin-top: 10px;
