@@ -206,7 +206,7 @@ export const ViewPOST = observer( () => {
                         <div className="history_mess_list">
                             {comments && comments.slice(0,visibleCount).map((mess, index) => (
                                 <div className="history_mess_list_block " key={index}>
-                                    <div className="history_mess_list_block_ava" onClick={() => console.log(mess)} style={mess.avatar.length ? {backgroundImage: `url("files/profile/${mess.avatar}")` } : {backgroundImage: `url("files/profile/face.png")` }}></div>
+                                    <div className="history_mess_list_block_ava" onClick={() => console.log(mess)} style={mess.avatar ? {backgroundImage: `url("files/profile/${mess.avatar}")` } : {backgroundImage: `url("files/profile/face.png")` }}></div>
                                     <div className="history_mess_list_block_content" >
                                         <div className="history_mess_list_block_content_name" >
                                             <p>{mess.full_name} {changeComment===index && '(Редактирование комментария)'}</p>

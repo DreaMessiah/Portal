@@ -14,7 +14,7 @@ router.get('/refresh',usersController.refresh)
 router.post('/createuser',
     body('password').isLength({min:3, max:32}).withMessage('Длинна пароля должна быть не мешьше 8ми и не больше 32х символов'),
     body('login').isLength({ min: 4, max: 20 }).withMessage('Имя пользователя должно быть от 4 до 20 символов')
-        .matches(/^[a-z0-9]+$/).withMessage('Имя пользователя должно содержать только латинские буквы и цифры')
+        .matches(/^[a-z0-9_!@$]+$/).withMessage('Имя пользователя должно содержать только латинские буквы и цифры')
         .not().isEmpty().withMessage('Имя пользователя не должно быть пустым')
     ,usersController.createuser)
 
