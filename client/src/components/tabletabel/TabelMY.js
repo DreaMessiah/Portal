@@ -152,7 +152,7 @@ export const TabelNewMY = () => {
             <div className='ymwelding_head'>
                 <Link to={`/thisobjsportal?id_object=${getId}`} className='back-button' style={{marginRight: '40px'}}>Назад</Link>
 
-                <div className='back-button'>Передать</div>
+                {/*<div className='back-button'>Передать</div>*/}
                 <div className='ymwelding_head_nameobj'><span>{obj.shifr}</span>{obj.nameobject}</div>
             </div>
             <div className='ymwelding_controller'>
