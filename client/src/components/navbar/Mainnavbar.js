@@ -36,7 +36,7 @@ export const Mainnavbar = () => {
                     <div className="navbar_block_menu_strock_icon icon_news"></div>
                     <div className="navbar_block_menu_strock_description">Новости</div>
                 </Link>
-                {store.user.unit !== 0 &&
+                {/*{store.user.unit !== 0 &&*/}
                     <Link to="/messages" onClick={(e) => setSelectedMenu(3)}
                           className={`navbar_block_menu_strock ${selectedMenu === 3 && 'selected'}`}>
                         <div className="navbar_block_menu_strock_icon icon" style={{
@@ -48,7 +48,7 @@ export const Mainnavbar = () => {
                         }}><i className="fa-regular fa-comment"></i><div className="messindicate" style={(newmess > 0)?{display: 'flex'}:{display: 'none'}}></div> </div>
                         <div className="navbar_block_menu_strock_description">Сообщения</div>
                     </Link>
-                }
+                {/*}*/}
                 <Link to="/structure" onClick={(e) => setSelectedMenu(4)} className={`navbar_block_menu_strock ${selectedMenu===4 && 'selected'}`}>
                     <div className="navbar_block_menu_strock_icon icon_forest"></div>
                     <div className="navbar_block_menu_strock_description">Структура компании</div>
