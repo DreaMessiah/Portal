@@ -104,7 +104,7 @@ export const ViewPOST = observer( () => {
                         setComments([newComment,...comments])
                         setComment('')
                 } else {
-                    message('Напишите коментарий перед отправкой')
+                    message('Напишите комментарий перед отправкой')
                 }
             }
         }catch (e) {
@@ -197,7 +197,7 @@ export const ViewPOST = observer( () => {
                     </div>
                     {post && post[0].oncomment ?
                     <div className={`history_messs`} >
-                        <div className={`title`} onClick={(e) => console.log(post)}>Коментарии</div>
+                        <div className={`title`} onClick={(e) => console.log(post)}>Комментарии</div>
                         <div className="history_mess_pen" >
                             <textarea className="history_mess_pen_letter" id='textmess' value={comment} onChange={(e)=>commentWriteHandler(e.target.value)}/>
                             <div className="history_mess_pen_btn" onClick={() => sendCommentHandler()}>Отправить<i className="fa-regular fa-paper-plane"/></div>
@@ -240,10 +240,10 @@ export const ViewPOST = observer( () => {
                                 </div>
                             ))}
                             {comments && comments.length > visibleCount && (
-                                <div className={`showmore`} onClick={handleShowMore}>Показать следующие коментарии</div>
+                                <div className={`showmore`} onClick={handleShowMore}>Показать следующие комментарии</div>
                             )}
                             {comments && comments.length <= visibleCount && comments.length > 3 && (
-                                <div className={`showmore`} onClick={(e) => setVisibleCount(3)}>Скрыть коментарии</div>
+                                <div className={`showmore`} onClick={(e) => setVisibleCount(3)}>Скрыть комментарии</div>
                             )}
                         </div>
                     </div> : null}

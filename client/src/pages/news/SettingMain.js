@@ -133,7 +133,7 @@ export default function SettingMain(){
                     </div>
                     <div className={`box`}>
                     {blocks.map( (item,index) => (
-                        <div onDragLeave={(e) => handleDragLeave(e)} onDragEnter={(e)=> handleDragEnter(e,index)} onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e, item.id)} style={item.image ? item.type === 1 ? {backgroundImage:`url(/files${item.image})`} : {backgroundImage:`url(/files/polls/${item.image})`} : {}} key={index} className={`setting zone`}>
+                        <div onDragLeave={(e) => handleDragLeave(e)} onDragEnter={(e)=> handleDragEnter(e,index)} onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e, item.id)} style={item.image ? item.type === 1 ? {backgroundImage:`url(/files/${item.image})`} : {backgroundImage:`url(/files/polls/${item.image})`} : {}} key={index} className={`setting zone`}>
                             <div style={!item.image ? {color:'black'} : {}} className={`name text`}>{item.name}</div>
                             <div style={!item.image ? {color:'black'} : {}} className={`title text`}>{item.title}</div>
                             <div className={item.image && `overlay`}></div>

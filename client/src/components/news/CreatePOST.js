@@ -241,7 +241,7 @@ export const CreatePOST = () => {
                 <label className="checkbox-container">
                     <input type="checkbox" checked={oncomment} onChange={(e) => setOncomment(!oncomment)} />
                     <span className="checkmark"></span>
-                    Запретить коментирование
+                    Запретить комментирование
                 </label>
             </div>
         </div>
