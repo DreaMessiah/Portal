@@ -169,7 +169,7 @@ export const ViewPOST = observer( () => {
             {post &&
                 <div className="view_new_post_worklist">
                     <div className="view_new_post_worklist_header" >{post[0].title}</div>
-                    <div style={post[0].image.length ? {backgroundImage:`url(/files/news/images/${post[0].image})`} : {}} className={`view_new_post_worklist_mainimg ${+viewId === 15 && 'biggest'}`}></div>
+                    <div style={post[0].image.length ? {backgroundImage:`url(/files/news/images/${post[0].image})`} : {}} className={`view_new_post_worklist_mainimg biggest`}></div>
                     <div className="view_new_post_worklist_content">
                         <div className="view_new_post_worklist_content_smalltext">{post[0].content}</div>
 

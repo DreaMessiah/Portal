@@ -8,6 +8,7 @@ import {useNavigate} from "react-router-dom";
 import ReferenceService from "../../services/ReferenceService";
 import * as XLSX from 'xlsx';
 import {DataContext} from "../../context/DataContext";
+import LoadingSpinner from "../../components/loading/LoadingSpinner";
 
 function T13Page(){
     const {getMonthName,optionsMonth,optionsYear} = useContext(DataContext)
@@ -23,6 +24,7 @@ function T13Page(){
     const [selectedItem,setSelectedItem] = useState(-1)
     const [onSave,setOnSave] = useState(false)
     const fileRef = useRef(null)
+    const [loading,setLoading] = useState(false)
 
     const {store} = useContext(Context)
     const message = useMessage()
@@ -98,6 +100,7 @@ function T13Page(){
     }
     const saveHandler = async () => {
         try {
+            setLoading(true)
             if(onSave && t13.length){
                 const response = await ReferenceService.setT13(t13)
                 if(response.data){
@@ -109,6 +112,8 @@ function T13Page(){
             }
         }catch (e) {
             console.log(e)
+        }finally {
+            setLoading(false)
         }
     }
     const cancelHandler = () => {
@@ -246,6 +251,7 @@ function T13Page(){
 
                 ))}
             </div>
+            {loading ? (<LoadingSpinner/>) : null}
         </div>
     )
 }
