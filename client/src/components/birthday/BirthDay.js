@@ -116,10 +116,12 @@ export const BirthDay = () => {
                 const mon = parseInt(dayarr[1])
                 const ye = parseInt(dayarr[2])
                 let date = new Date(ye, mon - 1, day);
-                console.log(man.name)
-                console.log(date)
-                console.log(currentDate)
-                if(isBirthdayWithin30Days(date) || date === currentDate){
+
+                const monthnow = currentDate.getMonth() + 1
+                const monthnis = date.getMonth() + 2
+                const daynow = ''+currentDate.getDate()+'.'+monthnow
+                const hisbirthday = ''+date.getDate()+'.'+monthnis
+                if(isBirthdayWithin30Days(date) || daynow === hisbirthday){
                     // console.log(man.birthday)
                     man.avatar = 'face.png'
                     newArr.push(man)
