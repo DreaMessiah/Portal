@@ -66,10 +66,8 @@ export const BirthDay = () => {
         if (birthdayThisYear < currentDate) {
             birthdayThisYear.setFullYear(currentYear + 1);
         }
-
         // Разница между текущей датой и датой рождения в днях
         let differenceInDays = Math.round((birthdayThisYear - currentDate) / (1000 * 60 * 60 * 24));
-
         // Проверяем, находится ли день рождения в ближайших 30 днях
         return differenceInDays <= 7 && differenceInDays >= 0;
     }
@@ -118,7 +116,10 @@ export const BirthDay = () => {
                 const mon = parseInt(dayarr[1])
                 const ye = parseInt(dayarr[2])
                 let date = new Date(ye, mon - 1, day);
-                if(isBirthdayWithin30Days(date)){
+                console.log(man.name)
+                console.log(date)
+                console.log(currentDate)
+                if(isBirthdayWithin30Days(date) || date === currentDate){
                     // console.log(man.birthday)
                     man.avatar = 'face.png'
                     newArr.push(man)
