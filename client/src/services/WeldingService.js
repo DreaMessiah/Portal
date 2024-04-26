@@ -91,7 +91,9 @@ export default class WeldingService{
     static async summFactDays(object) {
         return $api.post(`/welding/summitogy`, {object})
     }
-
+    static async setWorksTypes(types) {
+        return $api.post(`/welding/setworkstypes`, {types})
+    }
 
 
 

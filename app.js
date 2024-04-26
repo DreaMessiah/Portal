@@ -10,6 +10,9 @@ const mailService = require('./service/mail.service')
 const fileUpload = require('express-fileupload')
 const errorMiddlewere = require('./middleware/error.middlewere')
 
+const AutomakerService = require('./service/automaker.service')
+const cron = require('node-cron')
+
 app.use(fileUpload({}))
 app.use(cors({
     origin: config.get('client_url'),
@@ -65,6 +68,7 @@ app.use(express.urlencoded({ extended: true,limit: '3mb' }))
 app.use('/api', router)
 app.use(errorMiddlewere) //Обязательно последний!
 //*******************************************************\
+
 const start = async () => {
     try{
         app.listen(PORT,() => {

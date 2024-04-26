@@ -1,5 +1,5 @@
 const {Objects, ObjectsSV, YmSvarka, CrewBase, CrewSv, TabelSv, CrewManlist, TableTabel, ViewsWorkSv, ZaSv,
-    TableZayavka, KtuList, Statuses, KtuDoc, CrewMans, T13Uni, HumanList, T13
+    TableZayavka, KtuList, Statuses, KtuDoc, CrewMans, T13Uni, HumanList, T13, Payslip
 } = require('../models/models')
 const ObjsDto = require('../dtos/objsDto')
 const ApiError = require('../exceptions/api.error')
@@ -398,6 +398,13 @@ class WeldingService{
         console.log(object)
     }
 
+    async changeShifrWorkTypes(types){
+        const old = await ViewsWorkSv.findAll({where:{inn:types[0].inn,shifr:types[0].shifr}})
+        if(!old) return {message:'Ошибка очистки'}
+        old.map(async item => await item.destroy())
+        console.log()
+        return await Promise.all( types.map(async item => { return await ViewsWorkSv.create(item) }))
+    }
 }
 
 module.exports = new WeldingService()

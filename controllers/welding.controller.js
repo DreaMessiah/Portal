@@ -292,5 +292,16 @@ class WeldingController {
             next(e)
         }
     }
+    async setWorksTypes(req,res,next) {
+        try{
+            const {types} = req.body
+            const DataTypes = await WeldingService.changeShifrWorkTypes(types)
+            return res.status(200).json(DataTypes)
+        }catch (e){
+            next(e)
+        }
+    }
+
+
 }
 module.exports = new WeldingController()
