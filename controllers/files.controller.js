@@ -98,11 +98,7 @@ class FilesController {
         try {
             const file = req.files.file
             const filename = req.body.filename
-
             const path = PATH.join(config.get('file_path'), 'temp', `${filename}`);
-            //const path = `${config.get('file_path')}\\temp\\${filename}`
-            console.log(path)
-
             await file.mv(path)
             const type = filename.split('.').pop()
 
@@ -115,8 +111,6 @@ class FilesController {
         try {
             const {name} = req.body
             const path = PATH.join(config.get('public_path'), 'temp', `${name}`);
-            //const path = `${config.get('file_path')}\\temp\\${name}`
-            console.log(path)
             fs.unlink(path,(err) => {
                 if (err) {
                     return res.status(200).json({message:`Ошибка при удалении файла: ${err}`})
@@ -131,12 +125,9 @@ class FilesController {
     async loadImg(req, res, next){
         try {
             const file = req.files.file
-
             const newname = FilesService.generateRandomFileName()
             const type = file.name.split('.').pop()
-           //const path = `${config.get('public_path')}news\\images\\${newname}.${type}`
             const path = PATH.join(config.get('public_path'), 'news', 'images', `${newname}.${type}`);
-            console.log(path)
             if(fs.existsSync(path)){
                 return res.status(400).json({message: 'Файл с таким именем уже существует'})
             }
@@ -214,11 +205,9 @@ class FilesController {
         try{
             const {id} = req.body
             const file = await Files.findByPk(id)
-            console.log(file.dataValues.name)
             if(!file) return res.status(400).json({message: 'Файл не найден'})
             if(file.type !== 'dir'){
                 const path = PATH.join(`${config.get('public_path')}`,`${req.user.id}`,`${file.dataValues.name}`)
-                console.log(path)
                 if(fs.existsSync(path)){
                     return res.download(path,file.dataValues.name)
                 }

@@ -47,7 +47,6 @@ class ReferenceController {
     async createWorks(req,res,next) {
         try{
             const {work} = req.body
-            console.log(work)
             const newPrice = ReferenceService.createWork(work)
             return res.status(200).json(newPrice)
         }catch (e){
@@ -154,9 +153,7 @@ class ReferenceController {
     async getKtus(req,res,next) {
         try{
             const {id} = req.body
-            console.log(id)
             const data = await ReferenceService.getKtus(id)
-
             const Ktus = await Promise.all( data.map(async item => {
                 const {user} = await UserService.getUserByTn(item.dataValues.user_tn)
                 return {...item.dataValues,name:user.dataValues.full_name,developer:user.dataValues.developer,from_tn:item.ktuman}

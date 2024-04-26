@@ -8,7 +8,7 @@ class TabelController {
         try{
             const id = req.body
             const list = await TabelService.myObj(id)
-            return res.json(list)
+            return res.status(200).json(list)
 
         }catch (e){
             next(e)
@@ -19,7 +19,7 @@ class TabelController {
         try{
             const inn = req.body
             const list = await TabelService.getTransport(inn)
-            return res.json(list)
+            return res.status(200).json(list)
 
         }catch (e){
             next(e)
@@ -30,7 +30,7 @@ class TabelController {
         try{
             const man = req.body
             const list = await TabelService.plusMan(man)
-            return res.json(list)
+            return res.status(200).json(list)
 
         }catch (e){
             next(e)
@@ -41,7 +41,7 @@ class TabelController {
         try{
             const day = req.body
             const list = await TabelService.editDay(day)
-            return res.json(list)
+            return res.status(200).json(list)
 
         }catch (e){
             next(e)
@@ -52,7 +52,7 @@ class TabelController {
         try{
             const params = req.body
             const list = await TabelService.getThisTabel(params)
-            return res.json(list)
+            return res.status(200).json(list)
 
         }catch (e){
             next(e)
@@ -63,7 +63,7 @@ class TabelController {
         try{
             const params = req.body
             const list = await TabelService.blockedTabel(params)
-            return res.json(list)
+            return res.status(200).json(list)
 
         }catch (e){
             next(e)
@@ -74,7 +74,7 @@ class TabelController {
         try{
             const params = req.body
             const list = await TabelService.getItogy(params)
-            return res.json(list)
+            return res.status(200).json(list)
 
         }catch (e){
             next(e)
@@ -85,7 +85,7 @@ class TabelController {
         try{
             const line = req.body
             const list = await TabelService.trashYm(line)
-            return res.json(list)
+            return res.status(200).json(list)
 
         }catch (e){
             next(e)

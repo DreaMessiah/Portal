@@ -105,25 +105,17 @@ class UsersController {
     async setAvatar(req,res,next){
         try{
             const file = req.files.file
-
             const newname = FilesService.generateRandomFileName()
-
             const type = file.name.split('.').pop()
-
-            //const path = `${config.get('public_path')}profile\\${newname}.${type}`
             const path = PATH.join(`${config.get('public_path')}`,'profile',`${newname}.${type}`);
-            console.log(path)
             if(fs.existsSync(path)){
                 return res.status(400).json({message: 'Файл с таким именем уже существует'})
             }
             await file.mv(path)
             await FilesService.compressResizeAndSaveImage(path,80, 300, 400)
             const avatar = `${newname}.${type}`
-
             await User.update({ avatar: avatar }, { where: { id: req.user.id } });
-
             return res.status(200).json({path:avatar})
-
         }catch (e){
             next(e)
         }

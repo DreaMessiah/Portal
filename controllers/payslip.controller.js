@@ -4,7 +4,7 @@ class PayslipController {
     async getDays(req,res,next) {
         try{
             const daysData = await PayslipService.getdays()
-            return res.json(daysData)
+            return res.status(200).json(daysData)
         }catch (e){
             next(e)
         }
@@ -12,7 +12,7 @@ class PayslipController {
     async getInfo(req,res,next) {
         try{
             const infoData = await PayslipService.getinfo()
-            return res.json(infoData)
+            return res.status(200).json(infoData)
         }catch (e){
             next(e)
         }
@@ -20,7 +20,7 @@ class PayslipController {
     async getKtu(req,res,next) {
         try{
             const ktuData = await PayslipService.getktu()
-            return res.json(ktuData)
+            return res.status(200).json(ktuData)
         }catch (e){
             next(e)
         }
@@ -28,7 +28,6 @@ class PayslipController {
     async getData(req,res,next) {
         try{
             const {month,year} = req.body
-
             const info = await PayslipService.getinfo(req.user.tn,month,year)
             const DaysToPayslip = await PayslipService.getdays(req.user.tn,month,year)
             const T13 = await T13Service.getMonthForUser(req.user.tn,month,year)

@@ -11,9 +11,6 @@ class OdataController {
 
             let combinedPeoples = peoples.value.map(obj1 => {
                 let matchingObj = data.value.find(obj2 => obj2.Сотрудник_Key === obj1.Ref_Key)
-
-                if(!matchingObj) console.log(obj1)
-
                 if (matchingObj && matchingObj.ДатаУвольнения === '0001-01-01T00:00:00' && matchingObj.ОформленПоТрудовомуДоговору) {
                     return {
                         ...obj1,

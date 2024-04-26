@@ -5,7 +5,7 @@ class WeldingController {
          try{
             const inn = req.body.inn
              const list = await WeldingService.getObjects(inn)
-            return res.json(list)
+            return res.status(200).json(list)
         }catch (e){
             next(e)
         }
@@ -21,7 +21,6 @@ class WeldingController {
     async createNewCrew(req,res,next) {
         try{
             const {crew,group} = req.body
-            console.log(group)
             const newCrew = await WeldingService.createNewCrew(crew)
             await WeldingService.createNewCrewGroup(newCrew.id,group)
             return res.status(200).json(newCrew)
@@ -34,7 +33,7 @@ class WeldingController {
         try{
             const params = req.body
             const list = await WeldingService.getMyCrews(params)
-            return res.json(list)
+            return res.status(200).json(list)
         }catch (e){
             next(e)
         }
@@ -43,7 +42,7 @@ class WeldingController {
         try{
             const params = req.body
             const list = await WeldingService.createCrew(params)
-            return res.json(list)
+            return res.status(200).json(list)
         }catch (e){
             next(e)
         }
@@ -52,7 +51,7 @@ class WeldingController {
         try{
             const params = req.body
             const list = await WeldingService.getTabelSv(params)
-            return res.json(list)
+            return res.status(200).json(list)
         }catch (e){
             next(e)
         }
@@ -61,7 +60,7 @@ class WeldingController {
         try{
             const params = req.body
             const list = await WeldingService.updateManDays(params)
-            return res.json(list)
+            return res.status(200).json(list)
 
         }catch (e){
             next(e)
@@ -71,7 +70,7 @@ class WeldingController {
         try{
             const params = req.body
             const list = await WeldingService.getViewWorkSV(params)
-            return res.json(list)
+            return res.status(200).json(list)
 
         }catch (e){
             next(e)
@@ -81,7 +80,7 @@ class WeldingController {
         try{
             const params = req.body
             const list = await WeldingService.plusVW(params)
-            return res.json(list)
+            return res.status(200).json(list)
 
         }catch (e){
             next(e)
@@ -90,7 +89,7 @@ class WeldingController {
     async viewObjSV(req,res,next) {
         try{
             const list = await WeldingService.viewObjSV(req.body)
-            return res.json(list)
+            return res.status(200).json(list)
 
         }catch (e){
             next(e)
@@ -101,7 +100,7 @@ class WeldingController {
             const obj = req.body
             const objsList = await WeldingService.pushObj(obj)
 
-            return res.json(objsList.created)
+            return res.status(200).json(objsList.created)
 
         }catch (e){
             next(e)
@@ -111,7 +110,7 @@ class WeldingController {
         try{
             const innId = req.body
             const list = await WeldingService.getYM(innId)
-            return res.json(list)
+            return res.status(200).json(list)
         }catch (e){
             next(e)
         }
@@ -119,9 +118,8 @@ class WeldingController {
     async crYM(req,res,next) {
         try{
             const params = req.body
-            console.log(params)
             const list = await WeldingService.crYM(params)
-            return res.json(list)
+            return res.status(200).json(list)
         }catch (e){
             next(e)
         }
@@ -129,9 +127,8 @@ class WeldingController {
     async getObgForHook(req,res,next) {
         try{
             const id = req.body.getShifr
-            console.log(id)
             const list = await WeldingService.getObgForHook(id)
-            return res.json(list.dataValues)
+            return res.status(200).json(list.dataValues)
         }catch (e){
             next(e)
         }
@@ -198,7 +195,6 @@ class WeldingController {
     async getConn(req,res,next) {
         try{
             const {za_id} = req.body
-            console.log(za_id)
             const connections = await WeldingService.getConn(za_id)
             return res.status(200).json(connections)
         }catch (e){
@@ -296,7 +292,5 @@ class WeldingController {
             next(e)
         }
     }
-
-
 }
 module.exports = new WeldingController()

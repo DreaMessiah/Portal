@@ -52,7 +52,6 @@ class PollsController {
             const {questions,answers} = await PollsService.getStat(id)
 
             let statistics = [];
-            console.log(questions)
             questions.forEach(question => {
                 let total = 0
                 let percent = 0
@@ -101,7 +100,6 @@ class PollsController {
     async vote(req,res,next) {
         try{
             const {survey_id,question_id} = req.body
-            console.log(survey_id,question_id)
             const vote = await PollsService.setAnswer(req.user.id,survey_id,question_id)
             return res.status(200).json(vote)
         }catch (e) {

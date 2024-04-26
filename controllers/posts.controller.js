@@ -1,7 +1,4 @@
 const PostsService = require('../service/posts.service')
-const {validationResult} = require('express-validator')
-const ApiError = require('../exceptions/api.error')
-const authMiddlewere = require("../middleware/auth.middleware");
 
 class PostsController {
     async get(req,res,next) {
@@ -23,7 +20,6 @@ class PostsController {
     async getBlocks(req,res,next) {
         try{
             const blocks = await PostsService.getBlocks()
-            console.log(blocks)
             return res.status(200).json(blocks)
         }catch (e){
             next(e)
@@ -97,7 +93,6 @@ class PostsController {
     async getComments(req,res,next) {
         try{
             const {post_id} = req.body
-            console.log(post_id)
             const comments = await PostsService.getComments(post_id)
             return res.status(200).json(comments)
         }catch (e){

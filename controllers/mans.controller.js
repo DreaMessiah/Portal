@@ -4,7 +4,7 @@ class MansController {
     async getHumanList(req,res,next) {
         try{
             const list = await ManService.getHumanList()
-            return res.json(list)
+            return res.status(200).json(list)
         }catch (e){
             next(e)
         }
@@ -14,7 +14,7 @@ class MansController {
          try{
             const man = req.body
              const list = await ManService.plusManHR(man)
-            return res.json(list)
+            return res.status(200).json(list)
         }catch (e){
             next(e)
         }
@@ -24,7 +24,7 @@ class MansController {
         try{
             const man = req.body
             const list = await ManService.delManHumanList(man)
-            return res.json(list)
+            return res.status(200).json(list)
         }catch (e){
             next(e)
         }
