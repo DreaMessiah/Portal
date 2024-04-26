@@ -99,7 +99,16 @@ export const BirthDay = () => {
         return age;
     }
 
+    function compareBirthdays(a, b) {
+        const [dayA, monthA] = a.birthday.split('.').slice(0, 2).map(Number);
+        const [dayB, monthB] = b.birthday.split('.').slice(0, 2).map(Number);
 
+        if (monthA === monthB) {
+            return dayA - dayB; // Если месяцы одинаковые, сравниваем по дням
+        } else {
+            return monthA - monthB; // Иначе сравниваем по месяцам
+        }
+    }
 
     const t13List = async (e) => {
         const newArr = []
@@ -118,12 +127,13 @@ export const BirthDay = () => {
                 let date = new Date(ye, mon - 1, day);
 
                 const monthnow = currentDate.getMonth() + 1
-                const monthnis = date.getMonth() + 2
+                const monthnis = date.getMonth() + 1
                 const daynow = ''+currentDate.getDate()+'.'+monthnow
                 const hisbirthday = ''+date.getDate()+'.'+monthnis
                 if(isBirthdayWithin30Days(date) || daynow === hisbirthday){
                     // console.log(man.birthday)
                     man.avatar = 'face.png'
+                    man.burn = man.birthday
                     newArr.push(man)
                 }
 
@@ -143,7 +153,7 @@ export const BirthDay = () => {
                 })
             }
 
-
+            newArr.sort(compareBirthdays);
             // console.log(newArr)
             setBirthman(newArr ? [...newArr] : [])
 
