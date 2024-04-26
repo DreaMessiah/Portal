@@ -50,9 +50,7 @@ import Statements from "./pages/documents/Statements";
 import {WelMY} from "./pages/welding/WelMY";
 import {WelTabel} from "./pages/welding/WelTabel";
 import {WelControll} from "./pages/controll/ControllNew";
-import {WelSett} from "./pages/welding/WeldingSett";
 import {EconomistMenu} from "./pages/economist/EconomistMenu";
-
 import OgmPage from "./pages/econom/OgmPriceRouter";
 import {ItogTabel} from "./pages/tabel/ItogTabel";
 import {AllTabels} from "./pages/tabel/AllTabels";
@@ -62,6 +60,8 @@ import {Welcomepage} from "./pages/welcomepage/Welcomepage";
 import {Fz152} from "./pages/welcomepage/Fz152";
 import {MakeLogin} from "./pages/welcomepage/MakeLogin";
 import {TnEnter} from "./pages/welcomepage/TnEnter";
+import WeldingRouter from "./pages/welding/WeldingRouter";
+import EditorRouter from "./pages/editor/EditorRouter";
 
 function App() {
     const {store} = useContext(Context)
@@ -139,7 +139,9 @@ function App() {
                         <Route path="/newphonebook" element={<NewPhoneBook />} />
                         <Route path="/document" element={<DocumentPage/>} />
                         <Route path="/welcontroll" element={<WelControll />} />
-                        <Route path="/weldingsett" element={<WelSett />} />
+                        <Route path="/weldingmenu" element={<WeldingRouter page={1} />} />
+                        <Route path="/weldingsett" element={<WeldingRouter page={2} />} />
+                        <Route path="/weldingloadtypes" element={<WeldingRouter page={3} />} />
                         <Route path="/createtask" element={<CreateTaskPage />} />
                         <Route path="/testtaskpage/:params" element={<TestTaskPage />} />
                         <Route path="/lk" element={<LkPage/>} />
@@ -165,6 +167,9 @@ function App() {
                         <Route path="/welwel" element={<WelMY />} />
                         <Route path="/itogtabel" element={<ItogTabel />} />
                         <Route path="/alltabels" element={<AllTabels />} />
+                        <Route path="/editor" element={<EditorRouter page={1} />} />
+                        <Route path="/peoplesstat" element={<EditorRouter page={2} />} />
+
                     </Routes>
                 </div>
             </Router>

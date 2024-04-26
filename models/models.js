@@ -822,6 +822,15 @@ const HumanList = sequelize.define('humanlist',{
     d31:{type:DataTypes.STRING}
 })
 
+const PeopleCounter = sequelize.define('peoplecounter',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    date:{type:DataTypes.DATE},
+    numreg:{type:DataTypes.INTEGER},
+    numinp:{type:DataTypes.INTEGER},
+    numall:{type:DataTypes.INTEGER}
+
+})
+
 T13Uni.hasMany(CrewMans, { foreignKey: 'user_tn', sourceKey: 'tn',constraints: false})
 HumanList.hasMany(CrewMans, { foreignKey: 'user_tn', sourceKey: 'tn',constraints: false})
 
@@ -832,5 +841,5 @@ CrewBase.hasMany(CrewMans, { foreignKey: 'crew_id', sourceKey: 'id' });
 CrewMans.belongsTo(CrewBase, { foreignKey: 'crew_id', targetKey: 'id' });
 
 module.exports = {
-    T13Uni,CrewMans,ZaSv,TableZayavka,HumanList,KtuDoc,KtuList,MessageSv,ViewsWorkSv,CrewManlist,CrewDoclist,CrewBase,CrewSv,OgmPrice,WorkPrice,StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
+    PeopleCounter,T13Uni,CrewMans,ZaSv,TableZayavka,HumanList,KtuDoc,KtuList,MessageSv,ViewsWorkSv,CrewManlist,CrewDoclist,CrewBase,CrewSv,OgmPrice,WorkPrice,StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
 }

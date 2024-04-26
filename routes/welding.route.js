@@ -37,6 +37,6 @@ router.post('/getlistcrew',authMiddlewere, weldingController.getCrewForObject)
 router.post('/delcrewobj',authMiddlewere, weldingController.delCrewForObject)
 router.post('/pluscrewonobj',authMiddlewere, weldingController.plusCrewOnObj)
 router.post('/summitogy',authMiddlewere, weldingController.summFactDays)
-
+router.post('/setworkstypes',authMiddlewere, weldingController.setWorksTypes)
 
 module.exports = router

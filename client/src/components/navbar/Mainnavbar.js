@@ -100,7 +100,7 @@ export const Mainnavbar = () => {
                         <div className="navbar_block_dopmenu_list_icon"><i className="fa-brands fa-slack"></i></div>
                         <div className="navbar_block_dopmenu_list_description">Бланки заявлений</div>
                     </Link>
-                    {(rule === 99 || rule === 3) &&
+                    {(rule === 99 || rule === 3 || store.user.account === 'superadmin') &&
                     <Link to={'/createnews'} className={`navbar_block_dopmenu_list_strock`}>
                         <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-thumbtack"></i></div>
                         <div className="navbar_block_dopmenu_list_description">Добавить новость</div>
@@ -110,21 +110,25 @@ export const Mainnavbar = () => {
                         <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-trophy"></i></div>
                         <div className="navbar_block_dopmenu_list_description">Конкурс</div>
                     </Link>
-                    <Link style={(rule === 1 || rule === 2 || rule === 3 || rule === 7)?{display: 'flex'}:{display: 'none'}} to='/objectsportal' className={`navbar_block_dopmenu_list_strock`}>
+                    <Link style={(rule === 1 || rule === 2 || rule === 3 || rule === 7 || store.user.account === 'superadmin')?{display: 'flex'}:{display: 'none'}} to='/objectsportal' className={`navbar_block_dopmenu_list_strock`}>
                         <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-object-ungroup"></i></div>
                         <div className="navbar_block_dopmenu_list_description">Объекты</div>
                     </Link>
-                    <Link style={(rule === 5)?{display: 'flex'}:{display: 'none'}} to='/weldingsett' className={`navbar_block_dopmenu_list_strock`}>
+                    <Link style={(rule === 5 || store.user.account === 'superadmin')?{display: 'flex'}:{display: 'none'}} to='/weldingmenu' className={`navbar_block_dopmenu_list_strock`}>
                         <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-wand-magic-sparkles"></i></div>
                         <div className="navbar_block_dopmenu_list_description">Сварщик</div>
                     </Link>
-                    <Link style={(rule === 3 || rule === 7)?{display: 'flex'}:{display: 'none'}} to='/economist' className={`navbar_block_dopmenu_list_strock`}>
+                    <Link style={(rule === 3 || rule === 7 || store.user.account === 'superadmin')?{display: 'flex'}:{display: 'none'}} to='/economist' className={`navbar_block_dopmenu_list_strock`}>
                         <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-coins"></i></div>
                         <div className="navbar_block_dopmenu_list_description">Экономист</div>
                     </Link>
-                    <Link style={(rule === 3 || rule === 4 || rule === 7)?{display: 'flex'}:{display: 'none'}} to='/hr' className={`navbar_block_dopmenu_list_strock`}>
+                    <Link style={(rule === 3 || rule === 4 || rule === 7 || store.user.account === 'superadmin')?{display: 'flex'}:{display: 'none'}} to='/hr' className={`navbar_block_dopmenu_list_strock`}>
                         <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-person-circle-plus"></i></div>
                         <div className="navbar_block_dopmenu_list_description">Кадры</div>
+                    </Link>
+                    <Link style={(rule === 99 || store.user.account === 'superadmin')?{display: 'flex'}:{display: 'none'}} to='/editor' className={`navbar_block_dopmenu_list_strock`}>
+                        <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-user-pen"></i></div>
+                        <div className="navbar_block_dopmenu_list_description">Редактор</div>
                     </Link>
                 </div>
 

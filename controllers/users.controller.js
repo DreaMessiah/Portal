@@ -88,7 +88,7 @@ class UsersController {
         try{
             const refreshToken = req.cookies['refreshToken']
             const userData = await userService.refresh(refreshToken)
-            res.cookie('refreshToken',userData.refreshToken,{maxAge:30*24*60*60*1000,httpOnly:true,secure:true,sameSite:'None'}) // sameSite:'None',secure:true
+            res.cookie('refreshToken',userData.refreshToken,{maxAge:30*24*60*60*1000,httpOnly:true}) // sameSite:'None',secure:true - НА сервер, для HTTPS !!!!!!!
             return res.json(userData)
         }catch (e){
             next(e)
