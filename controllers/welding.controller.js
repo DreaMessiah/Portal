@@ -301,6 +301,15 @@ class WeldingController {
             next(e)
         }
     }
+    async createViewWork(req,res,next) {
+        try{
+            const {thisview} = req.body
+            const ThisisSupra = await WeldingService.createViewWork(thisview)
+            return res.status(200).json(ThisisSupra)
+        }catch (e){
+            next(e)
+        }
+    }
 
 
 }

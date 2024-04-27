@@ -94,7 +94,9 @@ export default class WeldingService{
     static async setWorksTypes(types) {
         return $api.post(`/welding/setworkstypes`, {types})
     }
-
+    static async createViewWork(thisview) {
+        return $api.post(`/welding/createviewwork`, {thisview})
+    }
 
 
 }
