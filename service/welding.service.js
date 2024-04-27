@@ -405,6 +405,16 @@ class WeldingService{
         console.log()
         return await Promise.all( types.map(async item => { return await ViewsWorkSv.create(item) }))
     }
+    async createViewWork(thisview){
+        return await ViewsWorkSv.create({
+            shifr: thisview.shifr,
+            viewname: thisview.viewname,
+            volume: thisview.volume,
+            unit: thisview.unit,
+            norma: thisview.norma,
+            inn: '8617014209'
+        })
+    }
 }
 
 module.exports = new WeldingService()

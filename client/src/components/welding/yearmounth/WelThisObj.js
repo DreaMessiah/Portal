@@ -13,12 +13,9 @@ import ObjsService from "../../../services/ObjsService";
 export const WelThisObj = () => {
 
     const location = useLocation();
-    console.log(location)
     const searchParams = new URLSearchParams(location.search);
     const message = useMessage()
     const idstore = searchParams.get('id');
-
-    console.log(idstore)
 
     const getNameMonth = useMonth()
 
@@ -30,6 +27,7 @@ export const WelThisObj = () => {
     const [newmonth, setNewmonth] = useState('stop')
     const [newyear, setNewyear] = useState('stop')
     const [activecrew, setActiveCrew] = useState(false)
+    const [activeview, setActiveView] = useState(false)
     const [listcrew, setListcrew] = useState([])
     const [allcrews, setAllcrews] = useState([])
     const [thiscrews, setThiscrew] = useState([])
@@ -37,11 +35,8 @@ export const WelThisObj = () => {
 
 
     const getThisObj = async () => {
-        console.log('это id : ' + idstore)
         try{
-            console.log('это id : ' + idstore)
             const {data} = await ObjsService.thisObj({object_id: idstore})
-            console.log(data)
             setThisobj(data[0])
         }catch(e){
             console.log(e)
@@ -53,7 +48,6 @@ export const WelThisObj = () => {
         try{
             allCrews()
             const {data} = await WeldingService.getCrewForObject({object_id: idstore})
-            console.log(data)
             setListcrew(data)
         }catch(e){
             console.log(e)
@@ -80,7 +74,6 @@ export const WelThisObj = () => {
         try{
 
             const list = await WeldingService.getCrew()
-            console.log(list.data)
             let i = 0
             const newarr = list.data
             list.data.forEach(crew => {
@@ -99,7 +92,6 @@ export const WelThisObj = () => {
         try{
             if(newmonth !== 'stop' && newyear !== 'stop'){
                 const response = await WeldingService.crYM({inn, idstore, newmonth, newyear})
-                console.log(response.data)
                     const itog = response.data
                 if(itog === 'error') {
                     message('Такой табель уже существует')
@@ -107,8 +99,6 @@ export const WelThisObj = () => {
                     message(response.data.message)
                     createList()
                 }
-                console.log(newmonth)
-                console.log(newyear)
             } else {
                 message("Выбирете месяц и год")
             }
@@ -155,19 +145,42 @@ export const WelThisObj = () => {
                 resultList.push(yearObj)
             })
 
-            console.log(resultList)
             setYmonth(resultList)
         }
     }
 
     const plusCrewOfObj = async () => {
-        console.log(thiscrews)
         const plus = await WeldingService.plusCrewOnObj({object_id: idstore,crew: thiscrews})
         if(plus.data){
             getListCrew()
             message('Звено добавлено')
         }else{
             message('данное звено уже существует')
+        }
+
+    }
+
+    const [nameview, setNameview] = useState('')
+    const [costview, seCostview] = useState('')
+    const [unitview, setUnitview] = useState('')
+    const [normaview, setNormaview] = useState('')
+
+    const plusViewwork = async () => {
+        if(nameview !== '' && costview !== '' && unitview !== '' && normaview !== ''){
+            try{
+                const {data} = await WeldingService.createViewWork({shifr: thisobj.shifr, viewname: nameview, volume: costview, unit: unitview, norma: normaview})
+                message('Вид работ: '+nameview+', успешно добавлен')
+                setNameview('')
+                seCostview('')
+                setUnitview('')
+                setNormaview('')
+            }catch(e){
+                console.log(e)
+                message('что-то пошло не так')
+            }
+
+        }else{
+            message('не все поля заполнены')
         }
 
     }
@@ -215,7 +228,7 @@ export const WelThisObj = () => {
                 <div className='ymwelding_controller_sistembtns'>
                     <div className='back-button' onClick={()=>{setActiveCrew(!activecrew)}}>Звенья / Бригады</div>
                     <div className='back-button'>Отчеты</div>
-                    <div className='back-button'>Виды работ</div>
+                    <div className='back-button' onClick={()=>{setActiveView(!activeview)}}>Виды работ</div>
                 </div>
             </div>
             <div className='ymwelding_slice'></div>
@@ -256,6 +269,28 @@ export const WelThisObj = () => {
 
 
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="modalcrew" style={(activeview)?{display: 'flex'}:{display: 'none'}}>
+                <div className="modalcrew_white">
+                    <div className="modalcrew_white_krestik">
+                        <i className="fa-solid fa-xmark"  onClick={()=>{setActiveView(!activeview)}}/>
+                    </div>
+                    <div className="modalcrew_white_modal position">
+                        <div className="modalcrew_white_modal_title">Добавить вид работ</div>
+
+                        <div className="modalcrew_white_modal_plus">Название вида работ</div>
+                        <input type="text" className='modalcrew_white_modal_inputs' value={nameview} onChange={(e)=>setNameview(e.target.value)} placeholder="Введите название вида работ"/>
+                        <div className="modalcrew_white_modal_plus">Объём</div>
+                        <input type="text" className='modalcrew_white_modal_inputs' value={costview} onChange={(e)=>seCostview(e.target.value)} placeholder="Введите объём / кол-во"/>
+                        <div className="modalcrew_white_modal_plus">Ед.изм.</div>
+                        <input type="text" className='modalcrew_white_modal_inputs' value={unitview} onChange={(e)=>setUnitview(e.target.value)} placeholder="Введите единицу измерения"/>
+                        <div className="modalcrew_white_modal_plus">Норма времени</div>
+                        <input type="text" className='modalcrew_white_modal_inputs' value={normaview} onChange={(e)=>setNormaview(e.target.value)} placeholder="Время на выполнение"/>
+                        <div className="modalcrew_white_modal_btn" onClick={()=>{plusViewwork(); (nameview !== '' && costview !== '' && unitview !== '' && normaview !== '')&&setActiveView(!activeview)}}>Добавить</div>
+
                     </div>
                 </div>
             </div>
