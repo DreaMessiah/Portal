@@ -24,7 +24,6 @@ class ObjsController {
     }
     async viewBestMan(req,res,next) {
         try{
-
             const inn = req.body
             const itogyman = await BestManService.viewBestMan(inn)
             return res.status(200).json(itogyman)
@@ -32,13 +31,11 @@ class ObjsController {
             next(e)
         }
     }
-
     async pushBestMan(req,res,next) {
         try{
             const man = req.body
             const itogyman = await BestManService.pushBestMan(man)
             return res.status(200).json(itogyman)
-
         }catch (e){
             next(e)
         }
@@ -70,8 +67,6 @@ class ObjsController {
             next(e)
         }
     }
-
-
     async createTabels(req,res,next) {
         try{
             const tabel = req.body
@@ -90,7 +85,6 @@ class ObjsController {
             next(e)
         }
     }
-
     async insertObjs(req,res,next) {
         try{
             const {obj_id} = req.body
@@ -100,7 +94,6 @@ class ObjsController {
             next(e)
         }
     }
-
     async getT13(req,res,next) {
         try{
             const params = req.body
@@ -110,7 +103,6 @@ class ObjsController {
             next(e)
         }
     }
-
     async listTabelMans(req,res,next) {
         try{
             const params = req.body
@@ -120,7 +112,6 @@ class ObjsController {
             next(e)
         }
     }
-
     async getKTUdate(req,res,next) {
         try{
             const params = req.body
@@ -156,7 +147,6 @@ class ObjsController {
             next(e)
         }
     }
-
     async passObj(req,res,next) {
         try{
             const params = req.body
@@ -176,10 +166,5 @@ class ObjsController {
             next(e)
         }
     }
-
-
-
-
-
 }
 module.exports = new ObjsController()

@@ -1,9 +1,10 @@
-const {User, DiskSpace, T13Uni} = require('../models/models')
+const {User, DiskSpace, T13Uni, PeopleCounter, Token} = require('../models/models')
 const bcrypt = require('bcrypt')
 const UserDto = require('../dtos/usersDto')
 const T13UniDto = require('../dtos/t13UniDto')
 const tokenService = require('../service/token.service')
 const ApiError = require('../exceptions/api.error')
+const sequelize = require("sequelize");
 class UsersService{
     async registration(tn,full_name,login,email,password,inn) {
         const candidate = await User.findOne({where: {login:login}})
@@ -40,7 +41,6 @@ class UsersService{
         }
         userDto.diskspace = sizes.diskspace
         userDto.usedspace = sizes.usedspace
-        //console.log(await bcrypt.hash(password,15))
         return {...tokens,user: userDto}
     }
 
@@ -75,7 +75,6 @@ class UsersService{
     async refresh(refreshToken){
         if(!refreshToken) throw ApiError.UnauthorizedError()
         const userData = tokenService.validateRefreshToken(refreshToken)
-        //console.log(userData)
         const tokenFromDb = await tokenService.findToken(refreshToken)
         if(!userData || !tokenFromDb) throw ApiError.UnauthorizedError()
         const user = await User.findOne({ where:{id:userData.id} })
@@ -104,5 +103,26 @@ class UsersService{
         if(!user) return {err:true,message:'Пользователь не найден'}
         return {user}
     }
+    async getstat() {
+        const numall = await User.count()
+        const stat = await PeopleCounter.findAll()
+
+        const numreg = await User.count({
+            where: sequelize.literal("DATE(\"createdAt\") = CURRENT_DATE")
+        })
+        const numinp = await Token.count({
+            where: sequelize.literal("DATE(\"updatedAt\") = CURRENT_DATE")
+        })
+        const date = new Date()
+        return {numall:numall,stat:[...stat,{id:-1,date,numreg,numall,numinp}]}
+    }
+
+    async getusers(sort='full_name') {
+        const users = await User.findAll({order: [[sort, 'ASC']]})
+        if(!users) throw ApiError.BadRequest('Ошибка получения списка пользователей')
+        return {users}
+    }
+
+
 }
 module.exports = new UsersService()

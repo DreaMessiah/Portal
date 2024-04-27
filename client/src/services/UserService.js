@@ -33,4 +33,10 @@ export default class UserService {
         return $api.get('/t13/getworkers')
     }
 
+    static getStat() {
+        return $api.get('/auth/getstat')
+    }
+    static getStatUsers(sort) {
+        return $api.post('/auth/getusers',{sort})
+    }
 }

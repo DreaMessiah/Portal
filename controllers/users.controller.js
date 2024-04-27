@@ -120,7 +120,23 @@ class UsersController {
             next(e)
         }
     }
-
+    async getstat(req,res,next){
+        try{
+            const usersStat = await userService.getstat()
+            return res.status(200).json(usersStat)
+        }catch (e){
+            next(e)
+        }
+    }
+    async getusers(req,res,next){
+        try{
+            const {sort} = req.body
+            const users = await userService.getusers(sort)
+            return res.status(200).json(users)
+        }catch (e){
+            next(e)
+        }
+    }
 
 }
 

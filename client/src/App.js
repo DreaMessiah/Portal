@@ -167,9 +167,8 @@ function App() {
                         <Route path="/welwel" element={<WelMY />} />
                         <Route path="/itogtabel" element={<ItogTabel />} />
                         <Route path="/alltabels" element={<AllTabels />} />
-                        <Route path="/editor" element={<EditorRouter page={1} />} />
-                        <Route path="/peoplesstat" element={<EditorRouter page={2} />} />
-
+                        {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/editor" element={<EditorRouter page={1} />} /> : null }
+                        {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/peoplesstat" element={<EditorRouter page={2} />} /> : null }
                     </Routes>
                 </div>
             </Router>

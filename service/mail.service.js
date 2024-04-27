@@ -1,6 +1,7 @@
 const nodemailer = require('nodemailer')
 const config = require('config')
 const {Messages, User} = require("../models/models");
+
 class MailService{
     constructor() {
         this.transporter = nodemailer.createTransport({
@@ -31,8 +32,6 @@ class MailService{
         })
     }
     async sendQuestionToManager(to,title,text,user,tn){
-        console.log(to)
-        console.log(tn)
         await this.transporter.sendMail({
             from: config.get('smtp_user'),
             to,
@@ -47,12 +46,9 @@ class MailService{
                     </div>
                 `
         })
-
-        const searchTabNum = await User.findOne({where: {id: tn}})
+        const searchTabNum = await User.findOne({where: {tn: tn}})
         const thistn = searchTabNum.dataValues.tn
-
         await Messages.create({tn_to: thistn, tn_from: user.tn, title: '', text: title+' / '+text, files: null, trash_to: false,trash_from: false,read: false})
-
     }
 }
 module.exports = new MailService()

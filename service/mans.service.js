@@ -1,41 +1,27 @@
-const {Objects, HumanList} = require('../models/models')
-const ObjsDto = require('../dtos/objsDto')
-const ApiError = require('../exceptions/api.error')
-const {DataTypes} = require("sequelize");
+const {HumanList} = require('../models/models')
 class MansService {
     generateRandomFileName() {
         const timestamp = new Date().getTime();
         const randomNumber = Math.floor(Math.random() * 10000);
         return `PO-${timestamp}_${randomNumber}`;
     }
-
     async delManHumanList(man) {
         try{
-            console.log(man)
             const rowToDelete = await HumanList.findByPk(man.idman);
-
-            if (!rowToDelete) {
-                // Если строка не найдена, выводим сообщение и выходим из функции
-                console.log("Строка с указанным id не найдена");
-                return;
-            }
-
-            // Удаляем строку из базы данных
+            if (!rowToDelete) return
             await rowToDelete.destroy();
             return true
         }catch{
             return false
         }
     }
-
     async getHumanList() {
         try{
-            const list = await HumanList.findAll()
-            return list
-        }catch{
+            return await HumanList.findAll()
+        }catch(e){
+            console.log(e)
         }
     }
-
     async plusManHR(man) {
         try{
             const thistn = this.generateRandomFileName()
@@ -90,7 +76,6 @@ class MansService {
                 d30:'',
                 d31:''
             })
-
             return man.fio+' '+man.dev+' - добавлен в список'
         }catch{
             return 'НЕ получилось добавить '+man.fio+' '+man.dev

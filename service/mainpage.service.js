@@ -1,44 +1,14 @@
-
-
-const {BestBoard, T13} = require('../models/models')
-const {DataTypes} = require("sequelize");
-const {method} = require("../middleware/odata.middleware");
+const {BestBoard} = require('../models/models')
 class BestManService{
-
     async delBestMan(id) {
-        try{
-            console.log('перед удалением')
-            console.log(id)
-            // const created = await BestBoard.findAll({where: {inn:inn.inn}})
-            const deleted = await BestBoard.destroy({where: {id: id.id}})
-            return deleted
-        } catch {
-            'пшол нахуй'
-        }
-
+        return await BestBoard.destroy({where: {id: id.id}})
     }
-
     async viewBestMan(inn) {
-        try{
-            const created = await BestBoard.findAll({where: {inn:inn.inn}})
-            return created
-        } catch {
-            'пшол нахуй'
-        }
-
+        return await BestBoard.findAll({where: {inn:inn.inn}})
     }
-
     async pushBestMan(man) {
-            try{
-                let best = man.bestman
-                const created = await BestBoard.create({name:best.name,tn:best.tn,developer:best.developer,onboard:best.onboard,dev:best.dev,inn:best.inn})
-                return {created, message}
-            } catch {
-                'пшол нахуй'
-            }
-
+        return await BestBoard.create({name:man.bestman.name,tn:man.bestman.tn,developer:man.bestman.developer,onboard:man.bestman.onboard,dev:man.bestman.dev,inn:man.bestman.inn})
     }
-
 }
 
 module.exports = new BestManService()

@@ -5,110 +5,81 @@ const {DataTypes, Op, Sequelize} = require("sequelize");
 class ObjsService{
 
     async thisObj(object_id){
-        console.log(object_id)
-        const obj = await Objects.findAll({where: {id:+object_id.object_id}})
-        return obj
+        return await Objects.findAll({where: {id:+object_id.object_id}})
     }
 
     async getObjects(inn){
-        const listObjs = await Objects.findAll({where: {inn:inn}, order: [['shifr', 'ASC']]})
-        return listObjs
+        return await Objects.findAll({where: {inn:inn}, order: [['shifr', 'ASC']]})
     }
 
     async getAllTabels(search){
-        console.log(search)
-        const listObjs = await Ymshifr.findAll({where: {object_id:search.getId, inn:search.inn,[Op.or]: [{ trash: null },{ trash: false }]}, order: [['year', 'DESC']]})
-        return listObjs
+        return await Ymshifr.findAll({where: {object_id:search.getId, inn:search.inn,[Op.or]: [{ trash: null },{ trash: false }]}, order: [['year', 'DESC']]})
     }
 
     async getTabelsForAll(search){
-        console.log(search)
-        const listObjs = await Ymshifr.findAll({where: {year: search.year, inn:search.inn,[Op.or]: [{ trash: null },{ trash: false }]}, order: [['year', 'DESC']]})
-        return listObjs
+        return await Ymshifr.findAll({where: {year: search.year, inn:search.inn,[Op.or]: [{ trash: null },{ trash: false }]}, order: [['year', 'DESC']]})
     }
 
     async createTabels(tabel){
-        console.log(tabel)
         const idobj = parseInt(tabel.getId)
         await Ymshifr.create({object_id:idobj, shifr:idobj, month:tabel.selMonth, year:tabel.selYear, inn:tabel.inn})
-        const list = await Ymshifr.findAll({where: {object_id:tabel.getId, inn:tabel.inn}, order: [['year', 'DESC']]})
-        return list
+        return await Ymshifr.findAll({where: {object_id:tabel.getId, inn:tabel.inn}, order: [['year', 'DESC']]})
+
     }
 
     async showObjects(user){
-        const newArr = []
         const newList = []
         const listObjs = await NumberObjects.findAll({where: {inn:user.inn, user_id:user.user_id}, order: [['id', 'DESC']]})
         const allObjs = await Objects.findAll({where: {inn:user.inn}, order: [['shifr', 'ASC']]})
-            listObjs.forEach(obj=>{
-                const newObj = {}
-                allObjs.forEach(strock => {
-                    if(strock.id === obj.object_id){
-                        newObj.id = strock.id
-                        newObj.shifr = strock.shifr
-                        newObj.nameobject = strock.nameobject
-                        newObj.ogm_j = strock.ogm_j
-                        newObj.prior = strock.prior
-                        newObj.ras = strock.ras
-                        newObj.dop1 = strock.dop1
-                        newObj.dop2 = strock.dop2
-                        newList.push(newObj)
-                    }
-                })
-
+        listObjs.forEach(obj=>{
+            const newObj = {}
+            allObjs.forEach(strock => {
+                if(strock.id === obj.object_id){
+                    newObj.id = strock.id
+                    newObj.shifr = strock.shifr
+                    newObj.nameobject = strock.nameobject
+                    newObj.ogm_j = strock.ogm_j
+                    newObj.prior = strock.prior
+                    newObj.ras = strock.ras
+                    newObj.dop1 = strock.dop1
+                    newObj.dop2 = strock.dop2
+                    newList.push(newObj)
+                }
             })
-
-
-
-        // const allObjs = await Objects.findAll({where: {inn:inn}, order: [['shifr', 'ASC']]})
-        //
-
-
+        })
         return newList
     }
     async insertObjects(obj_id,login,iduser,inn){
-
         const haveObj = await NumberObjects.findOne({where: {object_id:obj_id}})
         if(haveObj){
             const papa = await User.findOne({where: {id:haveObj.papa}})
             return [haveObj, 'haven', papa.full_name]
         }else{
             await NumberObjects.create({object_id:obj_id,nameobject:'',user_id:iduser,papa:iduser,inn:inn,login:login})
-            const listObjs = await NumberObjects.findAll({where: {inn:inn,user_id:iduser}, order: [['id', 'DESC']]})
-            return listObjs
+            return await NumberObjects.findAll({where: {inn:inn,user_id:iduser}, order: [['id', 'DESC']]})
         }
-
-
     }
 
     async getT13(params){
-        const listMan = await T13.findAll({where: {inn:params.inn, month:params.month, year:params.year}, order: [['name', 'ASC']]})
-        return listMan
+        return await T13.findAll({where: {inn:params.inn, month:params.month, year:params.year}, order: [['name', 'ASC']]})
     }
-
     async listTabelMans(params){
-        const listTabel = await TableTabel.findAll({where: {inn:params.inn, object_id:params.shifre, month:params.month, year:params.year}, order: [['name', 'ASC']]})
-        return listTabel
+        return await TableTabel.findAll({where: {inn:params.inn, object_id:params.shifre, month:params.month, year:params.year}, order: [['name', 'ASC']]})
     }
-
     async getKTUdate(params){
-        console.log(params)
-        const listKTU = await KtuList.findAll({
+        return await KtuList.findAll({
             where: {
                 ktudate: {
                     [Op.between]: [params.datestart, params.dateend] // Указываем диапазон дат
                 }
             }
         })
-        return listKTU
     }
     async copyTab(params) {
         const months = [
             'январь', 'февраль', 'март', 'апрель', 'май', 'июнь',
             'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'
-        ];
-
-        console.log(params)
+        ]
         const listTabel = await TableTabel.findAll({
             where: {
                 inn: params.inn,
@@ -143,12 +114,7 @@ class ObjsService{
         } else {
             await Ymshifr.create({object_id:params.shifre, shifr:params.shifrname, month:''+intmonth, year:''+intyear, inn:params.inn})
         }
-
-console.log(newmonth)
-        console.log(newyear)
-
         const newRecords = listTabel.map(record => ({
-
             name:record.name,
             developer:record.developer,
             branch:record.branch,
@@ -262,63 +228,47 @@ console.log(newmonth)
             // // Продолжайте также для всех дней и других полей
             // ktu: record.ktu // Пример оставления ktu без изменений
         }));
-
         // Создать новые записи в базе данных с измененными параметрами
         await TableTabel.bulkCreate(newRecords);
-
-        // return listTabel
         return true
     }
 
 
     async delManTabel(params){
         const idman = params.man
-
         try{
             const rowToDelete = await TableTabel.findByPk(idman)
             if(!rowToDelete){
                 return 'Строка уже удалена ранее'
             }
-
             await rowToDelete.destroy()
             return 'Запись удалина'
         }catch(error){
             return 'Что-то пошло не так'
         }
     }
-
     async getUsersList(){
         try{
-            const listMan = await User.findAll({
+            return await User.findAll({
                 attributes: { exclude: ['password', 'avatar', 'inn', 'admin', 'moderator', 'editcom', 'passport', 'phone', 'phonecompany', 'snils', 'unit'] }
             })
-            return listMan
         }catch(e){
             console.log(e)
         }
-
     }
     async passObj(params){
         try{
-            const result = await NumberObjects.create({object_id:params.object_id,nameobject:'',user_id:params.user_id,papa:params.papa,inn:'8617014209',login:params.login})
-            return result
+            return await NumberObjects.create({object_id:params.object_id,nameobject:'',user_id:params.user_id,papa:params.papa,inn:'8617014209',login:params.login})
         }catch(e){
             console.log(e)
         }
-
     }
     async dataOfObj(params){
         try{
-            const listMan = await NumberObjects.findAll({where: {object_id: params.idobj}})
-            return listMan
+            return await NumberObjects.findAll({where: {object_id: params.idobj}})
         }catch(e){
             console.log(e)
         }
-
     }
-
-
-
-
 }
 module.exports = new ObjsService()
