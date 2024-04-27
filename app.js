@@ -71,6 +71,7 @@ app.use(errorMiddlewere) //Обязательно последний!
 
 const start = async () => {
     try{
+        AutomakerService.recordLoginCount()
         app.listen(PORT,() => {
             console.log('Server started on port : ', PORT)
         })
