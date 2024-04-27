@@ -828,8 +828,15 @@ const PeopleCounter = sequelize.define('peoplecounter',{
     numreg:{type:DataTypes.INTEGER},
     numinp:{type:DataTypes.INTEGER},
     numall:{type:DataTypes.INTEGER}
-
 })
+
+// const History = sequelize.define('history',{
+//     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+//     marker:{type:DataTypes.TEXT},
+//     user_tn:{type:DataTypes.INTEGER},
+//     numall:{type:DataTypes.INTEGER}
+// })
+
 
 T13Uni.hasMany(CrewMans, { foreignKey: 'user_tn', sourceKey: 'tn',constraints: false})
 HumanList.hasMany(CrewMans, { foreignKey: 'user_tn', sourceKey: 'tn',constraints: false})
