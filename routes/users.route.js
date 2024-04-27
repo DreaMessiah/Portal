@@ -9,6 +9,9 @@ router.post('/logout',usersController.logout)
 router.post('/tnenter',usersController.tnenter)
 router.post('/setfz152',usersController.setfz152)
 
+router.get('/getstat',usersController.getstat)
+router.post('/getusers',usersController.getusers)
+
 router.get('/refresh',usersController.refresh)
 
 router.post('/createuser',

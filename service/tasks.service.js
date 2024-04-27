@@ -27,7 +27,6 @@ class TasksService{
         return groups
     }
     async createGroup(name,group,creator_tn) {
-        console.log(group)
         const item = await TaskGroups.findOne({where:{name:name}})
         if(!item) {
             return await TaskGroups.create({name, users_tn:group, creator_tn})
@@ -51,7 +50,6 @@ class TasksService{
 
         filenames.map( async (item) => {
             await FilesService.createPathTask(task.id).then( async () => {
-
                 await this.replaceFile(item,task.id)
                 await TaskDocs.create({filename:item,chain_id:chain.id,task_id:task.id})
             })

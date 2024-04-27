@@ -9,7 +9,6 @@ class MessagesController {
             next(e)
         }
     }
-
     async getMess(req,res,next) {
         try{
             const {chat} = req.body
@@ -19,7 +18,6 @@ class MessagesController {
             next(e)
         }
     }
-
     async getMyChats(req,res,next) {
         try{
             const {tn} = req.body
@@ -29,18 +27,14 @@ class MessagesController {
             next(e)
         }
     }
-
     async searchMess(req,res,next) {
         try{
             const tn = req.body.tn
             const chatsData = await MessagesService.searchMess(tn)
             return res.status(200).json(chatsData)
-
         }catch (e){
             next(e)
         }
     }
-
-
 }
 module.exports = new MessagesController()

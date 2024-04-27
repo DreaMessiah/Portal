@@ -75,15 +75,8 @@ class TabelService{
             const months = [
                 'январь', 'февраль', 'март', 'апрель', 'май', 'июнь',
                 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'
-            ];
-
+            ]
             const getMonth = months[params.month]
-
-            console.log(params)
-            console.log(' - ')
-            console.log(' - ')
-            console.log(' - ')
-            console.log("это сервис на сервере")
             const strocks = await TableTabel.findAll({
                 where: {
                     month: getMonth,
@@ -93,9 +86,7 @@ class TabelService{
                     ['shifr'],
                     ['name']
                 ]
-            });
-
-
+            })
             return strocks
         }catch{
             return 'error'
@@ -105,9 +96,7 @@ class TabelService{
 
     async trashYm(line) {
         try{
-
             const ym = await Ymshifr.findOne({where:{id: line.id}})
-
             ym.trash = true
             await ym.save();
             return 'ok'

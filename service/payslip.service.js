@@ -1,7 +1,7 @@
-const {Payslip,KtuList,TableTabel} = require('../models/models')
+const {Payslip,KtuList,TableTabel, KtuDoc} = require('../models/models')
 const ApiError = require('../exceptions/api.error')
 const TabelDto = require("../dtos/tabelDto");
-const { Op } = require('sequelize')
+const { Op, where} = require('sequelize')
 class PayslipService {
     async getdays(tn,month,year) {
         const tabel = await TableTabel.findAll({where:{tn:tn,month:month,year:`${year}`}})
@@ -26,12 +26,8 @@ class PayslipService {
         return payslip
     }
     async getktu(tn,month,year) {
-        const startDate = new Date(year, this.getMonthNumber(month), 1);
-        const endDate = new Date(year, month + 1, 0);
-        const ktu = await KtuList.findAll({where:{user_tn:tn}, date: {
-                [Op.gte]: startDate,
-                [Op.lte]: endDate
-            }})
+        const doc = await KtuDoc.findOne({where:{month:month,year:year}})
+        const ktu = await KtuList.findAll({where:{user_tn:tn,ktudoc_id:doc.id}})
         if(!ktu) return []
         return ktu
     }

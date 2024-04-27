@@ -121,7 +121,6 @@ class FilesController {
             next(e)
         }
     }
-
     async loadImg(req, res, next){
         try {
             const file = req.files.file

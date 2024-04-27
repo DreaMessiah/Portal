@@ -64,10 +64,10 @@ export default function LoadContest(){
     const isValidAge = (input) => {
         if (input.length !== 0) {
             const number = parseInt(input, 10)
-            if( number >= 1 && number <= 14){
+            if( number >= 3 && number <= 15){
                 return false
             }else{
-                message('Возраст участника должен быть от 1 до 14 лет')
+                message('Возраст участника должен быть от 3 до 15 лет')
                 return true
             }
         }else{
@@ -177,7 +177,7 @@ export default function LoadContest(){
                             </div>
                             <div className='line'>
                                 <i className="fa-solid fa-child-reaching"></i>
-                                <input className={`${empty[(index+1)*10] && 'red-solid-border'}`} onChange={(e) => ageHandler(e,index)} type="number" min="1" max="16" placeholder='Введите возраст автора'/>
+                                <input className={`${empty[(index+1)*10] && 'red-solid-border'}`} onChange={(e) => ageHandler(e,index)} type="number" min="1" max="16" placeholder='Введите возраст автора(от 3 до 15 лет)'/>
                                 <i className="fa-solid fa-child-reaching"></i>
                             </div>
 

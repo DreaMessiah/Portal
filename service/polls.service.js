@@ -8,11 +8,7 @@ class PollsService{
         await Promise.all(surveys.map(async (item) => {
             const answer = await Answer.findOne({ where: { survey_id: +item.id, user_id: +user_id } });
             polls.push({ ...item.dataValues, status: !!answer });
-        }));
-
-        console.log(polls);
-        //const SurveyDto = new SurveyDto(survey)
-        //console.log(book)
+        }))
         return polls
     }
     async getSurvey(id,user_id) {
@@ -27,7 +23,6 @@ class PollsService{
         const questions = await Question.findAll({where:{survey_id:+id}})
         if(!questions) throw ApiError.BadRequest('Нет ответов в базе')
         const answers = await Answer.findAll({where:{survey_id:+id}})
-
         return {questions,answers}
     }
     async remove(id) {
@@ -35,7 +30,6 @@ class PollsService{
         if(!survey) throw ApiError.BadRequest('Нет вопроса с таким id в базе')
         survey.trash = true
         survey.save()
-
         return {survey}
     }
     async check(id) {
@@ -60,9 +54,8 @@ class PollsService{
     }
     async updateQuestions(id,questions) {
         const questionslist = await Question.findAll({where:{survey_id:id}})
-        console.log(questionslist)
         if(questionslist){
-            questionslist.map((item,index) => {
+            questionslist.map((item) => {
                 item.destroy()
             })
         }
@@ -96,7 +89,6 @@ class PollsService{
         answer = await Answer.create({question_id:question_id,user_id:user_id,survey_id:survey_id})
         return {answer}
     }
-
     async getContests() {
         const contests = await Contest.findAll({ where: { trash: false} })
         if(!contests) throw ApiError.BadRequest('База пуста')
@@ -107,7 +99,6 @@ class PollsService{
         if(!nomi) throw ApiError.BadRequest('База пуста')
         return nomi
     }
-
     async newWorks(id,phone,contests,mail){
         return contests.map( async(item) => {
             return await Contest.create({user_id:id,phone:phone,name:item.name,age:item.age,image:item.image,trash:false,mail:mail})

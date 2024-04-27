@@ -5,8 +5,6 @@ class PhonesService{
     async get() {
         const book = await Phonebook.findAll({order:[['order', 'ASC']]})
         if(!book) throw ApiError.BadRequest('База с контактами пуста')
-        //const phonesDto = new PhonesDto(book)
-        //console.log(book)
         return book
     }
     async add(name,mobile_phone,city_phone,ats,email,position,job,order,heading = false) {
@@ -42,11 +40,7 @@ class PhonesService{
     }
     async update(){
         const rows = await this.get()
-        //console.log(123)
-        //console.log(rows.)
         await Promise.all(rows.map(async (row,index) => {
-            console.log(index)
-            console.log(row)
             await Phonebook.update({ order: index + 1 }, { where: { id: row.id } });
         }))
     }

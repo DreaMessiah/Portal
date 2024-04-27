@@ -1,5 +1,4 @@
 const TasksService = require('../service/tasks.service')
-const ApiError = require('../exceptions/api.error')
 class TasksController {
     async getPriority(req,res,next) {
         try{

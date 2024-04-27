@@ -6,12 +6,9 @@ const sequelize = require("sequelize");
 class AutomakerService {
     async recordLoginCount() {
         try{
-
-            const today = new Date()
             const numreg = await User.count({
                 where: sequelize.literal("DATE(\"createdAt\") = DATE(NOW() - INTERVAL '1 HOUR')"),
             });
-            console.log('123')
             const numinp = await Token.count({
                 where: {
                     updatedAt: {
@@ -20,8 +17,7 @@ class AutomakerService {
                     },
                 },
             });
-            const numall = await Token.count();
-
+            const numall = await User.count();
             await PeopleCounter.create({date: sequelize.literal('CURRENT_DATE - INTERVAL \'6 HOUR\''),numinp,numreg,numall})
         }catch (e) {
             console.log(e)

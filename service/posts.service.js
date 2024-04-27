@@ -63,7 +63,6 @@ class PostsService{
         post.clicks++
         await post.save()
         const postDto = [{name:'main',title:post.title,image:post.image,content:post.text,oncomment:post.oncomment}]
-        console.log(post)
         const data = JSON.parse(post.json_data)
         data.map( item => {
             postDto.push({name:item.name,content: item.content,image:item.images})
@@ -93,12 +92,8 @@ class PostsService{
         return {post}
     }
     async updatePost(id,title,text,image,json_data,oncomment=true,trash = false) {
-        console.log(id)
-        console.log(!isNaN(+id))
         if (!isNaN(+id)) {
             const post = await Posts.findOne({where: {id: +id}})
-
-            console.log(post)
             if (Posts) {
                 post.text = text
                 post.title = title
@@ -112,7 +107,6 @@ class PostsService{
         }
         return await this.createPost(title,text,image,json_data,oncomment,trash)
     }
-
     async createPost(title,text,image,json_data,oncomment=true,trash = false) {
         const post = await Posts.create({title,text,image,json_data,oncomment,trash,clicks:0})
         return {post}

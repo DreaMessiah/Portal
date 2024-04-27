@@ -1,8 +1,4 @@
 const PollsService = require('../service/polls.service')
-const {validationResult} = require('express-validator')
-const ApiError = require('../exceptions/api.error')
-const authMiddlewere = require("../middleware/auth.middleware");
-
 class PollsController {
     async get(req,res,next) {
         try{
