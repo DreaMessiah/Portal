@@ -29,10 +29,8 @@ function FileManager(){
     const [progress, setProgress] = useState({})
     const [copyOptions,setCopyOptions] = useState([])
 
-
     const filesInputRef = useRef(null)
     const containerRef = useRef(null)
-
     const [newDirName, setNewDirName] = useState('')
 
     const location = useLocation();
