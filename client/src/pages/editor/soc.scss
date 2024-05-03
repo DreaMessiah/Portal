@@ -319,7 +319,7 @@
   }
 
   .glass{
-    position: absolute;
+     position: absolute;
     backdrop-filter: blur(5px);
     top: 0px;
     left: 0px;
@@ -333,10 +333,255 @@
 
     .glass_board{
       width: 90%;
-      min-height: 90%;
-      background-color: rgba(255,255,255,0.8);
-      border-radius: 20px;
+      height: 90%;
+      background-color: rgba(255,255,255,1);
+      border-radius: 2px;
       box-shadow: 0px 0px 10px rgba(150,150,150,0.7);
+      overflow-y: hidden;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .glass_board_close{
+        width: calc(100% - 30px);
+        padding: 15px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        i{
+          font-size: 20pt;
+          color: #454545;
+          cursor: pointer;
+          transition: 0.05s;
+        }
+        i:hover{
+          color: #CCC;
+          transition: 0.05s;
+        }
+      }
+      .glass_board_body{
+        width: calc(100% - 80px);
+        height: calc(100% - 60px - 60px);
+        //border: 1px solid #454545;
+        padding: 20px;
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        .glass_board_body_tit{
+          display: flex;
+          align-items: center;
+          margin: 10px;
+          font-weight: 600;
+          text-transform: uppercase;
+          font-size: 0.8rem;
+        }
+
+        .glass_board_body_numinput{
+          width: 80px;
+          padding: 10px;
+          border: 3px dotted #CCC;
+          border-radius: 10px;
+          font-size: 12pt;
+          font-weight: 600;
+          color: rgb(18, 19, 56);
+          text-align: center;
+          outline: none;
+          transition: 0.2s;
+          margin-left: 10px;
+          margin-right: 10px;
+        }
+
+        .glass_board_body_input{
+          width: calc(100% - 26px);
+          padding: 10px;
+          border: 3px dotted #CCC;
+          border-radius: 10px;
+          font-size: 16pt;
+          font-weight: 600;
+          color: rgb(18, 19, 56);
+          text-align: center;
+          outline: none;
+          transition: 0.2s;
+        }
+
+        .glass_board_body_textarea{
+          margin-top: 10px;
+          width: calc(100% - 46px);
+          padding: 10px 20px;
+          min-height: 120px;
+          border: 3px dotted #CCC;
+          border-radius: 10px;
+          outline: none;
+        }
+
+        .glass_board_body_btn{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 20px;
+          border: 1px solid #CCC;
+          color: #CCC;
+          width: auto;
+          max-height: 30px !important;
+          cursor: pointer;
+          margin-right: 10px;
+          padding: 5px 30px;
+          border-radius: 10px;
+          margin-left: 10px;
+          font-weight: 400;
+          transition: .2s;
+        }
+        .glass_board_body_btn:hover{
+          color: #454545;
+          border: 1px solid #454545;
+          transition: .2s;
+        }
+
+        .glass_board_body_graf{
+          width: calc(100% - 26px);
+          padding: 10px;
+          border: 3px dotted #CCC;
+          border-radius: 10px;
+          font-size: 12pt;
+          font-weight: 600;
+          color: rgb(18, 19, 56);
+          outline: none;
+          transition: 0.2s;
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 10px;
+          .inputs_of_graf{
+            border: none;
+            width: calc(100% - 40px);
+            outline: none;
+            font-size: 12pt;
+            //height: ;
+          }
+          .btns{
+            i{
+              font-size: 16pt;
+              margin-left: 10px;
+              cursor: pointer;
+            }
+            i:hover{
+              color: #CCC;
+              transition: 0.2s;
+            }
+          }
+
+        }
+        .glassslash{
+          width: 100%;
+          height: 1px;
+          background-color: #CCC;
+          margin-top: 10px;
+        }
+        .blueborder{
+          border: 3px dotted rgb(18, 19, 56);
+        }
+        .glass_board_body_buttons{
+          margin-top: 10px;
+          display: flex;
+          justify-content: flex-start;
+          .glass_board_body_buttons_create{
+            margin-right: 20px;
+            padding: 20px 20px;
+            border: 1px solid #CCC;
+            border-radius: 4px;
+            cursor: pointer;
+            color: #454545;
+            transition: 0.2s;
+          }
+          .glass_board_body_buttons_cancel{
+            margin-right: 20px;
+            padding: 20px 20px;
+            border: 1px solid darkred;
+            border-radius: 4px;
+            cursor: pointer;
+            color: #454545;
+            transition: 0.2s;
+          }
+
+          .glass_board_body_buttons_create:hover{
+            color: #000;
+            border: 1px solid #454545;
+          }
+
+          .glass_board_body_buttons_cancel:hover{
+            color: red;
+          }
+        }
+        .glass_board_body_selection{
+          display: flex;
+
+          .glass_pluss_btn{
+            width: 150px;
+            height: 36px;
+            border: 1px solid #CCC;
+            border-radius: 4px;
+            margin-left: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #454545;
+            background-color: #FFFFFF;
+            cursor: pointer;
+            transition: 0.2s;
+          }
+          .glass_pluss_btn:hover{
+            color: #FFFFFF;
+            background-color: #454545;
+            border: 1px solid #CCC;
+            transition: 0.2s;
+          }
+        }
+
+        .glass_board_body_man{
+          display: flex;
+          justify-content: space-between;
+          max-width: content-box;
+          padding: 10px 20px;
+          border: 3px dotted #CCC;
+          border-radius: 10px;
+          margin-top: 10px;
+          .glass_board_body_man_content{
+            display: flex;
+            .glass_board_body_man_photo{
+              width: 60px;
+              height: 60px;
+              background-size: cover;
+              background-position: center center;
+              border-radius: 60px;
+            }
+            .glass_board_body_man_params{
+              margin-left: 20px;
+              .glass_board_body_man_name{
+                font-weight: 700;
+              }
+              .glass_board_body_man_dev{
+                font-size: 11pt;
+              }
+              .glass_board_body_man_departament{
+                font-size: 11pt;
+              }
+            }
+          }
+
+          .glass_board_body_man_del{
+            font-size: 16pt;
+            i{
+              color: #454545;
+              cursor: pointer;
+              transition: 0.2s;
+            }
+            i:hover{
+              color: #CCC;
+              transition: 0.2s;
+            }
+          }
+        }
+
+      }
     }
   }
 }
