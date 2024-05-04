@@ -12,6 +12,7 @@ import {useLocation} from "react-router-dom";
 import ModalFiles from "../../components/modalwin/ModalFiles";
 import Select from "react-select";
 import './draganddrop.scss'
+import LoadingSpinner from "../../components/loading/LoadingSpinner";
 function FileManager(){
     const {icons} = useContext(DataContext)
     const {store} = useContext(Context)
@@ -20,31 +21,37 @@ function FileManager(){
     const [selectFile,setSelectFile] = useState(-2)
     const [path,setPath] = useState([])
     const [parentId,setParentId] = useState(0)
-    const [activeM,setActiveM] = useState(false)
-    const [indexM,setIndexM] = useState()
+    const [activeDelete,setActiveDelete] = useState(false)
+    const [indexDelete,setIndexDelete] = useState()
     const [activeCopyM,setActiveCopyM] = useState(false)
     const [activeUploadM,setActiveUploadM] = useState(false)
     const [activeCreateM,setActiveCreateM] = useState(false)
     const [files, setFiles] = useState([])
     const [progress, setProgress] = useState({})
     const [copyOptions,setCopyOptions] = useState([])
-
+    const [loading,setLoading] = useState(false)
     const filesInputRef = useRef(null)
     const containerRef = useRef(null)
     const [newDirName, setNewDirName] = useState('')
+    const [onBasket,setOnBasket] = useState(false)
 
     const location = useLocation();
     const message = useMessage()
 
     const rule = 3
 
-
     const searchParams = new URLSearchParams(location.search)
     const getParent = searchParams.get('parent') ? searchParams.get('parent') : 0
 
+    const openImgInNewWindow = () => {
+        window.open("https://srsuportal.ru/files/" + store.user.id + '/' + documents[selectFile].name, "_blank")
+    }
+    const openDocInNewWindow = () => {
+        window.open("https://docs.google.com/viewer?url=https://srsuportal.ru/files/" + store.user.id + '/' + documents[selectFile].name, "_blank")
+    }
     const loadingHandler = async () => {
         try{
-            const response = await FilesService.fetchFiles(store.user.id,getParent)
+            const response = await FilesService.fetchFiles(store.user.id,getParent,onBasket)
             selectPathHandler(getParent)
             if(response.data){
                 setDocuments(response.data)
@@ -54,11 +61,12 @@ function FileManager(){
             console.log(e.message+': Проблема загрузки списка документов')
         }
     }
-    const selectPathHandler = async (parent,type = 'dir') => {
+    const selectPathHandler = async (parent,type = 'dir',basket= false) => {
         try{
-            if(type === 'dir'){
+            const TYPE = type.toLowerCase()
+            if(TYPE === 'dir'){
                 setSelectFile(-2)
-                const response = await FilesService.fetchFiles(store.user.id,parent)
+                const response = await FilesService.fetchFiles(store.user.id,parent,basket)
                 updateQueryStringParameter('parent',parent)
                 setParentId(parent)
                 if(response.data){
@@ -67,7 +75,15 @@ function FileManager(){
                     if(pathResponce.data) setPath(pathResponce.data)
                 }
             }else{
-                message('Файл не доступен для просмотра')
+                if(TYPE === 'pdf' || TYPE === 'doc' || TYPE === 'docx' || TYPE === 'xls' || TYPE === 'xlsx'){
+                    openDocInNewWindow()
+                }else{
+                    if(TYPE === 'png' || TYPE === 'jpg' || TYPE === 'jpeg'){
+                        openImgInNewWindow()
+                    }else{
+                        message('Файл не доступен для просмотра')
+                    }
+                }
             }
         }catch (e){
             console.log(e.message+': Проблема загрузки списка документов')
@@ -105,6 +121,63 @@ function FileManager(){
             console.log(e)
         }
     }
+    const deleteHandler = async () => {
+        try{
+            setLoading(true)
+            const {data} = await FilesService.fileToTrash(documents[selectFile].id)
+            if(data) {
+                setActiveDelete(false)
+                setSelectFile(-2)
+                const updatedItems = documents.filter((item, index) => index !== selectFile)
+                setDocuments(updatedItems)
+                message(`Файл ${documents[selectFile].name} помещен в корзину`)
+            }
+        }catch (e) {
+            console.log(e)
+        }finally {
+            setLoading(false)
+        }
+    }
+    const goToBasketHandler = async () => {
+        try {
+            setLoading(true)
+            setOnBasket(true)
+            await selectPathHandler(0,'dir',true)
+            //...................
+        }catch (e) {
+            console.log(e)
+        }finally {
+            setLoading(false)
+        }
+    }
+    const getFromBasketHandler = async () => {
+        try {
+            setLoading(true)
+            const {data} = await FilesService.fileFromTrash(documents[selectFile].id)
+            if(data) {
+                setActiveDelete(false)
+                setSelectFile(-2)
+                const updatedItems = documents.filter((item, index) => index !== selectFile)
+                setDocuments(updatedItems)
+                message(`Файл ${documents[selectFile].name} восстановлен`)
+            }
+        }catch (e) {
+            console.log(e)
+        }finally {
+            setLoading(false)
+        }
+    }
+    const goHome = async () => {
+        try {
+            setLoading(true)
+            setOnBasket(false)
+            await selectPathHandler(0,'dir',false)
+        }catch (e) {
+            console.log(e)
+        }finally {
+            setLoading(false)
+        }
+    }
     useEffect(()=> {
         function handleOutsideClick(event) {
             if (containerRef.current && !containerRef.current.contains(event.target)) {
@@ -120,19 +193,6 @@ function FileManager(){
         }
         //setDocuments(docs)
     },[])
-    function Inmodal({index}) {
-        return(
-            <div className='delete-modal'>
-                <div className='text'>
-                    <p>{`Вы уверены, что хотите удалить файл?`}</p>
-                </div>
-                <div className='buttons'>
-                    <div className='button da'>Да</div>
-                    <div onClick={(e) => setActiveM(false)} className='button'>Нет</div>
-                </div>
-            </div>
-        )
-    }
 
     function Upload() {
         const [dragEnter,setDragEnter] = useState(false)
@@ -245,6 +305,21 @@ function FileManager(){
             </>
         )
     }
+    function Delete() {
+        return(
+            <>
+                <div className='copy'>
+                    <h4>Вы действительно хотели бы удалить {(documents.length && selectFile>=0) ? documents[selectFile].name : ''}</h4>
+                    <div className='file-buttons'>
+                        <div className='buttons files-btns'>
+                            <div onClick={() => deleteHandler()} className='button da'>Да</div>
+                            <div onClick={() => setActiveDelete(false)} className='button'>Нет</div>
+                        </div>
+                    </div>
+                </div>
+            </>
+        )
+    }
 
     function updateQueryStringParameter(key, value) {
         const { protocol, host, pathname, search, hash } = window.location;
@@ -257,24 +332,36 @@ function FileManager(){
     return (
         <div ref={containerRef} className='file-manager'>
             <div className='file-buttons'>
-                <div onClick={(e) => setActiveUploadM(true)} className='button grey'><i className="fa-solid fa-upload"></i>Загрузить</div>
-                <div onClick={(e) => setActiveCreateM(true)} className='button'><i className="fa-solid fa-folder-plus"></i>Создать</div>
+                {!onBasket ? <div onClick={(e) => setActiveUploadM(true)} className='button grey'><i className="fa-solid fa-upload"></i>Загрузить</div> : <div style={{opacity:'0',marginTop:'15px'}} className={`button grey`}> </div>}
+                {!onBasket ? <div onClick={(e) => setActiveCreateM(true)} className='button'><i className="fa-solid fa-folder-plus"></i>Создать</div> : null}
                 {selectFile !== -2 ?
                     <>
                         {/*<div onClick={(e) => setActiveCopyM(true)} id='btn' className='button'><i className="fa-solid fa-copy"></i>Копировать</div>*/}
                         {/*<div id='btn' className='button'><i className="fa-solid fa-file-export"></i>Переместить</div>*/}
-                        {/*<div id='btn' onClick={(e) => setActiveM(true)} className='button'><i className="fa-solid fa-trash-arrow-up"></i>Удалить</div>*/}
                         {/*<div id='btn' className='button'><i className="fa-solid fa-file-pen"></i>Переименовать</div>*/}
-                        {selectFile>=0 && documents[selectFile].type !== 'dir' ?
-                             <div id='btn' onClick={() => downloadHandler()} className='button'><i className="fa-solid fa-download"></i>Скачать</div>
+                        { ( selectFile>=0 && documents[selectFile].type !== 'dir' && !onBasket ) ?
+                            <>
+                                <div id='btn' onClick={() => downloadHandler()} className='button'><i className="fa-solid fa-download"></i>Скачать</div>
+                                <div id='btn' onClick={(e) => setActiveDelete(true)} className='button'><i className="fa-solid fa-trash-arrow-up"></i>Удалить</div>
+                            </>
                             :null}
+                        {selectFile>=0 && onBasket ?
+                            <>
+                                <div id='btn' onClick={(e) => getFromBasketHandler()} className='button'><i className="fa-solid fa-trash-arrow-up"></i>Восстановить</div>
+                            </>
+                            : null}
                     </>
                     : null}
+
             </div>
             <div className='file-header'>
                 <div className='file-path'>
                     <div className='l'>
-                        <i onClick={() => selectPathHandler(0,'dir')} className="fa-solid fa-house"></i>
+                        <i onClick={() => goHome()} className="fa-solid fa-house"></i>
+                        {onBasket ? <div className="path"><div className='path-item'>
+                            <i className="fa-solid fa-chevron-right ch"></i>
+                            <p id='btn' onClick={() => selectPathHandler(0,'dir',true)}>Корзина</p>
+                        </div></div> : null}
                         {path.length ? (
                             <div className='path'>
                                 {path.map( (item,index) => (
@@ -284,7 +371,6 @@ function FileManager(){
                                     </div>
                                 ))}
                             </div>
-
                         ) : ''}
                     </div>
                     <div className='r'>
@@ -296,21 +382,29 @@ function FileManager(){
 
             <div className={modeView ? 'files-list files' : 'files-table files'}>
             {path.length ? (
-                <div onClick={(e) => setSelectFile(-3)} onDoubleClick={(e) => selectPathHandler(path[path.length-2] ? path[path.length-2].parent : 0,'dir')} className={`file back`}>
+                <div onClick={(e) => setSelectFile(-3)} onDoubleClick={(e) => selectPathHandler(path[path.length-2] ? path[path.length-2].parent : 0,'dir',onBasket)} className={`file back`}>
                     <i className="fa-regular fa-circle-left"></i>
                     <p>Назад</p>
                 </div>
             ) : null}
+                {!path.length && onBasket? (
+                    <div onClick={(e) => setSelectFile(-3)} onDoubleClick={(e) => goHome()} className={`file back`}>
+                        <i className="fa-regular fa-circle-left"></i>
+                        <p>Назад</p>
+                    </div>
+                ) : null}
+
+
             {documents.length ?
                 <>
                     {documents.map((item,index) => (
-                        <div key={index} onDoubleClick={(e) => selectPathHandler(item.id,item.type)} onClick={() => setSelectFile(index)} className={`${selectFile === index ? 'selected' : ''} file`}>
+                        <div key={index} onDoubleClick={(e) => selectPathHandler(item.id,item.type,onBasket)} onClick={() => setSelectFile(index)} className={`${selectFile === index ? 'selected' : ''} file`}>
                             <i className={`${selectFile !== index ? 'fa-regular':'fa-solid'} fa-file-lines ${icons[item.type]}`}></i>
                             <p>{item.name}</p>
                         </div>
                     ))}
-                    {!path.length ? (
-                        <div onClick={() => setSelectFile(-1)} className={`${selectFile === -1 ? 'selected' : ''} file trash`}>
+                    {!path.length && !onBasket ? (
+                        <div onDoubleClick={(e) => goToBasketHandler()} onClick={() => setSelectFile(-1)} className={`${selectFile === -1 ? 'selected' : ''} file trash`}>
                             <i className="fa-solid fa-trash"></i>
                             <p>Корзина</p>
                         </div>
@@ -318,11 +412,11 @@ function FileManager(){
                 </>
                 :''}
             </div>
-            <ModalWin data={<Inmodal index={indexM}/>} active={activeM} setActive={setActiveM}/>
-
+            <ModalFiles data={<Delete index={indexDelete}/>} active={activeDelete} setActive={setActiveDelete} />
             <ModalUpload data={<Upload />} active={activeUploadM} setActive={setActiveUploadM}/>
             <ModalFiles data={<Create />} active={activeCreateM} setActive={setActiveCreateM}/>
             <ModalFiles heigth='50vh' data={<Copy />} active={activeCopyM} setActive={setActiveCopyM}/>
+            {loading ? (<LoadingSpinner/>) : null}
         </div>
     )
 }

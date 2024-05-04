@@ -1,4 +1,4 @@
-const {User, DiskSpace, T13Uni, PeopleCounter, Token} = require('../models/models')
+const {User, DiskSpace, T13Uni, PeopleCounter, Token, Answer} = require('../models/models')
 const bcrypt = require('bcrypt')
 const UserDto = require('../dtos/usersDto')
 const T13UniDto = require('../dtos/t13UniDto')
@@ -89,7 +89,11 @@ class UsersService{
         userDto.diskspace = sizes.diskspace
         userDto.usedspace = sizes.usedspace
 
-        return {...tokens,user: userDto}
+        const survey = await Answer.findOne({where:{user_id:userDto.id,survey_id:10}})
+
+        console.log(survey,!!survey)
+
+        return {...tokens,user: userDto,survey:!!survey}
     }
 
     async get() {

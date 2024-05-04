@@ -159,7 +159,6 @@ function PeoplesStat(){
             const users = await UserService.getStatUsers(sort)
             if(users.data){
                 setUsersList(users.data.users)
-                console.log(users.data.users)
             }
         }catch (e) {
             console.log(e)

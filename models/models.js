@@ -474,7 +474,8 @@ const Files = sequelize.define('files',{
     user_id:{type:DataTypes.INTEGER,ref:'users'},
     parent_id:{type:DataTypes.INTEGER,ref:'files'},
     child_id: {type: DataTypes.ARRAY(DataTypes.INTEGER)},
-    basket:{type:DataTypes.BOOLEAN,default:false},
+    basket:{type:DataTypes.BOOLEAN,defaultValue:false},
+    havebasket:{type:DataTypes.BOOLEAN,defaultValue:false},
 })
 const DiskSpace = sequelize.define('diskspace',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},

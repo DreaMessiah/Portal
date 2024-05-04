@@ -11,6 +11,7 @@ export default class Store {
     onboard = ''
     isAuth = false
     isTn = false
+    isSurvey = false
     isCreated = false
     isLoading = false
     constructor() {
@@ -18,6 +19,9 @@ export default class Store {
     }
     setAuth(bool){
         this.isAuth = bool
+    }
+    setSurvey(bool){
+        this.isSurvey = bool
     }
     setTn(bool){
         this.isTn = bool
@@ -108,6 +112,7 @@ export default class Store {
             const response = await axios.get(`${API_URL}/auth/refresh`,{withCredentials:true})
             localStorage.setItem('token',response.data.accessToken)
             this.setIsCreated(!!!response.data.user.checked)
+            this.setSurvey(response.data.survey)
             this.setAuth(true)
             this.setUser(response.data.user)
             this.setAvatar(response.data.user.avatar)

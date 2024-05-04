@@ -62,9 +62,12 @@ import {MakeLogin} from "./pages/welcomepage/MakeLogin";
 import {TnEnter} from "./pages/welcomepage/TnEnter";
 import WeldingRouter from "./pages/welding/WeldingRouter";
 import EditorRouter from "./pages/editor/EditorRouter";
+import SurveyPage from "./pages/survey/SurveyPage";
+
 
 function App() {
     const {store} = useContext(Context)
+
     useEffect(() => {
         if(localStorage.getItem('token')){
             store.checkAuth()
@@ -73,6 +76,7 @@ function App() {
     if(store.isLoading){
         return <div>Загрузка...</div>
     }
+
     if(store.isCreated) return (
         <Router>
             <div className="App">
@@ -92,6 +96,21 @@ function App() {
             </div>
         </Router>
     )
+
+    if(store.t13.onboard){
+        const dateOnboard = new Date(store.t13.onboard.split('.').reverse().join('-'));
+        const dateSurvei = new Date('2024-04-25')
+        if(dateSurvei<=dateOnboard && !store.isSurvey) return (
+            <Router>
+                <div className="App">
+                    <Routes>
+                        <Route path='*' element={<SurveyPage flag={true} onLand={true} id={10}/>} />
+                    </Routes>
+                </div>
+            </Router>
+        )
+    }
+
     if(!store.isAuth) return (
         <Router>
             <div className="App">
