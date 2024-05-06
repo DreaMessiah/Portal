@@ -8,6 +8,7 @@ import '../economist/econom.scss'
 import PeoplesStat from "./PeoplesStat";
 import EditorMenu from "./EditorMenu";
 import Sociality from "./Sociality";
+import Createsocial from "./Createsocial";
 
 export default function EditorRouter({page= 1}){
     return (
@@ -18,6 +19,7 @@ export default function EditorRouter({page= 1}){
                 {page === 1 && <WorkPage data={<EditorMenu />}/>}
                 {page === 2 && <WorkPage data={<PeoplesStat />}/>}
                 {page === 3 && <WorkPage data={<Sociality />}/>}
+                {page === 4 && <WorkPage data={<Createsocial />}/>}
             </div>
         </div>
     )
