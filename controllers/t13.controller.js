@@ -29,6 +29,24 @@ class T13Controller {
             next(e)
         }
     }
+    async getUni(req,res,next){
+        try{
+            const workers = await T13Service.getUni(req.user.inn)
+            return res.status(200).json(workers)
+        }catch (e){
+            next(e)
+        }
+    }
+    async getBranchs(req,res,next){
+        try{
+            const branchs = await T13Service.getBranchs()
+
+            return res.status(200).json(branchs)
+        }catch (e){
+            next(e)
+        }
+    }
+
 
 }
 module.exports = new T13Controller()

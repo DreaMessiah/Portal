@@ -32,11 +32,16 @@ export default class UserService {
     static getWorkers() {
         return $api.get('/t13/getworkers')
     }
-
+    static getUni() {
+        return $api.get('/t13/getuni')
+    }
     static getStat() {
         return $api.get('/auth/getstat')
     }
     static getStatUsers(sort) {
         return $api.post('/auth/getusers',{sort})
+    }
+    static getBranchs() {
+        return $api.get('/t13/getbranchs')
     }
 }

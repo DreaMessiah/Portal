@@ -6,6 +6,7 @@ import {Mainnavbar} from "../../components/navbar/Mainnavbar";
 
 import '../economist/econom.scss'
 import PeoplesStat from "./PeoplesStat";
+import BranchUsers from "./BranchUsers";
 import EditorMenu from "./EditorMenu";
 
 export default function EditorRouter({page= 1}){
@@ -16,6 +17,7 @@ export default function EditorRouter({page= 1}){
                 <Mainnavbar />
                 {page === 1 && <WorkPage data={<EditorMenu />}/>}
                 {page === 2 && <WorkPage data={<PeoplesStat />}/>}
+                {page === 3 && <WorkPage data={<BranchUsers />}/>}
             </div>
         </div>
     )

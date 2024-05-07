@@ -188,6 +188,7 @@ function App() {
                         <Route path="/alltabels" element={<AllTabels />} />
                         {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/editor" element={<EditorRouter page={1} />} /> : null }
                         {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/peoplesstat" element={<EditorRouter page={2} />} /> : null }
+                        {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/userbranchs" element={<EditorRouter page={3} />} /> : null }
                     </Routes>
                 </div>
             </Router>
