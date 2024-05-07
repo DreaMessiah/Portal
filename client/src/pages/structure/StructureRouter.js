@@ -4,8 +4,9 @@ import {Mainnavbar} from "../../components/navbar/Mainnavbar";
 
 import {useEffect, useState} from "react";
 import StructurePage from "./StructurePage";
+import StructurePageNew from "./StructurePageNew";
 
-const pages = 1
+const pages = 2
 
 export default function StructureRouter(){
     return (
@@ -14,7 +15,7 @@ export default function StructureRouter(){
             <div className="main_path">
                 <Mainnavbar />
                 {pages === 1 && <WorkPage data={<StructurePage />}/>}
-
+                {pages === 2 && <WorkPage data={<StructurePageNew />}/>}
             </div>
         </div>
     )
