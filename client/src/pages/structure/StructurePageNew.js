@@ -70,8 +70,8 @@ export default function StructurePageNew(){
                                                 <div className="structure_new_forest_cuedo_card_center_content_person">
                                                     <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
                                                     <div className="structure_new_forest_cuedo_card_center_content_person_disc">
-                                                        <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Кононов Марк Львович</div>
-                                                        <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">Исполнительный директор</div>
+                                                        <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Севостьянов Анатолий Анатольевич</div>
+                                                        <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">Главный инженер</div>
                                                     </div>
                                                 </div>
                                             </div>
