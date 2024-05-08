@@ -41,16 +41,21 @@
 .list{
   display: flex;
   flex-direction: column;
+  margin: 10px 0;
   .srt{
     display: flex;
     flex-direction: row;
     .c1{
-      width: 45%;
+      width: 35%;
     }
     .c2{
-      width: 45%;
+      width: 35%;
     }
     .c3{
+      width: 20%;
+      text-align: center;
+    }
+    .c4{
       width: 10%;
     }
   }

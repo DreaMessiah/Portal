@@ -44,4 +44,11 @@ export default class UserService {
     static getBranchs() {
         return $api.get('/t13/getbranchs')
     }
+    static sendBye(termText,selected) {
+        return $api.post('/auth/bye',{termText,selected})
+    }
+    static isbye() {
+        return $api.get('/auth/isbye')
+    }
+
 }

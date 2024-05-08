@@ -20,7 +20,7 @@ export const MainHeader = () => {
     const {selectedMenu,setSelectedMenu} = useContext(DataContext)
     const rule = store.user.unit
     const screenWidth = window.innerWidth;
-    let widther = '40vh'
+    let widther = '45vh'
     if(screenWidth < 550){
         widther = '60vh'
     }

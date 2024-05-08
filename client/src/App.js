@@ -63,7 +63,7 @@ import {TnEnter} from "./pages/welcomepage/TnEnter";
 import WeldingRouter from "./pages/welding/WeldingRouter";
 import EditorRouter from "./pages/editor/EditorRouter";
 import SurveyPage from "./pages/survey/SurveyPage";
-
+import ByePage from "./pages/survey/ByePage";
 
 function App() {
     const {store} = useContext(Context)
@@ -117,6 +117,16 @@ function App() {
                 <Routes>
                     <Route path='*' element={<AuthPage/>} />
                     <Route path="/tnenter" element={<TnEnter />} />
+                </Routes>
+            </div>
+        </Router>
+    )
+
+    if(store.t13.term || !store.t13.tn) return (
+        <Router>
+            <div className="App">
+                <Routes>
+                    <Route path='*' element={<ByePage/>} />
                 </Routes>
             </div>
         </Router>

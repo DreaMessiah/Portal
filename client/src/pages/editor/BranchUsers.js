@@ -92,7 +92,8 @@ function BranchUsers(){
                                     <div key={index} className={`srt`}>
                                         <div className={`user-row c1`}>{item.name}</div>
                                         <div className={`user-row c2`}>{item.developer}</div>
-                                        <div className={`user-row c3`}>{formatDate(item.createdUser)}</div>
+                                        <div className={`user-row c3`}>{item.tn}</div>
+                                        <div className={`user-row c4`}>{formatDate(item.createdUser)}</div>
                                     </div>
                                 ))}
                             </div>
