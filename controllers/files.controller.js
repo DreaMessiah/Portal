@@ -18,14 +18,15 @@ class FilesController {
     }
     async getFiles(req, res, next) {
         try {
-            const {user_id,parent_id} = req.body
-            const files = await FilesService.get(user_id,parent_id)
+            const {user_id,parent_id,onbasket} = req.body
+            const files = await FilesService.get(user_id,parent_id,onbasket)
             if(!files) return res.status(200).json({message: 'У Вас нет файлов'})
             return res.status(200).json(files)
         } catch (e) {
             next(e)
         }
     }
+
     async createDir(req,res,next) {
         try {
             const {user_id,name,type,parent_id = 0} = req.body
@@ -39,7 +40,7 @@ class FilesController {
             }else{
                 //const parent = new FileDto(parentFile)
                 //file.path = `${parentFile.path}\\${file.name}`
-                file.path = PATH.join(`${parentFile.path},${file.name}`)
+                file.path = PATH.join(`${parentFile.path}`,`${file.name}`)
                 await FilesService.createDir(file)
                 const newFile = await Files.create(file)
                 if (!parentFile.child_id) parentFile.child_id = []
@@ -216,6 +217,24 @@ class FilesController {
             next(e)
         }
     }
+
+    async fileToTrash(req,res,next) {
+        try {
+            const file = FilesService.fileToTrash(req.body.id)
+            return res.status(200).json(file)
+        } catch (e) {
+            next(e)
+        }
+    }
+    async fileFromTrash(req,res,next) {
+        try {
+            const file = FilesService.fileFromTrash(req.body.id)
+            return res.status(200).json(file)
+        } catch (e) {
+            next(e)
+        }
+    }
+
 }
 
 module.exports = new FilesController()

@@ -475,6 +475,7 @@ const Files = sequelize.define('files',{
     parent_id:{type:DataTypes.INTEGER,ref:'files'},
     child_id: {type: DataTypes.ARRAY(DataTypes.INTEGER)},
     basket:{type:DataTypes.BOOLEAN,defaultValue:false},
+    havebasket:{type:DataTypes.BOOLEAN,defaultValue:false}
 })
 const DiskSpace = sequelize.define('diskspace',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
@@ -830,6 +831,13 @@ const PeopleCounter = sequelize.define('peoplecounter',{
     numall:{type:DataTypes.INTEGER}
 })
 
+const Bye = sequelize.define('bye',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    user_tn:{type:DataTypes.TEXT},
+    term:{type:DataTypes.TEXT},
+    text:{type:DataTypes.TEXT},
+    num:{type:DataTypes.INTEGER}
+})
 // const History = sequelize.define('history',{
 //     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
 //     marker:{type:DataTypes.TEXT},
@@ -848,5 +856,5 @@ CrewBase.hasMany(CrewMans, { foreignKey: 'crew_id', sourceKey: 'id' });
 CrewMans.belongsTo(CrewBase, { foreignKey: 'crew_id', targetKey: 'id' });
 
 module.exports = {
-    PeopleCounter,T13Uni,CrewMans,ZaSv,TableZayavka,HumanList,KtuDoc,KtuList,MessageSv,ViewsWorkSv,CrewManlist,CrewDoclist,CrewBase,CrewSv,OgmPrice,WorkPrice,StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
+    Bye,PeopleCounter,T13Uni,CrewMans,ZaSv,TableZayavka,HumanList,KtuDoc,KtuList,MessageSv,ViewsWorkSv,CrewManlist,CrewDoclist,CrewBase,CrewSv,OgmPrice,WorkPrice,StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
 }

@@ -1,8 +1,8 @@
 import $api from "../http"
 
 export default class FilesService{
-    static fetchFiles(user_id,parent_id){
-        return $api.post('/files/get',{ user_id,parent_id })
+    static fetchFiles(user_id,parent_id,onbasket){
+        return $api.post('/files/get',{ user_id,parent_id,onbasket })
     }
     static createDir(user_id,name,type,parent_id){
         return $api.post('/files/dir',{ user_id,name,type,parent_id })
@@ -89,6 +89,13 @@ export default class FilesService{
     }
     static downloadFile(id){
         return $api.post('/files/downloadfile',{id},{responseType:'blob'})
+    }
+
+    static fileToTrash(id){
+        return $api.post('/files/filetotrash',{ id })
+    }
+    static fileFromTrash(id){
+        return $api.post('/files/filefromtrash',{ id })
     }
 
 }

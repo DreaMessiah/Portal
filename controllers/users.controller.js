@@ -102,6 +102,25 @@ class UsersController {
             next(e)
         }
     }
+    async bye(req,res,next){
+        try{
+            const {termText,selected} = req.body
+            const usersData = await userService.bye(termText,selected,req.user.tn)
+            return res.status(200).json(usersData)
+        }catch (e){
+            next(e)
+        }
+    }
+    async checkBye(req,res,next){
+        try{
+            const isBye = await userService.checkBye(req.user.tn)
+            console.log(isBye)
+            return res.status(200).json(isBye)
+        }catch (e){
+            next(e)
+        }
+    }
+
     async setAvatar(req,res,next){
         try{
             const file = req.files.file

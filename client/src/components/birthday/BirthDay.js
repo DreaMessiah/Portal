@@ -5,6 +5,7 @@ import {useContext, useState} from "react";
 import {Context} from "../../index";
 import {useEffect} from "react";
 import AuthServise from "../../services/AuthService";
+import UserService from "../../services/UserService";
 
 export const BirthDay = () => {
 
@@ -114,7 +115,7 @@ export const BirthDay = () => {
         const newArr = []
 
         try {
-            const listMan = await ObjsService.getT13({inn, month, year})
+            const listMan = await UserService.getUni()
             // console.log(listMan.data)
             const listHB = []
             // console.log(thisday)

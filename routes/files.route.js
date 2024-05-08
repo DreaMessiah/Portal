@@ -16,6 +16,8 @@ router.post('/loadimg',authMiddlewere,FilesController.loadImg)
 router.post('/loadpollsimg',authMiddlewere,FilesController.loadPollsImg)
 router.post('/uploadfile',authMiddlewere,FilesController.uploadFileDefault)
 router.post('/deletefile',authMiddlewere,FilesController.deleteFileDefault)
+router.post('/filetotrash',authMiddlewere,FilesController.fileToTrash)
+router.post('/filefromtrash',authMiddlewere,FilesController.fileFromTrash)
 
 
 

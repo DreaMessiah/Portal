@@ -105,6 +105,8 @@ class ReferenceService {
             }
             return await T13.create(item)
         }))
+        await T13.create({name:'Служба Поддержки',developer:'Служба поддержки',branch:'Служба поддержки',onboard:'08.08.2022',tn:'999999999',month:t13[0].month,year:t13[0].year,inn:inn,birthday:'13.04.1965'})
+        await T13Uni.create({name:'Служба Поддержки',developer:'Служба поддержки',branch:'Служба поддержки',onboard:'08.08.2022',tn:'999999999',month:t13[0].month,year:t13[0].year,inn:inn,birthday:'13.04.1965'})
         return T13new
     }
     async changeMonthPayslip(payslip,inn){

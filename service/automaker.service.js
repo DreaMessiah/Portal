@@ -18,7 +18,7 @@ class AutomakerService {
                 },
             });
             const numall = await User.count();
-            await PeopleCounter.create({date: sequelize.literal('CURRENT_DATE - INTERVAL \'6 HOUR\''),numinp,numreg,numall})
+            await PeopleCounter.create({date: sequelize.literal('CURRENT_DATE AT TIME ZONE \'MSK\''),numinp,numreg,numall})
         }catch (e) {
             console.log(e)
         }

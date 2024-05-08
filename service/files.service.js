@@ -2,24 +2,30 @@ const fs = require('fs');
 const config = require('config')
 const {Files, StatementsSimples} = require('../models/models')
 const ApiError = require("../exceptions/api.error");
-const {Sequelize} = require('sequelize')
+const {Sequelize,Op} = require('sequelize')
 const sharp = require("sharp");
 const PATH = require('path');
+const {logger} = require("sequelize/lib/utils/logger");
 
 class FilesService {
-    async get(id,parent) {
-        const dirs = await Files.findAll({where: {user_id:id,parent_id:parent,type:'dir'}})
-        const files = await Files.findAll({where: {user_id:id,parent_id:parent,type: { [Sequelize.Op.not]: 'dir' }}})
+    async get(id,parent,onbasket) {
+        let dirs = []
+        if(onbasket){
+            dirs = await Files.findAll({where: {user_id:id,parent_id:parent,type:'dir',[Op.or]: [ { basket: onbasket },{ havebasket: onbasket } ]}})
+        }else{
+            dirs = await Files.findAll({where: {user_id:id,parent_id:parent,type:'dir',basket:false}})
+        }
+        const files = await Files.findAll({where: {user_id:id,parent_id:parent,type: { [Sequelize.Op.not]: 'dir' },basket:onbasket}})
         const list = [...dirs,...files]
         if (!list) throw ApiError.BadRequest('База с файлами пуста')
         return list
     }
+
     async getAll(id){
         const files = await Files.findAll({where: {user_id:id}})
         if (!files) throw ApiError.BadRequest('База с файлами пуста')
         return files
     }
-
     async getStatements() {
         return await StatementsSimples.findAll()
     }
@@ -77,8 +83,12 @@ class FilesService {
         //const filePath = `${config.get('file_path')}\\${file.user_id}\\${file.path}`
         //const userPath = `${config.get('file_path')}\\${file.user_id}`
 
-        const filePath = PATH.join(`${config.get('file_path')},${file.user_id},${file.path}`)
-        const userPath = PATH.join(`${config.get('file_path')},${file.user_id}`)
+        const filePath = PATH.join(`${config.get('file_path')}`,`${file.user_id}`,`${file.path}`)
+        const userPath = PATH.join(`${config.get('file_path')}`,`${file.user_id}`)
+
+        console.log(filePath)
+
+        console.log(userPath)
 
         return new Promise(((resolve,reject) => {
             try{
@@ -90,13 +100,13 @@ class FilesService {
                 }else reject({message: 'Файл уже существует'})
             }catch (e) {
                 console.log('Ошибка создания директории...')
-                return reject({messsage: 'Ошибка создания директории...'})
+                return reject({message: 'Ошибка создания директории...'})
             }
         }))
     }
     async createPathTask(path){
         //const taskPath = `${config.get('file_path')}\\tasks\\${path}`
-        const taskPath = PATH.join(`${config.get('file_path')},'tasks',${path}`)
+        const taskPath = PATH.join(`${config.get('file_path')}`,'tasks',`${path}`)
 
         if(!fs.existsSync(taskPath)){
             await fs.mkdir(taskPath, (err) => {
@@ -118,6 +128,19 @@ class FilesService {
         const timestamp = new Date().getTime();
         const randomNumber = Math.floor(Math.random() * 10000);
         return `${timestamp}_${randomNumber}`;
+    }
+
+    async fileToTrash(id) {
+        const file = await Files.findByPk(id)
+        file.basket = true
+        await file.save()
+        return file
+    }
+    async fileFromTrash(id) {
+        const file = await Files.findByPk(id)
+        file.basket = false
+        await file.save()
+        return file
     }
 }
 module.exports = new FilesService()

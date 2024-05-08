@@ -9,13 +9,11 @@ import ObjsService from "../../services/ObjsService";
 import {Context} from "../../index";
 import ModalFiles from "../modalwin/ModalFiles";
 import PassObj from "./modalactive/PassObj";
+import {observer} from "mobx-react-lite";
 
-export default function DriveOnProject({mass, page}) {
-
+function DriveOnProject({mass, page}) {
     let objsLoList = [];
-
-    const  {store} = useContext(Context)
-
+    const {store} = useContext(Context)
     const inn = store.user.inn
     const login = store.user.login
     const rule = store.user.unit
@@ -40,11 +38,9 @@ export default function DriveOnProject({mass, page}) {
     const [activeusers, setActiveusers] = useState([])
 
     const openShifrBlock = (putId) => {
-
         setThisURL(putId)
         if(thisURL !== 0){
         }
-
     }
 
     const makeList = () => {
@@ -89,9 +85,11 @@ export default function DriveOnProject({mass, page}) {
                     <Link to={thisURL !== 0 ? openShifrBlock(0)  : `/objectsportal`} className='back-button'>
                         <p>Назад</p> <i className='fa-solid fa-rotate-left'></i>
                     </Link>
-                    <div className='back-button' onClick={()=>setPassactive(!passactive)}>
-                        <p>Передать</p>
-                    </div>
+                    {(rule === 7 || myacc === 'superadmin') &&
+                        <div className='back-button' onClick={()=>setPassactive(!passactive)}>
+                            <p>Передать</p>
+                        </div>
+                    }
                     {/*<SearchObj/>*/}
                 </div>
                 <div className='right-box'>
@@ -128,3 +126,4 @@ export default function DriveOnProject({mass, page}) {
 
     )
 }
+export default observer(DriveOnProject)

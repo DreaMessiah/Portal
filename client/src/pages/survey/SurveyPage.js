@@ -5,8 +5,10 @@ import {useContext} from "react"
 import {DataContext} from "../../context/DataContext"
 import {useMessage} from "../../hooks/message.hook"
 import {Link} from "react-router-dom";
+import {Context} from "../../index";
+import {observer} from "mobx-react-lite";
 
-export default function SurveyPage({flag=false,id}){
+function SurveyPage({flag=false,id,onLand=false}){
     const [survey,setSurvey] = useState(null)
     const [questions,setQuestions] = useState(null)
     const [selected,setSelected] = useState(-1)
@@ -16,6 +18,8 @@ export default function SurveyPage({flag=false,id}){
     const [image,setImage] = useState(null)
     const {COLORS} = useContext(DataContext)
     const message = useMessage()
+    const {store} = useContext(Context)
+
     const loadingHandler = async () => {
         try{
             const response = await PollsService.fetchSurvey(id)
@@ -40,6 +44,7 @@ export default function SurveyPage({flag=false,id}){
                 if(response.data){
                     message('Ваш голос принят')
                     loadingHandler()
+                    if(survey.id === 10) store.checkAuth()
                 }
             }else{
                 message('Выберете подходящий вариант ответа')
@@ -80,9 +85,10 @@ export default function SurveyPage({flag=false,id}){
 
     return (
         <>
+
             {!flag && <Link to='/polls' className='back-button'><i className="fa-solid fa-arrow-left"></i>Назад</Link> }
             {survey ?
-            <div className={`survey-block ${flag && 'small-box small-heigth'} ${!survey.image && 'no-padding'}`} style={survey.image ? {backgroundImage:`url("/files/polls/${survey.image}")`}:null}>
+            <div className={`survey-block ${flag && 'small-box small-heigth'} ${!survey.image && 'no-padding'} ${onLand && 'landing-survey'}`} style={survey.image ? {backgroundImage:`url("/files/polls/${survey.image}")`}:null}>
                 <div className='title'>
                     <h3 className={`${flag && 'small-h'} ${!survey.image && 'no-padding'}`} style={!survey.image ? {margin:'20px',color:'rgb(18, 19, 56)',backgroundColor:'transparent'} : null}>{survey.title}</h3>
                 </div>
@@ -167,3 +173,4 @@ export default function SurveyPage({flag=false,id}){
         </>
     )
 }
+export default observer(SurveyPage)

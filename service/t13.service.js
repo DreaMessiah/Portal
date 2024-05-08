@@ -1,7 +1,9 @@
 const ApiError = require('../exceptions/api.error')
-const {User,T13, T13Uni, HumanList} = require("../models/models");
+const {User,T13, T13Uni, HumanList, Answer} = require("../models/models");
 const T13Dto = require("../dtos/t13Dto");
 
+const { sequelize } = require("../models/models")
+const {Sequelize,Op} = require("sequelize");
 class T13Service {
     async get(userid) {
         const user = await User.findOne({ where:{id:userid} })
@@ -30,5 +32,41 @@ class T13Service {
             return {...item.dataValues,value:item.dataValues.tn,label:item.dataValues.name}
         })
     }
+    async getUni(inn) {
+        return await T13Uni.findAll({where:{inn:inn}})
+    }
+    async getBranchs() {
+        const branches = await T13Uni.findAll({
+            attributes: ['branch'],
+            group: ['branch']
+        })
+        const users = await User.findAll()
+        const resultList = []
+        for (const branch of branches) {
+            const branchName = branch.branch
+            const branchEmployees = await T13Uni.findAll({
+                where: { branch: branchName }
+            })
+            const validEmployees = branchEmployees.filter(employee =>
+                users.some(user => user.tn === employee.tn)
+            )
+            if (validEmployees.length > 0) {
+                const employeesWithUsers = validEmployees.map(employee => {
+                    const user = users.find(user => user.tn === employee.tn)
+                    return {
+                        ...employee.toJSON(),
+                        createdUser: user.createdAt
+                    }
+                })
+                resultList.push({
+                    branch: branchName,
+                    tns: employeesWithUsers
+                })
+            }
+        }
+
+        return resultList
+    }
+
 }
 module.exports = new T13Service()

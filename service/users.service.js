@@ -1,10 +1,11 @@
-const {User, DiskSpace, T13Uni, PeopleCounter, Token} = require('../models/models')
+const {User, DiskSpace, T13Uni, PeopleCounter, Token, Answer, Bye} = require('../models/models')
 const bcrypt = require('bcrypt')
 const UserDto = require('../dtos/usersDto')
 const T13UniDto = require('../dtos/t13UniDto')
 const tokenService = require('../service/token.service')
 const ApiError = require('../exceptions/api.error')
 const sequelize = require("sequelize");
+const {where} = require("sequelize");
 class UsersService{
     async registration(tn,full_name,login,email,password,inn) {
         const candidate = await User.findOne({where: {login:login}})
@@ -89,7 +90,11 @@ class UsersService{
         userDto.diskspace = sizes.diskspace
         userDto.usedspace = sizes.usedspace
 
-        return {...tokens,user: userDto}
+        const survey = await Answer.findOne({where:{user_id:userDto.id,survey_id:10}})
+
+        console.log(survey,!!survey)
+
+        return {...tokens,user: userDto,survey:!!survey}
     }
 
     async get() {
@@ -97,6 +102,15 @@ class UsersService{
         const users = await User.findAll({order: [['full_name', 'ASC']]})
         if(!users) throw ApiError.BadRequest('Ошибка получения списка пользователей')
         return {users}
+    }
+    async bye(termText,selected,tn) {
+        const user = await T13Uni.findOne({where: {tn:tn}})
+        if(!user) throw ApiError.BadRequest('Ошибка получения пользователя')
+        return await Bye.create({user_tn:tn,term:user.term,text:termText,num:selected})
+    }
+    async checkBye(tn){
+        const isBye = await Bye.findOne({where:{user_tn:tn}})
+        return !!isBye
     }
     async getUserByTn(tn) {
         const user = await User.findOne({where:{tn:tn}})
