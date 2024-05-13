@@ -35,7 +35,9 @@ export default function StructurePageNew(){
                                 <div className="structure_new_forest_cuedo_card_center_content" style={(opencard==='first0')?{display:'flex'}:{display:'none'}}>
                                     <div className="structure_new_forest_cuedo_card_center_content_person">
                                         <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
+                                        <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
                                         <div className="structure_new_forest_cuedo_card_center_content_person_disc">
+
                                             <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Макаров Александр Владимирович</div>
                                             <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">Генеральный директор</div>
                                         </div>
@@ -58,6 +60,7 @@ export default function StructurePageNew(){
                                     <div className="structure_new_forest_cuedo_card_center_content" style={(opencard==='first1')?{display:'flex'}:{display:'none'}}>
                                         <div className="structure_new_forest_cuedo_card_center_content_person">
                                             <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
+                                            <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
                                             <div className="structure_new_forest_cuedo_card_center_content_person_disc">
                                                 <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Кононов Марк Львович</div>
                                                 <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">Исполнительный директор</div>
@@ -81,6 +84,7 @@ export default function StructurePageNew(){
                                             <div className="structure_new_forest_cuedo_card_center_content" style={(opencard==='second0')?{display:'flex'}:{display:'none'}}>
                                                 <div className="structure_new_forest_cuedo_card_center_content_person">
                                                     <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
+                                                    <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
                                                     <div className="structure_new_forest_cuedo_card_center_content_person_disc">
                                                         <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Севостьянов Анатолий Анатольевич</div>
                                                         <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">Главный инженер</div>
@@ -104,6 +108,7 @@ export default function StructurePageNew(){
                                                     <div className="structure_new_forest_cuedo_card_center_content" style={(opencard==='third0')?{display:'flex'}:{display:'none'}}>
                                                         <div className="structure_new_forest_cuedo_card_center_content_person">
                                                             <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
+                                                            <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
                                                             <div className="structure_new_forest_cuedo_card_center_content_person_disc">
                                                                 <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Жевлаков Евгений Михайлович</div>
                                                                 <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">Заместитель главного инженера</div>
@@ -249,6 +254,7 @@ export default function StructurePageNew(){
                                                     <div className="structure_new_forest_cuedo_card_center_content" style={(opencard==='third1')?{display:'flex'}:{display:'none'}}>
                                                         <div className="structure_new_forest_cuedo_card_center_content_person">
                                                             <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
+                                                            <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
                                                             <div className="structure_new_forest_cuedo_card_center_content_person_disc">
                                                                 <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Варламов Сергей Владимирович</div>
                                                                 <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">заместитель генерального директора по производству</div>
@@ -256,6 +262,7 @@ export default function StructurePageNew(){
                                                         </div>
                                                         <div className="structure_new_forest_cuedo_card_center_content_person">
                                                             <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
+                                                            <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
                                                             <div className="structure_new_forest_cuedo_card_center_content_person_disc">
                                                                 <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Калимуллин Рустам Сагитович</div>
                                                                 <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">заместитель генерального директора по производству</div>
@@ -404,6 +411,7 @@ export default function StructurePageNew(){
                                             <div className="structure_new_forest_cuedo_card_center_content" style={(opencard==='second1')?{display:'flex'}:{display:'none'}}>
                                                 <div className="structure_new_forest_cuedo_card_center_content_person">
                                                     <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
+                                                    <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
                                                     <div className="structure_new_forest_cuedo_card_center_content_person_disc">
                                                         <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Чупятов Александр Иванович</div>
                                                         <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">Заместитель генерального директора по общим вопросам</div>
@@ -500,6 +508,7 @@ export default function StructurePageNew(){
                                             <div className="structure_new_forest_cuedo_card_center_content" style={(opencard==='second2')?{display:'flex'}:{display:'none'}}>
                                                 <div className="structure_new_forest_cuedo_card_center_content_person">
                                                     <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
+                                                    <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
                                                     <div className="structure_new_forest_cuedo_card_center_content_person_disc">
                                                         <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Редькин Юрий Евгеньевич</div>
                                                         <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">Главный механик</div>
@@ -556,6 +565,7 @@ export default function StructurePageNew(){
                                 <div className="structure_new_forest_cuedo_card_center_content" style={(opencard==='first2')?{display:'flex'}:{display:'none'}}>
                                     <div className="structure_new_forest_cuedo_card_center_content_person">
                                         <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
+                                        <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
                                         <div className="structure_new_forest_cuedo_card_center_content_person_disc">
                                             <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Сенина Ирина Ромазановна</div>
                                             <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">Заместитель генерального директора по экономике</div>
@@ -611,6 +621,7 @@ export default function StructurePageNew(){
                                 <div className="structure_new_forest_cuedo_card_center_content" style={(opencard==='first3')?{display:'flex'}:{display:'none'}}>
                                     <div className="structure_new_forest_cuedo_card_center_content_person">
                                         <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
+                                        <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
                                         <div className="structure_new_forest_cuedo_card_center_content_person_disc">
                                             <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Гаврилова Наталья Владимировна</div>
                                             <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">Главный бухгалтер</div>
@@ -644,6 +655,7 @@ export default function StructurePageNew(){
                                 <div className="structure_new_forest_cuedo_card_center_content" style={(opencard==='first4')?{display:'flex'}:{display:'none'}}>
                                     <div className="structure_new_forest_cuedo_card_center_content_person">
                                         <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
+                                        <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
                                         <div className="structure_new_forest_cuedo_card_center_content_person_disc">
                                             <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Невкрытых Альмира Равильевна</div>
                                             <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">старший делопроизводитель</div>
@@ -651,6 +663,7 @@ export default function StructurePageNew(){
                                     </div>
                                     <div className="structure_new_forest_cuedo_card_center_content_person">
                                         <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
+                                        <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
                                         <div className="structure_new_forest_cuedo_card_center_content_person_disc">
                                             <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Шнайдер Александра Олеговна</div>
                                             <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">делопроизводитель</div>
@@ -674,6 +687,7 @@ export default function StructurePageNew(){
                                 <div className="structure_new_forest_cuedo_card_center_content" style={(opencard==='first5')?{display:'flex'}:{display:'none'}}>
                                     <div className="structure_new_forest_cuedo_card_center_content_person">
                                         <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
+                                        <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
                                         <div className="structure_new_forest_cuedo_card_center_content_person_disc">
                                             <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Чернобай Ольга Владимировна</div>
                                             <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">начальник отдела продаж</div>
