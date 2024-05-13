@@ -68,5 +68,9 @@ class T13Service {
         return resultList
     }
 
+    async getStructure() {
+        return await T13Uni.findAll({where:{inn:inn}})
+    }
+
 }
 module.exports = new T13Service()

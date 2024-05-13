@@ -845,6 +845,19 @@ const Bye = sequelize.define('bye',{
 //     numall:{type:DataTypes.INTEGER}
 // })
 
+const Struct = sequelize.define('structure',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    name:{type:DataTypes.TEXT},
+    position:{type:DataTypes.INTEGER},
+    type:{type:DataTypes.INTEGER,defaultValue:0}, // 0 - list 1 - blocks
+    next:{type: DataTypes.ARRAY(DataTypes.INTEGER)},
+})
+const Peoples =  sequelize.define('structure',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    name:{type:DataTypes.TEXT},
+    structure_id:{type:DataTypes.INTEGER},
+})
+
 
 T13Uni.hasMany(CrewMans, { foreignKey: 'user_tn', sourceKey: 'tn',constraints: false})
 HumanList.hasMany(CrewMans, { foreignKey: 'user_tn', sourceKey: 'tn',constraints: false})

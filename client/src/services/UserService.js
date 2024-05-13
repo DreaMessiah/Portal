@@ -50,5 +50,7 @@ export default class UserService {
     static isbye() {
         return $api.get('/auth/isbye')
     }
-
+    static getStructure() {
+        return $api.get('/t13/getstructure')
+    }
 }

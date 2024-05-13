@@ -46,7 +46,7 @@ function ListContest(){
                             if(rows.user_id === item.id){
                                 rows.developer = item.developer
                                 rows.full_name = item.full_name
-                                rows.face = item.avatar.length ? item.avatar : 'face.png'
+                                rows.face = item.avatar ? item.avatar : 'face.png'
                                 rows.nomi = null
                                 const votes = await PollsService.getVotes(rows.id)
                                 rows.votes = votes.data
@@ -142,7 +142,7 @@ function ListContest(){
                 {works.map((item, index) => (
                     <div key={index} className={`gallery-item ${item.nomi!==null && 'blur-img'}`} onClick={() => openImageFullscreen(index)}>
                         <div className='img' style={{backgroundImage:`url(/files/polls/${item.image})`}} />
-                        <div style={item.nomi!==null ? {display:'flex'}:{}} className='nomination-text'><p>{item.nomi!==null ? nominations[item.nomi].name : ''}</p></div>
+                        <div style={item.nomi!==null ? {display:'flex'}:{}} className='nomination-text'><p>{(item.nomi!==null && nominations) ? nominations[item.nomi].name : ''}</p></div>
                         <div className='text'>
                             <p>{item.name} {YearsSting(item.age)} </p>
                         </div>

@@ -46,7 +46,13 @@ class T13Controller {
             next(e)
         }
     }
-
-
+    async getStructure(req,res,next){
+        try{
+            const structure = await T13Service.getStructure()
+            return res.status(200).json(structure)
+        }catch (e){
+            next(e)
+        }
+    }
 }
 module.exports = new T13Controller()
