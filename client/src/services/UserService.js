@@ -53,4 +53,10 @@ export default class UserService {
     static getStructure() {
         return $api.get('/t13/getstructure')
     }
+    static createStructure(struct) {
+        return $api.post('/t13/createstructure',{struct})
+    }
+
+
+
 }

@@ -1,5 +1,5 @@
 const ApiError = require('../exceptions/api.error')
-const {User,T13, T13Uni, HumanList, Answer} = require("../models/models");
+const {User,T13, T13Uni, HumanList, Answer, Struct, StructUsers} = require("../models/models");
 const T13Dto = require("../dtos/t13Dto");
 
 const { sequelize } = require("../models/models")
@@ -69,8 +69,22 @@ class T13Service {
     }
 
     async getStructure() {
-        return await T13Uni.findAll({where:{inn:inn}})
+        const structs = await Struct.findAll( { include: 'structusers' })
+        return structs.map(item => {
+            return {...item.dataValues,value:item.dataValues.id,label:item.dataValues.name}
+        })
     }
+    async createStructure(struct) {
+        // const newStruct = await Struct.create(struct)
+        // const peoples = struct.group.map(async item => {
+        //     await StructUsers.create({name:item.name,structure_id:newStruct.id,user_tn:item.tn})
+        // })
+
+ //       const prev = await Struct.findByPk(struct.toNext.id)
+//        prev.next = null pre
+        //return {newStruct,peoples}
+    }
+
 
 }
 module.exports = new T13Service()

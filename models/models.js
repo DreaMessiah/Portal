@@ -849,14 +849,25 @@ const Struct = sequelize.define('structure',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     name:{type:DataTypes.TEXT},
     position:{type:DataTypes.INTEGER},
+    level:{type:DataTypes.INTEGER,defaultValue:0},
     type:{type:DataTypes.INTEGER,defaultValue:0}, // 0 - list 1 - blocks
-    next:{type: DataTypes.ARRAY(DataTypes.INTEGER)},
+    ont13:{type:DataTypes.BOOLEAN,defaultValue:false},
+    next:{type: DataTypes.ARRAY(DataTypes.INTEGER)}
 })
-const Peoples =  sequelize.define('structure',{
+const StructUsers =  sequelize.define('structusers',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     name:{type:DataTypes.TEXT},
     structure_id:{type:DataTypes.INTEGER},
+    user_tn:{type:DataTypes.TEXT},
+    onphonebook:{type:DataTypes.BOOLEAN,defaultValue:false},
+    contacts:{type:DataTypes.TEXT}
 })
+
+T13Uni.hasMany(StructUsers, { foreignKey: 'user_tn', sourceKey: 'tn',constraints: false})
+StructUsers.belongsTo(T13Uni,  { foreignKey: 'user_tn', targetKey: 'tn',constraints: false})
+
+Struct.hasMany(StructUsers, { foreignKey: 'structure_id', sourceKey: 'id'})
+StructUsers.belongsTo(Struct,  { foreignKey: 'structure_id', targetKey: 'id'})
 
 
 T13Uni.hasMany(CrewMans, { foreignKey: 'user_tn', sourceKey: 'tn',constraints: false})
@@ -869,5 +880,5 @@ CrewBase.hasMany(CrewMans, { foreignKey: 'crew_id', sourceKey: 'id' });
 CrewMans.belongsTo(CrewBase, { foreignKey: 'crew_id', targetKey: 'id' });
 
 module.exports = {
-    Bye,PeopleCounter,T13Uni,CrewMans,ZaSv,TableZayavka,HumanList,KtuDoc,KtuList,MessageSv,ViewsWorkSv,CrewManlist,CrewDoclist,CrewBase,CrewSv,OgmPrice,WorkPrice,StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
+    Struct,StructUsers,Bye,PeopleCounter,T13Uni,CrewMans,ZaSv,TableZayavka,HumanList,KtuDoc,KtuList,MessageSv,ViewsWorkSv,CrewManlist,CrewDoclist,CrewBase,CrewSv,OgmPrice,WorkPrice,StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
 }

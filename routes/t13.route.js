@@ -10,4 +10,6 @@ router.get('/getworkers',authMiddlewere,T13Controller.getWorkers)
 router.get('/getbranchs',authMiddlewere,T13Controller.getBranchs)
 router.get('/getstructure',authMiddlewere,T13Controller.getStructure)
 
+router.post('/createstructure',authMiddlewere,T13Controller.createStructure)
+
 module.exports = router

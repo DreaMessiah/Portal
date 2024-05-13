@@ -40,8 +40,6 @@ router.get('/get',authMiddlewere,usersController.get)
 ////////////////////////////////////////////////////////////////
 router.post('/setavatar',authMiddlewere,usersController.setAvatar)
 router.post('/changepass',authMiddlewere,usersController.changePassword)
-router.post('/changepass',authMiddlewere,usersController.changePassword)
-
 router.post('/bye',authMiddlewere,usersController.bye)
 router.get('/isbye',authMiddlewere,usersController.checkBye)
 

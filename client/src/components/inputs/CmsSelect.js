@@ -1,14 +1,13 @@
 import React from "react";
 import Select from "react-select";
 
-export default function CmsSelect({placeholder,defaultValue,options,onChange,empty = false,width='100%'}){
+export default function CmsSelect({placeholder,defaultValue,options,onChange,empty = false,width='100%',radius='10px'}){
     return (
         <Select
             placeholder={placeholder}
             defaultValue={defaultValue}
             options={options}
             onChange={(e) => onChange(e)}
-
             styles={{
                 container:(baseStyles, state) => ({
                     ...baseStyles,
@@ -31,7 +30,7 @@ export default function CmsSelect({placeholder,defaultValue,options,onChange,emp
                     backgroundColor: 'rgba(255, 255, 255, 1)',
                     borderWidth:'3px',
                     borderStyle:'dotted',
-                    borderRadius:'10px',
+                    borderRadius:radius,
                     borderColor:empty ? 'rgba(215,26,0,0.5)' : 'rgba(180, 180, 180, 1)',
                     height:'40px',
                     width:'100%',

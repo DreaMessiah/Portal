@@ -10,6 +10,7 @@ import BranchUsers from "./BranchUsers";
 import EditorMenu from "./EditorMenu";
 import Sociality from "./Sociality";
 import Createsocial from "./Createsocial";
+import CmsStructure from "./CmsStructure";
 
 export default function EditorRouter({page= 1}){
     return (
@@ -22,6 +23,7 @@ export default function EditorRouter({page= 1}){
                 {page === 3 && <WorkPage data={<Sociality />}/>}
                 {page === 4 && <WorkPage data={<Createsocial />}/>}
                 {page === 5 && <WorkPage data={<BranchUsers />}/>}
+                {page === 6 && <WorkPage data={<CmsStructure />}/>}
             </div>
         </div>
     )

@@ -3,26 +3,28 @@ import {DataContext} from "../../context/DataContext";
 import './structure.scss'
 import {ReactToPrint} from "react-to-print";
 import LoadingSpinner from "../../components/loading/LoadingSpinner";
+import UserService from "../../services/UserService";
 export default function StructurePageNew(){
-        const [win, setWin] = useState(false)
-        const [opencard, setOpencard] = useState('none')
-        const [loading,setLoading] = useState(false)
+    const [win, setWin] = useState(false)
+    const [opencard, setOpencard] = useState('none')
+    const [loading,setLoading] = useState(false)
 
-        const cardBranch = (branch) => {}
-        const loadingHandler = async () => {
-            try {
-                setLoading(true)
-
-            }catch (e) {
-                console.log(e)
-            }finally {
-                setLoading(false)
-            }
+    const cardBranch = (branch) => {}
+    const loadingHandler = async () => {
+        try {
+            setLoading(true)
+            const {data} = await UserService.getStructure()
+            console.log(data)
+        }catch (e) {
+            console.log(e)
+        }finally {
+            setLoading(false)
         }
-        useEffect(() => {
-            loadingHandler()
-        },[])
-        return (
+    }
+    useEffect(() => {
+        loadingHandler()
+    },[])
+    return (
         <div className='structure_new'>
             <div className={`title`}>Организационная структура ООО "Сургутское РСУ"</div>
 
@@ -558,29 +560,29 @@ export default function StructurePageNew(){
                             </div>
                         </div>
                         <div>
-                        <div className="structure_new_forest_cuedo_card">
-                            <div className="slash_rang"></div>
-                            <div className="structure_new_forest_cuedo_card_top"></div>
-                            <div className="structure_new_forest_cuedo_card_center">
-                                <div className="structure_new_forest_cuedo_card_center_content" style={(opencard==='first2')?{display:'flex'}:{display:'none'}}>
-                                    <div className="structure_new_forest_cuedo_card_center_content_person">
-                                        <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
-                                        <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
-                                        <div className="structure_new_forest_cuedo_card_center_content_person_disc">
-                                            <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Сенина Ирина Ромазановна</div>
-                                            <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">Заместитель генерального директора по экономике</div>
+                            <div className="structure_new_forest_cuedo_card">
+                                <div className="slash_rang"></div>
+                                <div className="structure_new_forest_cuedo_card_top"></div>
+                                <div className="structure_new_forest_cuedo_card_center">
+                                    <div className="structure_new_forest_cuedo_card_center_content" style={(opencard==='first2')?{display:'flex'}:{display:'none'}}>
+                                        <div className="structure_new_forest_cuedo_card_center_content_person">
+                                            <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
+                                            <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
+                                            <div className="structure_new_forest_cuedo_card_center_content_person_disc">
+                                                <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Сенина Ирина Ромазановна</div>
+                                                <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">Заместитель генерального директора по экономике</div>
+                                            </div>
                                         </div>
                                     </div>
+                                    <div className="structure_new_forest_cuedo_card_center_button" onClick={()=>(opencard==='first2')?setOpencard('none'):setOpencard('first2')}>
+                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
+                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
+                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
+                                    </div>
                                 </div>
-                                <div className="structure_new_forest_cuedo_card_center_button" onClick={()=>(opencard==='first2')?setOpencard('none'):setOpencard('first2')}>
-                                    <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                    <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                    <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                </div>
-                            </div>
-                            <div className="structure_new_forest_cuedo_card_bottom">Заместитель генерального директора по экономике</div>
+                                <div className="structure_new_forest_cuedo_card_bottom">Заместитель генерального директора по экономике</div>
 
-                        </div>
+                            </div>
                             <div className="five_cueda">
                                 <div>
                                     <div className="structure_new_forest_cuedo_card_tree" onClick={()=>setWin(true)}>
@@ -614,28 +616,28 @@ export default function StructurePageNew(){
                             </div>
                         </div>
                         <div>
-                        <div className="structure_new_forest_cuedo_card">
-                            <div className="slash_rang"></div>
-                            <div className="structure_new_forest_cuedo_card_top"></div>
-                            <div className="structure_new_forest_cuedo_card_center">
-                                <div className="structure_new_forest_cuedo_card_center_content" style={(opencard==='first3')?{display:'flex'}:{display:'none'}}>
-                                    <div className="structure_new_forest_cuedo_card_center_content_person">
-                                        <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
-                                        <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
-                                        <div className="structure_new_forest_cuedo_card_center_content_person_disc">
-                                            <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Гаврилова Наталья Владимировна</div>
-                                            <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">Главный бухгалтер</div>
+                            <div className="structure_new_forest_cuedo_card">
+                                <div className="slash_rang"></div>
+                                <div className="structure_new_forest_cuedo_card_top"></div>
+                                <div className="structure_new_forest_cuedo_card_center">
+                                    <div className="structure_new_forest_cuedo_card_center_content" style={(opencard==='first3')?{display:'flex'}:{display:'none'}}>
+                                        <div className="structure_new_forest_cuedo_card_center_content_person">
+                                            <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
+                                            <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
+                                            <div className="structure_new_forest_cuedo_card_center_content_person_disc">
+                                                <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Гаврилова Наталья Владимировна</div>
+                                                <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">Главный бухгалтер</div>
+                                            </div>
                                         </div>
                                     </div>
+                                    <div className="structure_new_forest_cuedo_card_center_button" onClick={()=>(opencard==='first3')?setOpencard('none'):setOpencard('first3')}>
+                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
+                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
+                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
+                                    </div>
                                 </div>
-                                <div className="structure_new_forest_cuedo_card_center_button" onClick={()=>(opencard==='first3')?setOpencard('none'):setOpencard('first3')}>
-                                    <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                    <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                    <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                </div>
+                                <div className="structure_new_forest_cuedo_card_bottom">Главный бухгалтер</div>
                             </div>
-                            <div className="structure_new_forest_cuedo_card_bottom">Главный бухгалтер</div>
-                        </div>
                             <div className="five_cueda">
                                 <div>
                                     <div className="structure_new_forest_cuedo_card_tree" onClick={()=>setWin(true)}>
@@ -648,60 +650,60 @@ export default function StructurePageNew(){
                             </div>
                         </div>
                         <div>
-                        <div className="structure_new_forest_cuedo_card">
-                            <div className="slash_rang"></div>
-                            <div className="structure_new_forest_cuedo_card_top"></div>
-                            <div className="structure_new_forest_cuedo_card_center">
-                                <div className="structure_new_forest_cuedo_card_center_content" style={(opencard==='first4')?{display:'flex'}:{display:'none'}}>
-                                    <div className="structure_new_forest_cuedo_card_center_content_person">
-                                        <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
-                                        <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
-                                        <div className="structure_new_forest_cuedo_card_center_content_person_disc">
-                                            <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Невкрытых Альмира Равильевна</div>
-                                            <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">старший делопроизводитель</div>
+                            <div className="structure_new_forest_cuedo_card">
+                                <div className="slash_rang"></div>
+                                <div className="structure_new_forest_cuedo_card_top"></div>
+                                <div className="structure_new_forest_cuedo_card_center">
+                                    <div className="structure_new_forest_cuedo_card_center_content" style={(opencard==='first4')?{display:'flex'}:{display:'none'}}>
+                                        <div className="structure_new_forest_cuedo_card_center_content_person">
+                                            <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
+                                            <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
+                                            <div className="structure_new_forest_cuedo_card_center_content_person_disc">
+                                                <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Невкрытых Альмира Равильевна</div>
+                                                <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">старший делопроизводитель</div>
+                                            </div>
+                                        </div>
+                                        <div className="structure_new_forest_cuedo_card_center_content_person">
+                                            <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
+                                            <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
+                                            <div className="structure_new_forest_cuedo_card_center_content_person_disc">
+                                                <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Шнайдер Александра Олеговна</div>
+                                                <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">делопроизводитель</div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className="structure_new_forest_cuedo_card_center_content_person">
-                                        <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
-                                        <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
-                                        <div className="structure_new_forest_cuedo_card_center_content_person_disc">
-                                            <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Шнайдер Александра Олеговна</div>
-                                            <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">делопроизводитель</div>
-                                        </div>
+                                    <div className="structure_new_forest_cuedo_card_center_button" onClick={()=>(opencard==='first4')?setOpencard('none'):setOpencard('first4')}>
+                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
+                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
+                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
                                     </div>
                                 </div>
-                                <div className="structure_new_forest_cuedo_card_center_button" onClick={()=>(opencard==='first4')?setOpencard('none'):setOpencard('first4')}>
-                                    <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                    <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                    <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                </div>
+                                <div className="structure_new_forest_cuedo_card_bottom">Служба делопроизводства</div>
                             </div>
-                            <div className="structure_new_forest_cuedo_card_bottom">Служба делопроизводства</div>
-                        </div>
                         </div>
                         <div>
-                        <div className="structure_new_forest_cuedo_card finalblock">
-                            <div className="slash_rang"></div>
-                            <div className="structure_new_forest_cuedo_card_top"></div>
-                            <div className="structure_new_forest_cuedo_card_center">
-                                <div className="structure_new_forest_cuedo_card_center_content" style={(opencard==='first5')?{display:'flex'}:{display:'none'}}>
-                                    <div className="structure_new_forest_cuedo_card_center_content_person">
-                                        <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
-                                        <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
-                                        <div className="structure_new_forest_cuedo_card_center_content_person_disc">
-                                            <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Чернобай Ольга Владимировна</div>
-                                            <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">начальник отдела продаж</div>
+                            <div className="structure_new_forest_cuedo_card finalblock">
+                                <div className="slash_rang"></div>
+                                <div className="structure_new_forest_cuedo_card_top"></div>
+                                <div className="structure_new_forest_cuedo_card_center">
+                                    <div className="structure_new_forest_cuedo_card_center_content" style={(opencard==='first5')?{display:'flex'}:{display:'none'}}>
+                                        <div className="structure_new_forest_cuedo_card_center_content_person">
+                                            <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
+                                            <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
+                                            <div className="structure_new_forest_cuedo_card_center_content_person_disc">
+                                                <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Чернобай Ольга Владимировна</div>
+                                                <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">начальник отдела продаж</div>
+                                            </div>
                                         </div>
                                     </div>
+                                    <div className="structure_new_forest_cuedo_card_center_button" onClick={()=>(opencard==='first5')?setOpencard('none'):setOpencard('first5')}>
+                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
+                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
+                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
+                                    </div>
                                 </div>
-                                <div className="structure_new_forest_cuedo_card_center_button" onClick={()=>(opencard==='first5')?setOpencard('none'):setOpencard('first5')}>
-                                    <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                    <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                    <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                </div>
+                                <div className="structure_new_forest_cuedo_card_bottom">Отдел продаж</div>
                             </div>
-                            <div className="structure_new_forest_cuedo_card_bottom">Отдел продаж</div>
-                        </div>
                         </div>
                     </div>
 

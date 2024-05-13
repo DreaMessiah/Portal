@@ -201,6 +201,9 @@ function App() {
                         {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/sociality" element={<EditorRouter page={3} />} /> : null }
                         {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/createsocial" element={<EditorRouter page={4} />} /> : null }
                         {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/userbranchs" element={<EditorRouter page={5} />} /> : null }
+                        {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/cmsstructure" element={<EditorRouter page={6} />} /> : null }
+
+
                     </Routes>
                 </div>
             </Router>

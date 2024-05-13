@@ -60,3 +60,62 @@
     }
   }
 }
+.workers{
+  .buttons-cms{
+    .button{
+      background-color: rgb(18, 19, 56);
+      color: white;
+      margin: 10px;
+      padding: 10px 16px 10px 10px;
+      width: 150px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+  }
+}
+.create-branch{
+  width: 100%;
+  .create-branch-form{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    input{
+      width: calc(100% - 16px);
+      margin: 5px;
+      padding: 5px;
+      border: 3px dotted #aaa;
+      outline: none;
+    }
+    .multi100{
+      margin-top: 10px;
+      width: 100%;
+    }
+    .checkboxes{
+      width: 100%;
+    }
+  }
+}
+
+.struct-panel{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  .branch{
+    width: 400px;
+    padding: 5px;
+    border: 2px solid #333333;
+    cursor: pointer;
+    .name{
+      text-transform: uppercase;
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-align: center;
+
+    }
+  }
+}

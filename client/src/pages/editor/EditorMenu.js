@@ -8,6 +8,8 @@ export default function EditorMenu(){
             <Buttons text={'Управление социальными программами'} icon={`fa-solid fa-hand-holding-hand`} url={`/sociality`}/>
             <Buttons text={'Подать заявление'} icon={`fa-regular fa-square-plus`} url={`/createsocial`}/>
             <Buttons text={'Отделы и обьекты'} icon={`fa-solid fa-code-branch`} url={`/userbranchs`}/>
+            <Buttons text={'Редактирование структуры компании'} icon={`fa-solid fa-folder-tree`} url={`/cmsstructure`}/>
+
         </div>
     )
 }
