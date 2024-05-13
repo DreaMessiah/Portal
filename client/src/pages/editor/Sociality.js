@@ -12,6 +12,10 @@ function Sociality(){
     const [commission, setCommission] = useState(false)
     const [thisuser, setThisuser] = useState([])
     const [listuser, setListuser] = useState([])
+    const [editcash, setEditcash] = useState(false)
+    const [createcash, setCreatecash] = useState(false)
+
+
     // const message = useMessage()
     const getUsers = async (e) => {
         try {
@@ -85,6 +89,12 @@ function Sociality(){
                         <div className="glass_board_body_tit">Максимальная сумма<input type="number" className="glass_board_body_numinput" minLength="0" maxLength="5"/> руб.</div>
                         <div className='glassslash'></div>
                         <div className="glass_board_body_buttons">
+                            <div className="glass_board_body_tit">Возможность использования</div>
+                            <div className="glass_board_body_buttons_create" style={(createcash)?{border: "1px solid #CCC"}:{border: "1px solid rgb(18, 19, 56)"}} onClick={()=>setCreatecash(false)}>Перчисление средств</div>
+                            <div className="glass_board_body_buttons_create" style={(createcash)?{border: "1px solid rgb(18, 19, 56)"}:{border: "1px solid #CCC"}} onClick={()=>setCreatecash(true)}>Выбор использования</div>
+                        </div>
+                        <div className='glassslash'></div>
+                        <div className="glass_board_body_buttons">
                             <div className="glass_board_body_buttons_create">Создать</div>
                             <div className="glass_board_body_buttons_cancel">Сбросить</div>
                         </div>
@@ -115,6 +125,12 @@ function Sociality(){
                         <div className="glass_board_body_tit">Минимальный стаж<input type="number" className="glass_board_body_numinput" minLength="0" maxLength="2"/> год(лет)</div>
                         <div className='glassslash'></div>
                         <div className="glass_board_body_tit">Максимальная сумма<input type="number" className="glass_board_body_numinput" minLength="0" maxLength="5"/> руб.</div>
+                        <div className='glassslash'></div>
+                        <div className="glass_board_body_buttons">
+                            <div className="glass_board_body_tit">Возможность использования</div>
+                            <div className="glass_board_body_buttons_create" style={(editcash)?{border: "1px solid #CCC"}:{border: "1px solid rgb(18, 19, 56)"}} onClick={()=>setEditcash(false)}>Перчисление средств</div>
+                            <div className="glass_board_body_buttons_create" style={(editcash)?{border: "1px solid rgb(18, 19, 56)"}:{border: "1px solid #CCC"}} onClick={()=>setEditcash(true)}>Выбор использования</div>
+                        </div>
                         <div className='glassslash'></div>
                         <div className="glass_board_body_buttons">
                             <div className="glass_board_body_buttons_create">Создать</div>
