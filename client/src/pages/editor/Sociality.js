@@ -95,6 +95,12 @@ function Sociality(){
                         </div>
                         <div className='glassslash'></div>
                         <div className="glass_board_body_buttons">
+                            <div className="glass_board_body_tit">Abrcfwbz</div>
+                            <div className="glass_board_body_buttons_create" style={(createcash)?{border: "1px solid #CCC"}:{border: "1px solid rgb(18, 19, 56)"}} onClick={()=>setCreatecash(false)}>Перчисление средств</div>
+                            <div className="glass_board_body_buttons_create" style={(createcash)?{border: "1px solid rgb(18, 19, 56)"}:{border: "1px solid #CCC"}} onClick={()=>setCreatecash(true)}>Выбор использования</div>
+                        </div>
+                        <div className='glassslash'></div>
+                        <div className="glass_board_body_buttons">
                             <div className="glass_board_body_buttons_create">Создать</div>
                             <div className="glass_board_body_buttons_cancel">Сбросить</div>
                         </div>
