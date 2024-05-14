@@ -117,7 +117,6 @@ export const TimeSheepPortal = () => {
                 if(man.tn !== '' ){
                     t13.forEach(strock => {
                         if(man.tn === strock.tn ){
-                            console.log(strock.d2)
                             man.d1 = strock.d1;man.d2 = strock.d2;man.d3 = strock.d3;man.d4 = strock.d4;man.d5 = strock.d5;man.d6 = strock.d6;man.d7 = strock.d7;man.d8 = strock.d8;man.d9 = strock.d9;man.d10 = strock.d10;man.d11 = strock.d11;man.d12 = strock.d12;man.d13 = strock.d13;man.d14 = strock.d14;man.d15 = strock.d15;man.d16 = strock.d16;man.d17 = strock.d17;man.d18 = strock.d18;man.d19 = strock.d19;man.d20 = strock.d20;man.d21 = strock.d21;man.d22 = strock.d22;man.d23 = strock.d23;man.d24 = strock.d24;man.d25 = strock.d25;man.d26 = strock.d26;man.d27 = strock.d27;man.d28 = strock.d28;man.d29 = strock.d29;man.d30 = strock.d30;man.d31 = strock.d31;
                         }
                     })
@@ -126,9 +125,6 @@ export const TimeSheepPortal = () => {
 
                 }
 
-                // if(!man.d1){
-                //     man.d1 = '';man.d2 = '';man.d3 = '';man.d4 = '';man.d5 = '';man.d6 = '';man.d7 = '';man.d8 = '';man.d9 = '';man.d10 = '';man.d11 = '';man.d12 = '';man.d13 = '';man.d14 = '';man.d15 = '';man.d16 = '';man.d17 = '';man.d18 = '';man.d19 = '';man.d20 = '';man.d21 = '';man.d22 = '';man.d23 = '';man.d24 = '';man.d25 = '';man.d26 = '';man.d27 = '';man.d28 = '';man.d29 = '';man.d30 = '';man.d31 = '';
-                // }
 
                 pusharr.push(man)
             })
@@ -141,7 +137,6 @@ export const TimeSheepPortal = () => {
             })
         }
         setList(pusharr)
-        console.log(pusharr)
     }
 
     const makeWrite = async () => {
@@ -249,7 +244,6 @@ export const TimeSheepPortal = () => {
         try {
             const viewList = await ObjsService.getObjs()
             setListObjs(viewList.data)
-            // console.log(viewList.data)
         }catch (e) {
             console.log('puizercvccvfg')
         }
@@ -288,7 +282,6 @@ export const TimeSheepPortal = () => {
                 }
 
             }
-            // console.log(listMans)
         } catch {
             alert('СП')
         }
@@ -332,7 +325,6 @@ export const TimeSheepPortal = () => {
     const pushKTU = tn => {
         let ktumess = []
         ktu.forEach(item => {
-            // console.log(item)
             if(item.user_tn === tn){
 
                 ktumess.push('КТУ по СЗ: '+item.ktu+' | Содержание: '+item.content)
@@ -383,13 +375,11 @@ export const TimeSheepPortal = () => {
             operatingSystem = "Unknown";
         }
 
-        //console.log("Операционная система пользователя:", operatingSystem);
 
 
 
 
         const screenWidth = window.innerWidth;
-        //console.log(screenWidth)
         const currentDate = new Date();
         const currentDay = currentDate.getDate();
         if((operatingSystem === 'Android' || operatingSystem === 'iOS') && day !== currentDay){
@@ -437,7 +427,6 @@ export const TimeSheepPortal = () => {
 
     useEffect(()=>{
         makeList()
-        console.log(t13)
     }, [tabel, t13])
 
     return (

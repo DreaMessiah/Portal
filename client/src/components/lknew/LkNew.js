@@ -7,6 +7,7 @@ import {useMessage} from "../../hooks/message.hook";
 import ModalFiles from "../modalwin/ModalFiles";
 import LoadingSpinner from '../loading/LoadingSpinner'
 import checkPassword from "../functions/checkPassword";
+import {Link} from "react-router-dom";
 
 const LkNew = () => {
     const {store} = useContext(Context)
@@ -129,6 +130,10 @@ const LkNew = () => {
                             <div onClick={(e) => setActiveModalPass(true)} className="lk_block_params_personaldata_login_btnpassword" id="editPROFILE">Сменить пароль</div>
                         </div>
                     </div>
+
+            </div>
+            <div className="lk_block_params_navigation">
+                <Link to='/createsocial' className="lk_block_params_navigation_btn" >Заявление на мат.помощь</Link>
             </div>
             <ModalFiles data={<ChangePassword/>} active={activeModalPass} setActive={setActiveModalPass} heigth={"40vh"}/>
             {loading ? (<LoadingSpinner/>) : null}

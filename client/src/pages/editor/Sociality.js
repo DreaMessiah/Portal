@@ -10,11 +10,12 @@ function Sociality(){
     const [create, setCreate] = useState(false)
     const [edit, setEdit] = useState(false)
     const [commission, setCommission] = useState(false)
+    const [stazhedit, setStazhedit] = useState(false)
     const [thisuser, setThisuser] = useState([])
     const [listuser, setListuser] = useState([])
     const [editcash, setEditcash] = useState(false)
     const [createcash, setCreatecash] = useState(false)
-
+    const [stazhcash, setStazhcash] = useState(false)
 
     // const message = useMessage()
     const getUsers = async (e) => {
@@ -29,7 +30,8 @@ function Sociality(){
                 i++
             })
             setListuser(users.data)
-        }catch{
+        }catch(e){
+
         }
     }
 
@@ -44,13 +46,14 @@ function Sociality(){
             <div className="soclist_btns">
                 <div className="soclist_upload" onClick={()=>setCreate(true)}>Создать</div>
                 <div className="soclist_upload" onClick={()=>setCommission(true)}>Комиссия</div>
+                <div className="soclist_upload" onClick={()=>setStazhedit(true)}>Размер % от стажа</div>
             </div>
             <div className="soclist_list">
                 <div className="soclist_list_line">
                     <div className="soclist_list_line_name nametitle">П/П</div>
                     <div className="soclist_list_line_price title">Дата создания / изменения</div>
                     <div className="soclist_list_line_group title">Наименование</div>
-                    <div className="soclist_list_line_cropname title borderrightnone"></div>
+                    <div className="soclist_list_line_cropname title "></div>
                 </div>
 
                     <div className="soclist_list_line bordertopnone">
@@ -62,7 +65,7 @@ function Sociality(){
                     </div>
 
             </div>
-
+            {/*// Создание программы*/}
             <div className='glass' style={(create)?{display: 'flex'}:{display: 'none'}}>
                 <div className="glass_board">
                     <div className="glass_board_close"><i className="fa-solid fa-xmark"  onClick={()=>setCreate(false)}/></div>
@@ -95,9 +98,10 @@ function Sociality(){
                         </div>
                         <div className='glassslash'></div>
                         <div className="glass_board_body_buttons">
-                            <div className="glass_board_body_tit">Abrcfwbz</div>
-                            <div className="glass_board_body_buttons_create" style={(createcash)?{border: "1px solid #CCC"}:{border: "1px solid rgb(18, 19, 56)"}} onClick={()=>setCreatecash(false)}>Перчисление средств</div>
-                            <div className="glass_board_body_buttons_create" style={(createcash)?{border: "1px solid rgb(18, 19, 56)"}:{border: "1px solid #CCC"}} onClick={()=>setCreatecash(true)}>Выбор использования</div>
+                            <div className="glass_board_body_tit">Начисление</div>
+                            <div className="glass_board_body_buttons_create" style={(stazhcash)?{border: "1px solid #CCC"}:{border: "1px solid rgb(18, 19, 56)"}} onClick={()=>setStazhcash(false)}>Фиксированное</div>
+                            <div className="glass_board_body_buttons_create" style={(stazhcash)?{border: "1px solid rgb(18, 19, 56)"}:{border: "1px solid #CCC"}} onClick={()=>setStazhcash(true)}>Расчет от стажа</div>
+                            <div className="glass_board_body_btn">Редактировать % от стажа</div>
                         </div>
                         <div className='glassslash'></div>
                         <div className="glass_board_body_buttons">
@@ -107,6 +111,7 @@ function Sociality(){
                     </div>
                 </div>
             </div>
+            {/*// Редактирование программы*/}
             <div className='glass' style={(edit)?{display: 'flex'}:{display: 'none'}}>
                 <div className="glass_board">
                     <div className="glass_board_close"><i className="fa-solid fa-xmark"  onClick={()=>setEdit(false)}/></div>
@@ -139,12 +144,19 @@ function Sociality(){
                         </div>
                         <div className='glassslash'></div>
                         <div className="glass_board_body_buttons">
-                            <div className="glass_board_body_buttons_create">Создать</div>
-                            <div className="glass_board_body_buttons_cancel">Сбросить</div>
+                            <div className="glass_board_body_tit">Начисление</div>
+                            <div className="glass_board_body_buttons_create" style={(stazhcash)?{border: "1px solid #CCC"}:{border: "1px solid rgb(18, 19, 56)"}} onClick={()=>setStazhcash(false)}>Фиксированное</div>
+                            <div className="glass_board_body_buttons_create" style={(stazhcash)?{border: "1px solid rgb(18, 19, 56)"}:{border: "1px solid #CCC"}} onClick={()=>setStazhcash(true)}>Расчет от стажа</div>
+
+                        </div>
+                        <div className='glassslash'></div>
+                        <div className="glass_board_body_buttons">
+                            <div className="glass_board_body_buttons_create">Сохранить</div>
                         </div>
                     </div>
                 </div>
             </div>
+            {/*// Редактирование Комиссии*/}
             <div className='glass' style={(commission)?{display: 'flex'}:{display: 'none'}}>
                 <div className="glass_board">
                     <div className="glass_board_close"><i className="fa-solid fa-xmark"  onClick={()=>setCommission(false)}/></div>
@@ -243,6 +255,51 @@ function Sociality(){
                         <div className="glass_board_body_buttons">
                             <div className="glass_board_body_buttons_create">Закрыть (изменения сохраняются автоматически)</div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            {/*// Редактирование стажа*/}
+            <div className='glass' style={(stazhedit)?{display: 'flex'}:{display: 'none'}}>
+                <div className="glass_board">
+                    <div className="glass_board_close"><i className="fa-solid fa-xmark"  onClick={()=>setStazhedit(false)}/></div>
+                    <div className="glass_board_body">
+                        <div className="glass_board_body_title">Денежные  средства  выплачиваются  из  средств  фонда  по  личному  заявлению  работника  с  учетом  его  вклада  в  работу  ООО «Сургутское РСУ»  и  стажа  работы  в  Обществе</div>
+                        <tabel>
+                            <tr>
+                                <td><div className="glass_board_body_tit">Стаж  работы  в  ООО «Сургутское РСУ»</div></td>
+                                <td><div className="glass_board_body_tit">Размер  дополнительных  компенсаций  в  %</div></td>
+                            </tr>
+                            <tr>
+                                <td>от <input type="number" className="glass_board_body_numinput" minLength="0" maxLength="2"/> до <input type="number" className="glass_board_body_numinput" minLength="0" maxLength="2"/> год(лет)</td>
+                                <td><input type="number"  style={{margin: '20px'}} className="glass_board_body_numinput" minLength="0" maxLength="2"/> %</td>
+                                <div className='btnpercent'>Добавить</div>
+                            </tr>
+                            <tr>
+                                <td style={{padding: '10px 20px', border: '3px solid #CCC'}}>от 1 до 3 лет</td>
+                                <td style={{padding: '10px 20px', border: '3px solid #CCC', margin: '0 0 0 -3px'}}>70%</td>
+                                <div className='trashpercent'><i className="fa-solid fa-trash"/></div>
+                            </tr>
+                            <tr>
+                                <td style={{padding: '10px 20px', border: '3px solid #CCC'}}>от 1 до 3 лет</td>
+                                <td style={{padding: '10px 20px', border: '3px solid #CCC', margin: '0 0 0 -3px'}}>70%</td>
+                                <div className='trashpercent'><i className="fa-solid fa-trash"/></div>
+                            </tr>
+                            <tr>
+                                <td style={{padding: '10px 20px', border: '3px solid #CCC'}}>от 1 до 3 лет</td>
+                                <td style={{padding: '10px 20px', border: '3px solid #CCC', margin: '0 0 0 -3px'}}>70%</td>
+                                <div className='trashpercent'><i className="fa-solid fa-trash"/></div>
+                            </tr>
+                            <tr>
+                                <td style={{padding: '10px 20px', border: '3px solid #CCC'}}>от 1 до 3 лет</td>
+                                <td style={{padding: '10px 20px', border: '3px solid #CCC', margin: '0 0 0 -3px'}}>70%</td>
+                                <div className='trashpercent'><i className="fa-solid fa-trash"/></div>
+                            </tr>
+
+
+                        </tabel>
+
+
+
                     </div>
                 </div>
             </div>
