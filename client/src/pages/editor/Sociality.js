@@ -56,13 +56,13 @@ function Sociality(){
                     <div className="soclist_list_line_cropname title "></div>
                 </div>
 
-                    <div className="soclist_list_line bordertopnone">
-                        <div className="soclist_list_line_name">1</div>
-                        <div className="soclist_list_line_name">12.05.2024</div>
-                        <div className="soclist_list_line_name">Проверочная программа</div>
-                        <div className="soclist_list_line_name"></div>
-                        <div className="soclist_list_line_del"><i className="fa-solid fa-pen-to-square" onClick={()=>setEdit(true)}/></div>
-                    </div>
+                <div className="soclist_list_line bordertopnone">
+                    <div className="soclist_list_line_name" style={{width: '60px'}}>1</div>
+                    <div className="soclist_list_line_name">12.05.2024</div>
+                    <div className="soclist_list_line_name">Проверочная программа</div>
+                    <div className="soclist_list_line_name"></div>
+                    <div className="soclist_list_line_del"><i className="fa-solid fa-pen-to-square" onClick={()=>setEdit(true)}/></div>
+                </div>
 
             </div>
             {/*// Создание программы*/}

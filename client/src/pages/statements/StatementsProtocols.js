@@ -78,7 +78,7 @@ function StatementsProtocols(){
 
     return (
         <div className="soclist">
-            <div className="soclist_title">Список всех заявлений на мат.помощь</div>
+            <div className="soclist_title">Группы заявлений для протокола и приказа</div>
             {/*<div className={'text'}><p>Для создания новой программы нажмите кнопку Создать</p><p>Для редактирования существующей программы, необходимо выбрать программу из списка</p></div>*/}
             <div className="soclist_btns">
                 <div className="soclist_upload">Фильтр</div>
