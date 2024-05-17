@@ -848,13 +848,14 @@ const Bye = sequelize.define('bye',{
 const Struct = sequelize.define('structure',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     name:{type:DataTypes.TEXT},
+    factbranchs:{type: DataTypes.ARRAY(DataTypes.TEXT),defaultValue:[]},
     position:{type:DataTypes.INTEGER},
     level:{type:DataTypes.INTEGER,defaultValue:0},
     type:{type:DataTypes.INTEGER,defaultValue:0}, // 0 - list 1 - blocks
     ont13:{type:DataTypes.BOOLEAN,defaultValue:false},
-    next:{type: DataTypes.ARRAY(DataTypes.INTEGER)}
+    next:{type: DataTypes.ARRAY(DataTypes.INTEGER),defaultValue:[]}
 })
-const StructUsers =  sequelize.define('structusers',{
+const StructUsers = sequelize.define('structusers',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     name:{type:DataTypes.TEXT},
     structure_id:{type:DataTypes.INTEGER},
@@ -862,6 +863,55 @@ const StructUsers =  sequelize.define('structusers',{
     onphonebook:{type:DataTypes.BOOLEAN,defaultValue:false},
     contacts:{type:DataTypes.TEXT}
 })
+
+const Reports = sequelize.define('reports',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    user_tn:{type:DataTypes.TEXT},
+    report:{type: DataTypes.ARRAY(DataTypes.TEXT),defaultValue:[]},
+})
+
+const Commission = sequalize.define('commission',  {
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    possion:{type:DataTypes.INTEGER},
+    user:{type:DataTypes.INTEGER}, //id пользователей  -  необходимо подтягивать всю остальную информацию по пользователям
+    trash:{type:DataTypes.BOOLEAN,defaultValue:false}
+})
+
+const PositionOfSoc = sequalize.define('positionsoc',  {
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    from:{type:DataTypes.INTEGER},
+    to:{type:DataTypes.INTEGER},
+    percent:{type:DataTypes.INTEGER},
+    trash:{type:DataTypes.BOOLEAN,defaultValue:false}
+})
+
+const ProgramOfSoc = sequalize.define('programofsoc',  {
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    name:{type:DataTypes.TEXT},
+    description:{type:DataTypes.TEXT},
+    conditions:{type: DataTypes.ARRAY(DataTypes.INTEGER)},
+    files:{type: DataTypes.ARRAY(DataTypes.INTEGER)},
+    experience:{type:DataTypes.INTEGER},
+    sum:{type:DataTypes.INTEGER},
+    purpose:{type:DataTypes.BOOLEAN,defaultValue:false},
+    calculation:{type:DataTypes.BOOLEAN,defaultValue:false},
+    trash:{type:DataTypes.BOOLEAN,defaultValue:false}
+})
+
+const ProtocolOfSoc = sequalize.define('protocolofsoc',  {
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    za:{type:DataTypes.INTEGER},
+    user:{type:DataTypes.INTEGER},
+    sum:{type:DataTypes.INTEGER},
+    percent:{type:DataTypes.INTEGER},
+    status:{type:DataTypes.JSON,default:null},
+    check:{type:DataTypes.BOOLEAN,defaultValue:false},
+    trash:{type:DataTypes.BOOLEAN,defaultValue:false}
+})
+
+
+T13Uni.hasMany(Reports, { foreignKey: 'user_tn', sourceKey: 'tn',constraints: false})
+Reports.belongsTo(T13Uni,  { foreignKey: 'user_tn', targetKey: 'tn',constraints: false})
 
 T13Uni.hasMany(StructUsers, { foreignKey: 'user_tn', sourceKey: 'tn',constraints: false})
 StructUsers.belongsTo(T13Uni,  { foreignKey: 'user_tn', targetKey: 'tn',constraints: false})
@@ -880,5 +930,5 @@ CrewBase.hasMany(CrewMans, { foreignKey: 'crew_id', sourceKey: 'id' });
 CrewMans.belongsTo(CrewBase, { foreignKey: 'crew_id', targetKey: 'id' });
 
 module.exports = {
-    Struct,StructUsers,Bye,PeopleCounter,T13Uni,CrewMans,ZaSv,TableZayavka,HumanList,KtuDoc,KtuList,MessageSv,ViewsWorkSv,CrewManlist,CrewDoclist,CrewBase,CrewSv,OgmPrice,WorkPrice,StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
+    Reports,Struct,StructUsers,Bye,PeopleCounter,T13Uni,CrewMans,ZaSv,TableZayavka,HumanList,KtuDoc,KtuList,MessageSv,ViewsWorkSv,CrewManlist,CrewDoclist,CrewBase,CrewSv,OgmPrice,WorkPrice,StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
 }
