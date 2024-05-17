@@ -2,6 +2,59 @@
   .soclist{
     width: 100%;
     height: 100%;
+
+
+    .statelist_list{
+      display: flex;
+      flex-direction: column;
+      margin-top: 20px;
+      width: 100%;
+      .statelist_list_line{
+        display: flex;
+        justify-content: flex-start;
+        border: 4px solid #CCC;
+        margin-top: 2px;
+        width: content-box;
+        cursor: pointer;
+        .statelist_list_line_name{
+          width: 60px;
+          border-right: 4px solid #CCC;
+        }
+        .statelist_list_line_price{
+          width: 100px;
+          border-right: 4px solid #CCC;
+        }
+        .statelist_list_line_group{
+          width: 300px;
+          border-right: 4px solid #CCC;
+        }
+        .statelist_list_line_cropname{
+          width: 250px;
+        }
+        .statelist_list_line_del{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 40px;
+          cursor: pointer;
+          transition: .2s;
+          i{
+            color: rgba(18, 19, 56, 0.6);
+          }
+        }
+        .statelist_list_line_del:hover{
+          transition: .2s;
+          i{
+            color: rgb(18, 19, 56);
+          }
+        }
+      }
+
+    }
+
+
+
+
     .soclist_title{
       font-size: 18pt;
       font-weight: 700;
@@ -127,6 +180,9 @@
         align-self: stretch;
         height: auto !important;
       }
+
+
+
       .soclist_list_line{
         display: flex;
         flex-direction: row;
@@ -139,6 +195,16 @@
         border-bottom: none;
         font-size: 10pt;
         align-self: stretch;
+
+        .date{
+          width: 100px!important;
+          padding: 0 10px;
+          display: flex !important;
+          justify-content: center !important;
+          align-items: center !important;
+        }
+
+
         .soclist_list_line_name{
           display: flex;
           flex-direction: row;
@@ -744,6 +810,190 @@
               }
             }
 
+            .glass_board_body_liststatements{
+              display: flex;
+              flex-direction: column;
+              align-items: flex-start;
+              justify-content: flex-start;
+              min-width: 100px;
+              .glass_board_body_liststatements_man{
+                display: flex;
+                width: 100%;
+                border: 1px solid #CCC;
+                min-height: 40px;
+                margin-top: -1px;
+                .glass_board_body_liststatements_num{
+                  border-right: 1px solid #CCC;
+                  width: 40px;
+                  padding: 10px;
+                }
+                .glass_board_body_liststatements_fio{
+                  border-right: 1px solid #CCC;
+                  width: 250px;
+                  padding: 10px;
+                }
+                .glass_board_body_liststatements_dev{
+                  border-right: 1px solid #CCC;
+                  width: 250px;
+                  padding: 10px;
+                }
+                .glass_board_body_liststatements_view{
+                  border-right: 1px solid #CCC;
+                  width: 250px;
+                  padding: 10px;
+                }
+                .glass_board_body_liststatements_app{
+                  border-right: 1px solid #CCC;
+                  width: 250px;
+                  padding: 10px;
+                }
+                .glass_board_body_liststatements_del{
+                  display: flex;
+                  align-items: center;
+                  justify-content: flex-end;
+                  padding: 10px;
+                  div{
+                    margin-right: 10px;
+                    padding: 5px 10px;
+                    border-radius: 5px;
+                  }
+                  i{
+                    color: #454545;
+                    cursor: pointer;
+                    transition: 0.1s;
+                  }
+                  i:hover{
+                    color: #CCC;
+                    transition: 0.1s;
+                  }
+
+                  .glass_board_body_liststatements_del_eye{}
+                  .glass_board_body_liststatements_del_del{}
+                  .glass_board_body_liststatements_del_yes{
+                    border: 1px solid green;
+                  }
+                  .glass_board_body_liststatements_del_no{
+                    border: 1px solid darkred;
+                  }
+                  .glass_board_body_liststatements_del_wait{
+                    border: 1px solid #CCC;
+                  }
+                  .glass_board_body_liststatements_del_pass{
+                    border: 1px solid rgb(18, 19, 56);
+                    background-color: #FFFFFF;
+                    cursor: pointer;
+                    transition: .2s;
+                  }
+                  .glass_board_body_liststatements_del_pass:hover{
+                    background-color: rgb(18, 19, 56);
+                    color: #FFFFFF;
+                    transition: .2s;
+                  }
+                }
+              }
+            }
+
+
+            .glass_board_body_control{
+              display: flex;
+              justify-content: flex-start;
+              padding: 10px;
+              .glass_board_body_control_btn{
+                border: 1px solid #CCC;
+                border-radius: 5px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 150px;
+                margin: 10px 10px 0 0;
+                padding: 10px;
+                cursor: pointer;
+                background-color: #FFFFFF;
+                transition: .2s;
+              }
+              .glass_board_body_control_btn:hover{
+                background-color: #454545;
+                color: #FFF;
+                transition: .2s;
+              }
+            }
+
+            .glass_board_body_documents{
+              display: flex;
+              align-items: flex-start;
+              padding: 10px;
+              .glass_board_body_documents_file{
+                border: 1px solid #CCC;
+                border-radius: 5px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 150px;
+                margin: 10px 10px 0 0;
+                padding: 10px;
+                cursor: pointer;
+                i{
+                  font-size: 22pt;
+                }
+              }
+              .glass_board_body_documents_file:hover{
+                box-shadow: 0 0 3px rgba(0, 128, 255, 0.5);
+              }
+              .glass_board_body_documents_file_name{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                font-size: 10pt;
+              }
+            }
+
+            .list_approve{
+              display: flex;
+              justify-content: flex-start;
+              flex-wrap: wrap;
+              font-size: 10pt;
+              .list_approve_man{
+                border: 1px solid #CCC;
+                padding: 10px;
+                width: 250px;
+                border-radius: 5px;
+                margin-right: 20px;
+                position: relative;
+                display: flex;
+                justify-content: flex-start;
+                align-items: flex-start;
+                flex-direction: column;
+                .list_approve_man_name{
+                  font-weight: 600;
+                }
+                .list_approve_man_dev{
+                  font-weight: 400;
+                }
+                .list_approve_man_status{
+                  margin-top: 5px;
+                  padding: 5px 10px;
+                  border: 1px solid #CCC;
+                  border-radius: 2px;
+                }
+                .list_approve_man_comment{
+                  margin-top: 5px;
+                  padding: 5px 10px;
+                  border: 1px solid #CCC;
+                  border-radius: 2px;
+                }
+                .list_approve_man_slash{
+                  position: absolute;
+                  height: 4px;
+                  top: 20px;
+                  left: 0px;
+                  width: 20px;
+                  background-color: #CCC;
+                  margin-left: -21px;
+                }
+              }
+            }
+
             .glass_board_body_man{
               display: flex;
               justify-content: space-between;
@@ -785,6 +1035,81 @@
                 i:hover{
                   color: #CCC;
                   transition: 0.2s;
+                }
+              }
+            }
+            .glass_approve_body_man{
+              display: flex;
+              justify-content: space-between;
+              max-width: content-box;
+              padding: 10px 20px;
+              border: 3px solid #CCC;
+              border-radius: 10px;
+              margin-top: 10px;
+              .glass_approve_body_man_content{
+                display: flex;
+                .glass_approve_body_man_photo{
+                  width: 60px;
+                  height: 60px;
+                  min-width: 60px;
+                  min-height: 60px;
+                  background-size: cover;
+                  background-position: center center;
+                  border-radius: 60px;
+                }
+                .glass_approve_body_man_params{
+                  margin-left: 20px;
+                  .glass_approve_body_man_name{
+                    font-weight: 700;
+                  }
+                  .glass_approve_body_man_dev{
+                    font-size: 11pt;
+                  }
+                  .glass_approve_body_man_departament{
+                    font-size: 11pt;
+                  }
+                  .glass_approve_body_man_comment{
+                    font-size: 11pt;
+                    padding: 10px;
+                    border: 1px solid #CCC;
+                    margin: 10px 10px 0 0;
+                    border-radius: 2px;
+                    max-width: 400px;
+                  }
+                }
+              }
+
+              .glass_approve_body_man_status{
+                display: flex;
+                flex-wrap: wrap;
+                width: 200px;
+                div{
+                  margin: 0 10px 10px 0;
+                  padding: 5px 20px;
+                  height: 30px;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  border-radius: 20px;
+                }
+                .glass_approve_body_man_status_no{
+                  border: 1px solid red;
+                }
+                .glass_approve_body_man_status_yes{
+                  border: 1px solid green;
+                }
+                .glass_approve_body_man_status_wait{
+                  border: 1px solid #CCC;
+                }
+                .glass_approve_body_man_status_pass{
+                  border: 1px solid darkblue;
+                  cursor: pointer;
+                  transition: .1s;
+                }
+                .glass_approve_body_man_status_pass:hover{
+                  transition: .1s;
+                  background-color: darkblue;
+                  color: #FFF;
                 }
               }
             }
@@ -938,6 +1263,10 @@
         align-self: stretch;
         padding: 20px 40px 20px 20px;
         margin-bottom: 10px;
+
+        .date{
+          width: 100px;
+        }
 
         .soclist_list_line_name{
           display: flex;

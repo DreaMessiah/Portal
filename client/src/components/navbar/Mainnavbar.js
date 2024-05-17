@@ -110,7 +110,7 @@ export const Mainnavbar = () => {
                         <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-trophy"></i></div>
                         <div className="navbar_block_dopmenu_list_description">Конкурс</div>
                     </Link>
-                    <Link style={(rule === 1 || rule === 2 || rule === 3 || rule === 7 || store.user.account === 'superadmin')?{display: 'flex'}:{display: 'none'}} to='/objectsportal' className={`navbar_block_dopmenu_list_strock`}>
+                    <Link style={(rule === 1 || rule === 2 || rule === 3 || rule === 5 || rule === 7 || store.user.account === 'superadmin')?{display: 'flex'}:{display: 'none'}} to='/objectsportal' className={`navbar_block_dopmenu_list_strock`}>
                         <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-object-ungroup"></i></div>
                         <div className="navbar_block_dopmenu_list_description">Объекты</div>
                     </Link>
@@ -129,6 +129,10 @@ export const Mainnavbar = () => {
                     <Link style={(rule === 99 || store.user.account === 'superadmin')?{display: 'flex'}:{display: 'none'}} to='/editor' className={`navbar_block_dopmenu_list_strock`}>
                         <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-user-pen"></i></div>
                         <div className="navbar_block_dopmenu_list_description">Редактор</div>
+                    </Link>
+                    <Link style={(rule === 100 || store.user.account === 'superadmin')?{display: 'flex'}:{display: 'none'}} to='/statementsmenu' className={`navbar_block_dopmenu_list_strock`}>
+                        <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-receipt"/></div>
+                        <div className="navbar_block_dopmenu_list_description">Заявления</div>
                     </Link>
                 </div>
 

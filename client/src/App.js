@@ -64,6 +64,7 @@ import WeldingRouter from "./pages/welding/WeldingRouter";
 import EditorRouter from "./pages/editor/EditorRouter";
 import SurveyPage from "./pages/survey/SurveyPage";
 import ByePage from "./pages/survey/ByePage";
+import StatementsRouter from "./pages/statements/StatementsRouter";
 
 function App() {
     const {store} = useContext(Context)
@@ -202,8 +203,9 @@ function App() {
                         {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/createsocial" element={<EditorRouter page={4} />} /> : null }
                         {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/userbranchs" element={<EditorRouter page={5} />} /> : null }
                         {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/cmsstructure" element={<EditorRouter page={6} />} /> : null }
-
-
+                        {store.user.unit === 100 || store.user.account === 'superadmin' ? <Route path="/statementsmenu" element={<StatementsRouter page={1} />} /> : null }
+                        {store.user.unit === 100 || store.user.account === 'superadmin' ? <Route path="/statementslist" element={<StatementsRouter page={2} />} /> : null }
+                        {store.user.unit === 100 || store.user.account === 'superadmin' ? <Route path="/protocol" element={<StatementsRouter page={3} />} /> : null }
                     </Routes>
                 </div>
             </Router>
