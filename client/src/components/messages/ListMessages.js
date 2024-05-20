@@ -124,7 +124,7 @@ export const ListMessages = () => {
             thisMans.read = false
             // console.log(thisMans.tn_to)
 
-
+            // console.log(thisMans)
             const mess = {}
             try{
                 const response = await MessagesService.pushMess(thisMans)

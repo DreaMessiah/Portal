@@ -7,6 +7,7 @@ import Select from "react-select";
 
 function Sociality(){
 
+    const message = useMessage()
     const [create, setCreate] = useState(false)
     const [edit, setEdit] = useState(false)
     const [commission, setCommission] = useState(false)
@@ -16,6 +17,32 @@ function Sociality(){
     const [editcash, setEditcash] = useState(false)
     const [createcash, setCreatecash] = useState(false)
     const [stazhcash, setStazhcash] = useState(false)
+
+
+
+    ////////  Создание новой социальной программы
+    const [socname, setSocname] = useState('')
+    const [socdescript, setSocdescript] = useState('')
+    const [newreq, setNewreq] = useState('')
+    const [requirement, setRequirement] = useState([])
+
+    const plusRequirement = () => {
+        const newlist = [...requirement]
+        if(newreq.length > 0){
+            newlist.push({index: newlist.length, desc: newreq})
+            setRequirement(newlist)
+            setNewreq('')
+
+        } else {
+            message('Введиете новое требование')
+        }
+
+    }
+
+    const creatNewSoc = () => {
+        console.log(socname)
+        console.log(socdescript)
+    }
 
     // const message = useMessage()
     const getUsers = async (e) => {
@@ -38,6 +65,10 @@ function Sociality(){
     useEffect(()=>{
         getUsers()
     }, [])
+
+    useEffect(()=>{
+        console.log(requirement)
+    }, [requirement])
 
     return (
         <div className="soclist">
@@ -72,15 +103,21 @@ function Sociality(){
                     <div className="glass_board_body">
                         <div className="glass_board_body_title">Создание новой социальной программы</div>
                         <div className="glass_board_body_tit">Название программы</div>
-                        <input placeholder="Введите название программы" className="glass_board_body_input" type="text" value=""/>
+
+                        <input placeholder="Введите название программы" className="glass_board_body_input" onChange={(e)=>setSocname(e.target.value)}  type="text" value={socname}/>
                         <div className='glassslash'></div>
                         <div className="glass_board_body_tit">Текст описания программы</div>
-                        <textarea placeholder="Введите описание задачи" className="glass_board_body_textarea"></textarea>
+
+
+                        <textarea placeholder="Введите описание задачи" className="glass_board_body_textarea" onChange={(e)=>setSocdescript(e.target.value)}>{socdescript}</textarea>
                         <div className='glassslash'></div>
                         <div className="glass_board_body_tit">Требования <div className="glass_board_body_btn">+ добавить требование</div></div>
-                        <div className="glass_board_body_graf"><input type="text" className='inputs_of_graf' value='' placeholder='Введите новое требование'/> <div className="btns"><i className="fa-solid fa-square-plus"/></div></div>
-                        <div className="glass_board_body_graf blueborder">Требование 3<div className="btns"><i className="fa-solid fa-pen-to-square"/><i className="fa-solid fa-xmark"/></div></div>
-                        <div className="glass_board_body_graf"><input type="text" className='inputs_of_graf' value='Требование 3 (Изменение)' placeholder='Изменение требования'/> <div className="btns"><i className="fa-solid fa-floppy-disk"/></div></div>
+                        <div className="glass_board_body_graf"><input type="text" className='inputs_of_graf' onChange={(e) => {setNewreq(e.target.value)}} value={newreq} placeholder='Введите новое требование'/> <div className="btns"><i className="fa-solid fa-square-plus" onClick={plusRequirement}/></div></div>
+                        {requirement.map((req, index )=>(
+                            <div key={index} className="glass_board_body_graf blueborder">{req.desc}<div className="btns"><i className="fa-solid fa-pen-to-square"/><i className="fa-solid fa-xmark"/></div></div>
+
+                        ))}
+                        {/*<div className="glass_board_body_graf"><input type="text" className='inputs_of_graf' value='Требование 3 (Изменение)' placeholder='Изменение требования'/> <div className="btns"><i className="fa-solid fa-floppy-disk"/></div></div>*/}
                         <div className='glassslash'></div>
                         <div className="glass_board_body_tit">Документы <div className="glass_board_body_btn">+ добавить документ</div></div>
                         <div className="glass_board_body_graf"><input type="text" className='inputs_of_graf' value='' placeholder='Введите название нового документа'/> <div className="btns"><i className="fa-solid fa-square-plus"/></div></div>
@@ -105,7 +142,7 @@ function Sociality(){
                         </div>
                         <div className='glassslash'></div>
                         <div className="glass_board_body_buttons">
-                            <div className="glass_board_body_buttons_create">Создать</div>
+                            <div className="glass_board_body_buttons_create" onClick={creatNewSoc}>Создать</div>
                             <div className="glass_board_body_buttons_cancel">Сбросить</div>
                         </div>
                     </div>

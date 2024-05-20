@@ -870,14 +870,14 @@ const Reports = sequelize.define('reports',{
     report:{type: DataTypes.ARRAY(DataTypes.TEXT),defaultValue:[]},
 })
 
-const Commission = sequalize.define('commission',  {
+const Commission = sequelize.define('commission',  {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     possion:{type:DataTypes.INTEGER},
-    user:{type:DataTypes.INTEGER}, //id пользователей  -  необходимо подтягивать всю остальную информацию по пользователям
+    user_tn:{type:DataTypes.TEXT,ref:'t13uni'}, //tn пользователей  -  необходимо подтягивать всю остальную информацию по пользователям
     trash:{type:DataTypes.BOOLEAN,defaultValue:false}
 })
 
-const PositionOfSoc = sequalize.define('positionsoc',  {
+const PositionOfSoc = sequelize.define('positionsoc',  {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     from:{type:DataTypes.INTEGER},
     to:{type:DataTypes.INTEGER},
@@ -885,7 +885,7 @@ const PositionOfSoc = sequalize.define('positionsoc',  {
     trash:{type:DataTypes.BOOLEAN,defaultValue:false}
 })
 
-const ProgramOfSoc = sequalize.define('programofsoc',  {
+const ProgramOfSoc = sequelize.define('programofsoc',  {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     name:{type:DataTypes.TEXT},
     description:{type:DataTypes.TEXT},
@@ -897,10 +897,10 @@ const ProgramOfSoc = sequalize.define('programofsoc',  {
     trash:{type:DataTypes.BOOLEAN,defaultValue:false}
 })
 
-const ProtocolOfSoc = sequalize.define('protocolofsoc',  {
+const ProtocolOfSoc = sequelize.define('protocolofsoc',  {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     za:{type:DataTypes.INTEGER},
-    user:{type:DataTypes.INTEGER},
+    user_tn:{type:DataTypes.TEXT,ref:'t13uni'},
     sum:{type:DataTypes.INTEGER},
     percent:{type:DataTypes.INTEGER},
     status:{type:DataTypes.JSON,default:null},
@@ -913,18 +913,29 @@ const Documents = sequelize.define('documents',{
     name:{type:DataTypes.STRING},
     file:{type:DataTypes.STRING},
     linkurl:{type:DataTypes.STRING},
-    user:{type:DataTypes.INTEGER,ref:'users'},
+    user_tn:{type:DataTypes.TEXT,ref:'t13uni'},
     za:{type:DataTypes.INTEGER,ref:'programofsoc'},
     trash:{type:DataTypes.BOOLEAN,defaultValue:false}
 })
 
 
-ProgramOfSoc.hasMany(Documents, { foreignKey: 'za', as: 'documents' });
-Documents.belongsTo(ProgramOfSoc, { foreignKey: 'za', as: 'program' });
+//**************************************************** Связи для Социалки ****************************************************/
+ProgramOfSoc.hasMany(Documents, { foreignKey: 'za', as: 'documents' })
+Documents.belongsTo(ProgramOfSoc, { foreignKey: 'za', as: 'program' })
 
-ProgramOfSoc.belongsTo(ProtocolOfSoc, { foreignKey: 'za', as: 'protocol' });
-ProtocolOfSoc.hasMany(ProgramOfSoc, { foreignKey: 'za', as: 'program' });
+ProgramOfSoc.belongsTo(ProtocolOfSoc, { foreignKey: 'za', as: 'protocol' })
+ProtocolOfSoc.hasMany(ProgramOfSoc, { foreignKey: 'za', as: 'program' })
 
+T13Uni.hasMany(Commission, { foreignKey: 'user_tn', sourceKey: 'tn',constraints: false})
+T13Uni.hasMany(ProtocolOfSoc, { foreignKey: 'user_tn', sourceKey: 'tn',constraints: false})
+T13Uni.hasMany(Documents, { foreignKey: 'user_tn', sourceKey: 'tn',constraints: false})
+
+Commission.belongsTo(T13Uni,  { foreignKey: 'user_tn', targetKey: 'tn',constraints: false})
+ProtocolOfSoc.belongsTo(T13Uni,  { foreignKey: 'user_tn', targetKey: 'tn',constraints: false})
+Documents.belongsTo(T13Uni,  { foreignKey: 'user_tn', targetKey: 'tn',constraints: false})
+
+//*******************************************************************************************************************************/
+//**************************************************** Связи для структуры ****************************************************/
 T13Uni.hasMany(Reports, { foreignKey: 'user_tn', sourceKey: 'tn',constraints: false})
 Reports.belongsTo(T13Uni,  { foreignKey: 'user_tn', targetKey: 'tn',constraints: false})
 
@@ -933,8 +944,8 @@ StructUsers.belongsTo(T13Uni,  { foreignKey: 'user_tn', targetKey: 'tn',constrai
 
 Struct.hasMany(StructUsers, { foreignKey: 'structure_id', sourceKey: 'id'})
 StructUsers.belongsTo(Struct,  { foreignKey: 'structure_id', targetKey: 'id'})
-
-
+//*******************************************************************************************************************************/
+//**************************************************** Связи для сварщиков ****************************************************/
 T13Uni.hasMany(CrewMans, { foreignKey: 'user_tn', sourceKey: 'tn',constraints: false})
 HumanList.hasMany(CrewMans, { foreignKey: 'user_tn', sourceKey: 'tn',constraints: false})
 
@@ -943,7 +954,8 @@ CrewMans.belongsTo(HumanList, { foreignKey: 'user_tn', targetKey: 'tn',constrain
 
 CrewBase.hasMany(CrewMans, { foreignKey: 'crew_id', sourceKey: 'id' });
 CrewMans.belongsTo(CrewBase, { foreignKey: 'crew_id', targetKey: 'id' });
+//*******************************************************************************************************************************/
 
 module.exports = {
-    Reports,Struct,StructUsers,Bye,PeopleCounter,T13Uni,CrewMans,ZaSv,TableZayavka,HumanList,KtuDoc,KtuList,MessageSv,ViewsWorkSv,CrewManlist,CrewDoclist,CrewBase,CrewSv,OgmPrice,WorkPrice,StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
+    Commission,PositionOfSoc,Reports,Struct,StructUsers,Bye,PeopleCounter,T13Uni,CrewMans,ZaSv,TableZayavka,HumanList,KtuDoc,KtuList,MessageSv,ViewsWorkSv,CrewManlist,CrewDoclist,CrewBase,CrewSv,OgmPrice,WorkPrice,StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
 }
