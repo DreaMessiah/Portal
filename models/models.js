@@ -890,7 +890,6 @@ const ProgramOfSoc = sequalize.define('programofsoc',  {
     name:{type:DataTypes.TEXT},
     description:{type:DataTypes.TEXT},
     conditions:{type: DataTypes.ARRAY(DataTypes.INTEGER)},
-    files:{type: DataTypes.ARRAY(DataTypes.INTEGER)},
     experience:{type:DataTypes.INTEGER},
     sum:{type:DataTypes.INTEGER},
     purpose:{type:DataTypes.BOOLEAN,defaultValue:false},
@@ -909,6 +908,22 @@ const ProtocolOfSoc = sequalize.define('protocolofsoc',  {
     trash:{type:DataTypes.BOOLEAN,defaultValue:false}
 })
 
+const Documents = sequelize.define('documents',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    name:{type:DataTypes.STRING},
+    file:{type:DataTypes.STRING},
+    linkurl:{type:DataTypes.STRING},
+    user:{type:DataTypes.INTEGER,ref:'users'},
+    za:{type:DataTypes.INTEGER,ref:'programofsoc'},
+    trash:{type:DataTypes.BOOLEAN,defaultValue:false}
+})
+
+
+ProgramOfSoc.hasMany(Documents, { foreignKey: 'za', as: 'documents' });
+Documents.belongsTo(ProgramOfSoc, { foreignKey: 'za', as: 'program' });
+
+ProgramOfSoc.belongsTo(ProtocolOfSoc, { foreignKey: 'za', as: 'protocol' });
+ProtocolOfSoc.hasMany(ProgramOfSoc, { foreignKey: 'za', as: 'program' });
 
 T13Uni.hasMany(Reports, { foreignKey: 'user_tn', sourceKey: 'tn',constraints: false})
 Reports.belongsTo(T13Uni,  { foreignKey: 'user_tn', targetKey: 'tn',constraints: false})
