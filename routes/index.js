@@ -16,6 +16,7 @@ const tasksRouter = require('./tasks.route')
 const tabelRouter = require('./tabel.route')
 const manRouter = require('./mans.route')
 const referenceRouter = require('./reference.route')
+const socialityRouter = require('./sociality.route')
 
 router.use('/auth',authRouter)
 router.use('/phones',phonesRouter)
@@ -32,6 +33,7 @@ router.use('/tasks',tasksRouter)
 router.use('/tabel',tabelRouter)
 router.use('/mans',manRouter)
 router.use('/reference',referenceRouter)
+router.use('/sociality',socialityRouter)
 
 
 module.exports = router

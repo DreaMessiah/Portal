@@ -101,6 +101,32 @@ const T13Uni = sequelize.define('t13uni', {
     inn:{type:DataTypes.STRING},
     birthday:{type:DataTypes.STRING},
 })
+const T13Bye = sequelize.define('t13bye', {
+    id:{type:DataTypes.INTEGER,primaryKey: true,autoIncrement:true},
+    name:{type:DataTypes.TEXT},
+    developer:{type:DataTypes.TEXT},
+    branch:{type:DataTypes.TEXT},
+    onboard:{type:DataTypes.TEXT},
+    term:{type:DataTypes.TEXT},
+    document:{type:DataTypes.TEXT},
+    tn:{type:DataTypes.TEXT,unique: true},
+    groups:{type:DataTypes.TEXT},
+    status:{type:DataTypes.TEXT},
+    gender:{type:DataTypes.TEXT},
+    rk:{type:DataTypes.STRING},
+    sn:{type:DataTypes.STRING},
+    oklad:{type:DataTypes.STRING},
+    method:{type:DataTypes.TEXT},
+    month:{type:DataTypes.STRING},
+    year:{type:DataTypes.STRING},
+    inn:{type:DataTypes.STRING},
+    birthday:{type:DataTypes.STRING},
+})
+const T13Black = sequelize.define('t13black', {
+    id:{type:DataTypes.INTEGER,primaryKey: true,autoIncrement:true},
+    name:{type:DataTypes.TEXT},
+    tn:{type:DataTypes.TEXT,unique: true}
+})
 const Company = sequelize.define('company',{
     id:{type:DataTypes.INTEGER,primaryKey: true,autoIncrement:true},
     inn:{type:DataTypes.STRING},
@@ -729,6 +755,7 @@ const KtuList = sequelize.define('ktulist',{
     ktudate:{type:DataTypes.DATE},
     content:{type:DataTypes.STRING},
     ktuman:{type:DataTypes.STRING},
+    szfrom:{type:DataTypes.STRING},
     ktu:{type:DataTypes.FLOAT},
     percent:{type:DataTypes.INTEGER},
 })
@@ -889,11 +916,22 @@ const ProgramOfSoc = sequelize.define('programofsoc',  {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     name:{type:DataTypes.TEXT},
     description:{type:DataTypes.TEXT},
-    conditions:{type: DataTypes.ARRAY(DataTypes.INTEGER)},
+    conditions:{type:DataTypes.JSON,default:null},
+    docs:{type:DataTypes.JSON,default:null},
     experience:{type:DataTypes.INTEGER},
     sum:{type:DataTypes.INTEGER},
     purpose:{type:DataTypes.BOOLEAN,defaultValue:false},
     calculation:{type:DataTypes.BOOLEAN,defaultValue:false},
+    trash:{type:DataTypes.BOOLEAN,defaultValue:false}
+})
+
+const MyProgram = sequelize.define('myprogram',  {
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    user_tn:{type:DataTypes.TEXT,ref:'t13uni'},
+    program:{type:DataTypes.INTEGER,ref:'ProgramOfSoc'},
+    docs:{type:DataTypes.JSON,default:null},
+    commission:{type:DataTypes.JSON,default:null},
+    boss_tn:{type:DataTypes.TEXT,ref:'t13uni'},
     trash:{type:DataTypes.BOOLEAN,defaultValue:false}
 })
 
@@ -930,6 +968,7 @@ T13Uni.hasMany(Commission, { foreignKey: 'user_tn', sourceKey: 'tn',constraints:
 T13Uni.hasMany(ProtocolOfSoc, { foreignKey: 'user_tn', sourceKey: 'tn',constraints: false})
 T13Uni.hasMany(Documents, { foreignKey: 'user_tn', sourceKey: 'tn',constraints: false})
 
+Commission.belongsTo(User,  { foreignKey: 'user_tn', targetKey: 'tn',constraints: false})
 Commission.belongsTo(T13Uni,  { foreignKey: 'user_tn', targetKey: 'tn',constraints: false})
 ProtocolOfSoc.belongsTo(T13Uni,  { foreignKey: 'user_tn', targetKey: 'tn',constraints: false})
 Documents.belongsTo(T13Uni,  { foreignKey: 'user_tn', targetKey: 'tn',constraints: false})
@@ -955,7 +994,15 @@ CrewMans.belongsTo(HumanList, { foreignKey: 'user_tn', targetKey: 'tn',constrain
 CrewBase.hasMany(CrewMans, { foreignKey: 'crew_id', sourceKey: 'id' });
 CrewMans.belongsTo(CrewBase, { foreignKey: 'crew_id', targetKey: 'id' });
 //*******************************************************************************************************************************/
+//**************************************************** Связи для BlackList ****************************************************/
+T13Uni.hasMany(T13Black, { foreignKey: 'tn', sourceKey: 'tn',constraints: false})
+T13Black.belongsTo(T13Uni,  { foreignKey: 'tn', targetKey: 'tn',constraints: false})
+//*******************************************************************************************************************************/
+T13Bye.hasMany(Bye, { foreignKey: 'user_tn', sourceKey: 'tn',constraints: false})
+Bye.belongsTo(T13Bye,  { foreignKey: 'user_tn', targetKey: 'tn',constraints: false})
+//*******************************************************************************************************************************/
+
 
 module.exports = {
-    Commission,PositionOfSoc,Reports,Struct,StructUsers,Bye,PeopleCounter,T13Uni,CrewMans,ZaSv,TableZayavka,HumanList,KtuDoc,KtuList,MessageSv,ViewsWorkSv,CrewManlist,CrewDoclist,CrewBase,CrewSv,OgmPrice,WorkPrice,StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
+    ProgramOfSoc, MyProgram, T13Black,Commission,PositionOfSoc,Reports,Struct,StructUsers,Bye,PeopleCounter,T13Bye,T13Uni,CrewMans,ZaSv,TableZayavka,HumanList,KtuDoc,KtuList,MessageSv,ViewsWorkSv,CrewManlist,CrewDoclist,CrewBase,CrewSv,OgmPrice,WorkPrice,StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
 }
