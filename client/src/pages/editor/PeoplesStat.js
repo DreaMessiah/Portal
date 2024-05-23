@@ -194,7 +194,6 @@ function PeoplesStat(){
                 </div>
                 <div className='info min300'>
                     <p>Всего пользователей: {allUsers}</p>
-
                 </div>
             </div>
 

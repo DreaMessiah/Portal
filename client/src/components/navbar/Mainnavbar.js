@@ -1,9 +1,10 @@
 import "./style.scss"
 import {Link} from "react-router-dom";
-import {useContext, useEffect, useState} from "react";
+import React,{useContext, useEffect, useState} from "react";
 import {DataContext} from "../../context/DataContext";
 import {Context} from "../../index";
 import MessagesService from "../../services/MessagesService";
+import {getSocket} from "../../http/socket";
 
 export const Mainnavbar = () => {
     const [newmess, setNewmess] = useState(0)
@@ -20,10 +21,12 @@ export const Mainnavbar = () => {
             console.log(e)
         }
     }
-
-
     useEffect(()=>{
         searchMess()
+        const socket = getSocket()
+        socket.on('receiveMessage', () => {
+            setNewmess(1)
+        })
     }, [])
     return (
         <div className="navbar_block">
@@ -45,7 +48,7 @@ export const Mainnavbar = () => {
                             alignItems: 'center',
                             color: '#FFF',
                             fontSize: '16pt'
-                        }}><i className="fa-regular fa-comment"></i><div className="messindicate" style={(newmess > 0)?{display: 'flex'}:{display: 'none'}}></div> </div>
+                        }}><i className="fa-regular fa-comment"></i>{ newmess ? <div className="messindicate"> </div> : null} </div>
                         <div className="navbar_block_menu_strock_description">Сообщения</div>
                     </Link>
                 {/*}*/}
@@ -130,9 +133,14 @@ export const Mainnavbar = () => {
                         <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-user-pen"></i></div>
                         <div className="navbar_block_dopmenu_list_description">Редактор</div>
                     </Link>
+
                     <Link style={(rule === 100 || store.user.account === 'superadmin')?{display: 'flex'}:{display: 'none'}} to='/statementsmenu' className={`navbar_block_dopmenu_list_strock`}>
                         <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-receipt"/></div>
                         <div className="navbar_block_dopmenu_list_description">Заявления</div>
+                    </Link>
+                    <Link style={(store.user.account === 'superadmin')?{display: 'flex'}:{display: 'none'}} to='/analytics' className={`navbar_block_dopmenu_list_strock`}>
+                        <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-chart-simple"></i></div>
+                        <div className="navbar_block_dopmenu_list_description">Аналитика</div>
                     </Link>
                 </div>
 

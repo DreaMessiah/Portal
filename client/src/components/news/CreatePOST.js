@@ -68,8 +68,6 @@ export const CreatePOST = () => {
         }finally {
             setLoading(false)
         }
-
-
     }
     const createDto = (data) => {
         if(data.length){

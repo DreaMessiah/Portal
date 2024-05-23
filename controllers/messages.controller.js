@@ -36,5 +36,15 @@ class MessagesController {
             next(e)
         }
     }
+    async sendMessage(req,res,next) {
+        try{
+            const {tn,text} = req.body
+            const message = await MessagesService.sendMessage(tn,req.user.tn,text)
+            return res.status(200).json(message)
+        }catch (e){
+            next(e)
+        }
+    }
+
 }
 module.exports = new MessagesController()

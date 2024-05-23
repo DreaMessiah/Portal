@@ -4,763 +4,380 @@ import './structure.scss'
 import {ReactToPrint} from "react-to-print";
 import LoadingSpinner from "../../components/loading/LoadingSpinner";
 import UserService from "../../services/UserService";
-export default function StructurePageNew(){
-    const [win, setWin] = useState(false)
-    const [opencard, setOpencard] = useState('none')
-    const [loading,setLoading] = useState(false)
+import PhonesService from "../../services/PhonesService";
+import ModalFiles from "../../components/modalwin/ModalFiles";
+import {useMessage} from "../../hooks/message.hook";
+import MessagesService from "../../services/MessagesService";
+import {getSocket} from "../../http/socket";
+import {Context} from "../../index";
+import {observer} from "mobx-react-lite";
 
-    const cardBranch = (branch) => {}
+function StructurePageNew(){
+    const [branchs,setBranchs] = useState([])
+    const [peoples,setPeoples] = useState([])
+    const [users,setUsers] = useState([])
+    const [win, setWin] = useState(false)
+    const [online, setOnline] = useState(null)
+    const [loading,setLoading] = useState(false)
+    const [empty,setEmpty] = useState([])
+    const [selected,setSelected] = useState(-1)
+    const [activeSend,setActiveSend]= useState(false)
+    const [activeContacts,setActiveContacts] = useState(false)
+    const [activeList,setActiveList] = useState(false)
+
+    const [contacts,setContacts] = useState([])
+
+    const [selectedUser,setSelectedUser] = useState(null)
+    const [messageText,setMessageText] = useState('')
+    const message = useMessage()
+    const {store} = useContext(Context)
     const loadingHandler = async () => {
         try {
             setLoading(true)
             const {data} = await UserService.getStructure()
-            console.log(data)
+
+            const res_login = await UserService.getStatUsers()
+            const res_users = await UserService.getWorkers()
+            const res_contacts = await PhonesService.fetchPhones()
+
+            const logindata = res_login.data.users
+            const usersdata = res_users.data
+            const contactsdata = res_contacts.data
+            const tree = buildTree(data)
+
+            const addDataToTree = (node, usersdata, contactsdata, logindata) => {
+                if (node.structusers) {
+                    node.structusers = node.structusers.map(user => {
+                        let contact = ''
+                        const userData = usersdata.find(u => u.tn === user.user_tn)
+                        const contactsData = contactsdata.find(u => u.name === user.name)
+                        const loginData = logindata.find(u => u.tn === user.user_tn)
+                        if(contactsData){
+                            contact = contactsData.mobile_phone.length ? contact + 'Мобильный номер телефона : ' + contactsData.mobile_phone + '\n' : contact
+                            contact = contactsData.city_phone.length ? contact + 'Городской номер телефона : ' + contactsData.city_phone + '\n' : contact
+                            contact = contactsData.ats.length ? contact + 'Номер АТС : ' + contactsData.ats + '\n' : contact
+                            contact = contactsData.email.length ? contact + 'E-Mail адрес : ' + contactsData.email + '\n' : contact
+                        }
+                        return {
+                            ...user,
+                            developer: userData ? userData.developer : null,
+                            phonebook: contact.length ? contact : null,
+                            avatar: loginData ? loginData.avatar : 'null',
+                            registered: !!loginData
+                        }
+                    })
+                }
+            }
+            tree.forEach(branch => addDataToTree(branch, usersdata, contactsdata,logindata))
+
+            setContacts(contactsdata)
+            setUsers(logindata)
+            setBranchs(tree)
+            console.log(tree)
         }catch (e) {
             console.log(e)
         }finally {
             setLoading(false)
         }
     }
+
+    const setListHandler = async (id) => {
+        try{
+            setLoading(true)
+            const {data} = await UserService.fetchWorkersBranch(id)
+            if(data.length) {
+                const node = data.map(people => {
+                    const contactsData = contacts.find(u => u.name === people.name)
+                    const loginData = users.find(u => u.tn === people.tn)
+                    return {
+                        ...people,
+                        user_tn: people.tn,
+                        ats: contactsData ? contactsData.ats : null,
+                        avatar: loginData ? loginData.avatar : null,
+                        user_id: loginData ? loginData.id : null,
+                        registered: !!loginData
+                    }
+                })
+                setPeoples(node)
+                setSelected(id)
+
+                setActiveList(true)
+            }else{
+                message('Записи отсутствуют')
+            }
+        }catch (e) {
+            console.log(e)
+        }finally {
+            setLoading(false)
+        }
+
+    }
+
+    const onContactHandler = (user) => {
+        console.log(user)
+        setSelectedUser(user)
+        setMessageText('')
+        setActiveContacts(true)
+    }
+    const onSendHandler = (user) => {
+        setSelectedUser(user)
+        setMessageText('')
+        setActiveSend(true)
+    }
+    const checkEmpty = () => {
+        const n = [...empty]
+
+        n[0] = !!!messageText.trim().length
+
+        const hasTrueValue = n.some(value => value === true);
+        if( hasTrueValue ) setEmpty(n)
+        else setEmpty([])
+        return hasTrueValue
+    }
+    const cancelHandler = () => {
+        setActiveList(false)
+        setActiveContacts(false)
+        setSelectedUser(null)
+        setActiveSend(false)
+        setMessageText('')
+    }
+
     useEffect(() => {
         loadingHandler()
+        const socket = getSocket()
+
+        socket.emit('online', {data:'get online users'},(response) => {
+            setOnline(response)
+        })
+
     },[])
+
+    function buildTree(data, parentId = 5,node=[]) {
+        const start = data.find(item => item.id === parentId)
+        if(start) {
+            node.push(start)
+            if(start.next){
+                start.next.map(item => buildTree(data,item,node))
+            }
+        }
+        return node
+    }
+
+    const selectHandler = (id) => {
+        if(selected === id) setSelected(-1)
+        else setSelected(id)
+    }
+    const sendMessage = async () => {
+        try{
+            if(!checkEmpty()){
+                if(selectedUser){
+                    console.log(selectedUser)
+                    setLoading(true)
+                    const {data} = await MessagesService.sendMessage(selectedUser.user_tn,messageText)
+                    if(data) {
+                        const socket = getSocket()
+                        const data = {from:store.user.full_name,to:selectedUser.user_tn,message:messageText}
+                        socket.emit('message', data)
+                        message('Сообщение отправлено')
+                        cancelHandler()
+                    }
+                }else{
+                    message('Выберете пользователя')
+                }
+            }else {
+                message('Введите сообщение')
+            }
+        }catch (e) {
+            console.log(e)
+        }finally {
+            setLoading(false)
+        }
+
+    }
+    const StartTree = ({start}) => {
+        return (
+            <>
+                <div className="structure_new_forest_cuedo_card">
+                    <div className="structure_new_forest_cuedo_card_top"></div>
+                    <div className="structure_new_forest_cuedo_card_center">
+                        {start.structusers ? start.structusers.map((item, index) => (
+                            <div key={index} className="structure_new_forest_cuedo_card_center_content"
+                                 style={(selected === start.id) ? {display: 'flex'} : {display: 'none'}}>
+                                <div className="structure_new_forest_cuedo_card_center_content_person">
+                                    <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url(/files/profile/${item.avatar ? item.avatar : 'face.png'})`}}>{online.includes(item.tn) ? <i className="online2 fa-solid fa-circle"></i> : null}</div>
+                                    <div onClick={() => onContactHandler(item)} className="structure_new_forest_cuedo_card_center_content_person_contact">Связаться</div>
+                                    <div className="structure_new_forest_cuedo_card_center_content_person_disc">
+                                        <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">{item.name}</div>
+                                        <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">{item.developer}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        )) : null}
+                        <div className="structure_new_forest_cuedo_card_center_button" onClick={() => selectHandler(start.id)}>
+                            <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
+                            <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
+                            <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
+                        </div>
+                    </div>
+                    <div className="structure_new_forest_cuedo_card_bottom">{start.name}</div>
+                </div>
+                {start.next ? start.next.map((item,index) => {
+                    return (
+                    <span key={index}>
+                        <Tree branch={branchs.find(u => u.id === item)} long={!!( (index+1)%2 )} />
+                    </span>
+                    )
+                }):null}
+            </>
+
+        )
+    }
+
+    const Tree = ({branch,long=false}) => {
+        const failLevel = branch.next.length ? !branchs.find(u => u.id === branch.next[0]).type : true
+        const cardLevel = {
+            2: 'structure_new_forest_cuedo_card',
+            3: branch.next.length ? 'structure_new_forest_cuedo_card_two' : 'structure_new_forest_cuedo_card_tree',
+            4: 'structure_new_forest_cuedo_card_tree',
+            5: 'structure_new_forest_cuedo_card_tree',
+        }
+        const branchLevel = {
+            2: failLevel ? 'two_cueda' : 'five_cueda',
+            3: failLevel ? 'tree_cueda' : 'four_cueda',
+            4: 'four_cueda',
+            5: 'four_cueda',
+        }
+        return (
+            <div>
+                <div className={`${cardLevel[branch.level]} ${long && 'honest'}`}>
+                    {!branch.type ?
+                        <>
+                            <div className="slash_rang"></div>
+                            <div className="structure_new_forest_cuedo_card_top"></div>
+                            <div className="structure_new_forest_cuedo_card_center">
+                                <div className="structure_new_forest_cuedo_card_center_content" style={(selected===branch.id)?{display:'flex'}:{display:'none'}}>
+                                    { (branch.structusers && !branch.type) ? branch.structusers.map( (item,index) => (
+                                        <div key={index} className="structure_new_forest_cuedo_card_center_content_person">
+                                            <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url(/files/profile/${item.avatar ? item.avatar : 'face.png'})`}}>{online.includes(item.tn) ? <i className="online2 fa-solid fa-circle"></i> : null}</div>
+                                            <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={() => onContactHandler(item)}>Связаться</div>
+                                            <div className="structure_new_forest_cuedo_card_center_content_person_disc">
+                                                <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">{item.name}</div>
+                                                <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">{item.developer}</div>
+                                            </div>
+                                        </div>
+                                    )):null}
+                                </div>
+                                <div className="structure_new_forest_cuedo_card_center_button" onClick={() => selectHandler(branch.id)}>
+                                    <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
+                                    <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
+                                    <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
+                                </div>
+                            </div>
+                            <div className="structure_new_forest_cuedo_card_bottom">{branch.name}</div>
+                        </> :
+                        <span onClick={() => setListHandler(branch.id)}>
+                            <div className="slash_rang"></div>
+                            <div className="structure_new_forest_cuedo_card_top"></div>
+                            <div className="structure_new_forest_cuedo_card_bottom">{branch.name}</div>
+                        </span>}
+                </div>
+                {branch.next.length ?
+                <div className={branchLevel[branch.level]}>
+                    { branch.next.map( (item,index) => (
+                        <span key={index}>
+                            <Tree branch={branchs.find(u => u.id === item)} long={!!( (index)%2 )}/>
+                        </span>
+                    )) }
+                </div>
+                    : null}
+            </div>
+        )
+    }
+
+    const List = () => {
+        return (
+            <span>
+                { (branchs.length && ( selected>=0 )) ?
+                    <div className='glass'>
+                        <div className="glass_board">
+                            <div className="glass_board_close"><i className="fa-solid fa-xmark" onClick={()=>cancelHandler()}/></div>
+                            <div className="glass_board_body">
+                                <div className="glass_title">{branchs.find(u => u.id === selected).name}</div>
+                                <div className="glass_list_persons">
+                                {peoples.length ? peoples.map( (item,index) => (
+                                    <div key={index}  className="glass_list_persons_man">
+                                        <div className="glass_list_persons_man_photo" onClick={() => console.log(item)} style={{backgroundImage: `url(/files/profile/${item.avatar ? item.avatar : 'face.png'})`}}>{online.includes(item.tn) ?<i className="online1 fa-solid fa-circle"></i> : null}</div>
+                                        <div className="glass_list_persons_man_name">{item.name}</div>
+                                        <div className="glass_list_persons_man_dev">{item.developer}</div>
+                                        <div className="glass_list_persons_man_branch">{item.branch}</div>
+                                        <div className="glass_list_persons_man_phone">{item.ats ? `АТС - ${item.ats}` : null}</div>
+                                        {item.registered ? <div onClick={() => onSendHandler(item)} className="glass_list_persons_man_btn">Написать</div> : <div>Не зарегестрирован</div> }
+                                    </div>
+                                    )) : null }
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                : null}
+            </span>
+        )
+    }
+    const Contact = () => {
+        return (
+            <div className={'contact'}>
+                {selectedUser ?
+                    <>
+                        <div onClick={() => console.log(selectedUser)} className={`title`}>Контактная информация</div>
+                        <textarea disabled value={selectedUser.onphonebook ? (selectedUser.phonebook || 'Контактные данные отсутствуют') : (selectedUser.contacts || 'Контактные данные отсутствуют')} className={`contact-text`} />
+                        <div className={`title`}>Отправить сообщение</div>
+                        <div className={`message`}>
+                            <textarea value={messageText} onChange={(e) => setMessageText(e.target.value)} className={`send-text ${empty[0] && 'red-solid-border'}`} />
+                        </div>
+                        <div className={`buttons`}>
+                            <div onClick={() => sendMessage()} className={`button`}> Написать </div>
+                        </div>
+                    </>
+                    : null}
+            </div>
+        )
+    }
+    const Send = () => {
+        return (
+            <div className={'contact'}>
+                {selectedUser ?
+                    <>
+                        <div className={`title`}>Отправить сообщение</div>
+                        <div className={`message`}>
+                            <textarea value={messageText} onChange={(e) => setMessageText(e.target.value)} className={`send-text ${empty[0] && 'red-solid-border'}`} />
+                        </div>
+                        <div className={`buttons`}>
+                            <div onClick={() => sendMessage()} className={`button`}> Написать </div>
+                        </div>
+                    </>
+                    : null}
+            </div>
+        )
+    }
     return (
         <div className='structure_new'>
             <div className={`title`}>Организационная структура ООО "Сургутское РСУ"</div>
-
             <div className="structure_new_forest">
                 <div className="structure_new_forest_cuedo">
-                    <div className="structure_new_forest_cuedo_general">
-                        <div className="structure_new_forest_cuedo_card">
-                            <div className="structure_new_forest_cuedo_card_top"></div>
-                            <div className="structure_new_forest_cuedo_card_center">
-                                <div className="structure_new_forest_cuedo_card_center_content" style={(opencard==='first0')?{display:'flex'}:{display:'none'}}>
-                                    <div className="structure_new_forest_cuedo_card_center_content_person">
-                                        <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
-                                        <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
-                                        <div className="structure_new_forest_cuedo_card_center_content_person_disc">
-
-                                            <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Макаров Александр Владимирович</div>
-                                            <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">Генеральный директор</div>
-                                        </div>
-                                    </div>
-                                    {/*style={{backgroundImage: `url("/files/profile/face.png")`}}*/}
-                                </div>
-                                <div className="structure_new_forest_cuedo_card_center_button" onClick={()=>(opencard==='first0')?setOpencard('none'):setOpencard('first0')}>
-                                    <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                    <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                    <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                </div>
-                            </div>
-                            <div className="structure_new_forest_cuedo_card_bottom">Генеральный директор</div>
+                    {branchs.length ?
+                        <div className="structure_new_forest_cuedo_general">
+                            <StartTree start={branchs[0]}/>
                         </div>
-                        <div>
-                            <div className="structure_new_forest_cuedo_card">
-                                <div className="slash_rang"></div>
-                                <div className="structure_new_forest_cuedo_card_top"></div>
-                                <div className="structure_new_forest_cuedo_card_center">
-                                    <div className="structure_new_forest_cuedo_card_center_content" style={(opencard==='first1')?{display:'flex'}:{display:'none'}}>
-                                        <div className="structure_new_forest_cuedo_card_center_content_person">
-                                            <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
-                                            <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
-                                            <div className="structure_new_forest_cuedo_card_center_content_person_disc">
-                                                <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Кононов Марк Львович</div>
-                                                <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">Исполнительный директор</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="structure_new_forest_cuedo_card_center_button" onClick={()=>(opencard==='first1')?setOpencard('none'):setOpencard('first1')}>
-                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                    </div>
-                                </div>
-                                <div className="structure_new_forest_cuedo_card_bottom">Исполнительный директор</div>
-                            </div>
-                            <div className="two_cueda">
-                                <div>
-                                    <div className="structure_new_forest_cuedo_card_two">
-                                        <div className="slash_rang"></div>
-                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                        <div className="structure_new_forest_cuedo_card_center">
-                                            <div className="structure_new_forest_cuedo_card_center_content" style={(opencard==='second0')?{display:'flex'}:{display:'none'}}>
-                                                <div className="structure_new_forest_cuedo_card_center_content_person">
-                                                    <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
-                                                    <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
-                                                    <div className="structure_new_forest_cuedo_card_center_content_person_disc">
-                                                        <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Севостьянов Анатолий Анатольевич</div>
-                                                        <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">Главный инженер</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="structure_new_forest_cuedo_card_center_button" onClick={()=>(opencard==='second0')?setOpencard('none'):setOpencard('second0')}>
-                                                <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                                <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                                <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                            </div>
-                                        </div>
-                                        <div className="structure_new_forest_cuedo_card_bottom">Главный инженер</div>
-                                    </div>
-                                    <div className="tree_cueda">
-                                        <div>
-                                            <div className="structure_new_forest_cuedo_card_tree">
-                                                <div className="slash_rang"></div>
-                                                <div className="structure_new_forest_cuedo_card_top"></div>
-                                                <div className="structure_new_forest_cuedo_card_center">
-                                                    <div className="structure_new_forest_cuedo_card_center_content" style={(opencard==='third0')?{display:'flex'}:{display:'none'}}>
-                                                        <div className="structure_new_forest_cuedo_card_center_content_person">
-                                                            <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
-                                                            <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
-                                                            <div className="structure_new_forest_cuedo_card_center_content_person_disc">
-                                                                <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Жевлаков Евгений Михайлович</div>
-                                                                <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">Заместитель главного инженера</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="structure_new_forest_cuedo_card_center_button" onClick={()=>(opencard==='third0')?setOpencard('none'):setOpencard('third0')}>
-                                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                                    </div>
-                                                </div>
-                                                <div className="structure_new_forest_cuedo_card_bottom">Заместитель главного инженера</div>
-                                            </div>
-                                            <div className="four_cueda">
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree" onClick={()=>{setWin(true); cardBranch();}}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Технический отдел</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree honest" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Производственный участок №1</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Лаборатория неразрушающего контроля</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree honest" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Производственный участок №2</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Служба охраны труда</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree honest" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Производственный участок №3</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Отдел геодезии</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree honest" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Производственный участок №4</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Отдел главного энергетика</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree honest" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Производственный участок №5</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Служба главного сварщика</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree honest" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Производственный участок №6</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Служба экологической безопасности</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree honest" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Производственный участок №7</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Служба контроля качества</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree honest" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Производственный участок №8</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Производственный участок №9</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div>
-                                            <div className="structure_new_forest_cuedo_card_tree">
-                                                <div className="slash_rang"></div>
-                                                <div className="structure_new_forest_cuedo_card_top"></div>
-                                                <div className="structure_new_forest_cuedo_card_center">
-                                                    <div className="structure_new_forest_cuedo_card_center_content" style={(opencard==='third1')?{display:'flex'}:{display:'none'}}>
-                                                        <div className="structure_new_forest_cuedo_card_center_content_person">
-                                                            <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
-                                                            <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
-                                                            <div className="structure_new_forest_cuedo_card_center_content_person_disc">
-                                                                <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Варламов Сергей Владимирович</div>
-                                                                <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">заместитель генерального директора по производству</div>
-                                                            </div>
-                                                        </div>
-                                                        <div className="structure_new_forest_cuedo_card_center_content_person">
-                                                            <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
-                                                            <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
-                                                            <div className="structure_new_forest_cuedo_card_center_content_person_disc">
-                                                                <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Калимуллин Рустам Сагитович</div>
-                                                                <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">заместитель генерального директора по производству</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="structure_new_forest_cuedo_card_center_button" onClick={()=>(opencard==='third1')?setOpencard('none'):setOpencard('third1')}>
-                                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                                    </div>
-                                                </div>
-                                                <div className="structure_new_forest_cuedo_card_bottom">Заместитель генерального директора по производству</div>
-                                            </div>
-                                            <div className="four_cueda">
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Технический отдел</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree honest" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Производственный участок №1</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Лаборатория неразрушающего контроля</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree honest" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Производственный участок №2</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Служба охраны труда</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree honest" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Производственный участок №3</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Отдел геодезии</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree honest" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Производственный участок №4</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Отдел главного энергетика</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree honest" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Производственный участок №5</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Служба главного сварщика</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree honest" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Производственный участок №6</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Служба экологической безопасности</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree honest" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Производственный участок №7</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Служба контроля качества</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree honest" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Производственный участок №8</div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div className="structure_new_forest_cuedo_card_tree" onClick={()=>setWin(true)}>
-                                                        <div className="slash_rang"></div>
-                                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                                        <div className="structure_new_forest_cuedo_card_bottom">Производственный участок №9</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                                <div>
-                                    <div className="structure_new_forest_cuedo_card_two">
-                                        <div className="slash_rang"></div>
-                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                        <div className="structure_new_forest_cuedo_card_center">
-                                            <div className="structure_new_forest_cuedo_card_center_content" style={(opencard==='second1')?{display:'flex'}:{display:'none'}}>
-                                                <div className="structure_new_forest_cuedo_card_center_content_person">
-                                                    <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
-                                                    <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
-                                                    <div className="structure_new_forest_cuedo_card_center_content_person_disc">
-                                                        <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Чупятов Александр Иванович</div>
-                                                        <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">Заместитель генерального директора по общим вопросам</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="structure_new_forest_cuedo_card_center_button" onClick={()=>(opencard==='second1')?setOpencard('none'):setOpencard('second1')}>
-                                                <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                                <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                                <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                            </div>
-                                        </div>
-                                        <div className="structure_new_forest_cuedo_card_bottom">Заместитель генерального директора по общим вопросам</div>
-                                    </div>
-                                    <div className="four_cueda">
-                                        <div>
-                                            <div className="structure_new_forest_cuedo_card_tree" onClick={()=>setWin(true)}>
-                                                <div className="slash_rang"></div>
-                                                <div className="structure_new_forest_cuedo_card_top"></div>
-                                                <div className="structure_new_forest_cuedo_card_bottom">Центральная база</div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div className="structure_new_forest_cuedo_card_tree honest" onClick={()=>setWin(true)}>
-                                                <div className="slash_rang"></div>
-                                                <div className="structure_new_forest_cuedo_card_top"></div>
-                                                <div className="structure_new_forest_cuedo_card_bottom">Отдел экономической безопасности</div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div className="structure_new_forest_cuedo_card_tree" onClick={()=>setWin(true)}>
-                                                <div className="slash_rang"></div>
-                                                <div className="structure_new_forest_cuedo_card_top"></div>
-                                                <div className="structure_new_forest_cuedo_card_bottom">Отдел материально-технического снабжения</div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div className="structure_new_forest_cuedo_card_tree honest" onClick={()=>setWin(true)}>
-                                                <div className="slash_rang"></div>
-                                                <div className="structure_new_forest_cuedo_card_top"></div>
-                                                <div className="structure_new_forest_cuedo_card_bottom">Отдел кадров</div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div className="structure_new_forest_cuedo_card_tree" onClick={()=>setWin(true)}>
-                                                <div className="slash_rang"></div>
-                                                <div className="structure_new_forest_cuedo_card_top"></div>
-                                                <div className="structure_new_forest_cuedo_card_bottom">Отдел эксплуатации и технического контроля</div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div className="structure_new_forest_cuedo_card_tree honest" onClick={()=>setWin(true)}>
-                                                <div className="slash_rang"></div>
-                                                <div className="structure_new_forest_cuedo_card_top"></div>
-                                                <div className="structure_new_forest_cuedo_card_bottom">Склад запчастей</div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div className="structure_new_forest_cuedo_card_tree" onClick={()=>setWin(true)}>
-                                                <div className="slash_rang"></div>
-                                                <div className="structure_new_forest_cuedo_card_top"></div>
-                                                <div className="structure_new_forest_cuedo_card_bottom">Склад ГСМ</div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div className="structure_new_forest_cuedo_card_tree honest" onClick={()=>setWin(true)}>
-                                                <div className="slash_rang"></div>
-                                                <div className="structure_new_forest_cuedo_card_top"></div>
-                                                <div className="structure_new_forest_cuedo_card_bottom">Отдел социального развития</div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div className="structure_new_forest_cuedo_card_tree" onClick={()=>setWin(true)}>
-                                                <div className="slash_rang"></div>
-                                                <div className="structure_new_forest_cuedo_card_top"></div>
-                                                <div className="structure_new_forest_cuedo_card_bottom">Юридическая служба</div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div className="structure_new_forest_cuedo_card_tree honest" onClick={()=>setWin(true)}>
-                                                <div className="slash_rang"></div>
-                                                <div className="structure_new_forest_cuedo_card_top"></div>
-                                                <div className="structure_new_forest_cuedo_card_bottom">Центральный склад</div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="structure_new_forest_cuedo_card_two ">
-                                        <div className="slash_rang"></div>
-                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                        <div className="structure_new_forest_cuedo_card_center">
-                                            <div className="structure_new_forest_cuedo_card_center_content" style={(opencard==='second2')?{display:'flex'}:{display:'none'}}>
-                                                <div className="structure_new_forest_cuedo_card_center_content_person">
-                                                    <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
-                                                    <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
-                                                    <div className="structure_new_forest_cuedo_card_center_content_person_disc">
-                                                        <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Редькин Юрий Евгеньевич</div>
-                                                        <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">Главный механик</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="structure_new_forest_cuedo_card_center_button" onClick={()=>(opencard==='second2')?setOpencard('none'):setOpencard('second2')}>
-                                                <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                                <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                                <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                            </div>
-                                        </div>
-                                        <div className="structure_new_forest_cuedo_card_bottom">Главный механик</div>
-                                    </div>
-                                    <div className="four_cueda">
-                                        <div>
-                                            <div className="structure_new_forest_cuedo_card_tree" onClick={()=>setWin(true)}>
-                                                <div className="slash_rang"></div>
-                                                <div className="structure_new_forest_cuedo_card_top"></div>
-                                                <div className="structure_new_forest_cuedo_card_bottom">Отдел главного механика</div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div className="structure_new_forest_cuedo_card_tree honest" onClick={()=>setWin(true)}>
-                                                <div className="slash_rang"></div>
-                                                <div className="structure_new_forest_cuedo_card_top"></div>
-                                                <div className="structure_new_forest_cuedo_card_bottom">Автомобильная колонна №1</div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div className="structure_new_forest_cuedo_card_tree" onClick={()=>setWin(true)}>
-                                                <div className="slash_rang"></div>
-                                                <div className="structure_new_forest_cuedo_card_top"></div>
-                                                <div className="structure_new_forest_cuedo_card_bottom">Автомобильная колонна №2</div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div className="structure_new_forest_cuedo_card_tree honest" onClick={()=>setWin(true)}>
-                                                <div className="slash_rang"></div>
-                                                <div className="structure_new_forest_cuedo_card_top"></div>
-                                                <div className="structure_new_forest_cuedo_card_bottom">Автомобильная колонна №3</div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <div className="structure_new_forest_cuedo_card">
-                                <div className="slash_rang"></div>
-                                <div className="structure_new_forest_cuedo_card_top"></div>
-                                <div className="structure_new_forest_cuedo_card_center">
-                                    <div className="structure_new_forest_cuedo_card_center_content" style={(opencard==='first2')?{display:'flex'}:{display:'none'}}>
-                                        <div className="structure_new_forest_cuedo_card_center_content_person">
-                                            <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
-                                            <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
-                                            <div className="structure_new_forest_cuedo_card_center_content_person_disc">
-                                                <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Сенина Ирина Ромазановна</div>
-                                                <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">Заместитель генерального директора по экономике</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="structure_new_forest_cuedo_card_center_button" onClick={()=>(opencard==='first2')?setOpencard('none'):setOpencard('first2')}>
-                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                    </div>
-                                </div>
-                                <div className="structure_new_forest_cuedo_card_bottom">Заместитель генерального директора по экономике</div>
-
-                            </div>
-                            <div className="five_cueda">
-                                <div>
-                                    <div className="structure_new_forest_cuedo_card_tree" onClick={()=>setWin(true)}>
-                                        <div className="slash_rang"></div>
-                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                        <div className="structure_new_forest_cuedo_card_bottom">Планово-производственный отдел</div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="structure_new_forest_cuedo_card_tree" onClick={()=>setWin(true)}>
-                                        <div className="slash_rang"></div>
-                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                        <div className="structure_new_forest_cuedo_card_bottom">Отдел подготовки производства</div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="structure_new_forest_cuedo_card_tree" onClick={()=>setWin(true)}>
-                                        <div className="slash_rang"></div>
-                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                        <div className="structure_new_forest_cuedo_card_bottom">Экономическая служба</div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="structure_new_forest_cuedo_card_tree" onClick={()=>setWin(true)}>
-                                        <div className="slash_rang"></div>
-                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                        <div className="structure_new_forest_cuedo_card_bottom">Отдел управления инновационной деятельностью</div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div>
-                            <div className="structure_new_forest_cuedo_card">
-                                <div className="slash_rang"></div>
-                                <div className="structure_new_forest_cuedo_card_top"></div>
-                                <div className="structure_new_forest_cuedo_card_center">
-                                    <div className="structure_new_forest_cuedo_card_center_content" style={(opencard==='first3')?{display:'flex'}:{display:'none'}}>
-                                        <div className="structure_new_forest_cuedo_card_center_content_person">
-                                            <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
-                                            <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
-                                            <div className="structure_new_forest_cuedo_card_center_content_person_disc">
-                                                <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Гаврилова Наталья Владимировна</div>
-                                                <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">Главный бухгалтер</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="structure_new_forest_cuedo_card_center_button" onClick={()=>(opencard==='first3')?setOpencard('none'):setOpencard('first3')}>
-                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                    </div>
-                                </div>
-                                <div className="structure_new_forest_cuedo_card_bottom">Главный бухгалтер</div>
-                            </div>
-                            <div className="five_cueda">
-                                <div>
-                                    <div className="structure_new_forest_cuedo_card_tree" onClick={()=>setWin(true)}>
-                                        <div className="slash_rang"></div>
-                                        <div className="structure_new_forest_cuedo_card_top"></div>
-                                        <div className="structure_new_forest_cuedo_card_bottom">Бухгалтерия</div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div>
-                            <div className="structure_new_forest_cuedo_card">
-                                <div className="slash_rang"></div>
-                                <div className="structure_new_forest_cuedo_card_top"></div>
-                                <div className="structure_new_forest_cuedo_card_center">
-                                    <div className="structure_new_forest_cuedo_card_center_content" style={(opencard==='first4')?{display:'flex'}:{display:'none'}}>
-                                        <div className="structure_new_forest_cuedo_card_center_content_person">
-                                            <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
-                                            <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
-                                            <div className="structure_new_forest_cuedo_card_center_content_person_disc">
-                                                <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Невкрытых Альмира Равильевна</div>
-                                                <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">старший делопроизводитель</div>
-                                            </div>
-                                        </div>
-                                        <div className="structure_new_forest_cuedo_card_center_content_person">
-                                            <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
-                                            <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
-                                            <div className="structure_new_forest_cuedo_card_center_content_person_disc">
-                                                <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Шнайдер Александра Олеговна</div>
-                                                <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">делопроизводитель</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="structure_new_forest_cuedo_card_center_button" onClick={()=>(opencard==='first4')?setOpencard('none'):setOpencard('first4')}>
-                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                    </div>
-                                </div>
-                                <div className="structure_new_forest_cuedo_card_bottom">Служба делопроизводства</div>
-                            </div>
-                        </div>
-                        <div>
-                            <div className="structure_new_forest_cuedo_card finalblock">
-                                <div className="slash_rang"></div>
-                                <div className="structure_new_forest_cuedo_card_top"></div>
-                                <div className="structure_new_forest_cuedo_card_center">
-                                    <div className="structure_new_forest_cuedo_card_center_content" style={(opencard==='first5')?{display:'flex'}:{display:'none'}}>
-                                        <div className="structure_new_forest_cuedo_card_center_content_person">
-                                            <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
-                                            <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={()=>setWin(true)}>Связаться</div>
-                                            <div className="structure_new_forest_cuedo_card_center_content_person_disc">
-                                                <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">Чернобай Ольга Владимировна</div>
-                                                <div className="structure_new_forest_cuedo_card_center_content_person_disc_dev">начальник отдела продаж</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="structure_new_forest_cuedo_card_center_button" onClick={()=>(opencard==='first5')?setOpencard('none'):setOpencard('first5')}>
-                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                        <div className="structure_new_forest_cuedo_card_center_button_slash"></div>
-                                    </div>
-                                </div>
-                                <div className="structure_new_forest_cuedo_card_bottom">Отдел продаж</div>
-                            </div>
-                        </div>
-                    </div>
-
+                        :null}
                     <div className="structure_new_forest_cuedo_dother"></div>
                 </div>
             </div>
-            <div className='glass' style={(win)?{display: 'flex'}:{display: 'none'}}>
-                <div className="glass_board">
-                    <div className="glass_board_close"><i className="fa-solid fa-xmark" onClick={()=>setWin(false)}/></div>
-                    <div className="glass_board_body">
-                        <div className="glass_title">Служба главного сварщика</div>
-                        <div className="glass_list_persons">
-                            <div className="glass_list_persons_man">
-                                <div className="glass_list_persons_man_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
-                                <div className="glass_list_persons_man_name">Аберясьев Евгений Павлович</div>
-                                <div className="glass_list_persons_man_dev">Главный сварщик</div>
-                                <div className="glass_list_persons_man_branch">Служба главного сварщика</div>
-                                <div className="glass_list_persons_man_phone">телефон: 140</div>
-                                <div className="glass_list_persons_man_btn">Написать</div>
-                            </div>
-                            <div className="glass_list_persons_man">
-                                <div className="glass_list_persons_man_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
-                                <div className="glass_list_persons_man_name">Абубакиров Альберт Салихович</div>
-                                <div className="glass_list_persons_man_dev">заместитель главного сварщика</div>
-                                <div className="glass_list_persons_man_branch">Служба главного сварщика</div>
-                                <div className="glass_list_persons_man_phone">телефон: 140</div>
-                                <div className="glass_list_persons_man_btn">Написать</div>
-                            </div>
-                            <div className="glass_list_persons_man">
-                                <div className="glass_list_persons_man_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
-                                <div className="glass_list_persons_man_name">Асаев Владимир Анатольевич</div>
-                                <div className="glass_list_persons_man_dev">Главный сварщик</div>
-                                <div className="glass_list_persons_man_branch">инженер по сварке 2 категории</div>
-                                <div className="glass_list_persons_man_phone">телефон: 140</div>
-                                <div className="glass_list_persons_man_btn">Написать</div>
-                            </div>
-                            <div className="glass_list_persons_man">
-                                <div className="glass_list_persons_man_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
-                                <div className="glass_list_persons_man_name">Зубаиров Марат Наилевич</div>
-                                <div className="glass_list_persons_man_dev">мастер по ремонту сварочного оборудования</div>
-                                <div className="glass_list_persons_man_branch">Служба главного сварщика</div>
-                                <div className="glass_list_persons_man_phone">телефон: 140</div>
-                                <div className="glass_list_persons_man_btn">Написать</div>
-                            </div>
-                            <div className="glass_list_persons_man">
-                                <div className="glass_list_persons_man_photo" style={{backgroundImage: `url("/files/profile/face.png")`}}></div>
-                                <div className="glass_list_persons_man_name">Чариков Михаил Александрович</div>
-                                <div className="glass_list_persons_man_dev">инженер по сварке 2 категории</div>
-                                <div className="glass_list_persons_man_branch">Служба главного сварщика</div>
-                                <div className="glass_list_persons_man_phone">телефон: 140</div>
-                                <div className="glass_list_persons_man_btn">Написать</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <ModalFiles heigth={'auto'} data={Contact()} active={activeContacts} setActive={setActiveContacts} />
+            <ModalFiles data={List()} active={activeList} setActive={setActiveList} />
+            <ModalFiles heigth={'auto'} data={Send()} active={activeSend} setActive={setActiveSend} />
+
             {loading ? (<LoadingSpinner/>) : null}
         </div>
     )
 }
+export default observer(StructurePageNew)

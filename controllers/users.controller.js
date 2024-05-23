@@ -114,7 +114,6 @@ class UsersController {
     async checkBye(req,res,next){
         try{
             const isBye = await userService.checkBye(req.user.tn)
-            console.log(isBye)
             return res.status(200).json(isBye)
         }catch (e){
             next(e)

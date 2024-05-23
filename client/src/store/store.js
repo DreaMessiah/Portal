@@ -2,6 +2,7 @@ import {makeAutoObservable} from "mobx";
 import AuthService from "../services/AuthService";
 import axios from "axios";
 import {API_URL} from "../http";
+import {disconnectSocket, getSocket} from "../http/socket";
 
 export default class Store {
     user = {}
@@ -9,6 +10,7 @@ export default class Store {
     avatar = ''
     t13 = {}
     onboard = ''
+    hrmcheck = false
     isAuth = false
     isTn = false
     isSurvey = false
@@ -19,6 +21,9 @@ export default class Store {
     }
     setAuth(bool){
         this.isAuth = bool
+    }
+    setHrmcheck(bool){
+        this.hrmcheck = bool
     }
     setSurvey(bool){
         this.isSurvey = bool
@@ -97,6 +102,7 @@ export default class Store {
     }
     async logout() {
         try{
+            disconnectSocket()
             const response = await AuthService.logout()
             localStorage.removeItem('token')
             this.setAuth(false)
@@ -112,6 +118,7 @@ export default class Store {
             const response = await axios.get(`${API_URL}/auth/refresh`,{withCredentials:true})
             localStorage.setItem('token',response.data.accessToken)
             this.setIsCreated(!!!response.data.user.checked)
+            this.setHrmcheck(response.data.hrmcheck)
             this.setSurvey(response.data.survey)
             this.setAuth(true)
             this.setUser(response.data.user)
@@ -164,5 +171,6 @@ export default class Store {
             else Stazh = Stazh + ' дней '
         }
         this.setOnboard(Stazh)
+        return Stazh
     }
 }

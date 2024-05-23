@@ -27,6 +27,7 @@ class PayslipService {
     }
     async getktu(tn,month,year) {
         const doc = await KtuDoc.findOne({where:{month:month,year:year}})
+        if(!doc) return []
         const ktu = await KtuList.findAll({where:{user_tn:tn,ktudoc_id:doc.id}})
         if(!ktu) return []
         return ktu

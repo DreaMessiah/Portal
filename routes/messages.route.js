@@ -7,5 +7,6 @@ router.post('/messages',authMiddlewere,MessagesController.postMess)
 router.post('/getmess',authMiddlewere,MessagesController.getMess)
 router.post('/getmychats',authMiddlewere,MessagesController.getMyChats)
 router.post('/searchmess',authMiddlewere,MessagesController.searchMess)
+router.post('/sendmessage',authMiddlewere,MessagesController.sendMessage)
 
 module.exports = router

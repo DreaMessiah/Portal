@@ -51,9 +51,7 @@ function ByePage(){
         try {
             setLoading(true)
             const {data} = await UserService.isbye()
-            console.log(data)
             setIsBye(data)
-
         }catch (e) {
             console.log(e)
         }finally {

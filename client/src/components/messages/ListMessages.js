@@ -1,8 +1,6 @@
-
 import "./style.scss"
 import Select from "react-select";
-import {useState} from "react";
-import {useEffect} from "react";
+import React,{useState,useEffect} from "react";
 import AuthServise from "../../services/AuthService";
 import {useMessage} from "../../hooks/message.hook";
 import {useContext} from "react";
@@ -10,6 +8,7 @@ import {Context} from "../../index";
 import FilesService from "../../services/FilesService";
 import MessagesService from "../../services/MessagesService";
 import shortenText from "../functions/shortenText";
+import {getSocket} from "../../http/socket";
 
 export const ListMessages = () => {
     const [newmess, setNewmess] = useState(false)
@@ -21,8 +20,10 @@ export const ListMessages = () => {
     const [thismess, setThismess] = useState([])
     const [allchats, setAllChats] = useState([])
 
+    const [online,setOnline] = useState([])
+
     const message = useMessage()
-    const  {store} = useContext(Context)
+    const {store} = useContext(Context)
     const userstore = store.user
     const my_tn = store.user.tn
     // console.log(my_tn)
@@ -33,7 +34,6 @@ export const ListMessages = () => {
             // console.log(response.data)
             const toarr = []
             const to_mess = []
-
 
             result.forEach(mess => {
                 if(!toarr.includes(mess.tn_to)){
@@ -112,7 +112,6 @@ export const ListMessages = () => {
 
     }
 
-
     const passMess = async () => {
         // console.log(textarea)
         if(textarea !== '' && thisMans){
@@ -122,13 +121,15 @@ export const ListMessages = () => {
             thisMans.files = []
             thisMans.trash = false
             thisMans.read = false
-            // console.log(thisMans.tn_to)
-
-            // console.log(thisMans)
             const mess = {}
             try{
                 const response = await MessagesService.pushMess(thisMans)
                 const result = response.data
+                if(result){
+                    const socket = getSocket()
+                    const data = {from:store.user.full_name,to:thisMans.tn_to,message:thisMans.message}
+                    socket.emit('message', data)
+                }
                 // console.log(result)
                 result.forEach(mess => {
                     let avatar = ''
@@ -148,7 +149,6 @@ export const ListMessages = () => {
                     mess.full_name = full_name
                 })
                 setThismess([... result])
-
             }catch(e){
                 console.log(e)
             }
@@ -200,8 +200,14 @@ export const ListMessages = () => {
             newList.push(user)
         })
         setUsers([... newList])
-
     }
+
+    const formatOptionLabel = ({ full_name, tn }) => (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+            {full_name}
+            {online.includes(tn) && <i className="fa-solid fa-circle" style={{position:'absolute',marginLeft: 8,color:'rgba(75,179,75,1)',right:'10px'}}></i>}
+        </div>
+    );
 
     const downSett = () => {
         setOpenmess(false)
@@ -299,13 +305,17 @@ export const ListMessages = () => {
     }
     useEffect(()=>{
         listUsers()
+        const socket = getSocket()
+        socket.emit('online', {data:'get online users'},(response) => {
+            setOnline(response)
+        })
         // console.log(users)
     }, [])
     useEffect(()=>{
         getChats()
     }, [users])
     return (
-        <div className="list_mess">
+        <div className="list_mess" onClick={() => console.log(allchats)}>
         <div className="list_messages">
 
             <div className="grayfon"></div>
@@ -319,7 +329,7 @@ export const ListMessages = () => {
                         </div>
                         <div className="new_mess_create">
                             <div className="new_mess_create_select">
-                            <Select classNamePrefix='custom-select' placeholder="Выбрать получателя" onChange={e=>setThisMans(e)} value={thisMans} options={users}/>
+                            <Select getOptionLabel={option => option.full_name} formatOptionLabel={formatOptionLabel} classNamePrefix='custom-select' placeholder="Выбрать получателя" onChange={e=>setThisMans(e)} value={thisMans} options={users}/>
                             </div>
                             <div className="new_mess_create_btn" onClick={()=>makeLetter(true)}><i className="fa-solid fa-magnifying-glass"/><div className="name-btns">Написать</div></div>
                         </div>
@@ -336,7 +346,7 @@ export const ListMessages = () => {
                 </div>
                 {allchats.map((chat, index)=>(
                     <div key={index} className="list_messages_col_str" onClick={()=>{ makeLetter(true, chat)}} style={(openmess === false) ? {display:'flex'} : {display:'none'}}>
-                        <div className="list_messages_col_str_ava" style={(chat.ava_to)?{backgroundImage: `url("/files/profile/${chat.ava_to}")`}:{}}></div>
+                        <div className="list_messages_col_str_ava" style={(chat.ava_to)?{backgroundImage: `url("/files/profile/${chat.ava_to}")`}:{}}>{online.includes(chat.tn_to) ?<i className="online1 fa-solid fa-circle"></i> : null}</div>
                         <div className="list_messages_col_str_mess">
                             <div className="list_messages_col_str_mess_left">
                                 <div className="list_messages_col_str_mess_left_name">{chat.name_to}</div>
@@ -349,13 +359,7 @@ export const ListMessages = () => {
                     </div>
                 ))}
 
-
-
-
-
-
                 {/*----------------------------------------------------------------------*/}
-
                 <div className={`list_messages_col_title ${(openmess === true) ? 'activate' : ''}`}>
 
                     <div className="list_messages_col_title_left">
@@ -367,7 +371,6 @@ export const ListMessages = () => {
                         <div className="list_messages_col_title_right_new" onClick={()=>downSett()}><i className="fa-solid fa-xmark"/></div>
                     </div>
                 </div>
-
                 {/*autorch*/}
                 <div className={`history_mess ${(openmess === true) ? 'activate' : ''}`} >
                     <div className="history_mess_pen" >
@@ -388,7 +391,7 @@ export const ListMessages = () => {
                             }
                             return(
                             <div className="history_mess_list_block " key={index}>
-                                <div className="history_mess_list_block_ava" style={{backgroundImage: `url("files/profile/${mess.avatar}")` }}></div>
+                                <div className="history_mess_list_block_ava" style={{backgroundImage: `url("files/profile/${mess.avatar}")` }}>{ (mess.tn_from === my_tn) ? <i className="online1 fa-solid fa-circle"></i> : online.includes(mess.tn_from) ? <i className="online1 fa-solid fa-circle"></i> : null}</div>
                                 <div className="history_mess_list_block_content" >
                                     <div className="history_mess_list_block_content_name" >{mess.full_name}</div>
                                     <div className="history_mess_list_block_content_message" >{mess.text}</div>
@@ -403,10 +406,7 @@ export const ListMessages = () => {
                         )})}
                     </div>
                 </div>
-
-
                 {/*-------------------------------------------------------------------------------*/}
-
                 <div className="list_messages_col_bottom" ></div>
             </div>
 

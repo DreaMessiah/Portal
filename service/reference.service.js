@@ -1,4 +1,4 @@
- const {OgmPrice,WorkPrice, T13, KtuDoc, KtuList, T13Uni, Payslip} = require('../models/models')
+ const {OgmPrice,WorkPrice, T13, KtuDoc, KtuList, T13Uni, Payslip, T13Bye} = require('../models/models')
  const T13Dto = require("../dtos/t13Dto");
 
 
@@ -94,6 +94,12 @@ class ReferenceService {
         olduni.map(async item => await item.destroy())
         let existingItem = []
         const T13new = await Promise.all( t13.map(async item => {
+            if(item.term){
+                const byelisted = await T13Bye.findOne({ where: { tn:item.tn } })
+                if (!byelisted) {
+                    await T13Bye.create(new T13Dto(item))
+                }
+            }
             if(!existingItem.includes(item.tn)) {
                 try {
                     await T13Uni.create(new T13Dto(item)).then(() => {
@@ -143,17 +149,36 @@ class ReferenceService {
     }
 
     async saveKtus(id,ktus){
-        const searchktu = await KtuList.findAll({where:{ktudoc_id:id}})
-        if(searchktu){
-            searchktu.map(async item => await item.destroy())
-        }
-        return await Promise.all( ktus.map(async item => {return await KtuList.create({ktudate:item.ktudate,shifr:item.shifr,content:item.content,ktuman:item.from_tn,ktudoc_id:id,user_tn:item.user_tn,ktu:item.ktu})}))
+        const NewKtus = await Promise.all( ktus.map(async item => {
+            if(item.id==='new') return await KtuList.create({ktudate:item.ktudate,szfrom:item.szfrom,shifr:item.shifr,content:item.content,ktuman:item.from_tn,ktudoc_id:id,user_tn:item.user_tn,ktu:item.ktu})
+            const ktu = await KtuList.findByPk(item.id)
+            if(ktu){
+                ktu.ktudate = item.ktudate
+                ktu.szfrom = item.szfrom
+                ktu.shifr = item.shifr
+                ktu.content = item.content
+                ktu.ktuman = item.from_tn
+                ktu.ktudoc_id = id
+                ktu.user_tn = item.user_tn
+                ktu.ktu = item.ktu
+                await ktu.save()
+                return ktu
+            }
+        }))
+        return NewKtus
     }
     async getKtus(id){
-        const ktus = await KtuList.findAll({where:{ktudoc_id:id}})
+        const ktus = await KtuList.findAll({where:{ktudoc_id:id},order: [['id', 'DESC']]})
         if(!ktus) return {message:'Документы отсутствуют'}
         return ktus
     }
+    async delKtus(id){
+        const ktus = await KtuList.findByPk(id)
+        if(!ktus) return {message:'Документы отсутствуют'}
+        else await ktus.destroy()
+        return {del:true,message:'Запись удалена'}
+    }
+
 
 }
 module.exports = new ReferenceService()

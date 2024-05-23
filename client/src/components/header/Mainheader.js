@@ -3,21 +3,23 @@ import React, {useState} from 'react';
 import {useContext} from "react";
 import {Context} from "../../index";
 import "./style.scss"
-import {ModalBigWin} from "../modalwin/ModaBiglWin";
-import {QuestionDirector} from "./QuestionDirector";
-import {ModalWin} from "../modalwin/ModalWin";
-import ModalFiles from "../modalwin/ModalFiles";
-import {Mainnavbar} from "../navbar/Mainnavbar";
-import {DataContext} from "../../context/DataContext";
-import MessagesService from "../../services/MessagesService";
-import {useEffect} from "react";
+import {QuestionDirector} from "./QuestionDirector"
+import ModalFiles from "../modalwin/ModalFiles"
+import {DataContext} from "../../context/DataContext"
+import MessagesService from "../../services/MessagesService"
+import {useEffect} from "react"
+import { initSocket, getSocket } from '../../http/socket'
+import {useMessage} from "../../hooks/message.hook"
 
 export const MainHeader = () => {
     const {store} = useContext(Context)
     const [active, setActive] = useState(false)
     const [burger, setBurger] = useState(false)
+    const [popupActive,setPopupActive] = useState(false)
+
     const [newmess, setNewmess] = useState(0)
     const {selectedMenu,setSelectedMenu} = useContext(DataContext)
+    const message = useMessage()
     const rule = store.user.unit
     const screenWidth = window.innerWidth;
     let widther = '45vh'
@@ -47,9 +49,25 @@ export const MainHeader = () => {
         }
     }
 
+    const notificationHandler = () => {
+        setPopupActive(!popupActive)
+    }
 
-    useEffect(()=>{
+    useEffect(() => {
         searchMess()
+        const socket = initSocket()
+        socket.on('receiveMessage', (data) => {
+            const text = `Сообщение от ${data.from}: ${data.message}`
+            message(text)
+            setNewmess(1)
+        })
+        return () => {
+            if (socket) {
+                socket.off('connect')
+                socket.off('receiveMessage')
+            }
+        }
+
     }, [])
     return (
         <div className="head_block">
@@ -74,7 +92,7 @@ export const MainHeader = () => {
                                 alignItems: 'center',
                                 color: '#FFF',
                                 fontSize: '16pt'
-                            }}><i className="fa-regular fa-comment"></i><div className="messindicate" style={(newmess > 0)?{display: 'flex'}:{display: 'none'}}></div></div>
+                            }}><i className="fa-regular fa-comment"></i>{ newmess ? <div className="messindicate"> </div> : null}</div>
                             <div className="navbar_block_menu_strock_description">Сообщения</div>
                         </Link>
                     {/*}*/}
@@ -166,7 +184,7 @@ export const MainHeader = () => {
                     </div>
                     {/*<div className="navbar_block_dopmenu_more">Ещё...</div>*/}
             </div>
-            <Link to="/" className="head_block_logo">Сургутское РСУ</Link>
+            <Link to={'/'} className="head_block_logo">Сургутское РСУ</Link>
             {/*<div className="head_block_search">*/}
             {/*    <input className="head_block_search_input" placeholder="Поиск..."></input>*/}
             {/*    <div className="head_block_search_btn"></div>*/}
@@ -180,6 +198,38 @@ export const MainHeader = () => {
                 <div className="head_block_burger" onClick={()=>{setBurger(!burger); stopbody(!burger)}}><i className="fa-solid fa-bars"/></div>
                 <div className="head_block_callback" onClick={() => store.logout()}>Выйти</div>
                 <div className="head_block_questions" onClick={()=>setActive(true)}>?</div>
+                <div className="head_block_questions" onClick={() => notificationHandler()}><i className="fa-solid fa-bell"></i></div>
+                {popupActive ?
+                    <div className={`popup-notifications`}>
+                        <div className={`popup-setting`}><p>Уведомления для Вас</p> <p className={`settings`}>Настройки</p></div>
+                        <div className={`notification`}>
+                            <div style={{backgroundImage:`url(/files/profile/face.png)`}} className="notification-image"></div>
+                            <div className={`info-notification`}>
+                                <div className="notification-title">Тут скоро будут находится ваши уведомления</div>
+                                <div className="notification-text">Текст будущих уведомлений, сообщений, событий и тому подобных проиществий</div>
+                            </div>
+                        </div>
+                        <div className={`notification`}>
+                            <div style={{backgroundImage:`url(/files/profile/1714204689245_7067.jpg)`}} className="notification-image"></div>
+                            <div className={`info-notification`}>
+                                <div className="notification-title">Тут скоро будут находится ваши уведомления</div>
+                                <div className="notification-text">Текст будущих уведомлений, сообщений, событий и тому подобных проиществий</div>
+                                <div className="notification-button"><div className={`button`}>Подробнее</div></div>
+                            </div>
+                        </div>
+                        <div className={`notification`}>
+                            <div style={{backgroundImage:`url(/files/profile/5978223.png)`}} className="notification-image"></div>
+                            <div className={`info-notification`}>
+                                <div className="notification-title">Тут скоро будут находится ваши уведомления</div>
+                                <div className="notification-text">Текст будущих уведомлений, сообщений, событий и тому подобных проиществий</div>
+                            </div>
+                        </div>
+                        <div className={`popup-footer`}>
+                            <Link className="footer-link">Показать все</Link>
+                        </div>
+                    </div>
+                    : null}
+
                 <ModalFiles heigth={widther} data={<QuestionDirector setActive={setActive} />} active={active} setActive={setActive}/>
             </div>
         </div>
