@@ -172,6 +172,7 @@
         cursor: pointer;
         //padding: 0 0 10px 0;
         .list_messages_col_str_ava{
+          position: relative;
           width: 60px;
           height: 60px;
           background-repeat: no-repeat;
@@ -1180,5 +1181,12 @@
         border-color: #454545 !important;
       }
     }
+  }
+}
+
+.list_messages_col_str_ava,.history_mess_list_block_ava {
+  position: relative;
+  .online1{
+    font-size: 0.8rem;
   }
 }

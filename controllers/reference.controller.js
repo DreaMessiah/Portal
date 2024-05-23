@@ -156,7 +156,7 @@ class ReferenceController {
             const data = await ReferenceService.getKtus(id)
             const Ktus = await Promise.all( data.map(async item => {
                 const {user} = await UserService.getUserByTn(item.dataValues.user_tn)
-                return {...item.dataValues,name:user.dataValues.full_name,developer:user.dataValues.developer,from_tn:item.ktuman}
+                return {...item.dataValues,name:user.dataValues.name,developer:user.dataValues.developer,from_tn:item.ktuman}
             }))
             return res.status(200).json(Ktus)
         }catch (e){
@@ -168,6 +168,15 @@ class ReferenceController {
         try{
             const {id,ktus} = req.body
             const data = await ReferenceService.saveKtus(id,ktus)
+            return res.status(200).json(data)
+        }catch (e){
+            next(e)
+        }
+    }
+    async delKtus(req,res,next) {
+        try{
+            const {id} = req.body
+            const data = await ReferenceService.delKtus(id)
             return res.status(200).json(data)
         }catch (e){
             next(e)

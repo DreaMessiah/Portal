@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 const UserDto = require('../dtos/usersDto')
 const T13UniDto = require('../dtos/t13UniDto')
 const tokenService = require('../service/token.service')
+const T13Service = require('../service/t13.service')
 const ApiError = require('../exceptions/api.error')
 const sequelize = require("sequelize");
 const {where} = require("sequelize");
@@ -92,9 +93,9 @@ class UsersService{
 
         const survey = await Answer.findOne({where:{user_id:userDto.id,survey_id:10}})
 
-        console.log(survey,!!survey)
+        const hrmcheck = await T13Service.checkHrm(userDto.tn)
 
-        return {...tokens,user: userDto,survey:!!survey}
+        return {...tokens,user: userDto,survey:!!survey,hrmcheck:hrmcheck}
     }
 
     async get() {
@@ -113,7 +114,7 @@ class UsersService{
         return !!isBye
     }
     async getUserByTn(tn) {
-        const user = await User.findOne({where:{tn:tn}})
+        const user = await T13Uni.findOne({where:{tn:tn}})
         if(!user) return {err:true,message:'Пользователь не найден'}
         return {user}
     }

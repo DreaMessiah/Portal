@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from "react"
+import React, {useContext, useEffect, useState} from "react"
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom"
 
 import './assets/styles/styles.scss'
@@ -64,10 +64,13 @@ import WeldingRouter from "./pages/welding/WeldingRouter";
 import EditorRouter from "./pages/editor/EditorRouter";
 import SurveyPage from "./pages/survey/SurveyPage";
 import ByePage from "./pages/survey/ByePage";
+import HrmPage from "./pages/survey/HrmPage";
+import AnalyticsRouter from "./pages/analytics/AnalyticsRouter";
 
 function App() {
     const {store} = useContext(Context)
-
+    const [socket,setSocket] = useState(null)
+    const [socketMessage,setSocketMessage] = useState('')
     useEffect(() => {
         if(localStorage.getItem('token')){
             store.checkAuth()
@@ -131,7 +134,15 @@ function App() {
             </div>
         </Router>
     )
-
+    if(store.user.account === 'ok' && !store.hrmcheck) return (
+        <Router>
+            <div className="App">
+                <Routes>
+                    <Route path='*' element={<HrmPage/>} />
+                </Routes>
+            </div>
+        </Router>
+    )
     return (
         <DataProvider>
             <Router>
@@ -196,14 +207,18 @@ function App() {
                         <Route path="/welwel" element={<WelMY />} />
                         <Route path="/itogtabel" element={<ItogTabel />} />
                         <Route path="/alltabels" element={<AllTabels />} />
+                        <Route path="/hrm" element={<HrmPage />} />
+
+                        {store.user.account === 'superadmin' ? <Route path="/analytics" element={<AnalyticsRouter page={1} />} /> : null }
+                        {store.user.account === 'superadmin' ? <Route path="/hrmanalytics" element={<AnalyticsRouter page={2} />} /> : null }
+                        {store.user.account === 'superadmin' ? <Route path="/byeanalytics" element={<AnalyticsRouter page={3} />} /> : null }
+
                         {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/editor" element={<EditorRouter page={1} />} /> : null }
                         {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/peoplesstat" element={<EditorRouter page={2} />} /> : null }
                         {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/sociality" element={<EditorRouter page={3} />} /> : null }
                         {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/createsocial" element={<EditorRouter page={4} />} /> : null }
                         {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/userbranchs" element={<EditorRouter page={5} />} /> : null }
                         {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/cmsstructure" element={<EditorRouter page={6} />} /> : null }
-
-
                     </Routes>
                 </div>
             </Router>

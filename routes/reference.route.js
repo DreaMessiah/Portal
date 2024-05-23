@@ -28,6 +28,6 @@ router.post('/delktudoc',authMiddlewere,ReferenceController.deleteKtuDocs)
 
 router.post('/getktus',authMiddlewere,ReferenceController.getKtus)
 router.post('/savektus',authMiddlewere,ReferenceController.saveKtus)
-
+router.post('/delktus',authMiddlewere,ReferenceController.delKtus)
 
 module.exports = router

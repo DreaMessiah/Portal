@@ -633,7 +633,6 @@ export default function StructurePageNew(){
                                         <div className="structure_new_forest_cuedo_card_bottom">Бухгалтерия</div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                         <div>

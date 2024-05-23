@@ -1,5 +1,6 @@
 const {Messages} = require('../models/models')
 const { Op } = require('sequelize');
+
 class MessagesService {
     async pushMess(mess) {
         await Messages.create({tn_to: mess.tn_to, tn_from: mess.tn_from, title: mess.title, text: mess.message, files: mess.files, trash_to: mess.trash,trash_from: mess.trash_from,read: mess.read})
@@ -14,6 +15,10 @@ class MessagesService {
         })
         return listMess
     }
+    async sendMessage(tn,from,text) {
+        return await Messages.create({tn_to: tn, tn_from: from,text})
+    }
+
     async getMess(chat) {
         const listMess = await Messages.findAll({
             where: {

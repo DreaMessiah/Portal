@@ -40,7 +40,7 @@ export const SinglePost = ({id}) => {
                         <div className='left'>
                             <div className="news_block_list_box_content_btns_date">{formatDate(post.createdAt)}</div>
                             <div className="news_block_list_box_content_btns_like">
-                                <i className="fa-regular fa-thumbs-up"></i><i className="fa-solid fa-thumbs-up" style={{display: 'none'}}></i>
+                                <i className="fa-solid fa-thumbs-up" style={{display: 'none'}}></i>
                             </div>
                             <div className="news_block_list_box_content_btns_comment"><i className="fa-regular fa-comments"></i></div>
                         </div>

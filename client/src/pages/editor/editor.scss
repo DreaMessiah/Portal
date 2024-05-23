@@ -67,7 +67,7 @@
       color: white;
       margin: 10px;
       padding: 10px 16px 10px 10px;
-      width: 150px;
+      width: 350px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -107,15 +107,80 @@
   flex-direction: column;
   .branch{
     width: 400px;
-    padding: 5px;
+    padding: 3px;
+    margin: 2px;
     border: 2px solid #333333;
     cursor: pointer;
     .name{
-      text-transform: uppercase;
-      font-weight: 600;
-      font-size: 0.8rem;
-      text-align: center;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      .text{
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 0.8rem;
+        text-align: center;
+      }
+      .control{
+        margin-right: 5px;
+        color: #aaaaaa;
+        font-size: 0.9rem;
+        display: flex;
+        flex-direction: row;
+        .fa-xmark:hover{
+          color: red;
+        }
+        i{
+          margin-right: 5px;
+        }
+        i:hover{
+          color: #333333;
+        }
+      }
+      .general{
+        position: relative;
+        i{
+          color: #aaaaaa;
+          margin-top: -10px;
+          margin-left: -20px;
+          position: absolute;
+        }
+      }
 
     }
+  }
+}
+.names-in-branch{
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+    .worker{
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      color: #777;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      margin-top: 3px;
+      i{
+        color: #aaaaaa;
+        margin-right: 5px;
+      }
+      i:hover{
+        color: #333333;
+      }
+    }
+}
+.create-branch-form.contacts{
+
+  .contacts-area{
+    width: 100%;
+    outline: none;
+    resize: none;
+    border-radius: 0;
+    height: 200px;
   }
 }

@@ -56,6 +56,42 @@ export default class UserService {
     static createStructure(struct) {
         return $api.post('/t13/createstructure',{struct})
     }
+    static changeContact(worker,onContacts,contacts){
+        return $api.post('/t13/changecontact',{worker,onContacts,contacts})
+    }
+    static fetchWorkersBranch(branch) {
+        return $api.post('/t13/getworkersbranch',{branch})
+    }
+    static deleteBranch(branch) {
+        return $api.post('/t13/deletebranch',{branch})
+    }
+    static sendHrm(report) {
+        return $api.post('/t13/sendhrm',{report})
+    }
+    static checkHrm() {
+        return $api.get('/t13/checkhrm')
+    }
+    static getHrmAnswers() {
+        return $api.get('/t13/gethrmanswers')
+    }
+    static getContacts(name){
+        return $api.post('/t13/getcontacts',{name})
+    }
+    static getBlack(){
+        return $api.get('/t13/getblack')
+    }
+    static changeBlack(list){
+        return $api.post('/t13/changeblack',{list})
+    }
+    static getByeAnswers(m,y){
+        return $api.get('/t13/getbyeanswers')
+    }
+    static getTermUsers(){
+        return $api.get('/t13/getterm')
+    }
+    static getNewPeoples(){
+        return $api.get('/t13/getnewusers')
+    }
 
 
 

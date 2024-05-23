@@ -9,17 +9,40 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  .buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    .button{
+      background-color: #cccccc;
+      color: #333333;
+      padding: 10px 30px;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-align: center;
+      margin: 10px;
+      cursor: pointer;
+    }
+    .button:hover{
+      background-color: #333333;
+      color: #cccccc;
+    }
+  }
   .text{
-
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    h3,h4{
+    h3,h4,h1,a{
       font-size: 0.9rem;
       margin: 5px;
       color: #cccccc;
       text-align: center;
+    }
+    h1{
+      font-size: 1.2rem;
     }
     h4{
 
@@ -35,7 +58,7 @@
       width: calc(100% - 20px);
       margin: 10px;
     }
-    .button{
+    .button,a{
       background-color: #cccccc;
       color: #333333;
       padding: 10px 30px;
@@ -96,5 +119,54 @@
 .red-inputs{
   div{
     border: 1px solid darkred !important;
+  }
+}
+
+.newscale {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  .item{
+    padding: 10px;
+    margin: 10px;
+    color: #cccccc;
+    border: 1px solid #cccccc;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  .item:hover,.selected{
+    background-color: #cccccc;
+    color: #333333;
+  }
+}
+
+@media screen and (min-width: 200px) and (max-width: 500px) {
+  .bye_container{
+
+    .buttons{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .button{
+        background-color: #cccccc;
+        color: #333333;
+        padding: 10px 30px;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-align: center;
+        margin: 10px;
+        cursor: pointer;
+      }
+      .button:hover{
+        background-color: #333333;
+        color: #cccccc;
+      }
+    }
   }
 }
