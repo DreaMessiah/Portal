@@ -5,6 +5,7 @@ import {useMessage} from "../../hooks/message.hook";
 import ObjsService from "../../services/ObjsService";
 import Select from "react-select";
 import SocialService from "../../services/SocialService";
+import SimpleInput from "../../components/inputs/SimpleInput";
 
 function Createsocial(){
 
@@ -14,7 +15,9 @@ function Createsocial(){
     const [listuser, setListuser] = useState([])
     const [savestate, setSavestate] = useState(0)
     const [allprogram, setAllprogram] = useState([])
-    const [thisprogram, setThisprogram] = useState([])
+    const [thisprogram, setThisprogram] = useState('@')
+    const [file, setFile] = useState(null)
+    const [group, setGroup] = useState([])
     // const message = useMessage()
     const getAllPrograms = async () => {
         try{
@@ -68,6 +71,11 @@ function Createsocial(){
         getUsers()
         getAllPrograms()
     }, [])
+
+    useEffect(()=>{
+        console.log(group)
+    }, [group])
+
     return (
         <div className="soclist">
             <div className="soclist_title">Мои заявки на материальную помощь</div>
@@ -145,58 +153,62 @@ function Createsocial(){
                         <div className="glass_board_body_title_rock">Добавить необходимые документы</div>
                         <div className="glass_board_body_tit">*Обязательные</div>
                         <div className="glass_board_body_docs">
-                            <div className="glass_board_body_docs_set">
-                                <div className="glass_board_body_docs_set_name">
-                                    <div className="glass_board_body_docs_set_name_title">Свидетельство о рождении</div>
-                                    <div className="glass_board_body_docs_set_name_docname">*не загружено...</div>
-                                </div>
-                                <div className="glass_board_body_docs_set_btn"><i className="fa-solid fa-circle-plus"/></div>
-                            </div>
-                            <div className="glass_board_body_docs_set">
-                                <div className="glass_board_body_docs_set_name">
-                                    <div className="glass_board_body_docs_set_name_title">Паспорт заявителя</div>
-                                    <div className="glass_board_body_docs_set_name_docname">
-                                        <div className="glass_board_body_docs_set_name_docname_this">img324234352...32.jpg</div>
-                                        <div className="glass_board_body_docs_set_name_docname_this">img324234352...35.jpg</div>
-                                    </div>
-                                </div>
-                                <div className="glass_board_body_docs_set_btn"><i className="fa-solid fa-circle-plus"/></div>
-                            </div>
-                            <div className="glass_board_body_docs_set">
-                                <div className="glass_board_body_docs_set_name">
-                                    <div className="glass_board_body_docs_set_name_title">Паспорт супруга / супруги</div>
-                                    <div className="glass_board_body_docs_set_name_docname">*не загружено...</div>
-                                </div>
-                                <div className="glass_board_body_docs_set_btn"><i className="fa-solid fa-circle-plus"/></div>
-                            </div>
-                            <div className="glass_board_body_docs_set">
-                                <div className="glass_board_body_docs_set_name">
-                                    <div className="glass_board_body_docs_set_name_title">Паспорт супруга / супруги</div>
-                                    <div className="glass_board_body_docs_set_name_docname">*не загружено...</div>
-                                </div>
-                                <div className="glass_board_body_docs_set_btn"><i className="fa-solid fa-circle-plus"/></div>
-                            </div>
-                            <div className="glass_board_body_docs_set">
-                                <div className="glass_board_body_docs_set_name">
-                                    <div className="glass_board_body_docs_set_name_title">Паспорт супруга / супруги</div>
-                                    <div className="glass_board_body_docs_set_name_docname">*не загружено...</div>
-                                </div>
-                                <div className="glass_board_body_docs_set_btn"><i className="fa-solid fa-circle-plus"/></div>
-                            </div>
-                            <div className="glass_board_body_docs_set">
-                                <div className="glass_board_body_docs_set_name">
-                                    <div className="glass_board_body_docs_set_name_title">Паспорт супруга / супруги</div>
-                                    <div className="glass_board_body_docs_set_name_docname">*не загружено...</div>
-                                </div>
-                                <div className="glass_board_body_docs_set_btn"><i className="fa-solid fa-circle-plus"/></div>
-                            </div>
-                            <div className="glass_board_body_docs_set">
-                                <div className="glass_board_body_docs_set_name">
-                                    <div className="glass_board_body_docs_set_name_title">Паспорт супруга / супруги</div>
-                                    <div className="glass_board_body_docs_set_name_docname">*не загружено...</div>
-                                </div>
-                                <div className="glass_board_body_docs_set_btn"><i className="fa-solid fa-circle-plus"/></div>
-                            </div>
+                            {/*<SimpleInput file={file} setFile={setFile} name={'Свидетельство о рождении'}/>*/}
+                            {(thisprogram !== '@')&&thisprogram.docs.map((doc, index) => (
+                                <SimpleInput key={index} file={file} doc={doc} setFile={setFile} group={group} setGroup={setGroup} name={doc.desc}/>
+                            ))}
+                            {/*<div className="glass_board_body_docs_set">*/}
+                            {/*    <div className="glass_board_body_docs_set_name">*/}
+                            {/*        <div className="glass_board_body_docs_set_name_title">Свидетельство о рождении</div>*/}
+                            {/*        <div className="glass_board_body_docs_set_name_docname">*не загружено...</div>*/}
+                            {/*    </div>*/}
+                            {/*    <div className="glass_board_body_docs_set_btn"><i className="fa-solid fa-circle-plus"/></div>*/}
+                            {/*</div>*/}
+                            {/*<div className="glass_board_body_docs_set">*/}
+                            {/*    <div className="glass_board_body_docs_set_name">*/}
+                            {/*        <div className="glass_board_body_docs_set_name_title">Паспорт заявителя</div>*/}
+                            {/*        <div className="glass_board_body_docs_set_name_docname">*/}
+                            {/*            <div className="glass_board_body_docs_set_name_docname_this">img324234352...32.jpg</div>*/}
+                            {/*            <div className="glass_board_body_docs_set_name_docname_this">img324234352...35.jpg</div>*/}
+                            {/*        </div>*/}
+                            {/*    </div>*/}
+                            {/*    <div className="glass_board_body_docs_set_btn"><i className="fa-solid fa-circle-plus"/></div>*/}
+                            {/*</div>*/}
+                            {/*<div className="glass_board_body_docs_set">*/}
+                            {/*    <div className="glass_board_body_docs_set_name">*/}
+                            {/*        <div className="glass_board_body_docs_set_name_title">Паспорт супруга / супруги</div>*/}
+                            {/*        <div className="glass_board_body_docs_set_name_docname">*не загружено...</div>*/}
+                            {/*    </div>*/}
+                            {/*    <div className="glass_board_body_docs_set_btn"><i className="fa-solid fa-circle-plus"/></div>*/}
+                            {/*</div>*/}
+                            {/*<div className="glass_board_body_docs_set">*/}
+                            {/*    <div className="glass_board_body_docs_set_name">*/}
+                            {/*        <div className="glass_board_body_docs_set_name_title">Паспорт супруга / супруги</div>*/}
+                            {/*        <div className="glass_board_body_docs_set_name_docname">*не загружено...</div>*/}
+                            {/*    </div>*/}
+                            {/*    <div className="glass_board_body_docs_set_btn"><i className="fa-solid fa-circle-plus"/></div>*/}
+                            {/*</div>*/}
+                            {/*<div className="glass_board_body_docs_set">*/}
+                            {/*    <div className="glass_board_body_docs_set_name">*/}
+                            {/*        <div className="glass_board_body_docs_set_name_title">Паспорт супруга / супруги</div>*/}
+                            {/*        <div className="glass_board_body_docs_set_name_docname">*не загружено...</div>*/}
+                            {/*    </div>*/}
+                            {/*    <div className="glass_board_body_docs_set_btn"><i className="fa-solid fa-circle-plus"/></div>*/}
+                            {/*</div>*/}
+                            {/*<div className="glass_board_body_docs_set">*/}
+                            {/*    <div className="glass_board_body_docs_set_name">*/}
+                            {/*        <div className="glass_board_body_docs_set_name_title">Паспорт супруга / супруги</div>*/}
+                            {/*        <div className="glass_board_body_docs_set_name_docname">*не загружено...</div>*/}
+                            {/*    </div>*/}
+                            {/*    <div className="glass_board_body_docs_set_btn"><i className="fa-solid fa-circle-plus"/></div>*/}
+                            {/*</div>*/}
+                            {/*<div className="glass_board_body_docs_set">*/}
+                            {/*    <div className="glass_board_body_docs_set_name">*/}
+                            {/*        <div className="glass_board_body_docs_set_name_title">Паспорт супруга / супруги</div>*/}
+                            {/*        <div className="glass_board_body_docs_set_name_docname">*не загружено...</div>*/}
+                            {/*    </div>*/}
+                            {/*    <div className="glass_board_body_docs_set_btn"><i className="fa-solid fa-circle-plus"/></div>*/}
+                            {/*</div>*/}
                         </div>
                         <div className="glass_board_step_next" onClick={nextStep}>Далее</div>
 
