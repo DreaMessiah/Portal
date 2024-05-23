@@ -176,7 +176,7 @@ function StructurePageNew(){
                     const {data} = await MessagesService.sendMessage(selectedUser.user_tn,messageText)
                     if(data) {
                         const socket = getSocket()
-                        const data = {from:store.user.full_name,to:selectedUser.user_tn,message:messageText}
+                        const data = {from:store.user.tn,from_name:store.user.full_name,to:selectedUser.user_tn,message:messageText}
                         socket.emit('message', data)
                         message('Сообщение отправлено')
                         cancelHandler()
@@ -281,6 +281,7 @@ function StructurePageNew(){
                             <div className="structure_new_forest_cuedo_card_bottom">{branch.name}</div>
                         </span>}
                 </div>
+
                 {branch.next.length ?
                 <div className={branchLevel[branch.level]}>
                     { branch.next.map( (item,index) => (

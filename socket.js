@@ -30,7 +30,7 @@ function initializeSocket(server) {
         }
 
         socket.on('message', data => {
-            const {from,to,message} = data
+            const {from,from_name,to,message} = data
             const recipientSocketId = connectedClients[to] ? connectedClients[to] : null
 
             console.log(connectedClients)
@@ -38,6 +38,7 @@ function initializeSocket(server) {
             if(recipientSocketId){
                 io.to(recipientSocketId).emit('receiveMessage', {
                     from: from,
+                    from_name:from_name,
                     message: message
                 })
             }

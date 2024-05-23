@@ -57,10 +57,11 @@ export const MainHeader = () => {
         searchMess()
         const socket = initSocket()
         socket.on('receiveMessage', (data) => {
-            const text = `Сообщение от ${data.from}: ${data.message}`
+            const text = `Сообщение от ${data.from_name}: ${data.message}`
             message(text)
             setNewmess(1)
         })
+
         return () => {
             if (socket) {
                 socket.off('connect')

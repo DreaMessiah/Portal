@@ -20,6 +20,8 @@ export const ListMessages = () => {
     const [thismess, setThismess] = useState([])
     const [allchats, setAllChats] = useState([])
 
+    const [lettersNow, setLettersNow] = useState(null)
+
     const [online,setOnline] = useState([])
 
     const message = useMessage()
@@ -127,7 +129,7 @@ export const ListMessages = () => {
                 const result = response.data
                 if(result){
                     const socket = getSocket()
-                    const data = {from:store.user.full_name,to:thisMans.tn_to,message:thisMans.message}
+                    const data = {from:store.user.tn,from_name:store.user.full_name,to:thisMans.tn_to,message:thisMans.message}
                     socket.emit('message', data)
                 }
                 // console.log(result)
@@ -218,6 +220,7 @@ export const ListMessages = () => {
     }
 
     const makeLetter = async (bull, chatman) => {
+        setLettersNow(chatman)
         if(thisMans && chatman === undefined){
             setOpenmess(bull)
             setTextarea('')
@@ -256,7 +259,7 @@ export const ListMessages = () => {
                     setThisMans(user);
                 }
             })
-
+            setLettersNow(null)
             setOpenmess(bull)
             setTextarea('')
             chatman.tn_from = my_tn
@@ -309,6 +312,12 @@ export const ListMessages = () => {
         socket.emit('online', {data:'get online users'},(response) => {
             setOnline(response)
         })
+        socket.on('receiveMessage', (data) => {
+            console.log(lettersNow)
+
+            listUsers()
+            if(lettersNow) makeLetter(true,lettersNow)
+        })
         // console.log(users)
     }, [])
     useEffect(()=>{
@@ -317,7 +326,6 @@ export const ListMessages = () => {
     return (
         <div className="list_mess" onClick={() => console.log(allchats)}>
         <div className="list_messages">
-
             <div className="grayfon"></div>
             <div className="list_messages_col">
 
@@ -409,10 +417,8 @@ export const ListMessages = () => {
                 {/*-------------------------------------------------------------------------------*/}
                 <div className="list_messages_col_bottom" ></div>
             </div>
-
-
-
         </div>
+
         {/*    <div className="menu_mess">*/}
         {/*    <div className="menu_mess_list">*/}
         {/*        <div className="menu_mess_list_btn">Все чаты</div>*/}
