@@ -1,3 +1,14 @@
+.structure_new{
+  .title{
+    font-size: 1.2rem ;
+    font-weight: bold;
+  }
+  h4{
+    margin: 10px;
+    font-weight: 400;
+  }
+}
+
 .structure{
   .title{
     font-size: 1.2rem;
@@ -5744,4 +5755,62 @@
   right: 0;
   font-size: 1.3rem;
   top:10px;
+}
+
+.searching-card{
+  display: flex;
+  width: calc(100% - 20px);
+  border: 3px solid #CCC;
+  border-radius: 5px;
+  background-color: #F0F0F0;
+  padding: 5px;
+  .person{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    flex-wrap: wrap;
+    .photo{
+      min-width: 60px;
+      height: 60px;
+      border-radius: 60px;
+      border: none;
+      background-size: cover;
+      background-position: center;
+    }
+    .name,.dev,.branch,.phone{
+      margin: 0 10px;
+    }
+    .button{
+      cursor: pointer;
+      width: 120px;
+      height: 30px;
+      margin: 0 20px;
+      padding: 5px 10px;
+      border: 1px solid #454545;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 5px;
+    }
+    .button:hover{
+      background-color: #333;
+      color: #FFFFFF;
+    }
+  }
+}
+.cancel-search{
+  display: inline-block;
+  cursor: pointer;
+  font-weight: 300;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  margin-top: 10px;
+  margin-left: 3px;
+  width: auto;
+}
+.cancel-search:hover{
+  font-weight: 400;
+  text-decoration: underline;
 }

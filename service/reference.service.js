@@ -1,4 +1,4 @@
- const {OgmPrice,WorkPrice, T13, KtuDoc, KtuList, T13Uni, Payslip, T13Bye} = require('../models/models')
+ const {OgmPrice,WorkPrice, T13, KtuDoc, KtuList, T13Uni, Payslip, T13Bye, User} = require('../models/models')
  const T13Dto = require("../dtos/t13Dto");
 
 
@@ -105,6 +105,10 @@ class ReferenceService {
                     await T13Uni.create(new T13Dto(item)).then(() => {
                         existingItem.push(item.tn)
                     })
+                    //!!!!! Не проверено! Обновление должности сотрудника в таблице users !!!!!//
+                    const user = await User.findOne({where:{tn:item.tn}})
+                    user.developer = item.developer
+                    await user.save()
                 } catch (error) {
                     console.log(existingItem + ' Повторяющийся тип')
                 }

@@ -1,11 +1,12 @@
 import React from "react";
 import Select from "react-select";
 
-export default function CmsSelect({placeholder,defaultValue,options,onChange,empty = false,width='100%',radius='10px'}){
+export default function CmsSelect({value,placeholder,defaultValue,options,onChange,empty = false,width='100%',radius='10px'}){
     return (
         <Select
             placeholder={placeholder}
             defaultValue={defaultValue}
+            value={value}
             options={options}
             onChange={(e) => onChange(e)}
             styles={{

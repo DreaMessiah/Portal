@@ -56,7 +56,7 @@ export const QuestionDirector = ({setActive}) => {
     return (
         <div className="quest_director" style={{color: '#454545'}}>
             <div className="quest_director_up">
-                <div className="quest_director_up_title">Задать вопрос управляющему составу</div>
+                <div className="quest_director_up_title">Задать вопрос</div>
                 <div className="quest_director_up_customer">
                     <div className="quest_director_up_customer_name">Кому: </div>
                     <div className="hall_edit_tumbler">

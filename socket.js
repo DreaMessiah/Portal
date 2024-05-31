@@ -6,7 +6,7 @@ const ApiError = require("./exceptions/api.error");
 function initializeSocket(server) {
     const io = new Server(server, {
         cors: {
-            origin: 'http://localhost:3000',
+            origin: 'http://192.168.0.166:3000',
             credentials: true
         }
     })
@@ -20,7 +20,7 @@ function initializeSocket(server) {
     })
 
     io.on('connection', (socket) => {
-        console.log('a user connected')
+        socket.user ? console.log(socket.user.full_name + '- socket connected') : console.log('user connected')
         const userTn = socket.user ? socket.user.tn : null
         if (userTn) {
             if (connectedClients[userTn]) {
@@ -34,7 +34,7 @@ function initializeSocket(server) {
             const recipientSocketId = connectedClients[to] ? connectedClients[to] : null
 
             console.log(connectedClients)
-
+            //руководитель начальник заместитель заведующий главный
             if(recipientSocketId){
                 io.to(recipientSocketId).emit('receiveMessage', {
                     from: from,

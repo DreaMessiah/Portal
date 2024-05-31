@@ -890,21 +890,17 @@ const StructUsers = sequelize.define('structusers',{
     onphonebook:{type:DataTypes.BOOLEAN,defaultValue:false},
     contacts:{type:DataTypes.TEXT}
 })
-
 const Reports = sequelize.define('reports',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     user_tn:{type:DataTypes.TEXT},
     report:{type: DataTypes.ARRAY(DataTypes.TEXT),defaultValue:[]},
 })
-
 const Commission = sequelize.define('commission',  {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     possion:{type:DataTypes.INTEGER},
     user_tn:{type:DataTypes.TEXT,ref:'t13uni'}, //tn пользователей  -  необходимо подтягивать всю остальную информацию по пользователям
-    status:{type:DataTypes.INTEGER,defaultValue:1},
     trash:{type:DataTypes.BOOLEAN,defaultValue:false}
 })
-
 const PositionOfSoc = sequelize.define('positionsoc',  {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     from:{type:DataTypes.INTEGER},
@@ -912,7 +908,6 @@ const PositionOfSoc = sequelize.define('positionsoc',  {
     percent:{type:DataTypes.INTEGER},
     trash:{type:DataTypes.BOOLEAN,defaultValue:false}
 })
-
 const ProgramOfSoc = sequelize.define('programofsoc',  {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     name:{type:DataTypes.TEXT},
@@ -925,18 +920,15 @@ const ProgramOfSoc = sequelize.define('programofsoc',  {
     calculation:{type:DataTypes.BOOLEAN,defaultValue:false},
     trash:{type:DataTypes.BOOLEAN,defaultValue:false}
 })
-
 const MyProgram = sequelize.define('myprogram',  {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     user_tn:{type:DataTypes.TEXT,ref:'t13uni'},
-    stazh:{type:DataTypes.TEXT},
     program:{type:DataTypes.INTEGER,ref:'ProgramOfSoc'},
     docs:{type:DataTypes.JSON,defaultValue:null},
     commission:{type:DataTypes.JSON,defaultValue:null},
     boss_tn:{type:DataTypes.TEXT,ref:'t13uni'},
     trash:{type:DataTypes.BOOLEAN,defaultValue:false}
 })
-
 const ProtocolOfSoc = sequelize.define('protocolofsoc',  {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     za:{type:DataTypes.INTEGER},
@@ -947,7 +939,6 @@ const ProtocolOfSoc = sequelize.define('protocolofsoc',  {
     check:{type:DataTypes.BOOLEAN,defaultValue:false},
     trash:{type:DataTypes.BOOLEAN,defaultValue:false}
 })
-
 const Documents = sequelize.define('documents',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     name:{type:DataTypes.STRING},
@@ -957,7 +948,6 @@ const Documents = sequelize.define('documents',{
     za:{type:DataTypes.INTEGER,ref:'programofsoc'},
     trash:{type:DataTypes.BOOLEAN,defaultValue:false}
 })
-
 
 const Notifications = sequelize.define('notifications',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
@@ -978,21 +968,12 @@ const TypesNotifications = sequelize.define('typesnotifications',{
     img:{type:DataTypes.STRING},
 })
 
-//**************************************************** Связи для Пользователей ****************************************************/
-User.hasOne(T13Uni, { foreignKey: 'tn', sourceKey: 'tn' ,constraints: false})
-T13Uni.belongsTo(User, { foreignKey: 'tn', targetKey: 'tn' ,constraints: false})
 //**************************************************** Связи для Социалки ****************************************************/
 ProgramOfSoc.hasMany(Documents, { foreignKey: 'za', as: 'documents' })
 Documents.belongsTo(ProgramOfSoc, { foreignKey: 'za', as: 'program' })
 
-MyProgram.belongsTo(ProgramOfSoc, { foreignKey: 'program', targetKey: 'id', as: 'programofsoc'})
-ProgramOfSoc.hasMany(MyProgram, { foreignKey: 'program', sourceKey: 'id', as: 'myprogram'})
-
-MyProgram.belongsTo(User, { foreignKey: 'user_tn', targetKey: 'tn', as: 'user' })
-User.hasMany(MyProgram, { foreignKey: 'user_tn', sourceKey: 'tn', as: 'program_id' })
-
-ProgramOfSoc.belongsTo(ProtocolOfSoc, { foreignKey: 'za', as: 'protocol', constraints: false  })
-ProtocolOfSoc.hasMany(ProgramOfSoc, { foreignKey: 'za', as: 'program', constraints: false  })
+ProgramOfSoc.belongsTo(ProtocolOfSoc, { foreignKey: 'za', as: 'protocol' })
+ProtocolOfSoc.hasMany(ProgramOfSoc, { foreignKey: 'za', as: 'program' })
 
 T13Uni.hasMany(Commission, { foreignKey: 'user_tn', sourceKey: 'tn',constraints: false})
 T13Uni.hasMany(ProtocolOfSoc, { foreignKey: 'user_tn', sourceKey: 'tn',constraints: false})
@@ -1031,14 +1012,8 @@ T13Black.belongsTo(T13Uni,  { foreignKey: 'tn', targetKey: 'tn',constraints: fal
 T13Bye.hasMany(Bye, { foreignKey: 'user_tn', sourceKey: 'tn',constraints: false})
 Bye.belongsTo(T13Bye,  { foreignKey: 'user_tn', targetKey: 'tn',constraints: false})
 //*******************************************************************************************************************************/
-// Messages belongs to Users (tn_to)
-Messages.belongsTo(User, { foreignKey: 'tn_to', targetKey: 'tn', as: 'ToUser' })
-Messages.belongsTo(User, { foreignKey: 'tn_from', targetKey: 'tn', as: 'FromUser' })
-User.hasMany(Messages, { foreignKey: 'tn_to', sourceKey: 'tn', as: 'ReceivedMessages' })
-User.hasMany(Messages, { foreignKey: 'tn_from', sourceKey: 'tn', as: 'SentMessages' })
-//*****Notifications**************************************************************************************************************************/
-User.hasMany(Notifications, { foreignKey: 'user_tn', sourceKey: 'tn' })
-Notifications.belongsTo(User, { foreignKey: 'user_tn', targetKey: 'tn' })
+User.hasMany(Notifications, { foreignKey: 'user_tn', sourceKey: 'tn' });
+Notifications.belongsTo(User, { foreignKey: 'user_tn', targetKey: 'tn' });
 
 TypesNotifications.hasMany(Notifications, { foreignKey: 'type_id' })
 Notifications.belongsTo(TypesNotifications, { foreignKey: 'type_id' })

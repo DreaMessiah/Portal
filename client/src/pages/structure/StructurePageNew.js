@@ -11,6 +11,7 @@ import MessagesService from "../../services/MessagesService";
 import {getSocket} from "../../http/socket";
 import {Context} from "../../index";
 import {observer} from "mobx-react-lite";
+import CmsSelect from "../../components/inputs/CmsSelect";
 
 function StructurePageNew(){
     const [branchs,setBranchs] = useState([])
@@ -29,6 +30,10 @@ function StructurePageNew(){
 
     const [selectedUser,setSelectedUser] = useState(null)
     const [messageText,setMessageText] = useState('')
+
+    const [searching,setSearching] = useState(null)
+    const [searchList,setSearchList] = useState([])
+
     const message = useMessage()
     const {store} = useContext(Context)
     const loadingHandler = async () => {
@@ -70,10 +75,16 @@ function StructurePageNew(){
             }
             tree.forEach(branch => addDataToTree(branch, usersdata, contactsdata,logindata))
 
+            const userlist = res_users.data.map(item => {
+                const contactsData = contactsdata.find(u => u.name === item.name)
+                const loginData = logindata.find(u => u.tn === item.tn)
+                return {...item,label: item.name + ' | ' + item.developer + ' | ' + item.branch,ats:contactsData ? contactsData.ats : null,avatar:loginData && loginData.avatar ? loginData.avatar : 'face.png',registered:!!loginData}
+            })
+
+            setSearchList(userlist)
             setContacts(contactsdata)
             setUsers(logindata)
             setBranchs(tree)
-            console.log(tree)
         }catch (e) {
             console.log(e)
         }finally {
@@ -141,11 +152,12 @@ function StructurePageNew(){
         setActiveSend(false)
         setMessageText('')
     }
-
+    const cancelSearch = () => {
+        setSearching(null)
+    }
     useEffect(() => {
         loadingHandler()
         const socket = getSocket()
-
         socket.emit('online', {data:'get online users'},(response) => {
             setOnline(response)
         })
@@ -363,6 +375,22 @@ function StructurePageNew(){
     return (
         <div className='structure_new'>
             <div className={`title`}>Организационная структура ООО "Сургутское РСУ"</div>
+            <h4>Поиск сотрудников</h4>
+            <CmsSelect value={searching} radius={'5px'} placeholder={'Введите текст для поиска'} onChange={setSearching} options={searchList} />
+            {searching ? <>
+                    <div className={`searching-card`}>
+                        <div className="person">
+                            <div className="photo" style={{backgroundImage: `url(/files/profile/${searching.avatar})`}}></div>
+                            <div className="text">{searching.name}</div>
+                            <div className="text">{searching.developer}</div>
+                            <div className="text">{searching.branch}</div>
+                            <div className="text">{searching.ats ? searching.ats : null}</div>
+                            {searching.registered ? <div onClick={() => onSendHandler(searching)} className="button">Написать</div> : <div className={`text`}>Не зарегестрирован</div>}
+                        </div>
+                    </div>
+                <div onClick={(e) => cancelSearch()} className={`cancel-search`}>Сбросить поиск</div>
+                </> : null}
+
             <div className="structure_new_forest">
                 <div className="structure_new_forest_cuedo">
                     {branchs.length ?

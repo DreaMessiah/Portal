@@ -1,6 +1,6 @@
 import "./style.scss"
 import Select from "react-select";
-import React,{useState,useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import AuthServise from "../../services/AuthService";
 import {useMessage} from "../../hooks/message.hook";
 import {useContext} from "react";
@@ -19,35 +19,38 @@ export const ListMessages = () => {
     const [textarea, setTextarea] = useState('')
     const [thismess, setThismess] = useState([])
     const [allchats, setAllChats] = useState([])
-
-    const [lettersNow, setLettersNow] = useState(null)
+    const [openingChat,setOpeningChat] = useState(false)
 
     const [online,setOnline] = useState([])
-
+    const audioRef = useRef(null)
     const message = useMessage()
+
     const {store} = useContext(Context)
     const userstore = store.user
     const my_tn = store.user.tn
-    // console.log(my_tn)
+
+    const playSound = () => {
+        if (audioRef.current) {
+            audioRef.current.play().catch(error => {
+                console.error('Failed to play sound:', error)
+            })
+        }
+    }
+
     const getChats = async () => {
         try {
             const response = await MessagesService.getMyChats(my_tn)
             const result = response.data
-            // console.log(response.data)
             const toarr = []
             const to_mess = []
-
             result.forEach(mess => {
                 if(!toarr.includes(mess.tn_to)){
                     toarr.push(mess.tn_to)
                     to_mess.push(mess)
                 }
             })
-            // console.log(to_mess)
-
             const fromarr = []
             const from_mess = []
-
             result.forEach(mess => {
                 if(!fromarr.includes(mess.tn_from)){
                     fromarr.push(mess.tn_from)
@@ -73,9 +76,7 @@ export const ListMessages = () => {
                     itogyArr.push(mess)
                 }
             })
-
             const full_chats = []
-
             itogyArr.forEach(chat => {
                 users.forEach(user => {
                     if(chat.tn_to === user.tn){
@@ -99,11 +100,7 @@ export const ListMessages = () => {
                 })
                 full_chats.push(chat)
             })
-
-            // console.log(recoveArr)
-            // console.log(full_chats)
             setAllChats(full_chats)
-
         } catch(e){
             console.log(e)
         }
@@ -115,7 +112,6 @@ export const ListMessages = () => {
     }
 
     const passMess = async () => {
-        // console.log(textarea)
         if(textarea !== '' && thisMans){
             thisMans.message = textarea
             thisMans.tn_from = userstore.tn
@@ -131,8 +127,8 @@ export const ListMessages = () => {
                     const socket = getSocket()
                     const data = {from:store.user.tn,from_name:store.user.full_name,to:thisMans.tn_to,message:thisMans.message}
                     socket.emit('message', data)
+                    playSound()
                 }
-                // console.log(result)
                 result.forEach(mess => {
                     let avatar = ''
                     let full_name = ''
@@ -156,7 +152,6 @@ export const ListMessages = () => {
             }
 
             const textMessage = document.getElementById('textmess')
-            // console.log(textMessage.value)
             textMessage.value = ''
             setTextarea('')
         } else {
@@ -164,37 +159,8 @@ export const ListMessages = () => {
         }
     }
 
-    const getMessages = async () => {
-        try{
-            const response = await MessagesService.getMess(thisMans)
-            const result = response.data
-            result.forEach(mess => {
-                let avatar = ''
-                let full_name = ''
-                users.forEach(man => {
-                    if(mess.tn_from === man.tn){
-                        avatar = man.avatar
-                        full_name = man.full_name
-                    }
-                })
-                if(avatar == '' || avatar === null || avatar === undefined){
-                    mess.avatar = 'face.png'
-                } else {
-                    mess.avatar = avatar
-                }
-
-                mess.full_name = full_name
-            })
-            setThismess([... result])
-        }catch{
-
-        }
-
-    }
-
     const listUsers = async () => {
         const list = await AuthServise.getusers()
-        // console.log(list.data.users)
         const newList = [];
         list.data.users.forEach(user => {
             user.value = user.tn
@@ -216,11 +182,27 @@ export const ListMessages = () => {
         setNewmess(false)
         setThisMans('')
         setThismess([])
+        setOpeningChat(false)
         getChats()
     }
-
-    const makeLetter = async (bull, chatman) => {
-        setLettersNow(chatman)
+    const loadChatHandler = async(from) => {
+        try {
+            const {data} = await MessagesService.getMess({tn_from:store.user.tn,tn_to:from})
+            data.forEach(mess => {
+                mess.full_name = mess.FromUser.full_name
+                const avatar = mess.FromUser.avatar
+                if(avatar === '' || avatar === null || avatar === undefined){
+                    mess.avatar = 'face.png'
+                } else {
+                    mess.avatar = avatar
+                }
+            })
+            setThismess(data)
+        }catch (e) {
+            console.log(e)
+        }
+    }
+    const makeLetter = async (bull,chatman) => {
         if(thisMans && chatman === undefined){
             setOpenmess(bull)
             setTextarea('')
@@ -247,29 +229,23 @@ export const ListMessages = () => {
                     mess.full_name = full_name
                 })
                 setThismess([... result])
-            }catch{
-
+            }catch(e){
+                console.log(e)
             }
-
         } else if(chatman !== undefined){
-
-            // console.log(chatman)
             users.forEach(user => {
                 if(user.tn === chatman.tn_to){
                     setThisMans(user);
                 }
             })
-            setLettersNow(null)
             setOpenmess(bull)
             setTextarea('')
             chatman.tn_from = my_tn
             chatman.tn_to = chatman.tn_to
             setThisMans(chatman);
-
             try{
                 const response = await MessagesService.getMess(chatman)
                 const result = response.data
-                // console.log(result)
                 result.forEach(mess => {
                     let avatar = ''
                     let full_name = ''
@@ -313,18 +289,15 @@ export const ListMessages = () => {
             setOnline(response)
         })
         socket.on('receiveMessage', (data) => {
-            console.log(lettersNow)
-
             listUsers()
-            if(lettersNow) makeLetter(true,lettersNow)
+            loadChatHandler(data.from)
         })
-        // console.log(users)
     }, [])
     useEffect(()=>{
         getChats()
     }, [users])
     return (
-        <div className="list_mess" onClick={() => console.log(allchats)}>
+        <div className="list_mess">
         <div className="list_messages">
             <div className="grayfon"></div>
             <div className="list_messages_col">
@@ -352,6 +325,7 @@ export const ListMessages = () => {
                         <div className="list_messages_col_title_right_sett"><i className="fa-solid fa-ellipsis"/></div>
                     </div>
                 </div>
+
                 {allchats.map((chat, index)=>(
                     <div key={index} className="list_messages_col_str" onClick={()=>{ makeLetter(true, chat)}} style={(openmess === false) ? {display:'flex'} : {display:'none'}}>
                         <div className="list_messages_col_str_ava" style={(chat.ava_to)?{backgroundImage: `url("/files/profile/${chat.ava_to}")`}:{}}>{online.includes(chat.tn_to) ?<i className="online1 fa-solid fa-circle"></i> : null}</div>
@@ -418,7 +392,7 @@ export const ListMessages = () => {
                 <div className="list_messages_col_bottom" ></div>
             </div>
         </div>
-
+            <audio ref={audioRef} src="/audio/zvuk2.mp3" preload="auto" />
         {/*    <div className="menu_mess">*/}
         {/*    <div className="menu_mess_list">*/}
         {/*        <div className="menu_mess_list_btn">Все чаты</div>*/}
