@@ -119,7 +119,7 @@ class SocialityService{
         return listMans
     }
     async getAllZa(){
-        const listMans = await MyProgram.findAll({include: ['programsofsoc', 'user' ]})
+        const listMans = await MyProgram.findAll({include: ['programofsoc', 'user' ]})
         return listMans
     }
 
@@ -145,16 +145,16 @@ class SocialityService{
             newcommission.push(newman)
         })
         console.log(newcommission)
-        // thisza.commission = []
-        // await thisza.save()
-        // thisza.commission = newcommission
-        // await thisza.save()
+        thisza.commission = []
+        await thisza.save()
+        thisza.commission = newcommission
+        await thisza.save()
         // const prev = await Struct.findByPk(struct.toNext.id)
         // thisza.set('commission', [...newcommission])
         // await thisza.save()
-        //const thisza2 = await MyProgram.findOne({where: {id: st.thisza.id}})
+        const thisza2 = await MyProgram.findOne({where: {id: st.thisza.id}})
         //console.log(thisza2.commission)
-        return ''
+        return thisza2
 
         // const thisprogram = await ProgramOfSoc.findOne({where:{id:program.id}})
         // console.log(thisprogram)

@@ -16,7 +16,7 @@ router.post('/pluscommssion',authMiddlewere, socialityController.plusComission)
 router.post('/delcommssion',authMiddlewere, socialityController.delComission)
 router.post('/createnewza',authMiddlewere, socialityController.createZaSocial)
 router.get('/getmyza',authMiddlewere, socialityController.getMyZa)
-router.post('/getallza',authMiddlewere, socialityController.getAllZa)
+router.get('/getallza',authMiddlewere, socialityController.getAllZa)
 router.post('/downloaddoc',authMiddlewere, socialityController.downloadDoc)
 router.post('/reverstatus',authMiddlewere, socialityController.reverStatus)
 

@@ -22,8 +22,9 @@ function StatementsList(){
     const [readstatement, setReadstatement] = useState(false)
     const [maker, setMaker] = useState(false)
     const [comment, setComment] = useState('')
+    const [resave, setResave] = useState(0)
 
-    // const message = useMessage()
+    const message = useMessage()
     const getUsers = async (e) => {
         try {
             const users = await ObjsService.getUsersList()
@@ -117,7 +118,7 @@ function StatementsList(){
         return itog
     }
 
-    const reverStatus = async (status) => {
+    const reverStatus = (status) => {
         try{
             let go = false
             let tn = ''
@@ -130,9 +131,8 @@ function StatementsList(){
                         pos = 1
                         console.log('go')
                         const compliteSt = SocialService.reverStatus({thisza, user: tn, possion: pos, status, comment})
-                        if(compliteSt.data){
-                            getAllZa()
-                        }
+                        compliteSt.then(data=>{setThisza(data.data); message('Заявление согласовано')})
+
                     }
                 })
             }
@@ -173,6 +173,10 @@ function StatementsList(){
         getUsers()
         getAllZa()
     }, [])
+    useEffect(()=>{
+        getAllZa()
+    }, [resave])
+
 
     return (
         <div className="soclist">

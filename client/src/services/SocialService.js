@@ -38,7 +38,7 @@ export default class SocialService{
     }
 
     static async getAllZa(){
-        return $api.post(`/sociality/getallza`)
+        return $api.get(`/sociality/getallza`)
     }
 
     static async downloadDoc(doc){

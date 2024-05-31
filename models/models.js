@@ -986,7 +986,7 @@ ProgramOfSoc.hasMany(Documents, { foreignKey: 'za', as: 'documents' })
 Documents.belongsTo(ProgramOfSoc, { foreignKey: 'za', as: 'program' })
 
 MyProgram.belongsTo(ProgramOfSoc, { foreignKey: 'program', targetKey: 'id', as: 'programofsoc'})
-ProgramOfSoc.hasMany(MyProgram, { foreignKey: 'program', sourceKey: 'id', as: 'program_id'})
+ProgramOfSoc.hasMany(MyProgram, { foreignKey: 'program', sourceKey: 'id', as: 'myprogram'})
 
 MyProgram.belongsTo(User, { foreignKey: 'user_tn', targetKey: 'tn', as: 'user' })
 User.hasMany(MyProgram, { foreignKey: 'user_tn', sourceKey: 'tn', as: 'program_id' })
