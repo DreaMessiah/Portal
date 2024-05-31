@@ -778,8 +778,6 @@ export const TimeSheepPortal = () => {
                                         </select>
                                         {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m10}></input>*/}
                                     </div>
-
-
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(25)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title" style={(getDayWeek(25)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>25</div>
                                         <select disabled={(man.d25 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b " onChange={(e)=>editDay('m25', e.target.value, man.id)}>
