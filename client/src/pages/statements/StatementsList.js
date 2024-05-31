@@ -4,9 +4,12 @@ import {observer} from "mobx-react-lite"
 import {useMessage} from "../../hooks/message.hook";
 import ObjsService from "../../services/ObjsService";
 import Select from "react-select";
+import SocialService from "../../services/SocialService";
+import {Context} from "../../index";
 
 function StatementsList(){
-
+    const {store} = useContext(Context)
+    const iam = store.user
     const [create, setCreate] = useState(false)
     const [edit, setEdit] = useState(false)
     const [commission, setCommission] = useState(false)
@@ -18,6 +21,7 @@ function StatementsList(){
     const [stazhcash, setStazhcash] = useState(false)
     const [readstatement, setReadstatement] = useState(false)
     const [maker, setMaker] = useState(false)
+    const [comment, setComment] = useState('')
 
     // const message = useMessage()
     const getUsers = async (e) => {
@@ -43,6 +47,8 @@ function StatementsList(){
         let newList = [...list]
         if(newList.includes(index)){
             newList = newList.filter(item => item !== index);
+
+
         } else {
             newList.push(index)
         }
@@ -54,10 +60,93 @@ function StatementsList(){
         setList([])
     }
 
+    const [listza, setListza] = useState([])
+    const [thisza, setThisza] = useState({})
+    const getAllZa = async () => {
+        try{
+            const list = await SocialService.getAllZa()
+            console.log(list.data)
+            setListza(list.data)
 
-    const showStatement = index => {
+        }catch(e){
+
+        }
+    }
+
+    const handleDownload = async (doc) => {
+        try {
+            console.log('123')
+            const response = await SocialService.downloadDoc({doc})
+
+            if(response.status === 200) {
+
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                console.log(url)
+                link.setAttribute('download', doc.docname)
+                document.body.appendChild(link);
+                link.click();
+                window.URL.revokeObjectURL(url);
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    const getButton = (thisza, learn) => {
+        let itog = 'no'
+        if(thisza.commission){
+            const newComs = thisza.commission
+            newComs.map((man, index) => {
+                if(man.user_tn === iam.tn && man.possion === 1 && man.status === 0){
+                    if(learn === 'title'){
+                        itog = 'Согласовать'
+                    } else if (learn === 'display'){
+                        itog = 'flex'
+                    }
+                } else if(man.user_tn === iam.tn && man.possion === 2 && man.status === 0){
+                    if(learn === 'title') {
+                        itog = 'Подписать'
+                    } else if (learn === 'display'){
+                        itog = 'flex'
+                    }
+                }
+            })
+        }
+        return itog
+    }
+
+    const reverStatus = async (status) => {
+        try{
+            let go = false
+            let tn = ''
+            let pos = 0
+
+            if(thisza.commission){
+                thisza.commission.forEach(man=>{
+                    if(man.user_tn === iam.tn && man.possion === 1 && man.status === 0){
+                        tn = man.user_tn
+                        pos = 1
+                        console.log('go')
+                        const compliteSt = SocialService.reverStatus({thisza, user: tn, possion: pos, status, comment})
+                        if(compliteSt.data){
+                            getAllZa()
+                        }
+                    }
+                })
+            }
+
+        }catch(e){
+            console.log(e)
+        }
+
+    }
+
+    const showStatement = za => {
         // alert('eye')
         setReadstatement(true)
+        setThisza(za)
     }
     const printStatement = index => {
         alert('print')
@@ -71,9 +160,18 @@ function StatementsList(){
     const markStatement = index => {
         alert('mark')
     }
-
+    const statusZA = (def, yes, no) => {
+        if(no !== 0){
+            return ('Отказано')
+        }else if(def !== 0){
+            return ('На согласовании')
+        }else if(def === 0 && no === 0 && yes !== 0){
+            return ('Согласовано')
+        }
+    }
     useEffect(()=>{
         getUsers()
+        getAllZa()
     }, [])
 
     return (
@@ -93,171 +191,140 @@ function StatementsList(){
                     <div className="statelist_list_line_group title">ФИО заявителя</div>
                     <div className="statelist_list_line_cropname title ">Статус</div>
                 </div>
-
-                <div className="statelist_list_line bordertopnone tourer" style={(list.includes(0))?{border: '4px solid #000'}:{border: '4px solid #CCC'}} onClick={()=>chooseLine(0)}>
-                    <div className="statelist_list_line_name listpp">1</div>
-                    <div className="statelist_list_line_price date">12.05.2024</div>
-                    <div className="statelist_list_line_group">Проверочная программа</div>
-                    <div className="statelist_list_line_group">Барахтянский Владимир Алексеевич</div>
-                    <div className="statelist_list_line_cropname">Новое</div>
-                    <div className="statelist_list_line_del" onClick={()=>{showStatement(0)}} help='просмотреть'><i className="fa-solid fa-eye"/></div>
-                    <div className="statelist_list_line_del" onClick={()=>{printStatement(0)}}><i className="fa-solid fa-print"/></div>
-                    <div className="statelist_list_line_del" onClick={()=>{filesStatement(0)}}><i className="fa-solid fa-folder-open"/></div>
-                    <div className="statelist_list_line_del" onClick={()=>{burnStatement(0)}}><i className="fa-solid fa-fire"/></div>
-                    <div className="statelist_list_line_del" onClick={()=>{markStatement(0)}}><i className="fa-solid fa-eraser"/></div>
-                </div>
-                <div className="statelist_list_line bordertopnone tourer" style={(list.includes(1))?{border: '4px solid #000'}:{border: '4px solid #CCC'}} onClick={()=>chooseLine(1)}>
-                    <div className="statelist_list_line_name listpp">1</div>
-                    <div className="statelist_list_line_price date">12.05.2024</div>
-                    <div className="statelist_list_line_group">Проверочная программа</div>
-                    <div className="statelist_list_line_group">Барахтянский Владимир Алексеевич</div>
-                    <div className="statelist_list_line_cropname">Новое</div>
-                    <div className="statelist_list_line_del" onClick={()=>{showStatement(1)}}><i className="fa-solid fa-eye"/></div>
-                    <div className="statelist_list_line_del" onClick={()=>{printStatement(1)}}><i className="fa-solid fa-print"/></div>
-                    <div className="statelist_list_line_del" onClick={()=>{filesStatement(1)}}><i className="fa-solid fa-folder-open"/></div>
-                    <div className="statelist_list_line_del" onClick={()=>{burnStatement(1)}}><i className="fa-solid fa-fire"/></div>
-                    <div className="statelist_list_line_del" onClick={()=>{markStatement(1)}}><i className="fa-solid fa-eraser"/></div>
-                </div>
-                <div className="statelist_list_line bordertopnone tourer" style={(list.includes(2))?{border: '4px solid #000'}:{border: '4px solid #CCC'}} onClick={()=>chooseLine(2)}>
-                    <div className="statelist_list_line_name listpp">1</div>
-                    <div className="statelist_list_line_price date">12.05.2024</div>
-                    <div className="statelist_list_line_group">Проверочная программа</div>
-                    <div className="statelist_list_line_group">Барахтянский Владимир Алексеевич</div>
-                    <div className="statelist_list_line_cropname">Новое</div>
-                    <div className="statelist_list_line_del" onClick={()=>{showStatement(2)}}><i className="fa-solid fa-eye"/></div>
-                    <div className="statelist_list_line_del" onClick={()=>{printStatement(2)}}><i className="fa-solid fa-print"/></div>
-                    <div className="statelist_list_line_del" onClick={()=>{filesStatement(2)}}><i className="fa-solid fa-folder-open"/></div>
-                    <div className="statelist_list_line_del" onClick={()=>{burnStatement(2)}}><i className="fa-solid fa-fire"/></div>
-                    <div className="statelist_list_line_del" onClick={()=>{markStatement(2)}}><i className="fa-solid fa-eraser"/></div>
-                </div>
-                <div className="statelist_list_line bordertopnone tourer" style={(list.includes(3))?{border: '4px solid #000'}:{border: '4px solid #CCC'}} onClick={()=>chooseLine(3)}>
-                    <div className="statelist_list_line_name listpp">1</div>
-                    <div className="statelist_list_line_price date">12.05.2024</div>
-                    <div className="statelist_list_line_group">Проверочная программа</div>
-                    <div className="statelist_list_line_group">Барахтянский Владимир Алексеевич</div>
-                    <div className="statelist_list_line_cropname">Новое</div>
-                    <div className="statelist_list_line_del" onClick={()=>{showStatement(3)}}><i className="fa-solid fa-eye"/></div>
-                    <div className="statelist_list_line_del" onClick={()=>{printStatement(3)}}><i className="fa-solid fa-print"/></div>
-                    <div className="statelist_list_line_del" onClick={()=>{filesStatement(3)}}><i className="fa-solid fa-folder-open"/></div>
-                    <div className="statelist_list_line_del" onClick={()=>{burnStatement(3)}}><i className="fa-solid fa-fire"/></div>
-                    <div className="statelist_list_line_del" onClick={()=>{markStatement(3)}}><i className="fa-solid fa-eraser"/></div>
-                </div>
-                <div className="statelist_list_line bordertopnone tourer" style={(list.includes(4))?{border: '4px solid #000'}:{border: '4px solid #CCC'}} onClick={()=>chooseLine(4)}>
-                    <div className="statelist_list_line_name listpp">1</div>
-                    <div className="statelist_list_line_price date">12.05.2024</div>
-                    <div className="statelist_list_line_group">Проверочная программа</div>
-                    <div className="statelist_list_line_group">Барахтянский Владимир Алексеевич</div>
-                    <div className="statelist_list_line_cropname">Новое</div>
-                    <div className="statelist_list_line_del" onClick={()=>{showStatement(4)}}><i className="fa-solid fa-eye"/></div>
-                    <div className="statelist_list_line_del" onClick={()=>{printStatement(4)}}><i className="fa-solid fa-print"/></div>
-                    <div className="statelist_list_line_del" onClick={()=>{filesStatement(4)}}><i className="fa-solid fa-folder-open"/></div>
-                    <div className="statelist_list_line_del" onClick={()=>{burnStatement(4)}}><i className="fa-solid fa-fire"/></div>
-                    <div className="statelist_list_line_del" onClick={()=>{markStatement(4)}}><i className="fa-solid fa-eraser"/></div>
-                </div>
-
+                {listza.map((za, index)=>{let def=0; let yes=0; let no=0;return(
+                    <div key={index} className="statelist_list_line bordertopnone tourer" style={(list.includes(index))?{border: '4px solid #000'}:{border: '4px solid #CCC'}} onClick={()=>chooseLine(index)}>
+                        <div className="statelist_list_line_name listpp">{index+1}</div>
+                        <div className="statelist_list_line_price date">{za.updatedAt.split('T')[0].split('-').reverse().join('.')}</div>
+                        <div className="statelist_list_line_group">{za.programofsoc.name}</div>
+                        <div className="statelist_list_line_group">{za.user.full_name}</div>
+                        {(za.commission)&&za.commission.map((man, index)=>{
+                            if(man.status === 0){
+                                def++
+                            }else if(man.status === 1){
+                                yes++
+                            }else if(man.status === 2){
+                                no++
+                            }else{
+                                def++
+                            }
+                        })}
+                        <div className="statelist_list_line_cropname">{(yes===0 && no===0)?'Новая':statusZA(def, yes, no)}</div>
+                        <div className="statelist_list_line_del" onClick={()=>{showStatement(za)}} help='просмотреть'><i className="fa-solid fa-eye"/></div>
+                        <div className="statelist_list_line_del" onClick={()=>{printStatement(0)}}><i className="fa-solid fa-print"/></div>
+                        <div className="statelist_list_line_del" onClick={()=>{filesStatement(0)}}><i className="fa-solid fa-folder-open"/></div>
+                        <div className="statelist_list_line_del" onClick={()=>{burnStatement(0)}}><i className="fa-solid fa-fire"/></div>
+                        <div className="statelist_list_line_del" onClick={()=>{markStatement(0)}}><i className="fa-solid fa-eraser"/></div>
+                    </div>
+                )})}
             </div>
 
             <div className='glass' style={(readstatement)?{display: 'flex'}:{display: 'none'}}>
                 <div className="glass_board">
                     <div className="glass_board_close"><i className="fa-solid fa-xmark"  onClick={()=>setReadstatement(false)}/></div>
                     <div className="glass_board_body">
-                        <div className="glass_board_body_author">заявитель: Барахтянский Владимир Алексеевич</div>
-                        <div className="glass_board_body_developer">должность: разработочик программного обеспечения</div>
-                        <div className="glass_board_body_title">Прошу предоставить материальную помощь в связи с рождением ребенка</div>
-                        <div className="glass_board_body_title">Заявленная сумма: 15000 руб.</div>
-                        <div className="glass_board_body_stazh">стаж 2.11 года</div>
+                        <div className="glass_board_body_author">заявитель: {(thisza.user)&&thisza.user.full_name}</div>
+                        <div className="glass_board_body_developer">должность: {(thisza.user)&&thisza.user.developer}</div>
+                        <div className="glass_board_body_title">{(thisza.programofsoc)&&thisza.programofsoc.name}</div>
+                        <div className="glass_board_body_title">Заявленная сумма: {(thisza.programofsoc)&&thisza.programofsoc.sum} руб.</div>
+                        <div className="glass_board_body_stazh">стаж {(thisza.stazh)&&thisza.stazh}</div>
 
                         <div className="glass_board_body_documents">
-                            <div className="glass_board_body_documents_file">
-                                <i className="fa-regular fa-file"/>
-                                <div className="glass_board_body_documents_file_name">Заявление о рождении ребенка</div>
-                            </div>
-                            <div className="glass_board_body_documents_file">
-                                <i className="fa-regular fa-file"/>
-                                <div className="glass_board_body_documents_file_name">Паспорт (основной разворот)</div>
-                            </div>
-                            <div className="glass_board_body_documents_file">
-                                <i className="fa-regular fa-file"/>
-                                <div className="glass_board_body_documents_file_name">Паспорт (регистрация)</div>
-                            </div>
+                            {(thisza.docs)&&thisza.docs.map((doc, index)=>(
+                                <div key={index} className="glass_board_body_documents_file" onClick={()=>handleDownload(doc)}>
+                                    <i className="fa-regular fa-file"/>
+                                    <div className="glass_board_body_documents_file_name">{doc.docdesc}</div>
+                                </div>
+                            ))}
                         </div>
                         <div className="glass_board_body_control">
-                            <div className="glass_board_body_control_btn">Заключение</div>
-                            <div className="glass_board_body_control_btn">Согласовать</div>
-                            <div className="glass_board_body_control_btn">Отклонить</div>
-                            <div className="glass_board_body_control_btn">Подписать</div>
+                            {/*<div className="glass_board_body_control_btn">Заключение</div>*/}
+
+                            <div className="glass_board_body_control_btn" onClick={()=>reverStatus(1)} style={('flex' === 'flex')&&{display: 'flex'}}>{getButton(thisza, 'title')}</div>
+                            {/*<div className="glass_board_body_control_btn">Согласовать</div>*/}
+                            {/*<div className="glass_board_body_control_btn">Отклонить</div>*/}
+                            {/*<div className="glass_board_body_control_btn">Подписать</div>*/}
                         </div>
                         <div className="glass_board_body_tit">Согласования</div>
 
-
-                        <div className="glass_approve_body_man">
-                            <div className="glass_approve_body_man_content">
-                                <div className="glass_approve_body_man_photo" style={{backgroundImage: 'url("/profile/face.png")'}}></div>
-                                <div className="glass_approve_body_man_params">
-                                    <div className="glass_approve_body_man_name">Скребатун Роман Юрьевич</div>
-                                    <div className="glass_approve_body_man_dev">Заместитель начальника экономической службы</div>
-                                    <div className="glass_approve_body_man_departament">Экономическая служба</div>
-                                    <div className="glass_board_body_tit">Комментарий:</div>
-                                    <div className="glass_approve_body_man_comment">Наказания в течении года отсутствуют. Наказание за май 2024 года "Проход через КПП Центральной базы без пропуска"</div>
+                        {(thisza.commission)&&thisza.commission.map((man, index)=>{ if(man.possion === 1){return(
+                            <div key={index} className="glass_approve_body_man">
+                                <div className="glass_approve_body_man_content">
+                                    <div className="glass_approve_body_man_photo" style={(man.user.avatar)?{backgroundImage: `url("/files/profile/${man.user.avatar}")`}:{backgroundImage: 'url("/profile/face.png")'}}></div>
+                                    <div className="glass_approve_body_man_params">
+                                        <div className="glass_approve_body_man_name">{man.t13uni.name}</div>
+                                        <div className="glass_approve_body_man_dev">{man.t13uni.developer}</div>
+                                        <div className="glass_approve_body_man_departament">{man.t13uni.branch}</div>
+                                        <div className="glass_board_body_tit">Комментарий:</div>
+                                        {(iam.tn === man.t13uni.tn && man.status === 0)?(<input className='glass_approve_body_man_comment' style={{border: '3px solid #000', width: '300px'}} defaultValue={comment} onChange={(e)=>setComment(e.target.value)} type='text' placeholder='Ввести комментарий'/>):(<div className="glass_approve_body_man_comment">{(man.comment === '')?'Комментарий отсутствует':man.comment}</div>)}
+                                    </div>
+                                </div>
+                                <div className="glass_approve_body_man_status">
+                                    {(man.status === 0)&&(
+                                        <div className="glass_approve_body_man_status_wait">Ожидание</div>
+                                    )}
+                                    {(man.status === 1)&&(
+                                        <div className="glass_approve_body_man_status_yes">Cогласовано</div>
+                                    )}
+                                    {(man.status === 2)&&(
+                                        <div className="glass_approve_body_man_status_no">Отклонено</div>
+                                    )}
                                 </div>
                             </div>
-                            <div className="glass_approve_body_man_status">
-                                <div className="glass_approve_body_man_status_yes">Cогласовано</div>
-                            </div>
-                        </div>
-                        <div className="glass_approve_body_man">
-                            <div className="glass_approve_body_man_content">
-                                <div className="glass_approve_body_man_photo" style={{backgroundImage: 'url("/profile/face.png")'}}></div>
-                                <div className="glass_approve_body_man_params">
-                                    <div className="glass_approve_body_man_name">Павлова Татьяна Александровна</div>
-                                    <div className="glass_approve_body_man_dev">Начальник отдела кадров</div>
-                                    <div className="glass_approve_body_man_departament">Отдел кадров</div>
-                                    <div className="glass_board_body_tit">Комментарий:</div>
-                                    <div className="glass_approve_body_man_comment">Комментарий отсутствует</div>
-                                </div>
-                            </div>
-                            <div className="glass_approve_body_man_status">
-                                <div className="glass_approve_body_man_status_no">Отклонено</div>
-                            </div>
-                        </div>
-                        <div className="glass_approve_body_man">
-                            <div className="glass_approve_body_man_content">
-                                <div className="glass_approve_body_man_photo" style={{backgroundImage: 'url("/profile/face.png")'}}></div>
-                                <div className="glass_approve_body_man_params">
-                                    <div className="glass_approve_body_man_name">Макаров Матвей Александрович</div>
-                                    <div className="glass_approve_body_man_dev">Начальник отдела ОУИД</div>
-                                    <div className="glass_approve_body_man_departament">Отдел управления инновационной деятельностью</div>
-                                    <div className="glass_board_body_tit">Комментарий:</div>
-                                    <div className="glass_approve_body_man_comment">Комментарий отсутствует</div>
-                                </div>
-                            </div>
-                            <div className="glass_approve_body_man_status">
-                                <div className="glass_approve_body_man_status_wait">Ожидание</div>
-                                <div className="glass_approve_body_man_status_pass">Напомнить</div>
-                            </div>
-                        </div>
+                        )}})}
 
                         <div className='glassslash'></div>
                         <div className="glass_board_body_tit">Контроль</div>
 
-                        <div className="glass_approve_body_man">
-                            <div className="glass_approve_body_man_content">
-                                <div className="glass_approve_body_man_photo" style={{backgroundImage: 'url("/profile/face.png")'}}></div>
-                                <div className="glass_approve_body_man_params">
-                                    <div className="glass_approve_body_man_name">Чупятов Александр Иванович</div>
-                                    <div className="glass_approve_body_man_dev">Заместитель генерального директора по общим вопросам</div>
-                                    <div className="glass_approve_body_man_departament">АУП</div>
-                                    <div className="glass_board_body_tit">Комментарий:</div>
-                                    <div className="glass_approve_body_man_comment">Комментарий отсутствует</div>
+                        {(thisza.commission)&&thisza.commission.map((man, index)=>{ if(man.possion === 2){return(
+                            <div key={index} className="glass_approve_body_man">
+                                <div className="glass_approve_body_man_content">
+                                    <div className="glass_approve_body_man_photo" style={(man.user.avatar)?{backgroundImage: `url("/files/profile/${man.user.avatar}")`}:{backgroundImage: 'url("/profile/face.png")'}}></div>
+                                    <div className="glass_approve_body_man_params">
+                                        <div className="glass_approve_body_man_name">{man.t13uni.name}</div>
+                                        <div className="glass_approve_body_man_dev">{man.t13uni.developer}</div>
+                                        <div className="glass_approve_body_man_departament">{man.t13uni.branch}</div>
+                                    </div>
+                                </div>
+                                <div className="glass_approve_body_man_status">
+                                    {(man.status === 0)&&(
+                                        <div className="glass_approve_body_man_status_wait">Ожидание</div>
+                                    )}
+                                    {(man.status === 1)&&(
+                                        <div className="glass_approve_body_man_status_yes">Согласован</div>
+                                    )}
+                                    {(man.status === 2)&&(
+                                        <div className="glass_approve_body_man_status_no">Отклонено</div>
+                                    )}
                                 </div>
                             </div>
-                            <div className="glass_approve_body_man_status">
-                                <div className="glass_approve_body_man_status_wait">Ожидание</div>
-                            </div>
-                        </div>
+                        )}})}
 
                         <div className='glassslash'></div>
                         <div className="glass_board_body_tit">Подписант</div>
+
+                        {(thisza.commission)&&thisza.commission.map((man, index)=>{ if(man.possion === 3){return(
+                            <div key={index} className="glass_approve_body_man">
+                                <div className="glass_approve_body_man_content">
+                                    <div className="glass_approve_body_man_photo" style={(man.user.avatar)?{backgroundImage: `url("/files/profile/${man.user.avatar}")`}:{backgroundImage: 'url("/profile/face.png")'}}></div>
+                                    <div className="glass_approve_body_man_params">
+                                        <div className="glass_approve_body_man_name">{man.t13uni.name}</div>
+                                        <div className="glass_approve_body_man_dev">{man.t13uni.developer}</div>
+                                        <div className="glass_approve_body_man_departament">{man.t13uni.branch}</div>
+                                    </div>
+                                </div>
+                                <div className="glass_approve_body_man_status">
+                                    {(man.status === 0)&&(
+                                        <div className="glass_approve_body_man_status_wait">Ожидание</div>
+                                    )}
+                                    {(man.status === 1)&&(
+                                        <div className="glass_approve_body_man_status_yes">Согласован</div>
+                                    )}
+                                    {(man.status === 2)&&(
+                                        <div className="glass_approve_body_man_status_no">Отклонено</div>
+                                    )}
+                                </div>
+                            </div>
+                        )}})}
 
                         <div className="glass_approve_body_man">
                             <div className="glass_approve_body_man_content">
@@ -277,6 +344,30 @@ function StatementsList(){
 
                         <div className='glassslash'></div>
                         <div className="glass_board_body_tit">Исполнитель</div>
+
+                        {(thisza.commission)&&thisza.commission.map((man, index)=>{ if(man.possion === 4){return(
+                            <div key={index} className="glass_approve_body_man">
+                                <div className="glass_approve_body_man_content">
+                                    <div className="glass_approve_body_man_photo" style={(man.user.avatar)?{backgroundImage: `url("/files/profile/${man.user.avatar}")`}:{backgroundImage: 'url("/profile/face.png")'}}></div>
+                                    <div className="glass_approve_body_man_params">
+                                        <div className="glass_approve_body_man_name">{man.t13uni.name}</div>
+                                        <div className="glass_approve_body_man_dev">{man.t13uni.developer}</div>
+                                        <div className="glass_approve_body_man_departament">{man.t13uni.branch}</div>
+                                    </div>
+                                </div>
+                                <div className="glass_approve_body_man_status">
+                                    {(man.status === 0)&&(
+                                        <div className="glass_approve_body_man_status_wait">Ожидание</div>
+                                    )}
+                                    {(man.status === 1)&&(
+                                        <div className="glass_approve_body_man_status_yes">Согласован</div>
+                                    )}
+                                    {(man.status === 2)&&(
+                                        <div className="glass_approve_body_man_status_no">Отклонено</div>
+                                    )}
+                                </div>
+                            </div>
+                        )}})}
 
                         <div className="glass_approve_body_man">
                             <div className="glass_approve_body_man_content">

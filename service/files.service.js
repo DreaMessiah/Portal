@@ -118,6 +118,22 @@ class FilesService {
             })
         }
     }
+
+    async createPathSocial(path){
+        //const taskPath = `${config.get('file_path')}\\tasks\\${path}`
+        const taskPath = PATH.join(`${config.get('file_path')}`,'social',`${path}`)
+
+        if(!fs.existsSync(taskPath)){
+            await fs.mkdir(taskPath, (err) => {
+                if (err) {
+                    console.error('Ошибка при создании папки:', err);
+                    return;
+                }
+                console.log('Папка успешно создана.');
+            })
+        }
+    }
+
     createPathUser(user){
         const folderPath = PATH.join(`${config.get('file_path')}`,`${user}`)
         if (!fs.existsSync(folderPath)) {

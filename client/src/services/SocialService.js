@@ -29,6 +29,28 @@ export default class SocialService{
     static async delComission(man){
         return $api.post(`/sociality/delcommssion`, man)
     }
+    static async createZaSocial(za){
+        return $api.post(`/sociality/createnewza`, za)
+    }
+
+    static async getMyZa(){
+        return $api.get(`/sociality/getmyza`)
+    }
+
+    static async getAllZa(){
+        return $api.post(`/sociality/getallza`)
+    }
+
+    static async downloadDoc(doc){
+        return $api.post(`/sociality/downloaddoc`, doc,{responseType:'blob'})
+    }
+
+    static async reverStatus(st){
+        return $api.post(`/sociality/reverstatus`, st)
+    }
+
+
+
 
 
 }

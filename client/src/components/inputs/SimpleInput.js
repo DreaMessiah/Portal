@@ -5,10 +5,14 @@ import {DataContext} from "../../context/DataContext";
 import {useMessage} from "../../hooks/message.hook";
 import './inputs.scss'
 import onDocument from "../functions/onDocument";
-export default function SimpleInput({file, doc ,setFile, group, setGroup, empty, name}){
-    const [progress,setProgress] = useState(0)
+import {Context} from "../../index";
+export default function SimpleInput({program, file, doc ,setFile, group, progress,setProgress, setGroup, empty, name}){
+
     const filesInputRef = useRef({})
     const message = useMessage()
+    const  {store} = useContext(Context)
+    const folder = store.user.id
+
     const handleUploadProgress = (progressEvent,name) => {
         const percentCompleted = (progressEvent.loaded / progressEvent.total)
         setProgress(prevState => ({
@@ -16,12 +20,12 @@ export default function SimpleInput({file, doc ,setFile, group, setGroup, empty,
             [name]: percentCompleted,
         }))
     }
-
+    const [loadfile, setLoadfile] = useState(undefined)
     const selectFilesHandler = async (e) => {
         const selectedFiles = e.target.files[0]
         console.log(selectedFiles)
         const thisfile = selectedFiles
-
+        setLoadfile(doc.desc)
         try{
             if(onDocument(selectedFiles.name)){
                 const response = await FilesService.uploadTaskFiles(selectedFiles, (progressEvent) => handleUploadProgress(progressEvent, selectedFiles.name))
@@ -29,9 +33,13 @@ export default function SimpleInput({file, doc ,setFile, group, setGroup, empty,
                     console.log(response.data)
                     thisfile.docindex = doc.index
                     thisfile.docdesc = doc.desc
+                    thisfile.docname = selectedFiles.name
+                    thisfile.folder = program.id
+
                     const newgroup = group
                     newgroup.push(thisfile)
                     setGroup(newgroup)
+                    setLoadfile(undefined)
                 }
                 selectedFiles.err = false
                 setFile(selectedFiles)
@@ -46,28 +54,35 @@ export default function SimpleInput({file, doc ,setFile, group, setGroup, empty,
         }
 
     }
-    // const deleteFileHandler = async (index) => {
-    //     try{
-    //         const response = await FilesService.deleteFile(file[index].name)
-    //         const newFiles = [...file]
-    //         newFiles.splice(index, 1);
-    //         setFile(newFiles)
-    //
-    //         console.log(response.data)
-    //     }catch (e) {
-    //         console.log(e+': Проблема удаления')
-    //     }
-    // }
+    const deleteFileHandler = async (index) => {
+        try{
+            const response = await FilesService.deleteFile(group[index].name)
+            const newGroup = [...group]
+            newGroup.splice(index, 1);
+            setGroup(newGroup)
+
+            console.log(response.data)
+        }catch (e) {
+            console.log(e+': Проблема удаления')
+        }
+    }
+
+    let i = 0
     return (
         <div className="glass_board_body_docs_set">
             <div className="glass_board_body_docs_set_name">
                 <div className="glass_board_body_docs_set_name_title">{name}</div>
-                <div className="glass_board_body_docs_set_name_docname">*не загружено...</div>
+                <div className="glass_board_body_docs_set_name_docname">
+                { group.map((doc, index)=>{ if(doc.docdesc === name){ i++; return(
+                    <div key={index} className="glass_board_body_docs_set_name_docname_this"><div className='del-this'><i className="fa-solid fa-xmark"  onClick={()=>deleteFileHandler(index)}/></div> {(doc.name.split('.')[0].length>10)?doc.name.split('.')[0].slice(0,7)+'..'+doc.name.split('.')[0].slice(-2)+'.'+doc.name.split('.')[1]:doc.name}</div>
+                )}})}
+                {(i===0)&&'*не загружено...'}
+                </div>
                 <input onChange={(e) => selectFilesHandler(e)} ref={filesInputRef} className='hidden-upload' type='file'/>
             </div>
             <div className="glass_board_body_docs_set_btn" onClick={(e) => filesInputRef.current.click()}>
-                {/*<CircularProgress color={`${file.err ? 'red' : ''}`} progress={progress[file.name] ? progress[file.name] : 0}/>*/}
-                <i className="fa-solid fa-circle-plus"/>
+                <CircularProgress color={`${(file && file.err) ? 'red' : ''}`} progress={(file && loadfile === name && progress[file.name]) ? progress[file.name] : 0}/>
+                <i className="fa-solid fa-circle-plus" style={(file && loadfile === name)?{display:'none'}:{display:'flex'}}/>
             </div>
         </div>
         // <>

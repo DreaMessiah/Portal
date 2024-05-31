@@ -525,6 +525,15 @@
                     border: 1px solid rgb(18, 19, 56);
                     border-radius: 3px;
                     margin: 3px 0;
+                    position: relative;
+                    .del-this{
+                      position: absolute;
+                      right: 10px;
+                      bottom: 1px;
+                      width: 10px;
+                      margin-right: 0px;
+                      font-size: 14pt;
+                    }
                   }
                 }
               }
@@ -552,6 +561,15 @@
                       border: 1px solid rgb(18, 19, 56);
                       border-radius: 3px;
                       margin: 3px 0;
+                      position: relative;
+                      .del-this{
+                        position: absolute;
+                        right: 10px;
+                        bottom: 1px;
+                        width: 10px;
+                        margin-right: 0px;
+                        font-size: 14pt;
+                      }
                     }
                   }
                 }
@@ -565,6 +583,7 @@
                   i{
                     font-size: 20pt;
                     color: #CCC;
+                    margin-left:-16px;
                   }
                 }
               }
@@ -905,7 +924,7 @@
               .glass_board_body_control_btn{
                 border: 1px solid #CCC;
                 border-radius: 5px;
-                display: flex;
+                display: none;
                 flex-direction: column;
                 align-items: center;
                 width: 150px;
@@ -1601,6 +1620,15 @@
                   border: 1px solid rgb(18, 19, 56);
                   border-radius: 3px;
                   margin: 3px 0;
+                  position: relative;
+                  .del-this{
+                    position: absolute;
+                    right: 10px;
+                    bottom: 1px;
+                    width: 10px;
+                    margin-right: 0px;
+                    font-size: 14pt;
+                  }
                 }
               }
             }
@@ -1628,6 +1656,15 @@
                     border: 1px solid rgb(18, 19, 56);
                     border-radius: 3px;
                     margin: 3px 0;
+                    position: relative;
+                    .del-this{
+                      position: absolute;
+                      right: 10px;
+                      bottom: 1px;
+                      width: 10px;
+                      margin-right: 0px;
+                      font-size: 14pt;
+                    }
                   }
                 }
               }
@@ -1641,6 +1678,7 @@
                 i{
                   font-size: 20pt;
                   color: #CCC;
+                  margin-left:-16px;
                 }
               }
             }

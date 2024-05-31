@@ -985,14 +985,17 @@ T13Uni.belongsTo(User, { foreignKey: 'tn', targetKey: 'tn' ,constraints: false})
 ProgramOfSoc.hasMany(Documents, { foreignKey: 'za', as: 'documents' })
 Documents.belongsTo(ProgramOfSoc, { foreignKey: 'za', as: 'program' })
 
-MyProgram.belongsTo(ProgramOfSoc, { foreignKey: 'program', targetKey: 'id', as: 'programofsoc'})
-ProgramOfSoc.hasMany(MyProgram, { foreignKey: 'program', sourceKey: 'id', as: 'program_id'})
+ProgramOfSoc.hasMany(MyProgram, { foreignKey: 'program', as: 'program_id',constraints: false })
+MyProgram.belongsTo(ProgramOfSoc, { foreignKey: 'id', as: 'program_id',constraints: false })
 
-MyProgram.belongsTo(User, { foreignKey: 'user_tn', targetKey: 'tn', as: 'user' })
-User.hasMany(MyProgram, { foreignKey: 'user_tn', sourceKey: 'tn', as: 'program_id' })
+// MyProgram.hasMany(ProgramOfSoc, { as: 'programsOfSoc', foreignKey: 'program', sourceKey: 'id', constraints: false });
+// ProgramOfSoc.belongsTo(MyProgram, { as: 'myProgram', foreignKey: 'program', targetKey: 'id', constraints: false });
 
-ProgramOfSoc.belongsTo(ProtocolOfSoc, { foreignKey: 'za', as: 'protocol', constraints: false  })
-ProtocolOfSoc.hasMany(ProgramOfSoc, { foreignKey: 'za', as: 'program', constraints: false  })
+MyProgram.belongsTo(User, { as: 'user', foreignKey: 'user_tn', targetKey: 'tn' });
+User.hasMany(MyProgram, { as: 'programs', foreignKey: 'user_tn', sourceKey: 'tn' });
+
+ProgramOfSoc.belongsTo(ProtocolOfSoc, { foreignKey: 'za', as: 'protocol' })
+ProtocolOfSoc.hasMany(ProgramOfSoc, { foreignKey: 'za', as: 'program' })
 
 T13Uni.hasMany(Commission, { foreignKey: 'user_tn', sourceKey: 'tn',constraints: false})
 T13Uni.hasMany(ProtocolOfSoc, { foreignKey: 'user_tn', sourceKey: 'tn',constraints: false})
