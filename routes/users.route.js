@@ -43,4 +43,7 @@ router.post('/changepass',authMiddlewere,usersController.changePassword)
 router.post('/bye',authMiddlewere,usersController.bye)
 router.get('/isbye',authMiddlewere,usersController.checkBye)
 
+router.get('/getsizes',authMiddlewere,usersController.getSizes)
+router.post('/setsizes',authMiddlewere,usersController.setSizes)
+
 module.exports = router

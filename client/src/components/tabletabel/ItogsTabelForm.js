@@ -141,7 +141,9 @@ export const ItogsTabelForm = () => {
                     <th>Шифр</th><th>Рас. шифр</th><th>Табельный №</th><th>ФИО</th><th>Должность</th><th>Отдел</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th>
                     <th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th><th>20</th>
                     <th>21</th><th>22</th><th>23</th><th>24</th><th>25</th><th>26</th><th>27</th><th>28</th><th>29</th><th>30</th><th>31</th><th>Транспорт</th>
-                    <th>Ставка</th><th>КТУ участок</th><th>КТУ по СЗ</th><th>Примечание</th>
+                    <th>Ставка</th><th>КТУ участок</th>
+                    {/*<th>КТУ по СЗ</th>*/}
+                    <th>Примечание</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -185,10 +187,10 @@ export const ItogsTabelForm = () => {
                         <td>{(man.d30 !== '')?man.d30:man.m30}</td>
                         <td>{(man.d31 !== '')?man.d31:man.m31}</td>
 
-                        <td>{man.transport}</td>
-                        <td>{man.price}</td>
+                        <td>{man.transport.split('|')[0]}</td>
+                        <td>{man.transport.split('|')[1]}</td>
                         <td>{man.ktu}</td>
-                        <td>{man.m31}</td>
+                        {/*<td></td>*/}
                         <td>()</td>
 
                     </tr>

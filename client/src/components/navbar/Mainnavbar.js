@@ -142,6 +142,15 @@ export const Mainnavbar = () => {
                         <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-chart-simple"></i></div>
                         <div className="navbar_block_dopmenu_list_description">Аналитика</div>
                     </Link>
+
+                    <Link style={(store.user.account === 'reader' || store.user.account === 'superadmin')?{display: 'flex'}:{display: 'none'}} to='/itogtabel' className={`navbar_block_dopmenu_list_strock`}>
+                        <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-table-list"></i></div>
+                        <div className="navbar_block_dopmenu_list_description">Табель</div>
+                    </Link>
+                    <Link style={(store.user.account === 'fixers' || store.user.account === 'superadmin')?{display: 'flex'}:{display: 'none'}} to='/fixers' className={`navbar_block_dopmenu_list_strock`}>
+                        <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-user-secret"></i></div>
+                        <div className="navbar_block_dopmenu_list_description">Фиксики</div>
+                    </Link>
                 </div>
 
                 {/*<div className="navbar_block_dopmenu_more">Ещё...</div>*/}

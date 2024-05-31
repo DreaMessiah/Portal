@@ -14,12 +14,13 @@ export default class FilesService{
         return $api.post('/files/getpath',{ parent })
     }
 
-    static loadImage(file){
+    static loadImage(file,path = 'news'){ //,
         if(file){
             if(this.isImage(file.name)){
                 const formData = new FormData()
                 formData.append('file', file)
                 formData.append('filename', file.name)
+                formData.append('path', path)
                 return $api.post('/files/loadimg',formData)
             }else{
                 return {err:true,message:'Файл не является изображением'}

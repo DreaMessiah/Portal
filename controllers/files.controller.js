@@ -125,9 +125,11 @@ class FilesController {
     async loadImg(req, res, next){
         try {
             const file = req.files.file
+            const path_service = req.body.path ? req.body.path : 'news'
+            console.log(req.body.path)
             const newname = FilesService.generateRandomFileName()
             const type = file.name.split('.').pop()
-            const path = PATH.join(config.get('public_path'), 'news', 'images', `${newname}.${type}`);
+            const path = PATH.join(config.get('public_path'), path_service, 'images', `${newname}.${type}`);
             if(fs.existsSync(path)){
                 return res.status(400).json({message: 'Файл с таким именем уже существует'})
             }

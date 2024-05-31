@@ -3,6 +3,7 @@ const {validationResult} = require('express-validator')
 const ApiError = require('../exceptions/api.error')
 const {Struct, T13Uni} = require("../models/models");
 const authMiddlewere = require("../middleware/auth.middleware");
+const userService = require("../service/users.service");
 class T13Controller {
     async get(req,res,next) {
         try{
@@ -27,6 +28,14 @@ class T13Controller {
         try{
             const workers = await T13Service.getWorkers(req.user.inn)
             return res.status(200).json(workers)
+        }catch (e){
+            next(e)
+        }
+    }
+    async getUnreg(req,res,next){
+        try{
+            const users = await T13Service.getUnreg()
+            return res.status(200).json(users)
         }catch (e){
             next(e)
         }

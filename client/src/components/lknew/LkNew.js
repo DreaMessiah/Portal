@@ -8,15 +8,19 @@ import ModalFiles from "../modalwin/ModalFiles";
 import LoadingSpinner from '../loading/LoadingSpinner'
 import checkPassword from "../functions/checkPassword";
 import {Link} from "react-router-dom";
+import CmsSelect from "../inputs/CmsSelect";
+import {DataContext} from "../../context/DataContext";
 
 const LkNew = () => {
     const {store} = useContext(Context)
+
     const [face,setFace] = useState(store.user.avatar.length ? store.user.avatar : 'face.png')
     const [loading,setLoading] = useState(false)
     const message = useMessage()
     const faceRef = useRef()
 
     const [editParams, setEditParams] = useState(false)
+    const [activeModalSizes, setActiveModalSizes] = useState(false)
     const [activeModalPass, setActiveModalPass] = useState(false)
 
     function ChangePassword(){
@@ -92,6 +96,85 @@ const LkNew = () => {
           </div>
       )
     }
+    function ChangeSizes(){
+        const {sizesWear,sizesShoes} = useContext(DataContext)
+        const [sizeWear,setSizeWear] = useState(null)
+        const [sizeShoes,setSizeShoes] = useState(null)
+        const [sizeHeight,setSizeHeight] = useState('')
+        const loadingHandler = async () => {
+            try {
+                setLoading(true)
+                const {data} = await UserService.getSizes()
+                console.log(data)
+                if(data){
+                    setSizeWear({value:parseInt(data[0]),label:parseInt(data[0])})
+                    setSizeShoes({value:parseInt(data[1]),label:parseInt(data[1])})
+                    setSizeHeight(data[2])
+                }
+            }catch (e){
+                console.log(e)
+            }finally {
+                setLoading(false)
+            }
+        }
+        const changeHandler = async() => {
+            try {
+                setLoading(true)
+                if(sizeWear && setSizeShoes){
+                    const sizes = sizeWear.label + '-' + sizeShoes.label + '-' + sizeHeight
+                    const {data} = await UserService.setSizes(sizes)
+                    if(data){
+                        message('Данные сохранены, Спасибо!')
+                        cancelHandler()
+                    }
+                }else{
+                    message('Введены не корректные данные')
+                }
+
+            }catch (e) {
+                console.log(e)
+            }finally {
+                setLoading(false)
+            }
+        }
+        const cancelHandler = async() => {
+            setActiveModalSizes(false)
+            // setSizeWear(null)
+            // setSizeShoes(null)
+            // setSizeHeight('')
+        }
+        useEffect(() => {
+            loadingHandler()
+        },[])
+        useEffect(() => {
+            console.log(sizeWear)
+            console.log(sizeShoes)
+        },[sizeWear,sizeShoes])
+        return (
+            <div className='change-password-form'>
+                <div className={`info`}>
+                    <h3>Укажите Ваши актуальные размеры для получения спец одежды</h3>
+                </div>
+                <div className={`inputs`}>
+                    <label>Размер одежды</label>
+                    <div className={'lk-select select'}>
+                        <CmsSelect value={sizeWear} radius={'0'} onChange={setSizeWear} options={sizesWear} placeholder={"Выберите размер одежды"} />
+                    </div>
+                    <label>Размер обуви</label>
+                    <div className={'lk-select select'}>
+                        <CmsSelect value={sizeShoes} radius={'0'} onChange={setSizeShoes} options={sizesShoes} placeholder={"Выберите размер обуви"} />
+                    </div>
+                    <label>Рост</label>
+                    <input type={'text'} onChange={(e) => setSizeHeight(e.target.value)} value={sizeHeight} placeholder={'Введите Ваш рост'}/>
+                </div>
+
+                <div className={`buttons sizes-form`}>
+                    <div onClick={(e) => changeHandler()} className={`button`}>Сохранить</div>
+                    <div onClick={(e) => cancelHandler()} className={`button`}>Отменить</div>
+                </div>
+            </div>
+        )
+    }
     const loadImage = async (e) => {
         setLoading(true)
         try {
@@ -134,8 +217,10 @@ const LkNew = () => {
             </div>
             <div className="lk_block_params_navigation">
                 <Link to='/createsocial' className="lk_block_params_navigation_btn" >Заявление на мат.помощь</Link>
+                <div onClick={() => setActiveModalSizes(true)} className="lk_block_params_navigation_btn" >Мои размеры (Спецодежда)</div>
             </div>
             <ModalFiles data={<ChangePassword/>} active={activeModalPass} setActive={setActiveModalPass} heigth={"40vh"}/>
+            <ModalFiles data={ChangeSizes()} active={activeModalSizes} setActive={setActiveModalSizes} heigth={"50vh"}/>
             {loading ? (<LoadingSpinner/>) : null}
 
         </div>

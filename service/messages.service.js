@@ -1,4 +1,4 @@
-const {Messages} = require('../models/models')
+const {Messages, User} = require('../models/models')
 const { Op } = require('sequelize');
 
 class MessagesService {
@@ -26,7 +26,18 @@ class MessagesService {
                     { tn_to: chat.tn_to, tn_from: chat.tn_from },
                     { tn_to: chat.tn_from, tn_from: chat.tn_to }
                 ]
-            },
+            },    include: [
+                {
+                    model: User,
+                    as: 'ToUser',
+                    attributes: ['avatar', 'full_name']
+                },
+                {
+                    model: User,
+                    as: 'FromUser',
+                    attributes: ['avatar', 'full_name']
+                }
+            ],
             order: [['createdAt', 'DESC']]
         })
         for(const mess of listMess){

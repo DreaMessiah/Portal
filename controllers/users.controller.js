@@ -8,6 +8,7 @@ const fs = require("fs")
 const {Avatar, T13, User} = require("../models/models");
 const sequelize = require("sequelize");
 const PATH = require("path");
+const authMiddlewere = require("../middleware/auth.middleware");
 
 class UsersController {
     async registration(req,res,next) {
@@ -146,10 +147,31 @@ class UsersController {
             next(e)
         }
     }
+
     async getusers(req,res,next){
         try{
             const {sort} = req.body
             const users = await userService.getusers(sort)
+            return res.status(200).json(users)
+        }catch (e){
+            next(e)
+        }
+    }
+    async getSizes(req,res,next){
+        try{
+            const sizes = await userService.getSizes(req.user.id)
+            if(!sizes) return res.status(200).json([0,0,0])
+            const arr = sizes.split("-")
+            return res.status(200).json(arr)
+        }catch (e){
+            next(e)
+        }
+    }
+    async setSizes(req,res,next){
+        try{
+            console.log(req.user.id)
+            const {sizes} = req.body
+            const users = await userService.setSizes(sizes,req.user.id)
             return res.status(200).json(users)
         }catch (e){
             next(e)

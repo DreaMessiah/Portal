@@ -2197,3 +2197,19 @@ html{
     text-decoration: underline !important;
   }
 }
+
+.lk-select{
+  margin-left: 20px;
+  width: calc(100% + 20px);
+  display: flex;
+  align-items: center;
+  margin-top: 6px;
+  div{
+    margin-top: -4px;
+  }
+}
+.sizes-form{
+  display: flex;
+  justify-content: space-between !important;
+  width: calc(100% - 40px);
+}

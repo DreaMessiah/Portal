@@ -11,7 +11,7 @@ import EditorMenu from "./EditorMenu";
 import Sociality from "./Sociality";
 import Createsocial from "./Createsocial";
 import CmsStructure from "./CmsStructure";
-
+import CmsNotifications from './CmsNotifications'
 export default function EditorRouter({page= 1}){
     return (
         <div className='new_container'>
@@ -24,6 +24,7 @@ export default function EditorRouter({page= 1}){
                 {page === 4 && <WorkPage data={<Createsocial />}/>}
                 {page === 5 && <WorkPage data={<BranchUsers />}/>}
                 {page === 6 && <WorkPage data={<CmsStructure />}/>}
+                {page === 7 && <WorkPage data={<CmsNotifications />}/>}
             </div>
         </div>
     )

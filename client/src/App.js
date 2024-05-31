@@ -67,6 +67,8 @@ import ByePage from "./pages/survey/ByePage";
 import StatementsRouter from "./pages/statements/StatementsRouter";
 import HrmPage from "./pages/survey/HrmPage";
 import AnalyticsRouter from "./pages/analytics/AnalyticsRouter";
+import Notifications from "./pages/message/Notifications";
+import FixersRouter from "./pages/fixers/fixersRouter";
 
 
 function App() {
@@ -206,8 +208,10 @@ function App() {
                         <Route path="/thisobjsportal" element={<ThisObj />} />
                         <Route path="/tabelportal" element={<ListTab />} />
                         <Route path="/thistabelportal" element={<ThisTableTabel />} />
+                        <Route path="/notifications" element={<Notifications />} />
+
                         <Route path="/welwel" element={<WelMY />} />
-                        <Route path="/itogtabel" element={<ItogTabel />} />
+                        { (store.user.account === 'superadmin' || store.user.account === 'reader' || store.user.unit === 3 ||  store.user.unit === 7) ?<Route path="/itogtabel" element={<ItogTabel />} /> : null}
                         <Route path="/alltabels" element={<AllTabels />} />
                         <Route path="/hrm" element={<HrmPage />} />
 
@@ -215,12 +219,17 @@ function App() {
                         {store.user.account === 'superadmin' ? <Route path="/hrmanalytics" element={<AnalyticsRouter page={2} />} /> : null }
                         {store.user.account === 'superadmin' ? <Route path="/byeanalytics" element={<AnalyticsRouter page={3} />} /> : null }
 
+                        {store.user.account === 'superadmin' || store.user.account === 'fixers' ? <Route path="/fixers" element={<FixersRouter page={1} />} /> : null }
+                        {store.user.account === 'superadmin' || store.user.account === 'fixers' ? <Route path="/registration" element={<FixersRouter page={2} />} /> : null }
+
                         {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/editor" element={<EditorRouter page={1} />} /> : null }
                         {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/peoplesstat" element={<EditorRouter page={2} />} /> : null }
                         {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/sociality" element={<EditorRouter page={3} />} /> : null }
                         {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/createsocial" element={<EditorRouter page={4} />} /> : null }
                         {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/userbranchs" element={<EditorRouter page={5} />} /> : null }
                         {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/cmsstructure" element={<EditorRouter page={6} />} /> : null }
+                        {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/cmsnotifications" element={<EditorRouter page={7} />} /> : null }
+
 
                         {store.user.unit === 100 || store.user.account === 'superadmin' ? <Route path="/statementsmenu" element={<StatementsRouter page={1} />} /> : null }
                         {store.user.unit === 100 || store.user.account === 'superadmin' ? <Route path="/statementslist" element={<StatementsRouter page={2} />} /> : null }

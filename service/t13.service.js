@@ -33,6 +33,25 @@ class T13Service {
             return {...item.dataValues,value:item.dataValues.tn,label:item.dataValues.name}
         })
     }
+    async getUnreg(){
+        const workers = await T13Uni.findAll({
+            include: [
+                {
+                    model: User,
+                    required: false,
+                    attributes: [] // Не включать поля из таблицы users в результат
+                }
+            ],
+            where: {
+                '$user.tn$': { [Op.is]: null }, // Убедиться, что tn из users является null
+                term:''
+            }
+        })
+        return workers.map(item => {
+            return {...item.dataValues,value:item.dataValues.tn,label:`${item.dataValues.name} | ${item.dataValues.tn}`}
+        })
+    }
+
     async getUni(inn) {
         return await T13Uni.findAll({where:{inn:inn}})
     }
@@ -101,10 +120,26 @@ class T13Service {
     }
     async getWorkersBranch(branch) {
         const brs = await Struct.findByPk(branch)
+        const keywords = ["руководитель", "начальник", "заместитель", "заведующий", "главный"]
+        const keywordCondition = keywords.map(keyword => ({
+            developer: { [Op.iLike]: `%${keyword}%` }
+        }));
         const blacklistedTns = await T13Black.findAll({attributes: ['tn']})
         const blacklistedTnValues = blacklistedTns.map(record => record.tn);
         if(!brs) return {error:true,message:'Ветвь не найдена'}
-        return await T13Uni.findAll({where:{branch:brs.dataValues.factbranchs,tn: {[Op.notIn]: blacklistedTnValues }}})
+        return await T13Uni.findAll({where:{branch:brs.dataValues.factbranchs,tn: {[Op.notIn]: blacklistedTnValues }},
+        order: [
+            [Sequelize.literal(`CASE
+      WHEN developer ILIKE '%Заместитель главного%' THEN 2
+      WHEN developer ILIKE '%заместитель начальника%' THEN 2
+      WHEN developer ILIKE '%руководитель%' THEN 1
+      WHEN developer ILIKE '%начальник%' THEN 1
+      WHEN developer ILIKE '%заведующий%' THEN 1
+      WHEN developer ILIKE '%главный%' THEN 1
+
+      ELSE 3
+    END`), 'ASC']
+        ]})
     }
     async deleteBranch(id) {
         const del = await Struct.findByPk(id)

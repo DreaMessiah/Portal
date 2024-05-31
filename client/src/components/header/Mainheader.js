@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import React, {useState} from 'react';
+import React, {useRef,useState} from 'react';
 import {useContext} from "react";
 import {Context} from "../../index";
 import "./style.scss"
@@ -20,6 +20,7 @@ export const MainHeader = () => {
     const [newmess, setNewmess] = useState(0)
     const {selectedMenu,setSelectedMenu} = useContext(DataContext)
     const message = useMessage()
+    const audioRef = useRef(null)
     const rule = store.user.unit
     const screenWidth = window.innerWidth;
     let widther = '45vh'
@@ -52,13 +53,20 @@ export const MainHeader = () => {
     const notificationHandler = () => {
         setPopupActive(!popupActive)
     }
-
+    const playSound = () => {
+        if (audioRef.current) {
+            audioRef.current.play().catch(error => {
+                console.error('Failed to play sound:', error)
+            })
+        }
+    }
     useEffect(() => {
         searchMess()
         const socket = initSocket()
         socket.on('receiveMessage', (data) => {
             const text = `Сообщение от ${data.from_name}: ${data.message}`
             message(text)
+            playSound()
             setNewmess(1)
         })
 
@@ -226,13 +234,15 @@ export const MainHeader = () => {
                             </div>
                         </div>
                         <div className={`popup-footer`}>
-                            <Link className="footer-link">Показать все</Link>
+                            <Link to={'/notifications'} className="footer-link">Показать все</Link>
                         </div>
                     </div>
                     : null}
 
+                <audio ref={audioRef} src="/audio/zvuk1.wav" preload="auto" />
                 <ModalFiles heigth={widther} data={<QuestionDirector setActive={setActive} />} active={active} setActive={setActive}/>
             </div>
         </div>
+
     )
 }

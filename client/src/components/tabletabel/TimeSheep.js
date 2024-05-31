@@ -15,6 +15,9 @@ import {useMessage} from "../../hooks/message.hook";
 import ModalFiles from "../modalwin/ModalFiles";
 import {WritedTabel} from "./modalactive/WritedTabel";
 import {DelManTabel} from "./modalactive/DelManTabel";
+import { jsPDF } from 'jspdf';
+import 'jspdf-autotable';
+import TabelToPdf from "../functions/TabelToPdf";
 
 
 
@@ -352,6 +355,7 @@ export const TimeSheepPortal = () => {
     const [nameman, setNameman] = useState('no')
     const [devman, setDevman] = useState('no')
     const [izm, setIzm] = useState('')
+    const [dataPrint,setDataPrint] = useState(null)
 
     const winread = day => {
 
@@ -416,19 +420,31 @@ export const TimeSheepPortal = () => {
         return p
     }
 
-    useEffect(() => {
+    const generatePdf = (data) => {
+        TabelToPdf(data,getMyObj(getShifr, 'nameobject'))
+    }
+
+    const loading = () => {
         getKTU()
         writeCheck()
         transportList()
         viewAllObjs()
         t13List()
         listMansOfTabel()
+    }
+
+    useEffect(() => {
+        loading()
     }, [])
 
     useEffect(()=>{
         makeList()
     }, [tabel, t13])
-
+    useEffect(() => {
+        if(list.length){
+            setDataPrint(list)
+        }
+    },[list])
     return (
         <div className='right-block-tabwelding'>
             <ModalFiles data={<DelManTabel func={listMansOfTabel} idmandel={idman} namemandel={nameman} devmandel={devman}  active={delwin} setActive={setDelwin} month={getMonth} year={getYear} getShifr={getShifr}/>} active={delwin} setActive={setDelwin}></ModalFiles>
@@ -437,7 +453,10 @@ export const TimeSheepPortal = () => {
                 <div className="tabwelding_header_upper">
                     <Link to={`/tabelportal?id=${getShifr}`} className="tabwelding_header_upper_backbtn">Назад</Link>
                     <div className="tabwelding_header_upper_title"><span>{getMyObj(getShifr, 'shifr')}</span> {pushMonth(getMonth)} {getYear}</div>
-                    <div className="tabwelding_header_upper_controlbtn" onClick={()=>copyTab()}>Копировать</div><div style={(writed)?{display:'none'}:{display:'flex'}} className="tabwelding_header_upper_controlbtn" onClick={()=>{makeWrite()}}>Подписать</div>
+                    <div className="tabwelding_header_upper_controlbtn" onClick={()=>copyTab()}>Копировать</div>
+                    <div style={(writed)?{display:'none'}:{display:'flex'}} className="tabwelding_header_upper_controlbtn" onClick={()=>{makeWrite()}}>Подписать</div>
+                    {dataPrint && t13.length ? <div onClick={() => generatePdf(dataPrint)} className="tabwelding_header_upper_controlbtn">Печать (pdf)</div> : null}
+
                 </div>
                 <div className="tabwelding_header_newcrewblock">
                     <Select placeholder="Выбрать сотрудника" className='select' onChange={(e) => setThisMans(listMans[e.index])} value={thisMans} options={listMans} styles={{container:(baseStyles, state) => ({...baseStyles,width:'250px'})}}/>

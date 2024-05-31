@@ -137,7 +137,18 @@ class UsersService{
         if(!users) throw ApiError.BadRequest('Ошибка получения списка пользователей')
         return {users}
     }
-
+    async getSizes(id) {
+        const user = await User.findByPk(id)
+        if(!user) throw ApiError.BadRequest('Ошибка получения списка пользователей')
+        return user.snils
+    }
+    async setSizes(sizes,id) {
+        const user = await User.findByPk(id)
+        if(!user) throw ApiError.BadRequest('Ошибка получения списка пользователей')
+        user.snils = sizes
+        await user.save()
+        return user
+    }
 
 }
 module.exports = new UsersService()
