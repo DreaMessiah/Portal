@@ -52,11 +52,11 @@ function StatementsList(){
         let newZAlist = [...zalist]
         if(newList.includes(index)){
             newList = newList.filter(item => item !== index);
-            newZAlist = newZAlist.filter(item => item !== za);
+            newZAlist = newZAlist.filter(item => item[0] !== index);
 
         } else {
             newList.push(index)
-            newZAlist.push(za)
+            newZAlist.push([index, za])
         }
 
         setList(newList)
@@ -65,6 +65,7 @@ function StatementsList(){
 
     const cleanList = () => {
         setList([])
+        setZAlist([])
     }
 
     const [listza, setListza] = useState([])
@@ -457,10 +458,10 @@ function StatementsList(){
                             {zalist.map((za,index)=>(
                                 <div key={index} className="glass_board_body_liststatements_man">
                                     <div className="glass_board_body_liststatements_num">{index+1}</div>
-                                    <div className="glass_board_body_liststatements_fio">{za.user.full_name}</div>
-                                    <div className="glass_board_body_liststatements_dev">{za.user.developer}</div>
-                                    <div className="glass_board_body_liststatements_view">{za.programofsoc.name}</div>
-                                    <div className="glass_board_body_liststatements_app">{za.programofsoc.description}</div>
+                                    <div className="glass_board_body_liststatements_fio">{za[1].user.full_name}</div>
+                                    <div className="glass_board_body_liststatements_dev">{za[1].user.developer}</div>
+                                    <div className="glass_board_body_liststatements_view">{za[1].programofsoc.name}</div>
+                                    <div className="glass_board_body_liststatements_app">{za[1].programofsoc.description}</div>
                                     <div className="glass_board_body_liststatements_del">
                                         <div className="glass_board_body_liststatements_del_eye"><i className="fa-solid fa-eye"/></div>
                                         <div className="glass_board_body_liststatements_del_del"><i className="fa-solid fa-eraser"/></div>
