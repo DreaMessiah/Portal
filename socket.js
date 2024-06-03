@@ -6,7 +6,7 @@ const ApiError = require("./exceptions/api.error");
 function initializeSocket(server) {
     const io = new Server(server, {
         cors: {
-            origin: 'http://192.168.0.166:3000',
+            origin: 'http://localhost:3000',
             credentials: true
         }
     })

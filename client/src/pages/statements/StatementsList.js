@@ -23,6 +23,9 @@ function StatementsList(){
     const [maker, setMaker] = useState(false)
     const [comment, setComment] = useState('')
     const [resave, setResave] = useState(0)
+    const [btnwrite, setBtnwrite] = useState(true)
+    const [btnrefusal, setBtnrefusal] = useState(true)
+
 
     const message = useMessage()
     const getUsers = async (e) => {
@@ -43,18 +46,21 @@ function StatementsList(){
     }
 
     const [list, setList] = useState([])
-
-    const chooseLine = index => {
+    const [zalist, setZAlist] = useState([])
+    const chooseLine = (index, za) => {
         let newList = [...list]
+        let newZAlist = [...zalist]
         if(newList.includes(index)){
             newList = newList.filter(item => item !== index);
-
+            newZAlist = newZAlist.filter(item => item !== za);
 
         } else {
             newList.push(index)
+            newZAlist.push(za)
         }
 
         setList(newList)
+        setZAlist(newZAlist)
     }
 
     const cleanList = () => {
@@ -95,9 +101,9 @@ function StatementsList(){
         }
     }
 
-    const getButton = (thisza, learn) => {
-        let itog = 'no'
-        if(thisza.commission){
+    const getButton = (thisza, learn, btn) => {
+        let itog = 'error'
+        if(thisza.commission && btn===1){
             const newComs = thisza.commission
             newComs.map((man, index) => {
                 if(man.user_tn === iam.tn && man.possion === 1 && man.status === 0){
@@ -112,6 +118,27 @@ function StatementsList(){
                     } else if (learn === 'display'){
                         itog = 'flex'
                     }
+                } else if(man.user_tn === iam.tn && man.possion === 3 && man.status === 0){
+                    if(learn === 'title') {
+                        itog = 'Подписать'
+                    } else if (learn === 'display'){
+                        itog = 'flex'
+                    }
+                } else {
+                    setBtnwrite(false)
+                }
+            })
+        } else if(thisza.commission && btn===2){
+            const newComs = thisza.commission
+            newComs.map((man, index) => {
+                if(man.user_tn === iam.tn && man.possion !== 4 && man.status === 0){
+                    if(learn === 'title'){
+                        itog = 'Отказать'
+                    } else if (learn === 'display'){
+                        itog = 'flex'
+                    }
+                } else {
+                    setBtnrefusal(false)
                 }
             })
         }
@@ -132,7 +159,11 @@ function StatementsList(){
                         console.log('go')
                         const compliteSt = SocialService.reverStatus({thisza, user: tn, possion: pos, status, comment})
                         compliteSt.then(data=>{setThisza(data.data); message('Заявление согласовано')})
-
+                        if(status === 1){
+                            btnwrite(false)
+                        } else if (status === 2){
+                            btnrefusal(false)
+                        }
                     }
                 })
             }
@@ -196,7 +227,7 @@ function StatementsList(){
                     <div className="statelist_list_line_cropname title ">Статус</div>
                 </div>
                 {listza.map((za, index)=>{let def=0; let yes=0; let no=0;return(
-                    <div key={index} className="statelist_list_line bordertopnone tourer" style={(list.includes(index))?{border: '4px solid #000'}:{border: '4px solid #CCC'}} onClick={()=>chooseLine(index)}>
+                    <div key={index} className="statelist_list_line bordertopnone tourer" style={(list.includes(index))?{border: '4px solid #000'}:{border: '4px solid #CCC'}} onClick={()=>chooseLine(index, za)}>
                         <div className="statelist_list_line_name listpp">{index+1}</div>
                         <div className="statelist_list_line_price date">{za.updatedAt.split('T')[0].split('-').reverse().join('.')}</div>
                         <div className="statelist_list_line_group">{za.programofsoc.name}</div>
@@ -242,8 +273,13 @@ function StatementsList(){
                         </div>
                         <div className="glass_board_body_control">
                             {/*<div className="glass_board_body_control_btn">Заключение</div>*/}
+                            {(btnwrite)?(
+                                <div className="glass_board_body_control_btn" style={{display: 'flex'}} onClick={()=>reverStatus(1)} >{getButton(thisza, 'title', 1)}</div>
+                            ):''}
+                            {(btnrefusal)?(
+                                <div className="glass_board_body_control_btn" style={{display: 'flex'}} onClick={()=>reverStatus(2)} >{getButton(thisza, 'title', 2)}</div>
+                            ):''}
 
-                            <div className="glass_board_body_control_btn" onClick={()=>reverStatus(1)} style={('flex' === 'flex')&&{display: 'flex'}}>{getButton(thisza, 'title')}</div>
                             {/*<div className="glass_board_body_control_btn">Согласовать</div>*/}
                             {/*<div className="glass_board_body_control_btn">Отклонить</div>*/}
                             {/*<div className="glass_board_body_control_btn">Подписать</div>*/}
@@ -404,9 +440,9 @@ function StatementsList(){
 
                         <div className="glass_board_body_control">
 
-                            <div className="glass_board_body_control_btn">Сформировать</div>
-                            <div className="glass_board_body_control_btn">на исполнение</div>
-                            <div className="glass_board_body_control_btn">на удаление</div>
+                            <div className="glass_board_body_control_btn" style={{display: 'flex'}}>Сформировать</div>
+                            <div className="glass_board_body_control_btn" style={{display: 'flex'}}>на исполнение</div>
+                            <div className="glass_board_body_control_btn" style={{display: 'flex'}}>на удаление</div>
                         </div>
                         <div className="glass_board_body_tit">Список</div>
                         <div className="glass_board_body_liststatements">
@@ -418,129 +454,26 @@ function StatementsList(){
                                 <div className="glass_board_body_liststatements_app bold">Основание</div>
                                 <div className="glass_board_body_liststatements_del bold">Действия</div>
                             </div>
-                            <div className="glass_board_body_liststatements_man">
-                                <div className="glass_board_body_liststatements_num">1</div>
-                                <div className="glass_board_body_liststatements_fio">Пшеничный Василий Павлович</div>
-                                <div className="glass_board_body_liststatements_dev">водитель 3 класса</div>
-                                <div className="glass_board_body_liststatements_view">выделение материальной помощи</div>
-                                <div className="glass_board_body_liststatements_app">в связи со смертью близких одственников (матери)</div>
-                                <div className="glass_board_body_liststatements_del">
-                                    <div className="glass_board_body_liststatements_del_eye"><i className="fa-solid fa-eye"/></div>
-                                    <div className="glass_board_body_liststatements_del_del"><i className="fa-solid fa-eraser"/></div>
-                                    <div className="glass_board_body_liststatements_del_yes">согласовано</div>
+                            {zalist.map((za,index)=>(
+                                <div key={index} className="glass_board_body_liststatements_man">
+                                    <div className="glass_board_body_liststatements_num">{index+1}</div>
+                                    <div className="glass_board_body_liststatements_fio">{za.user.full_name}</div>
+                                    <div className="glass_board_body_liststatements_dev">{za.user.developer}</div>
+                                    <div className="glass_board_body_liststatements_view">{za.programofsoc.name}</div>
+                                    <div className="glass_board_body_liststatements_app">{za.programofsoc.description}</div>
+                                    <div className="glass_board_body_liststatements_del">
+                                        <div className="glass_board_body_liststatements_del_eye"><i className="fa-solid fa-eye"/></div>
+                                        <div className="glass_board_body_liststatements_del_del"><i className="fa-solid fa-eraser"/></div>
+                                        <div className="glass_board_body_liststatements_del_yes">согласовано</div>
+                                        {/*<div className="glass_board_body_liststatements_del_no">отклонено</div>*/}
+                                        {/*<div className="glass_board_body_liststatements_del_wait">ожидание</div>*/}
+                                        {/*<div className="glass_board_body_liststatements_del_pass">напомнить</div>*/}
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="glass_board_body_liststatements_man">
-                                <div className="glass_board_body_liststatements_num">2</div>
-                                <div className="glass_board_body_liststatements_fio">Ханнанов Данил Маратович</div>
-                                <div className="glass_board_body_liststatements_dev">ведущий геодезист</div>
-                                <div className="glass_board_body_liststatements_view">выделение материальной помощи</div>
-                                <div className="glass_board_body_liststatements_app">в связи с рождением ребенка</div>
-                                <div className="glass_board_body_liststatements_del">
-                                    <div className="glass_board_body_liststatements_del_eye"><i className="fa-solid fa-eye"/></div>
-                                    <div className="glass_board_body_liststatements_del_del"><i className="fa-solid fa-eraser"/></div>
-                                    <div className="glass_board_body_liststatements_del_no">отклонено</div>
-                                </div>
-                            </div>
-                            <div className="glass_board_body_liststatements_man">
-                                <div className="glass_board_body_liststatements_num">3</div>
-                                <div className="glass_board_body_liststatements_fio">Пшеничный Василий Павлович</div>
-                                <div className="glass_board_body_liststatements_dev">водитель 3 класса</div>
-                                <div className="glass_board_body_liststatements_view">выделение материальной помощи</div>
-                                <div className="glass_board_body_liststatements_app">в связи со смертью близких одственников (матери)</div>
-                                <div className="glass_board_body_liststatements_del">
-                                    <div className="glass_board_body_liststatements_del_eye"><i className="fa-solid fa-eye"/></div>
-                                    <div className="glass_board_body_liststatements_del_del"><i className="fa-solid fa-eraser"/></div>
-                                    <div className="glass_board_body_liststatements_del_wait">ожидание</div>
-                                    <div className="glass_board_body_liststatements_del_pass">напомнить</div>
-                                </div>
-                            </div>
-                            <div className="glass_board_body_liststatements_man">
-                                <div className="glass_board_body_liststatements_num">4</div>
-                                <div className="glass_board_body_liststatements_fio">Ханнанов Данил Маратович</div>
-                                <div className="glass_board_body_liststatements_dev">ведущий геодезист</div>
-                                <div className="glass_board_body_liststatements_view">выделение материальной помощи</div>
-                                <div className="glass_board_body_liststatements_app">в связи с рождением ребенка</div>
-                                <div className="glass_board_body_liststatements_del">
-                                    <div className="glass_board_body_liststatements_del_eye"><i className="fa-solid fa-eye"/></div>
-                                    <div className="glass_board_body_liststatements_del_del"><i className="fa-solid fa-eraser"/></div>
-                                    <div className="glass_board_body_liststatements_del_yes">согласовано</div>
-                                </div>
-                            </div>
-                            <div className="glass_board_body_liststatements_man">
-                                <div className="glass_board_body_liststatements_num">5</div>
-                                <div className="glass_board_body_liststatements_fio">Пшеничный Василий Павлович</div>
-                                <div className="glass_board_body_liststatements_dev">водитель 3 класса</div>
-                                <div className="glass_board_body_liststatements_view">выделение материальной помощи</div>
-                                <div className="glass_board_body_liststatements_app">в связи со смертью близких одственников (матери)</div>
-                                <div className="glass_board_body_liststatements_del">
-                                    <div className="glass_board_body_liststatements_del_eye"><i className="fa-solid fa-eye"/></div>
-                                    <div className="glass_board_body_liststatements_del_del"><i className="fa-solid fa-eraser"/></div>
-                                    <div className="glass_board_body_liststatements_del_no">отклонено</div>
-                                </div>
-                            </div>
-                            <div className="glass_board_body_liststatements_man">
-                                <div className="glass_board_body_liststatements_num">6</div>
-                                <div className="glass_board_body_liststatements_fio">Ханнанов Данил Маратович</div>
-                                <div className="glass_board_body_liststatements_dev">ведущий геодезист</div>
-                                <div className="glass_board_body_liststatements_view">выделение материальной помощи</div>
-                                <div className="glass_board_body_liststatements_app">в связи с рождением ребенка</div>
-                                <div className="glass_board_body_liststatements_del">
-                                    <div className="glass_board_body_liststatements_del_eye"><i className="fa-solid fa-eye"/></div>
-                                    <div className="glass_board_body_liststatements_del_del"><i className="fa-solid fa-eraser"/></div>
-                                    <div className="glass_board_body_liststatements_del_wait">ожидание</div>
-                                    <div className="glass_board_body_liststatements_del_pass">напомнить</div>
-                                </div>
-                            </div>
-                            <div className="glass_board_body_liststatements_man">
-                                <div className="glass_board_body_liststatements_num">7</div>
-                                <div className="glass_board_body_liststatements_fio">Пшеничный Василий Павлович</div>
-                                <div className="glass_board_body_liststatements_dev">водитель 3 класса</div>
-                                <div className="glass_board_body_liststatements_view">выделение материальной помощи</div>
-                                <div className="glass_board_body_liststatements_app">в связи со смертью близких одственников (матери)</div>
-                                <div className="glass_board_body_liststatements_del">
-                                    <div className="glass_board_body_liststatements_del_eye"><i className="fa-solid fa-eye"/></div>
-                                    <div className="glass_board_body_liststatements_del_del"><i className="fa-solid fa-eraser"/></div>
-                                    <div className="glass_board_body_liststatements_del_yes">согласовано</div>
-                                </div>
-                            </div>
-                            <div className="glass_board_body_liststatements_man">
-                                <div className="glass_board_body_liststatements_num">8</div>
-                                <div className="glass_board_body_liststatements_fio">Ханнанов Данил Маратович</div>
-                                <div className="glass_board_body_liststatements_dev">ведущий геодезист</div>
-                                <div className="glass_board_body_liststatements_view">выделение материальной помощи</div>
-                                <div className="glass_board_body_liststatements_app">в связи с рождением ребенка</div>
-                                <div className="glass_board_body_liststatements_del">
-                                    <div className="glass_board_body_liststatements_del_eye"><i className="fa-solid fa-eye"/></div>
-                                    <div className="glass_board_body_liststatements_del_del"><i className="fa-solid fa-eraser"/></div>
-                                    <div className="glass_board_body_liststatements_del_no">отклонено</div>
-                                </div>
-                            </div>
-                            <div className="glass_board_body_liststatements_man">
-                                <div className="glass_board_body_liststatements_num">9</div>
-                                <div className="glass_board_body_liststatements_fio">Пшеничный Василий Павлович</div>
-                                <div className="glass_board_body_liststatements_dev">водитель 3 класса</div>
-                                <div className="glass_board_body_liststatements_view">выделение материальной помощи</div>
-                                <div className="glass_board_body_liststatements_app">в связи со смертью близких одственников (матери)</div>
-                                <div className="glass_board_body_liststatements_del">
-                                    <div className="glass_board_body_liststatements_del_eye"><i className="fa-solid fa-eye"/></div>
-                                    <div className="glass_board_body_liststatements_del_del"><i className="fa-solid fa-eraser"/></div>
-                                    <div className="glass_board_body_liststatements_del_wait">ожидание</div>
-                                    <div className="glass_board_body_liststatements_del_pass">напомнить</div>
-                                </div>
-                            </div>
-                            <div className="glass_board_body_liststatements_man">
-                                <div className="glass_board_body_liststatements_num">10</div>
-                                <div className="glass_board_body_liststatements_fio">Ханнанов Данил Маратович</div>
-                                <div className="glass_board_body_liststatements_dev">ведущий геодезист</div>
-                                <div className="glass_board_body_liststatements_view">выделение материальной помощи</div>
-                                <div className="glass_board_body_liststatements_app">в связи с рождением ребенка</div>
-                                <div className="glass_board_body_liststatements_del">
-                                    <div className="glass_board_body_liststatements_del_eye"><i className="fa-solid fa-eye"/></div>
-                                    <div className="glass_board_body_liststatements_del_del"><i className="fa-solid fa-eraser"/></div>
-                                    <div className="glass_board_body_liststatements_del_yes">согласовано</div>
-                                </div>
-                            </div>
+                            ))}
+
+
+
                         </div>
 
 
