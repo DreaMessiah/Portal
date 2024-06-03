@@ -1,4 +1,4 @@
-const {User, DiskSpace, T13Uni, PeopleCounter, Token, Answer, Bye} = require('../models/models')
+const {User, DiskSpace, T13Uni, PeopleCounter, Token, Answer, Bye, Preregister, T13Black, T13Bye} = require('../models/models')
 const bcrypt = require('bcrypt')
 const UserDto = require('../dtos/usersDto')
 const T13UniDto = require('../dtos/t13UniDto')
@@ -18,7 +18,6 @@ class UsersService{
         await tokenService.saveToken(userDto.id, tokens.refreshToken)
         return {...tokens,user: userDto}
     }
-
     async createuser(tn,full_name,login,email,password,inn,developer) {
         const candidate = await User.findOne({where: {login:login}})
         if(candidate) throw ApiError.BadRequest(`Пользователь с логином ${login} уже существует`)
@@ -45,7 +44,6 @@ class UsersService{
         userDto.usedspace = sizes.usedspace
         return {...tokens,user: userDto}
     }
-
     async setfz152(tn) {
         const user = await User.findOne({ where:{tn:tn} })
         if(!user) throw ApiError.BadRequest('Ошибка сервера, пройдите регистрацию снова')
@@ -61,7 +59,6 @@ class UsersService{
         const t13UniDto = new T13UniDto(uni)
         return {uni: t13UniDto}
     }
-
     async changePassword(id,oldPass,newPass){
         const user = await User.findOne({where: {id:id}})
         if(!user) return {err:true,message:'Пользователя с таким именем не существует'}
@@ -97,7 +94,6 @@ class UsersService{
 
         return {...tokens,user: userDto,survey:!!survey,hrmcheck:hrmcheck}
     }
-
     async get() {
         //const users = await User.findAll({order: [['id', 'ASC']], limit: 30})
         const users = await User.findAll({order: [['full_name', 'ASC']]})
@@ -114,8 +110,11 @@ class UsersService{
         return !!isBye
     }
     async getUserByTn(tn) {
-        const user = await T13Uni.findOne({where:{tn:tn}})
-        if(!user) return {err:true,message:'Пользователь не найден'}
+        let user = await T13Uni.findOne({where:{tn:tn}})
+        if(!user){
+            user = await T13Bye.findOne({where:{tn:tn}})
+            if(!user) return {err:true,message:'Пользователь не найден'}
+        }
         return {user}
     }
     async getstat() {
@@ -131,7 +130,6 @@ class UsersService{
         const date = new Date()
         return {numall:numall,stat:[...stat,{id:-1,date,numreg,numall,numinp}]}
     }
-
     async getusers(sort='full_name') {
         const users = await User.findAll({order: [[sort, 'ASC']]})
         if(!users) throw ApiError.BadRequest('Ошибка получения списка пользователей')
@@ -148,6 +146,51 @@ class UsersService{
         user.snils = sizes
         await user.save()
         return user
+    }
+    async createPreReg(user) {
+        const reg = await Preregister.create(user)
+        if(!reg) throw ApiError.BadRequest('Ошибка создания регистрации')
+        const t13 = await T13Uni.findOne({where:{name:user.name}})
+        if(t13) reg.tn = t13.tn
+        return reg
+    }
+    async changeZa(user) {
+        let reg = await Preregister.findByPk(user.id)
+        if(!reg) throw ApiError.BadRequest('Ошибка изменения заявки')
+        await reg.destroy()
+        reg = await Preregister.create(user)
+        const t13 = await T13Uni.findOne({where:{name:user.name}})
+        if(t13) reg.tn = t13.tn
+        return reg
+    }
+
+    async removeZa(id) {
+        const za = await Preregister.findByPk(id)
+        if(!za) throw ApiError.BadRequest('Ошибка удаления заявки')
+        await za.destroy()
+        return true
+    }
+
+    async getPrereg() {
+        const list = await Preregister.findAll()
+        return await Promise.all( list.map( async item => {
+            const t13 = await T13Uni.findOne({where:{name:item.name}})
+            return t13 ? {...item.dataValues,tn:t13.tn} : item
+        }))
+    }
+
+    async FixRegister(full_name,login,email,password,phone,avatar) {
+        const t13 = await T13Uni.findOne({where:{name:full_name}})
+        if(!t13) throw ApiError.BadRequest('Ошибка регистрации - пользователь не найден(Поиск по имени)')
+        const candidate = await User.findOne({where: {login:login}})
+        if(candidate) throw ApiError.BadRequest(`Пользователь с логином ${login} уже существует`)
+        const hashPassword = await bcrypt.hash(password,15)
+        const newuser = await User.create({tn:t13.tn,full_name,login,email,password:hashPassword,inn:8617014209,unit:0,phone,avatar,developer:t13.developer})
+        if(newuser) {//full_name,login,email,password,phone,avatar
+            const reg = await Preregister.findOne({where:{name:full_name}})
+            if(reg) await reg.destroy()
+        }
+        return newuser
     }
 
 }

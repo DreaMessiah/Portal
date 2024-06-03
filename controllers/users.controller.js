@@ -177,6 +177,51 @@ class UsersController {
             next(e)
         }
     }
+    async createPreReg(req,res,next){
+        try{
+            const {user} = req.body
+            const reg = await userService.createPreReg(user)
+            return res.status(200).json(reg)
+        }catch (e){
+            next(e)
+        }
+    }
+    async changeZa(req,res,next){
+        try{
+            const {user} = req.body
+            const reg = await userService.changeZa(user)
+            return res.status(200).json(reg)
+        }catch (e){
+            next(e)
+        }
+    }
+
+    async removeZa(req,res,next){
+        try{
+            const reg = await userService.removeZa(req.body.id)
+            return res.status(200).json(reg)
+        }catch (e){
+            next(e)
+        }
+    }
+
+    async getPrereg(req,res,next){
+        try{
+            const preregs = await userService.getPrereg()
+            return res.status(200).json(preregs)
+        }catch (e){
+            next(e)
+        }
+    }
+    async FixRegister(req,res,next){
+        try{
+            const {full_name,login,email,password,phone,avatar} = req.body
+            const user = await userService.FixRegister(full_name,login,email,password,phone,avatar)
+            return res.status(200).json(user)
+        }catch (e){
+            next(e)
+        }
+    }
 
 }
 

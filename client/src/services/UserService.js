@@ -101,6 +101,21 @@ export default class UserService {
     static setSizes(sizes){
         return $api.post('/auth/setsizes',{sizes})
     }
+    static createPreReg(user){
+        return $api.post('/auth/createreg',{user})
+    }
+    static changeZa(user){
+        return $api.post('/auth/changeza',{user})
+    }
 
+    static removeZa(id){
+        return $api.post('/auth/removeza',{id})
+    }
+    static getPrereg(){
+        return $api.get('/auth/getreg')
+    }
+    static async register(full_name,login,email,password,phone,avatar){
+        return $api.post('/auth/fixregister',{full_name,login,email,password,phone,avatar})
+    }
 
 }
