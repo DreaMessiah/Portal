@@ -45,5 +45,20 @@ router.get('/isbye',authMiddlewere,usersController.checkBye)
 
 router.get('/getsizes',authMiddlewere,usersController.getSizes)
 router.post('/setsizes',authMiddlewere,usersController.setSizes)
+router.post('/createreg',authMiddlewere,usersController.createPreReg)
+router.post('/changeza',authMiddlewere,usersController.changeZa)
+
+router.get('/getreg',authMiddlewere,usersController.getPrereg)
+
+router.post('/removeza',authMiddlewere,usersController.removeZa)
+
+
+router.post('/fixregister',authMiddlewere,
+    body('password').isLength({min:3, max:32}).withMessage('Длинна пароля должна быть не мешьше 8ми и не больше 32х символов'),
+    body('login').isLength({ min: 4, max: 20 }).withMessage('Имя пользователя должно быть от 4 до 20 символов')
+        .matches(/^[a-z]+$/).withMessage('Имя пользователя должно содержать только латинские буквы')
+        .not().isEmpty().withMessage('Имя пользователя не должно быть пустым'),
+    body('full_name').isLength({ min: 6, max: 100 }).withMessage('ФИО не может быть меньше 6 и больше 100 символов')
+    ,usersController.FixRegister)
 
 module.exports = router

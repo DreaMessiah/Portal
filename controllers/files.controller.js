@@ -140,6 +140,25 @@ class FilesController {
             next(e)
         }
     }
+    async loadAvatarImg(req, res, next){
+        try {
+            const file = req.files.file
+            const newname = FilesService.generateRandomFileName()
+            const type = file.name.split('.').pop()
+            const path = PATH.join(config.get('public_path'), 'profile', `${newname}.${type}`);
+            if(fs.existsSync(path)){
+                return res.status(400).json({message: 'Файл с таким именем уже существует'})
+            }
+            await file.mv(path)
+            await FilesService.compressProportionalImage(path,80, 1280, 720)
+            return res.status(200).json({path:`${newname}.${type}`})
+        }catch (e) {
+            next(e)
+        }
+    }
+
+
+
     async loadPollsImg(req, res, next){
         try {
             const file = req.files.file
