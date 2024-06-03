@@ -143,7 +143,16 @@ class socialityController {
             next(e)
         }
     }
+    async makeProtocol(req,res,next) {
 
+        try{
+            const list = req.body
+            const make = await SocialityService.makeProtocol(list)
+            return res.status(200).json(make)
+        }catch (e){
+            next(e)
+        }
+    }
 
 }
 module.exports = new socialityController()

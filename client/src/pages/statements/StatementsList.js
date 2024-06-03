@@ -201,9 +201,32 @@ function StatementsList(){
             return ('Согласовано')
         }
     }
+
+    const makeProtocol = async () => {
+        try{
+            let currentTimeMillis = Date.now();
+            let currentTimeSeconds = Math.floor(currentTimeMillis / 1000);
+            console.log(currentTimeSeconds);
+            const goodlist = [...zalist]
+            const newlist = []
+            goodlist.forEach(za => {
+                za[1].user = {id: za[1].user.id, full_name: za[1].user.full_name, developer: za[1].user.developer}
+                newlist.push(za[1])
+                za[1].sum = za[1].programofsoc.sum
+            })
+            const protocol = await SocialService.makeProtocol({num: currentTimeSeconds, newlist})
+            setMaker(false)
+            message('Протокол сформирован, для формирования приказа необходимо перейти в раздел Протоколы')
+        }catch(e){
+
+        }
+
+    }
+
     useEffect(()=>{
         getUsers()
         getAllZa()
+
     }, [])
     useEffect(()=>{
         getAllZa()
@@ -440,8 +463,7 @@ function StatementsList(){
                         <div className="glass_board_body_developer">должность: начальник отдела продаж</div>
 
                         <div className="glass_board_body_control">
-
-                            <div className="glass_board_body_control_btn" style={{display: 'flex'}}>Сформировать</div>
+                            <div className="glass_board_body_control_btn" onClick={()=>makeProtocol()} style={{display: 'flex'}}>Сформировать</div>
                             <div className="glass_board_body_control_btn" style={{display: 'flex'}}>на исполнение</div>
                             <div className="glass_board_body_control_btn" style={{display: 'flex'}}>на удаление</div>
                         </div>
@@ -455,7 +477,7 @@ function StatementsList(){
                                 <div className="glass_board_body_liststatements_app bold">Основание</div>
                                 <div className="glass_board_body_liststatements_del bold">Действия</div>
                             </div>
-                            {zalist.map((za,index)=>(
+                            {zalist.map((za,index)=>{let check = 0; let no = 0; let yes = 0; return(
                                 <div key={index} className="glass_board_body_liststatements_man">
                                     <div className="glass_board_body_liststatements_num">{index+1}</div>
                                     <div className="glass_board_body_liststatements_fio">{za[1].user.full_name}</div>
@@ -465,13 +487,24 @@ function StatementsList(){
                                     <div className="glass_board_body_liststatements_del">
                                         <div className="glass_board_body_liststatements_del_eye"><i className="fa-solid fa-eye"/></div>
                                         <div className="glass_board_body_liststatements_del_del"><i className="fa-solid fa-eraser"/></div>
-                                        <div className="glass_board_body_liststatements_del_yes">согласовано</div>
+                                        {za[1].commission.map((man, index)=>{
+                                            if(man.possion === 1 && man.status === 1){
+                                                yes++
+                                            } else if(man.possion === 1 && man.status === 0) {
+                                                check++
+                                            } else if(man.possion === 1 && man.status === 2) {
+                                                no++
+                                            }
+                                        })}
+                                        <div className={(check === 0 && no === 0)?`glass_board_body_liststatements_del_yes`:(no > 0)?`glass_board_body_liststatements_del_no`:`glass_board_body_liststatements_del_wait`}>{(check === 0 && no === 0)?`согласовано`:(no > 0)?`есть отказ`:`ожидание`}</div>
+                                        <div className="glass_board_body_liststatements_del_pass" style={(check === 0 && no === 0)?{display: 'none'}:(no > 0)?{display: 'none'}: {display: 'flex'}}>{(check === 0 && no === 0)?``:(no > 0)?``:`напомнить`}</div>
+                                        {/*<div className="glass_board_body_liststatements_del_yes">согласовано</div>*/}
                                         {/*<div className="glass_board_body_liststatements_del_no">отклонено</div>*/}
                                         {/*<div className="glass_board_body_liststatements_del_wait">ожидание</div>*/}
                                         {/*<div className="glass_board_body_liststatements_del_pass">напомнить</div>*/}
                                     </div>
                                 </div>
-                            ))}
+                            )})}
 
 
 

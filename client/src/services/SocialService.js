@@ -49,8 +49,9 @@ export default class SocialService{
         return $api.post(`/sociality/reverstatus`, st)
     }
 
-
-
+    static async makeProtocol(list){
+        return $api.post(`/sociality/makeprotocol`, list)
+    }
 
 
 }

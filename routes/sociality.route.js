@@ -19,5 +19,6 @@ router.get('/getmyza',authMiddlewere, socialityController.getMyZa)
 router.get('/getallza',authMiddlewere, socialityController.getAllZa)
 router.post('/downloaddoc',authMiddlewere, socialityController.downloadDoc)
 router.post('/reverstatus',authMiddlewere, socialityController.reverStatus)
+router.post('/makeprotocol',authMiddlewere, socialityController.makeProtocol)
 
 module.exports = router

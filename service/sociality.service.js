@@ -1,4 +1,4 @@
-const {ProgramOfSoc, t13uni, User, Commission, TaskConnections, Tasks, TaskChains, TaskDocs, MyProgram} = require('../models/models')
+const {ProgramOfSoc, t13uni, User, Commission, TaskConnections, Tasks, TaskChains, TaskDocs, MyProgram, ProtocolOfSoc} = require('../models/models')
 const PATH = require("path");
 const config = require("config");
 const fs = require("fs");
@@ -168,6 +168,24 @@ class SocialityService{
         // thisprogram.calculation = program.calculation
         // await thisprogram.save();
         // return ''
+    }
+
+    async makeProtocol(list){
+        console.log(list)
+        const num_protocol = list.num
+        const zalist = list.newlist
+        console.log(zalist)
+        for (const za of zalist) {
+            await ProtocolOfSoc.create({
+                num: num_protocol,
+                za: za.id,
+                user_tn: za.user_tn,
+                sum: za.sum,
+                percent: 100,
+                status: za
+            });
+        }
+        return ''
     }
 
 }
