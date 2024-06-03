@@ -178,33 +178,33 @@ function ListContest(){
                                     <hr/>
                                     <div className={`answers`}><i className={`fa-heart fa-regular`}></i>{works[currentImageIndex].votes} <i className="fa-regular fa-calendar"></i><span>{formatDate(works[currentImageIndex].createdAt)}</span></div>
                                     <hr/>
-                                    {/*{nominations && !isVote ?*/}
-                                    {/*    <div className={`nominations radio-button-container`}>*/}
-                                    {/*        {works[currentImageIndex].nomi === null ?*/}
-                                    {/*            <>*/}
-                                    {/*                {nominations.map((item, index) => (*/}
-                                    {/*                    <span key={index}>*/}
-                                    {/*                    {!item.selected &&*/}
-                                    {/*                        <label key={index} className="radio-button">*/}
-                                    {/*                            <input*/}
-                                    {/*                                type="radio"*/}
-                                    {/*                                value={selected}*/}
-                                    {/*                                checked={selected === index}*/}
-                                    {/*                                onChange={(e) => setSelected(index)}*/}
-                                    {/*                            />*/}
-                                    {/*                            <span className="radio-button-text">{item.name}</span>*/}
-                                    {/*                        </label>*/}
-                                    {/*                    }*/}
-                                    {/*                    </span>*/}
-                                    {/*                ))}*/}
-                                    {/*                {all ? <div className='bold'><p>Вы сделали выбор во всех номинациях.</p></div> : null}*/}
-                                    {/*            </> :*/}
-                                    {/*            <div className='bold'>Вы выбрали номинацию <p>{nominations[works[currentImageIndex].nomi].name}</p> для данный работы</div>*/}
-                                    {/*        }*/}
-                                    {/*    </div> : null*/}
-                                    {/*}*/}
-                                    {/*{isVote && <div className={`small-text`}>Вы уже проголосовали</div>}*/}
-                                    <div className={`small-text`}>Голосование будет доступно с 03 по 11 июня 2024 года</div>
+                                    {nominations && !isVote ?
+                                        <div className={`nominations radio-button-container`}>
+                                            {works[currentImageIndex].nomi === null ?
+                                                <>
+                                                    {nominations.map((item, index) => (
+                                                        <span key={index}>
+                                                        {!item.selected &&
+                                                            <label key={index} className="radio-button">
+                                                                <input
+                                                                    type="radio"
+                                                                    value={selected}
+                                                                    checked={selected === index}
+                                                                    onChange={(e) => setSelected(index)}
+                                                                />
+                                                                <span className="radio-button-text">{item.name}</span>
+                                                            </label>
+                                                        }
+                                                        </span>
+                                                    ))}
+                                                    {all ? <div className='bold'><p>Вы сделали выбор во всех номинациях.</p></div> : null}
+                                                </> :
+                                                <div className='bold'>Вы выбрали номинацию <p>{nominations[works[currentImageIndex].nomi].name}</p> для данный работы</div>
+                                            }
+                                        </div> : null
+                                    }
+                                    {isVote && <div className={`small-text`}>Вы уже проголосовали</div>}
+                                    {/*<div className={`small-text`}>Голосование будет доступно с 03 по 11 июня 2024 года</div>*/}
                                 </div>
                                 <>
                                     {!isVote &&

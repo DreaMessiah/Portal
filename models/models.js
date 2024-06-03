@@ -939,6 +939,7 @@ const MyProgram = sequelize.define('myprogram',  {
 
 const ProtocolOfSoc = sequelize.define('protocolofsoc',  {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    num:{type:DataTypes.INTEGER},
     za:{type:DataTypes.INTEGER},
     user_tn:{type:DataTypes.TEXT,ref:'t13uni'},
     sum:{type:DataTypes.INTEGER},
@@ -966,6 +967,7 @@ const Preregister = sequelize.define('preregister',{
     mail:{type:DataTypes.STRING},
     tel:{type:DataTypes.STRING},
     comment:{type:DataTypes.TEXT},
+    avatar:{type:DataTypes.STRING}
 })
 
 const Notifications = sequelize.define('notifications',{
@@ -1053,5 +1055,5 @@ TypesNotifications.hasMany(Notifications, { foreignKey: 'type_id' })
 Notifications.belongsTo(TypesNotifications, { foreignKey: 'type_id' })
 
 module.exports = {
-    Preregister,Notifications,TypesNotifications,ProgramOfSoc, MyProgram, T13Black,Commission,PositionOfSoc,Reports,Struct,StructUsers,Bye,PeopleCounter,T13Bye,T13Uni,CrewMans,ZaSv,TableZayavka,HumanList,KtuDoc,KtuList,MessageSv,ViewsWorkSv,CrewManlist,CrewDoclist,CrewBase,CrewSv,OgmPrice,WorkPrice,StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
+    ProtocolOfSoc,Preregister,Notifications,TypesNotifications,ProgramOfSoc, MyProgram, T13Black,Commission,PositionOfSoc,Reports,Struct,StructUsers,Bye,PeopleCounter,T13Bye,T13Uni,CrewMans,ZaSv,TableZayavka,HumanList,KtuDoc,KtuList,MessageSv,ViewsWorkSv,CrewManlist,CrewDoclist,CrewBase,CrewSv,OgmPrice,WorkPrice,StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts
 }

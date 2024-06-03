@@ -156,6 +156,7 @@ class ReferenceController {
             const data = await ReferenceService.getKtus(id)
             const Ktus = await Promise.all( data.map(async item => {
                 const {user} = await UserService.getUserByTn(item.dataValues.user_tn)
+                console.log(user.dataValues.name)
                 return {...item.dataValues,name:user.dataValues.name,developer:user.dataValues.developer,from_tn:item.ktuman}
             }))
             return res.status(200).json(Ktus)

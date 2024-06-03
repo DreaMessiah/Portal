@@ -164,7 +164,7 @@ function App() {
                         <Route path='/structure' element={<StructureRouter/>}/>
                         <Route path='/tasks' element={<TaskRouter/>}/>
                         <Route path='/settingmain' element={<MainCms/>}/>
-                        <Route path="/load-contest" element={<LoadPage/>} />
+                        {/*<Route path="/load-contest" element={<LoadPage/>} />*/}
                         <Route path="/kids-contest" element={<ContestPage/>} />
                         <Route path="/7897564" element={<NewsPage/>} />
                         <Route path="/" element={<NewstartPage/>} />
@@ -198,6 +198,7 @@ function App() {
                         <Route path="/odata" element={<ODataPage />} />
                         <Route path="/conference" element={<ChatPage />} />
                         <Route path="/createnews" element={<Createnews/>} />
+                        <Route path="/settingnews" element={<Listnews/>} />
                         <Route path="/settingnews" element={<Listnews/>} />
                         <Route path="/viewpost" element={<Viewnews />} />
                         <Route path="/alllistnews" element={<AllListNews />} />
