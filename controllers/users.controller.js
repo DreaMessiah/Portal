@@ -222,6 +222,23 @@ class UsersController {
             next(e)
         }
     }
+    async getUnphoto(req,res,next){
+        try{
+            const users = await userService.getUnphoto()
+            return res.status(200).json(users)
+        }catch (e){
+            next(e)
+        }
+    }
+    async setFixAva(req,res,next){
+        try{
+            const {worker,avatar} = req.body
+            const user = await userService.setFixAva(worker,avatar)
+            return res.status(200).json(user)
+        }catch (e){
+            next(e)
+        }
+    }
 
 }
 

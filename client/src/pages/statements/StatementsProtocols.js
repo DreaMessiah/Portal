@@ -100,12 +100,12 @@ function StatementsProtocols(){
         <div className="soclist">
             <div className="soclist_title">Группы заявлений для протокола и приказа</div>
 
-            {/*<div className={`sort`}>*/}
-            {/*    <div className={`title text`}>Сортировать</div>*/}
-            {/*    <div onClick={() => sortHandler('abc')} className={`sortbtn text`}>По алфовиту</div>*/}
-            {/*    <div onClick={() => sortHandler('num')} className={`sortbtn text`}>По номеру</div>*/}
-            {/*    <div onClick={() => sortHandler('date')} className={`sortbtn text`}>По дате</div>*/}
-            {/*</div>*/}
+            <div className={`sort`}>
+                <div className={`title text`}>Сортировать</div>
+                <div onClick={() => sortHandler('abc')} className={`sortbtn text`}>По алфовиту</div>
+                <div onClick={() => sortHandler('num')} className={`sortbtn text`}>По номеру</div>
+                <div onClick={() => sortHandler('date')} className={`sortbtn text`}>По дате</div>
+            </div>
 
             <div className="statelist_list">
                 <div className="statelist_list_line" >

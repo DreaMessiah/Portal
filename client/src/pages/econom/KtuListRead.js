@@ -179,6 +179,7 @@ function KtuListRead(){
                     <th style={{border: '1px solid #000'}} className="ogmlist_list_line_group w100 title">Обьект</th>
                     <th style={{border: '1px solid #000'}} className="ogmlist_list_line_group w100 title">Дата</th>
                     <th style={{border: '1px solid #000'}} className="ogmlist_list_line_group title">Содержание</th>
+                    <th style={{border: '1px solid #000'}} className="ogmlist_list_line_group w150 title">Установил</th>
                     <th style={{border: '1px solid #000'}} className="ogmlist_list_line_group w50 title">КТУ</th>
                     <th style={{border: '1px solid #000'}} className="ogmlist_list_line_group w50 title borderrightnone">%</th>
                 </tr>
@@ -187,10 +188,10 @@ function KtuListRead(){
                     <td style={{border: '1px solid #000'}} className={`ogmlist_list_line_price w50`}>{item.id}</td>
                     <td style={{border: '1px solid #000'}} className="ogmlist_list_line_price w150">{item.name}</td>
                     <td style={{border: '1px solid #000'}} className="ogmlist_list_line_group w150">{item.developer}</td>
-                    <td style={{border: '1px solid #000'}} className="ogmlist_list_line_group w150 inputs">{item.szfrom ? item.szfrom : ''}</td>
                     <td style={{border: '1px solid #000'}} className="ogmlist_list_line_group w100" >{item.shifr ? item.shifr : ''}</td>
                     <td style={{border: '1px solid #000'}} className="ogmlist_list_line_group w100">{item.ktudate ? item.ktudate.split('T')[0].split('-').reverse().join('-') : ''}</td>
                     <td style={{border: '1px solid #000'}} className="ogmlist_list_line_group inputs" >{item.content ? item.content : ''}</td>
+                    <td style={{border: '1px solid #000'}} className="ogmlist_list_line_group w150 inputs">{item.szfrom ? item.szfrom : ''}</td>
                     <td style={{border: '1px solid #000'}} className={`ogmlist_list_line_group w50 inputs`} >{item.ktu!=null ? item.ktu : ''}</td>
                     <td style={{border: '1px solid #000'}} className="ogmlist_list_line_price w50 borderrightnone">{item.ktu!==null ? item.ktu*100 : ''}</td>
                 </tr>

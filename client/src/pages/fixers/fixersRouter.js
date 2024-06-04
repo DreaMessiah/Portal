@@ -7,6 +7,7 @@ import {Mainnavbar} from "../../components/navbar/Mainnavbar";
 import '../economist/econom.scss'
 import Registration from "./Registration";
 import FixersMenu from "./FixersMenu";
+import ChangeAva from "./ChangeAvatar";
 
 export default function FixersRouter({page= 1}){
     return (
@@ -16,6 +17,7 @@ export default function FixersRouter({page= 1}){
                 <Mainnavbar />
                 {page === 1 && <WorkPage data={<FixersMenu />}/>}
                 {page === 2 && <WorkPage data={<Registration />}/>}
+                {page === 3 && <WorkPage data={<ChangeAva />}/>}
             </div>
         </div>
     )

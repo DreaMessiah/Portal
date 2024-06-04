@@ -192,6 +192,21 @@ class UsersService{
         }
         return newuser
     }
+    async getUnphoto() {
+        const unphoto = await User.findAll({where:{avatar:null}})
+        const data = unphoto.map( item => {
+            return {...item.dataValues,value:item.dataValues.tn,label:item.dataValues.full_name}
+        })
+        return data
+    }
+    async setFixAva(worker,avatar){
+        const user = await User.findByPk(worker.id)
+        user.avatar = avatar
+        await user.save()
+        return user
+    }
+
+
 
 }
 module.exports = new UsersService()

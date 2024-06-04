@@ -117,5 +117,11 @@ export default class UserService {
     static async register(full_name,login,email,password,phone,avatar){
         return $api.post('/auth/fixregister',{full_name,login,email,password,phone,avatar})
     }
+    static getUnphotoWorkers(){
+        return $api.get('/auth/getunphoto')
+    }
+    static setAvaFix(worker,avatar){
+        return $api.post('/auth/setfixava',{worker,avatar})
+    }
 
 }
