@@ -307,7 +307,7 @@ function Createsocial(){
             </div>
 
             <div className='glass' style={(create === 1)?{display: 'flex'}:{display: 'none'}}>
-                <div className="glass_board">
+                <div className="glass_board_create">
                     <div className="glass_board_close"><i className="fa-solid fa-xmark"  onClick={()=>setCreate(0)}/></div>
                     <div className="glass_board_body">
                         <div className='glass_board_btn'>
@@ -318,13 +318,19 @@ function Createsocial(){
                         <div className="glass_board_body_title_rock">Создание новой заявки</div>
                         <div className="glass_board_body_tit">Выбрать программу</div>
                         <Select placeholder='Программа' onChange={(e) => setThisprogram(allprogram[e.index])} value={thisprogram} options={allprogram} styles={{container:(baseStyles, state) => ({...baseStyles,width:'290px'})}}/>
+                        <br/>
+                        {(thisprogram)&&console.log(thisprogram)}
+                        {(thisprogram && thisprogram !== '@')&&(<div className="glass_board_body_tit345">{thisprogram.description}</div>)}
+                        {(thisprogram && thisprogram !== '@')&&(<div className="glass_board_body_tit">Необходимые документы:</div>)}
+                        {(thisprogram && thisprogram !== '@')&&thisprogram.docs.map((doc, index)=>(<div key={index} className="glass_board_body_docs">{doc.desc}</div>))}<br/>
                         <div className="glass_board_step_next" onClick={nextStep}>Далее</div>
+
 
                     </div>
                 </div>
             </div>
             <div className='glass' style={(create === 2)?{display: 'flex'}:{display: 'none'}}>
-                <div className="glass_board">
+                <div className="glass_board_create">
                     <div className="glass_board_close"><i className="fa-solid fa-xmark"  onClick={()=>setCreate(0)}/></div>
                     <div className="glass_board_body">
                         <div className='glass_board_btn'>
@@ -341,7 +347,7 @@ function Createsocial(){
                 </div>
             </div>
             <div className='glass' style={(create === 3)?{display: 'flex'}:{display: 'none'}}>
-                <div className="glass_board">
+                <div className="glass_board_create">
                     <div className="glass_board_close"><i className="fa-solid fa-xmark"  onClick={()=>setCreate(false)}/></div>
                     <div className="glass_board_body">
                         <div className='glass_board_btn'>
@@ -356,7 +362,6 @@ function Createsocial(){
                             {(thisprogram !== '@')&&thisprogram.docs.map((doc, index) => (
                                 <SimpleInput key={index} program={thisprogram} file={file} doc={doc} setFile={setFile} group={group} progress={progress} setProgress={setProgress} setGroup={setGroup} name={doc.desc}/>
                             ))}
-
                         </div>
                         <div className="glass_board_step_next" onClick={nextStep}>Далее</div>
 
@@ -364,7 +369,7 @@ function Createsocial(){
                 </div>
             </div>
             <div className='glass' style={(create === 4)?{display: 'flex'}:{display: 'none'}}>
-                <div className="glass_board">
+                <div className="glass_board_create">
                     <div className="glass_board_close"><i className="fa-solid fa-xmark"  onClick={()=>setCreate(false)}/></div>
                     <div className="glass_board_body">
                         <div className='glass_board_btn'>

@@ -402,7 +402,7 @@
         backdrop-filter: blur(5px);
         top: 0px;
         left: 0px;
-        width: 100%;
+        min-width: 100%;
         height: 100%;
         background-color: rgba(200,200,200,0.6);
         z-index: 1000;
@@ -1139,6 +1139,739 @@
 
           }
         }
+
+      .glass_board_create{
+        width: 90%;
+        height: 90%;
+        background-color: rgba(255,255,255,1);
+        border-radius: 2px;
+        box-shadow: 0px 0px 10px rgba(150,150,150,0.7);
+        overflow-y: hidden;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .glass_board_close{
+          width: calc(100% - 30px);
+          padding: 15px;
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          i{
+            font-size: 20pt;
+            color: #454545;
+            cursor: pointer;
+            transition: 0.05s;
+          }
+          i:hover{
+            color: #CCC;
+            transition: 0.05s;
+          }
+        }
+        .glass_board_body{
+          width: calc(100% - 80px);
+          height: calc(100% - 60px - 60px);
+          //border: 1px solid #454545;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 20px;
+          overflow-y: auto;
+          overflow-x: hidden;
+          .glass_board_body_title_rock{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            font-size: 16pt;
+            font-weight: 800;
+            margin: 40px 0 10px;
+            color: rgb(18, 19, 56);
+            min-height: 50px;
+          }
+
+          @media screen and (max-width: 400px){
+            .glass_board_body_title_rock{
+              width: 100%;
+              display: flex;
+              justify-content: center;
+              text-align: center;
+              font-size: 12pt;
+              font-weight: 800;
+              margin: 40px 0 10px;
+              color: rgb(18, 19, 56);
+              min-height: 50px;
+            }
+          }
+          .glass_board_step{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80px;
+            margin-top: -60px;
+          }
+          .glass_board_step_next{
+            width: 100%;
+            max-width: 288px;
+            border: 1px solid #CCC;
+            min-height: 80px;
+            height: 80px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #454545;
+            cursor: pointer;
+            background-color: #FFF;
+            transition: 0.1s;
+            border-radius: 5px;
+          }
+          .glass_board_body_docs{
+            width: calc(100%);
+            //min-height: 100px;
+            //height: content-box;
+            border: 1px solid #CCC;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            overflow-y: auto;
+            .glass_board_body_docs_set_name{
+              width: calc(100% - 90px);
+              margin: 5px 0;
+              .glass_board_body_docs_set_name_title{
+                font-weight: 600;
+              }
+              .glass_board_body_docs_set_name_docname{
+                font-size: 10pt;
+                color: red;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+                .glass_board_body_docs_set_name_docname_this{
+                  width: calc(100% - 15px);
+                  color: rgb(18, 19, 56);
+                  padding: 5px;
+                  border: 1px solid rgb(18, 19, 56);
+                  border-radius: 3px;
+                  margin: 3px 0;
+                  position: relative;
+                  .del-this{
+                    position: absolute;
+                    right: 10px;
+                    bottom: 1px;
+                    width: 10px;
+                    margin-right: 0px;
+                    font-size: 14pt;
+                  }
+                }
+              }
+            }
+            .glass_board_body_docs_set{
+              width: 100%;
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 20px;
+              .glass_board_body_docs_set_name{
+                width: calc(100% - 90px);
+                .glass_board_body_docs_set_name_title{
+                  font-weight: 600;
+                }
+                .glass_board_body_docs_set_name_docname{
+                  font-size: 10pt;
+                  color: red;
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: flex-start;
+                  align-items: flex-start;
+                  .glass_board_body_docs_set_name_docname_this{
+                    width: calc(100% - 15px);
+                    color: rgb(18, 19, 56);
+                    padding: 5px;
+                    border: 1px solid rgb(18, 19, 56);
+                    border-radius: 3px;
+                    margin: 3px 0;
+                    position: relative;
+                    .del-this{
+                      position: absolute;
+                      right: 10px;
+                      bottom: 1px;
+                      width: 10px;
+                      margin-right: 0px;
+                      font-size: 14pt;
+                    }
+                  }
+                }
+              }
+              .glass_board_body_docs_set_btn{
+                width: 80px;
+                height: 80px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 1px solid #CCC;
+                i{
+                  font-size: 20pt;
+                  color: #CCC;
+                  margin-left:-16px;
+                }
+              }
+            }
+
+          }
+          .glass_board_step_next:hover{
+            color: #FFF;
+            background-color: #454545;
+            transition: 0.1s;
+          }
+          .glass_board_btn{
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: -20px;
+            min-height: 80px;
+            .glass_board_btn_left{
+              div{
+                width: 80px;
+                height: 80px;
+                border-radius: 40px;
+                border: 2px solid #CCC;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+              }
+            }
+            .glass_board_btn_right{
+              div{
+                width: 80px;
+                height: 80px;
+                border-radius: 40px;
+                border: 2px solid #CCC;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+              }
+            }
+
+            i{
+              font-size: 20pt;
+              color: #CCC;
+            }
+          }
+
+          .btnpercent{
+            position: absolute;
+            width: 130px;
+            height: 50px;
+            margin: 15px 0 0 -130px;
+            background-color: rgb(18, 19, 56);
+            color: #FFFFFF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: 0.2s;
+          }
+
+          .btnpercent:hover{
+            opacity: 0.8;
+            transition: 0.2s;
+          }
+
+          .trashpercent{
+            margin: 0 0 0 -30px;
+            i{
+              cursor: pointer;
+              color: #CCC;
+              transition: .1s;
+            }
+            i:hover{
+              color: rgb(18, 19, 56);
+              transition: .1s;
+            }
+          }
+
+          .glass_board_body_tit{
+            display: flex;
+            align-items: center;
+            margin: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+          }
+
+          .glass_board_body_numinput{
+            width: 80px;
+            padding: 10px;
+            border: 3px dotted #CCC;
+            border-radius: 10px;
+            font-size: 12pt;
+            font-weight: 600;
+            color: rgb(18, 19, 56);
+            text-align: center;
+            outline: none;
+            transition: 0.2s;
+            margin-left: 10px;
+            margin-right: 10px;
+          }
+
+          .glass_board_body_input{
+            width: calc(100% - 26px);
+            padding: 10px;
+            border: 3px dotted #CCC;
+            border-radius: 10px;
+            font-size: 16pt;
+            font-weight: 600;
+            color: rgb(18, 19, 56);
+            text-align: center;
+            outline: none;
+            transition: 0.2s;
+          }
+
+          .glass_board_body_textarea{
+            margin-top: 10px;
+            width: calc(100% - 46px);
+            padding: 10px 20px;
+            min-height: 120px;
+            border: 3px dotted #CCC;
+            border-radius: 10px;
+            outline: none;
+          }
+
+          .glass_board_body_btn{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 20px;
+            border: 1px solid #CCC;
+            color: #CCC;
+            width: auto;
+            max-height: 30px !important;
+            cursor: pointer;
+            margin-right: 10px;
+            padding: 5px 30px;
+            border-radius: 10px;
+            margin-left: 10px;
+            font-weight: 400;
+            transition: .2s;
+          }
+          .glass_board_body_btn:hover{
+            color: #454545;
+            border: 1px solid #454545;
+            transition: .2s;
+          }
+
+          .glass_board_body_graf{
+            width: calc(100% - 26px);
+            padding: 10px;
+            border: 3px dotted #CCC;
+            border-radius: 10px;
+            font-size: 12pt;
+            font-weight: 600;
+            color: rgb(18, 19, 56);
+            outline: none;
+            transition: 0.2s;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            .inputs_of_graf{
+              border: none;
+              width: calc(100% - 40px);
+              outline: none;
+              font-size: 12pt;
+              //height: ;
+            }
+            .btns{
+              i{
+                font-size: 16pt;
+                margin-left: 10px;
+                cursor: pointer;
+              }
+              i:hover{
+                color: #CCC;
+                transition: 0.2s;
+              }
+            }
+
+          }
+          .glassslash{
+            width: 100%;
+            height: 1px;
+            background-color: #CCC;
+            margin-top: 10px;
+          }
+          .blueborder{
+            border: 3px dotted rgb(18, 19, 56);
+          }
+          .glass_board_body_buttons{
+            margin-top: 10px;
+            display: flex;
+            justify-content: flex-start;
+            .glass_board_body_buttons_create{
+              margin-right: 20px;
+              padding: 20px 20px;
+              border: 1px solid #CCC;
+              border-radius: 4px;
+              cursor: pointer;
+              color: #454545;
+              transition: 0.2s;
+            }
+            .glass_board_body_buttons_cancel{
+              margin-right: 20px;
+              padding: 20px 20px;
+              border: 1px solid darkred;
+              border-radius: 4px;
+              cursor: pointer;
+              color: #454545;
+              transition: 0.2s;
+            }
+
+            .glass_board_body_buttons_create:hover{
+              color: #000;
+              border: 1px solid #454545;
+            }
+
+            .glass_board_body_buttons_cancel:hover{
+              color: red;
+            }
+          }
+          .glass_board_body_selection{
+            display: flex;
+
+            .glass_pluss_btn{
+              width: 150px;
+              height: 36px;
+              border: 1px solid #CCC;
+              border-radius: 4px;
+              margin-left: 5px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              color: #454545;
+              background-color: #FFFFFF;
+              cursor: pointer;
+              transition: 0.2s;
+            }
+            .glass_pluss_btn:hover{
+              color: #FFFFFF;
+              background-color: #454545;
+              border: 1px solid #CCC;
+              transition: 0.2s;
+            }
+          }
+
+          .glass_board_body_liststatements{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            min-width: 100px;
+            .glass_board_body_liststatements_man{
+              display: flex;
+              width: 100%;
+              border: 1px solid #CCC;
+              min-height: 40px;
+              margin-top: -1px;
+              .glass_board_body_liststatements_num{
+                border-right: 1px solid #CCC;
+                width: 40px;
+                padding: 10px;
+              }
+              .glass_board_body_liststatements_fio{
+                border-right: 1px solid #CCC;
+                width: 250px;
+                padding: 10px;
+              }
+              .glass_board_body_liststatements_dev{
+                border-right: 1px solid #CCC;
+                width: 250px;
+                padding: 10px;
+              }
+              .glass_board_body_liststatements_view{
+                border-right: 1px solid #CCC;
+                width: 250px;
+                padding: 10px;
+              }
+              .glass_board_body_liststatements_app{
+                border-right: 1px solid #CCC;
+                width: 250px;
+                padding: 10px;
+              }
+              .glass_board_body_liststatements_del{
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                padding: 10px;
+                div{
+                  margin-right: 10px;
+                  padding: 5px 10px;
+                  border-radius: 5px;
+                }
+                i{
+                  color: #454545;
+                  cursor: pointer;
+                  transition: 0.1s;
+                }
+                i:hover{
+                  color: #CCC;
+                  transition: 0.1s;
+                }
+
+                .glass_board_body_liststatements_del_eye{}
+                .glass_board_body_liststatements_del_del{}
+                .glass_board_body_liststatements_del_yes{
+                  border: 1px solid green;
+                }
+                .glass_board_body_liststatements_del_no{
+                  border: 1px solid darkred;
+                }
+                .glass_board_body_liststatements_del_wait{
+                  border: 1px solid #CCC;
+                }
+                .glass_board_body_liststatements_del_pass{
+                  border: 1px solid rgb(18, 19, 56);
+                  background-color: #FFFFFF;
+                  cursor: pointer;
+                  transition: .2s;
+                }
+                .glass_board_body_liststatements_del_pass:hover{
+                  background-color: rgb(18, 19, 56);
+                  color: #FFFFFF;
+                  transition: .2s;
+                }
+              }
+            }
+          }
+
+
+          .glass_board_body_control{
+            display: flex;
+            justify-content: flex-start;
+            padding: 10px;
+            .glass_board_body_control_btn{
+              border: 1px solid #CCC;
+              border-radius: 5px;
+              display: none;
+              flex-direction: column;
+              align-items: center;
+              width: 150px;
+              margin: 10px 10px 0 0;
+              padding: 10px;
+              cursor: pointer;
+              background-color: #FFFFFF;
+              transition: .2s;
+            }
+            .glass_board_body_control_btn:hover{
+              background-color: #454545;
+              color: #FFF;
+              transition: .2s;
+            }
+          }
+
+          .glass_board_body_documents{
+            display: flex;
+            align-items: flex-start;
+            padding: 10px;
+            .glass_board_body_documents_file{
+              border: 1px solid #CCC;
+              border-radius: 5px;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              width: 150px;
+              margin: 10px 10px 0 0;
+              padding: 10px;
+              cursor: pointer;
+              i{
+                font-size: 22pt;
+              }
+            }
+            .glass_board_body_documents_file:hover{
+              box-shadow: 0 0 3px rgba(0, 128, 255, 0.5);
+            }
+            .glass_board_body_documents_file_name{
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              text-align: center;
+              font-size: 10pt;
+            }
+          }
+
+          .list_approve{
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            font-size: 10pt;
+            .list_approve_man{
+              border: 1px solid #CCC;
+              padding: 10px;
+              width: 250px;
+              border-radius: 5px;
+              margin-right: 20px;
+              position: relative;
+              display: flex;
+              justify-content: flex-start;
+              align-items: flex-start;
+              flex-direction: column;
+              .list_approve_man_name{
+                font-weight: 600;
+              }
+              .list_approve_man_dev{
+                font-weight: 400;
+              }
+              .list_approve_man_status{
+                margin-top: 5px;
+                padding: 5px 10px;
+                border: 1px solid #CCC;
+                border-radius: 2px;
+              }
+              .list_approve_man_comment{
+                margin-top: 5px;
+                padding: 5px 10px;
+                border: 1px solid #CCC;
+                border-radius: 2px;
+              }
+              .list_approve_man_slash{
+                position: absolute;
+                height: 4px;
+                top: 20px;
+                left: 0px;
+                width: 20px;
+                background-color: #CCC;
+                margin-left: -21px;
+              }
+            }
+          }
+
+          .glass_board_body_man{
+            display: flex;
+            justify-content: space-between;
+            max-width: content-box;
+            padding: 10px 20px;
+            border: 3px dotted #CCC;
+            border-radius: 10px;
+            margin-top: 10px;
+            .glass_board_body_man_content{
+              display: flex;
+              .glass_board_body_man_photo{
+                width: 60px;
+                height: 60px;
+                background-size: cover;
+                background-position: center center;
+                border-radius: 60px;
+              }
+              .glass_board_body_man_params{
+                margin-left: 20px;
+                .glass_board_body_man_name{
+                  font-weight: 700;
+                }
+                .glass_board_body_man_dev{
+                  font-size: 11pt;
+                }
+                .glass_board_body_man_departament{
+                  font-size: 11pt;
+                }
+              }
+            }
+
+            .glass_board_body_man_del{
+              font-size: 16pt;
+              i{
+                color: #454545;
+                cursor: pointer;
+                transition: 0.2s;
+              }
+              i:hover{
+                color: #CCC;
+                transition: 0.2s;
+              }
+            }
+          }
+          .glass_approve_body_man{
+            display: flex;
+            justify-content: space-between;
+            max-width: content-box;
+            padding: 10px 20px;
+            border: 3px solid #CCC;
+            border-radius: 10px;
+            margin-top: 10px;
+            .glass_approve_body_man_content{
+              display: flex;
+              .glass_approve_body_man_photo{
+                width: 60px;
+                height: 60px;
+                min-width: 60px;
+                min-height: 60px;
+                background-size: cover;
+                background-position: center center;
+                border-radius: 60px;
+              }
+              .glass_approve_body_man_params{
+                margin-left: 20px;
+                .glass_approve_body_man_name{
+                  font-weight: 700;
+                }
+                .glass_approve_body_man_dev{
+                  font-size: 11pt;
+                }
+                .glass_approve_body_man_departament{
+                  font-size: 11pt;
+                }
+                .glass_approve_body_man_comment{
+                  font-size: 11pt;
+                  padding: 10px;
+                  border: 1px solid #CCC;
+                  margin: 10px 10px 0 0;
+                  border-radius: 2px;
+                  max-width: 400px;
+                }
+              }
+            }
+
+            .glass_approve_body_man_status{
+              display: flex;
+              flex-wrap: wrap;
+              width: 200px;
+              div{
+                margin: 0 10px 10px 0;
+                padding: 5px 20px;
+                height: 30px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 20px;
+              }
+              .glass_approve_body_man_status_no{
+                border: 1px solid red;
+              }
+              .glass_approve_body_man_status_yes{
+                border: 1px solid green;
+              }
+              .glass_approve_body_man_status_wait{
+                border: 1px solid #CCC;
+              }
+              .glass_approve_body_man_status_pass{
+                border: 1px solid darkblue;
+                cursor: pointer;
+                transition: .1s;
+              }
+              .glass_approve_body_man_status_pass:hover{
+                transition: .1s;
+                background-color: darkblue;
+                color: #FFF;
+              }
+            }
+          }
+
+        }
+      }
       }
   }
 

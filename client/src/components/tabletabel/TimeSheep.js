@@ -19,6 +19,7 @@ import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 import TabelToPdf from "../functions/TabelToPdf";
 import ManService from "../../services/ManService";
+import KTUToPdf from "../functions/KTUToPdf";
 
 
 
@@ -453,6 +454,10 @@ export const TimeSheepPortal = () => {
         TabelToPdf(data,getMyObj(getShifr, 'nameobject'))
     }
 
+    const generateKTU = (data) => {
+        KTUToPdf(data,getMyObj(getShifr, 'nameobject'))
+    }
+
     const loading = () => {
         getKTU()
         writeCheck()
@@ -485,7 +490,7 @@ export const TimeSheepPortal = () => {
                     <div className="tabwelding_header_upper_controlbtn" onClick={()=>copyTab()}>Копировать</div>
                     <div style={(writed)?{display:'none'}:{display:'flex'}} className="tabwelding_header_upper_controlbtn" onClick={()=>{makeWrite()}}>Подписать</div>
                     {dataPrint && t13.length ? <div onClick={() => generatePdf(dataPrint)} className="tabwelding_header_upper_controlbtn">Печать (pdf)</div> : null}
-
+                    {dataPrint && t13.length ? <div onClick={() => generateKTU(dataPrint)} className="tabwelding_header_upper_controlbtn">Протокол КТУ (pdf)</div> : null}
                 </div>
                 <div className="tabwelding_header_newcrewblock">
                     <Select placeholder="Выбрать сотрудника" className='select' onChange={(e) => setThisMans(listMans[e.index])} value={thisMans} options={listMans} styles={{container:(baseStyles, state) => ({...baseStyles,width:'250px'})}}/>
