@@ -53,5 +53,8 @@ export default class SocialService{
         return $api.post(`/sociality/makeprotocol`, list)
     }
 
+    static async getProtocols(sort,direction){
+        return $api.post(`/sociality/getprotocols`,{sort,direction})
+    }
 
 }

@@ -156,5 +156,16 @@ class socialityController {
         }
     }
 
+    async getProtocols(req,res,next) {
+        try{
+            const {sort,direction} = req.body
+            const protocols = await SocialityService.getProtocols(sort,direction)
+            return res.status(200).json(protocols)
+        }catch (e){
+            next(e)
+        }
+    }
+
+
 }
 module.exports = new socialityController()

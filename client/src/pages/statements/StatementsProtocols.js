@@ -4,8 +4,12 @@ import {observer} from "mobx-react-lite"
 import {useMessage} from "../../hooks/message.hook";
 import ObjsService from "../../services/ObjsService";
 import Select from "react-select";
+import SocialService from "../../services/SocialService";
 
 function StatementsProtocols(){
+    const [loading,setLoading] = useState(false)
+
+    const [sortDirection,setSortDirection] = useState(true)
 
     const [create, setCreate] = useState(false)
     const [edit, setEdit] = useState(false)
@@ -18,26 +22,39 @@ function StatementsProtocols(){
     const [stazhcash, setStazhcash] = useState(false)
     const [readstatement, setReadstatement] = useState(false)
     const [maker, setMaker] = useState(false)
-
+    const [list, setList] = useState([])
     // const message = useMessage()
-    const getUsers = async (e) => {
+    const loadingHandler = async () => {
         try {
-            const users = await ObjsService.getUsersList()
-
-            let i = 0
-            users.data.forEach(man => {
-                man.label = man.full_name + '  ' + man.developer
-                man.value = man.tn
-                man.index = i
-                i++
-            })
-            setListuser(users.data)
+            setLoading(true)
+            const {data} = await ObjsService.getUsersList()
+            if(data){
+                data.map((man,index) => {
+                    man.label = man.full_name + '  ' + man.developer
+                    man.value = man.tn
+                    man.index = index
+                })
+                setListuser(data)
+                loadProtacols()
+            }
         }catch(e){
-
+            console.log(e)
+        }finally {
+            setLoading(false)
+        }
+    }
+    const loadProtacols = async (sort = 'id') => { // 'id' 'date' 'summ' 'status'
+        try{
+            setLoading(true)
+            const {data} = await SocialService.getProtocols(sort,sortDirection)
+            console.log(data)
+        }catch (e) {
+            console.log(e)
+        }finally {
+            setLoading(false)
         }
     }
 
-    const [list, setList] = useState([])
 
     const chooseLine = index => {
         let newList = [...list]
@@ -53,8 +70,6 @@ function StatementsProtocols(){
     const cleanList = () => {
         setList([])
     }
-
-
     const showStatement = index => {
         // alert('eye')
         setReadstatement(true)
@@ -72,19 +87,26 @@ function StatementsProtocols(){
         alert('mark')
     }
 
+    const sortHandler = (sort) => {
+        setSortDirection(!sortDirection)
+        loadProtacols(sort)
+    }
+
     useEffect(()=>{
-        getUsers()
+        loadingHandler()
     }, [])
 
     return (
         <div className="soclist">
             <div className="soclist_title">Группы заявлений для протокола и приказа</div>
-            {/*<div className={'text'}><p>Для создания новой программы нажмите кнопку Создать</p><p>Для редактирования существующей программы, необходимо выбрать программу из списка</p></div>*/}
-            <div className="soclist_btns">
-                <div className="soclist_upload">Фильтр</div>
-                <div className="soclist_upload" style={(list.length > 0)?{display: 'flex'}:{display: 'none'}} onClick={()=>setMaker(true)}>Действия</div>
-                <div className="soclist_upload" style={(list.length > 0)?{display: 'flex'}:{display: 'none'}} onClick={cleanList}>Сбросить</div>
-            </div>
+
+            {/*<div className={`sort`}>*/}
+            {/*    <div className={`title text`}>Сортировать</div>*/}
+            {/*    <div onClick={() => sortHandler('abc')} className={`sortbtn text`}>По алфовиту</div>*/}
+            {/*    <div onClick={() => sortHandler('num')} className={`sortbtn text`}>По номеру</div>*/}
+            {/*    <div onClick={() => sortHandler('date')} className={`sortbtn text`}>По дате</div>*/}
+            {/*</div>*/}
+
             <div className="statelist_list">
                 <div className="statelist_list_line" >
                     <div className="statelist_list_line_name title">П/П</div>
@@ -489,8 +511,6 @@ function StatementsProtocols(){
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
