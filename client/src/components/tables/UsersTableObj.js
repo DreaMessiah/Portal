@@ -16,19 +16,19 @@ const UsersTable = ({ header=[],data }) => {
         <div className="table-container">
             <div className="table">
                 <div className="table-header">
-                    <div className="table-cell">ФИО</div>
-                    <div style={{textAlign:'center'}} className="table-cell">Дожность</div>
-                    <div style={{textAlign:'center'}} className="table-cell">Табельный номер</div>
-                    <div style={{textAlign:'center'}} className="table-cell">Логин</div>
-                    <div style={{textAlign:'center'}} className="table-cell">Дата регистрации</div>
+                    <div className="table-cell maxipony">ФИО</div>
+                    <div style={{textAlign:'center'}} className="table-cell maxipony">Дожность</div>
+                    <div style={{textAlign:'center'}} className="table-cell litlepony">Табельный номер</div>
+                    <div style={{textAlign:'center'}} className="table-cell litlepony">Логин</div>
+                    <div style={{textAlign:'center'}} className="table-cell mediumpony">Дата регистрации</div>
                 </div>
                 {currentItems.map((row, index) => (
                     <div className="table-row" key={index}>
-                        <div className="table-cell">{row.full_name}</div>
-                        <div style={{textAlign:'center'}} className="table-cell">{row.developer}</div>
-                        <div style={{textAlign:'center'}} className="table-cell">{row.tn}</div>
-                        <div style={{textAlign:'center'}} className="table-cell">{row.login}</div>
-                        <div style={{textAlign:'center'}} className="table-cell">{formatDate(row.createdAt)}</div>
+                        <div className="table-cell maxipony">{row.full_name}</div>
+                        <div style={{textAlign:'center'}} className="table-cell maxipony">{row.developer}</div>
+                        <div style={{textAlign:'center'}} className="table-cell litlepony">{row.tn}</div>
+                        <div style={{textAlign:'center'}} className="table-cell litlepony">{row.login}</div>
+                        <div style={{textAlign:'center'}} className="table-cell mediumpony">{formatDate(row.createdAt)}</div>
                     </div>
                 ))}
             </div>
