@@ -154,7 +154,7 @@ function KtuPage(){
                         <div className="ogmlist_list_line_group borderrightnone">{item.comment}</div>
                         <div className={`icons-container`}>
                             <div style={{marginLeft:'-80px'}} onClick={() => goToHandler(index)} className="ogmlist_list_line_del"><i class="fa-solid fa-pen-to-square"></i></div>
-                            {rule ===3 && <div style={{marginLeft:'10px'}} onClick={() => goToReader(index)} className="ogmlist_list_line_del"><i className="fa-solid fa-eye"></i></div>}
+                            {rule ===7 && <div style={{marginLeft:'10px'}} onClick={() => goToReader(index)} className="ogmlist_list_line_del"><i className="fa-solid fa-eye"></i></div>}
                             {rule ===3 && <div onClick={() => deleteHandler(index)} style={{marginLeft:'15px'}} className="ogmlist_list_line_del"><i className="fa-solid fa-xmark"></i></div>}
                         </div>
                     </div>
