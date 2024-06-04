@@ -7,6 +7,7 @@ import LoadingSpinner from "../../components/loading/LoadingSpinner"
 import {useMessage} from "../../hooks/message.hook";
 import ModalFiles from "../../components/modalwin/ModalFiles";
 import FilesService from "../../services/FilesService";
+import NotificationsService from "../../services/NotificationsService";
 
 function CmsNotifications(){
     const [loading,setLoading] = useState(false)
@@ -42,18 +43,26 @@ function CmsNotifications(){
         else setEmpty([])
         return hasTrueValue
     }
-    const sendAllMails = async () => {
-        // try {
-        //     setLoading(true)
-        //     const message = 'Просим Вас в срок до 09.06.2024 года загрузить Ваше портретное фото в личном кабинете. Благодарим заранее!'
-        //     const {data} = await NotificationsService.sendAll(message)
-        //     console.log(data)
-        // }catch (e) {
-        //     console.log(e)
-        // }finally {
-        //     setLoading(false)
-        // }
-    }
+    // const sendAllMails = async () => {
+    //     try {
+    //         setLoading(true)
+    //         const message = 'Дорогие друзья!\n' +
+    //             '\n' +
+    //             'Мы рады сообщить, что стартовал конкурс детских рисунков на тему "Я РИСУЮ МОЮ РОССИЮ". Наши юные таланты вложили много сил и души в свои работы, и теперь им очень нужна ваша поддержка!\n' +
+    //             '\n' +
+    //             'Просим вас проголосовать за понравившиеся рисунки. Это можно сделать на нашем сайте. Кнопка голосования находится на главной странице в верхней части экрана.\n' +
+    //             '\n' +
+    //             'Ваш голос очень важен для наших маленьких художников!\n' +
+    //             '\n' +
+    //             'Спасибо за вашу поддержку и участие.'
+    //         const {data} = await NotificationsService.sendAll(message)
+    //         console.log(data)
+    //     }catch (e) {
+    //         console.log(e)
+    //     }finally {
+    //         setLoading(false)
+    //     }
+    // }
 
     const loadImage = async (e) => {
         setLoading(true)
@@ -102,6 +111,7 @@ function CmsNotifications(){
                     <div style={{justifyContent:'space-between'}} className={'buttons'}>
                         <div onClick={sendType} className={'button'}>Добавить</div>
                         <div onClick={cancelHandler} className={'button'}>Отменить</div>
+
                     </div>
                 </div>
             </>
