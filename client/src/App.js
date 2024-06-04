@@ -155,6 +155,7 @@ function App() {
                         <Route path='/*' element={<NewstartPage/>}/>
                         <Route path='/loadpayslip' element={<OgmPage page={6}/>}/>
                         <Route path='/ktulist' element={<OgmPage page={5}/>}/>
+                        <Route path='/kturead' element={<OgmPage page={7}/>}/>
                         <Route path='/ktu' element={<OgmPage page={4}/>}/>
                         <Route path='/t13' element={<OgmPage page={3}/>}/>
                         <Route path='/workprice' element={<OgmPage page={2}/>}/>
