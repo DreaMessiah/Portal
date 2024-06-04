@@ -5,7 +5,7 @@ const ApiError = require("../exceptions/api.error");
 const {Sequelize,Op} = require('sequelize')
 const sharp = require("sharp");
 const PATH = require('path');
-const {logger} = require("sequelize/lib/utils/logger");
+const Jimp = require('jimp')
 
 class FilesService {
     async get(id,parent,onbasket) {
@@ -55,9 +55,18 @@ class FilesService {
     }
     async compressProportionalImage(filePath, quality, maxWidth, maxHeight) {
         try {
-            const image = sharp(filePath)
+            let image = sharp(filePath)
             const metadata = await image.metadata()
-            const { width, height } = metadata
+            const { width, height, format} = metadata
+
+            console.log(format)
+            // Convert unsupported formats to JPEG
+            if (!['jpeg', 'png', 'webp', 'tiff', 'gif'].includes(format)) {
+
+                filePath = filePath + '.jpg'
+                await image.toFormat('jpeg').toFile(filePath)
+                image = sharp(filePath)
+            }
 
             let resizeOptions = {}
             if (width > height) {
@@ -75,6 +84,60 @@ class FilesService {
                 sharp.cache(false)
                 console.log('Изображение успешно сохранено.')
             });
+        } catch (error) {
+            console.error('Ошибка при сжатии, изменении размера и перезаписи изображения:', error);
+        }
+    }
+    async compressProportionalAvatar(filePath, quality, maxWidth, maxHeight) {
+        try {
+            let format;
+            try {
+                const image = sharp(filePath);
+                const metadata = await image.metadata();
+            } catch (error) {
+                console.error('Ошибка при получении метаданных изображения:', error);
+                if (filePath.toLowerCase().endsWith('.bmp')) {
+                    console.log('1111111111111111')
+                    const bmpImage = await Jimp.read(filePath);
+                    const tempFilePath = filePath + '.tmp.jpg';
+                    await bmpImage.quality(100).writeAsync(tempFilePath);
+
+                    // Remove the original BMP file
+                    await fs.unlinkSync(filePath);
+
+                    // Rename the temp JPG file to the original BMP file's name, but with .jpg extension
+                    const newFilePath = PATH.format({ ...PATH.parse(filePath), base: undefined, ext: '.jpg' });
+                    await fs.renameSync(tempFilePath, newFilePath);
+                    filePath = newFilePath;
+                } else {
+                    return;
+                }
+            }
+
+            console.log('tut')
+
+            const image = sharp(filePath);
+            const metadata = await image.metadata();
+            const { width, height } = metadata;
+
+            let resizeOptions = {};
+            if (width > height) {
+                resizeOptions = { width: maxWidth };
+            } else {
+                resizeOptions = { height: maxHeight };
+            }
+
+            const buffer = await image.rotate().resize(resizeOptions).jpeg({ quality }).toBuffer();
+
+            fs.writeFileSync(filePath, buffer, (err) => {
+                if (err) {
+                    console.error('Ошибка при сохранении файла:', err);
+                    return;
+                }
+                sharp.cache(false);
+                console.log('Изображение успешно сохранено.');
+            });
+            return PATH.basename(filePath)
         } catch (error) {
             console.error('Ошибка при сжатии, изменении размера и перезаписи изображения:', error);
         }

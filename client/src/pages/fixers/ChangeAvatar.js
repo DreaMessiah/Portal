@@ -71,6 +71,7 @@ function ChangeAva(){
     const cancelHandler = () => {
         setWorker(null)
         setAvatar('')
+        loadingHandler()
     }
     const sendAva = async () => {
         try {
@@ -95,7 +96,7 @@ function ChangeAva(){
     },[])
     return (
         <div className={`register`}>
-            <h4>Поиск персонажей без образа</h4>
+            <h4>Поиск персонажей без образа | {t13 ? 'осталось - '+t13.length : null}</h4>
             <CmsSelect placeholder={"Введите имя или табельный номер сотрудника"} onChange={setWorker} empty={empty[1]} value={worker} options={t13} radius={'5px'} />
             <hr/>
 

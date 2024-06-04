@@ -142,6 +142,7 @@ class FilesController {
     }
     async loadAvatarImg(req, res, next){
         try {
+            console.log('321')
             const file = req.files.file
             const newname = FilesService.generateRandomFileName()
             const type = file.name.split('.').pop()
@@ -150,8 +151,9 @@ class FilesController {
                 return res.status(400).json({message: 'Файл с таким именем уже существует'})
             }
             await file.mv(path)
-            await FilesService.compressProportionalImage(path,80, 1280, 720)
-            return res.status(200).json({path:`${newname}.${type}`})
+            const filepath = await FilesService.compressProportionalAvatar(path,80, 1280, 720)
+            console.log(filepath)
+            return res.status(200).json({path:filepath})
         }catch (e) {
             next(e)
         }
