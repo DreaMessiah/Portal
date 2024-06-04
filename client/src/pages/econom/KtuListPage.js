@@ -184,10 +184,10 @@ function KtuListPage(){
                     <div className="ogmlist_list_line_price w50 title">№</div>
                     <div className="ogmlist_list_line_price w150 title">ФИО</div>
                     <div className="ogmlist_list_line_group w150 title">Должность</div>
-                    <div className="ogmlist_list_line_group w150 title">Установил</div>
                     <div className="ogmlist_list_line_group w100 title">Обьект</div>
                     <div className="ogmlist_list_line_group w100 title">Дата</div>
                     <div className="ogmlist_list_line_group title">Содержание</div>
+                    <div className="ogmlist_list_line_group w150 title">Установил</div>
                     <div className="ogmlist_list_line_group w50 title">КТУ</div>
                     <div className="ogmlist_list_line_group w50 title borderrightnone">%</div>
                 </div>
@@ -196,10 +196,10 @@ function KtuListPage(){
                         <div className={`ogmlist_list_line_price w50`}>{item.id}</div>
                         <div className="ogmlist_list_line_price w150">{item.name}</div>
                         <div className="ogmlist_list_line_group w150">{item.developer}</div>
-                        <input className="ogmlist_list_line_group w150 inputs" onChange={(e) => changeSzfromHandler(e.target.value,index)} value={item.szfrom ? item.szfrom : ''}></input>
                         <input className={`ogmlist_list_line_group w100 inputs ${empty[index*4] && 'red-solid-border'}`} onChange={(e) => changeShifrHandler(e.target.value,index)} value={item.shifr ? item.shifr : ''}/>
                         <TableDatePicker size={'120px'} onChange={changeDateHandler} empty={empty[index*4+1]} index={index} value={item.ktudate ? item.ktudate : ''} placeholder={item.ktudate ? item.ktudate : ''}/>
                         <input className={`ogmlist_list_line_group inputs leftborder ${empty[index*4+2] && 'red-solid-border'}`} onChange={(e) => changeContentHandler(e.target.value,index)} value={item.content ? item.content : ''}/>
+                        <input className="ogmlist_list_line_group w150 inputs" onChange={(e) => changeSzfromHandler(e.target.value,index)} value={item.szfrom ? item.szfrom : ''}></input>
                         <KtuInput classes={`ogmlist_list_line_group w50 inputs`} setValue={changeKtuHandler} index={index} value={item.ktu!=null ? item.ktu : ''}/>
                         <div className="ogmlist_list_line_price w50 borderrightnone">{item.ktu!==null ? item.ktu*100 : ''}</div>
                         { (rule === 9 || store.user.account === 'superadmin') && <div onClick={() => deleteHandler(index)} className="ogmlist_list_line_del"><i className="fa-solid fa-xmark"></i></div>}

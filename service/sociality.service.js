@@ -4,6 +4,7 @@ const config = require("config");
 const fs = require("fs");
 const ApiError = require("../exceptions/api.error");
 const FilesService = require("./files.service");
+const {fn, col} = require("sequelize");
 class SocialityService{
     async getProgram(){
         const listProgram = await ProgramOfSoc.findAll()
@@ -184,17 +185,23 @@ class SocialityService{
             'date': [['createdAt', direct ? 'ASC' : 'DESC']]
         }
         const order = sortingOptions[sort] || [['id', direct ? 'ASC' : 'DESC']]
-        const protocols = await ProtocolOfSoc.findAll({attributes:[fn('DISTINCT',col('num'))],order})
+        const protocols = await ProtocolOfSoc.findAll({order,include: 't13uni'})
 
-        const data = []
+        const uniqueByNum = async (array) => {
+            const uniqueItems = {}
+            for (const item of array) {
+                if (!uniqueItems[item.num]) {
+                    const prs = await ProtocolOfSoc.findAll({ where: { num: item.num } })
 
-        protocols.map(item => {
-            data[item.num].push(item)
-        })
+                    const totalSum = prs.reduce((accumulator, current) => accumulator + current.sum, 0)
+                    uniqueItems[item.num] = {num:item.num,all:prs.length,sum:totalSum,name:item.t13uni.dataValues.name}
+                }
+            }
+            return Object.values(uniqueItems)
+        }
 
-        console.log(data)
+        return protocols//await uniqueByNum(protocols)
 
-        // return await Skills.findAll({order})
     }
 
 

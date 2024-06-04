@@ -436,7 +436,29 @@
     flex-direction: row;
     .button{
       min-width: 100px;
-
     }
   }
+
+}
+.avablock{
+  width: 200px !important;
+  .ava{
+    justify-content: space-between;
+    .button{
+      min-width: 10px !important;
+      width: 30%;
+      justify-content: center;
+      i{
+        font-size: 1.7rem;
+        color: red;
+      }
+      .up{
+        color: #3C8801;
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+.green-border{
+  border-color: #3C8801 !important;
 }
