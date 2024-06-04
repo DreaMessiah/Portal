@@ -70,27 +70,83 @@
     font-weight: bold;
   }
 }
-.analyt{
-  background-color: #999;
-  color: #FFFFFF;
-  justify-content: left;
-  align-items: flex-start;
-  width: calc(50% - 40px);
-  min-width: 320px;
-  padding: 20px;
-  p{
-    margin: 10px 0;
+@media screen and (min-width: 500px){
+  .analyt{
+    background-color: #999;
+    color: #FFFFFF;
+    justify-content: left;
+    align-items: flex-start;
+    width: calc(50% - 40px);
+    min-width: 320px;
+    padding: 20px;
+    p{
+      margin: 10px 0;
+    }
+    span{
+      font-weight: 600;
+    }
+    .button{
+      font-size: 0.8rem;
+      margin-top: -10px;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .button:hover{
+      color: #aaaaaa;
+    }
   }
-  span{
-    font-weight: 600;
+  .borderrightnone{
+    display: flex !important;
   }
-  .button{
-    font-size: 0.8rem;
-    margin-top: -10px;
-    text-decoration: underline;
-    cursor: pointer;
+  .dd{
+    display: none !important;
   }
-  .button:hover{
-    color: #aaaaaa;
+}
+@media screen and (max-width: 500px){
+  .analyt{
+    background-color: #999;
+    color: #FFFFFF;
+    justify-content: left;
+    align-items: flex-start;
+    width: calc(40% - 40px);
+    min-width: 300px !important;
+    padding: 10px;
+    font-size: 10pt;
+    p{
+      margin: 10px 0;
+    }
+    span{
+      font-weight: 600;
+    }
+    .button{
+      font-size: 0.8rem;
+      margin-top: -10px;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .button:hover{
+      color: #aaaaaa;
+    }
+  }
+  .modal_active{
+    .middle-modal-win-files{
+      height: 90% !important;
+    }
+
+  }
+
+  .workers{
+    .answers-list{
+      font-size: 10pt;
+      .answers-list-line{
+        font-size: 8pt;
+        .borderrightnone{
+          display: none;
+        }
+        .dd{
+          display: flex;
+        }
+      }
+    }
   }
 }
