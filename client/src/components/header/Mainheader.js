@@ -27,7 +27,7 @@ export const MainHeader = () => {
     if(screenWidth < 550){
         widther = '60vh'
     }
-
+    const account = store.user.account
     const stopbody = back => {
         const body = document.querySelector('.workpage_block')
 
@@ -150,6 +150,14 @@ export const MainHeader = () => {
                         {/*    <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-user-plus"></i></div>*/}
                         {/*    <div className="navbar_block_dopmenu_list_description">Вакансии</div>*/}
                         {/*</div>*/}
+                        <Link style={(account === 'superadmin' || rule === 99)?{display: 'flex'}:{display: 'none'}} to='/analytics' className={`navbar_block_dopmenu_list_strock`}>
+                            <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-chart-simple"></i></div>
+                            <div className="navbar_block_dopmenu_list_description">Аналитика</div>
+                        </Link>
+                        <Link style={(account === 'superadmin' || rule === 99)?{display: 'flex'}:{display: 'none'}} to='/editor' className={`navbar_block_dopmenu_list_strock`}>
+                            <div className="navbar_block_dopmenu_list_icon"><i className="fa-solid fa-user-pen"></i></div>
+                            <div className="navbar_block_dopmenu_list_description">Редактор</div>
+                        </Link>
                         <Link to={'/statements'} className={`navbar_block_dopmenu_list_strock`}>
                             <div className="navbar_block_dopmenu_list_icon"><i className="fa-brands fa-slack"></i></div>
                             <div className="navbar_block_dopmenu_list_description">Бланки заявлений</div>
