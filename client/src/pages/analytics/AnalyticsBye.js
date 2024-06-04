@@ -174,6 +174,7 @@ function AnalyticsBye(){
                         <div className="answers-list-row c1 first-row">ФИО</div>
                         <div className="answers-list-row c2 ">Должность</div>
                         <div className="answers-list-row c3 borderrightnone">Дата увольнения</div>
+                        <div className="answers-list-row c3 borderrightnone dd">Дата </div>
                     </div>
 
                     { answers.length ? answers.map( (item,index) => (
