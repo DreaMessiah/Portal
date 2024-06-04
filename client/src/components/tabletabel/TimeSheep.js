@@ -18,6 +18,7 @@ import {DelManTabel} from "./modalactive/DelManTabel";
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 import TabelToPdf from "../functions/TabelToPdf";
+import ManService from "../../services/ManService";
 
 
 
@@ -117,7 +118,7 @@ export const TimeSheepPortal = () => {
             message('готово')
             tab = tabel
             tab.forEach(man => {
-                if(man.tn !== '' ){
+                if(man.tn !== '' && man.tn[0]+man.tn[1] !== 'PO'){
                     t13.forEach(strock => {
                         if(man.tn === strock.tn ){
                             man.d1 = strock.d1;man.d2 = strock.d2;man.d3 = strock.d3;man.d4 = strock.d4;man.d5 = strock.d5;man.d6 = strock.d6;man.d7 = strock.d7;man.d8 = strock.d8;man.d9 = strock.d9;man.d10 = strock.d10;man.d11 = strock.d11;man.d12 = strock.d12;man.d13 = strock.d13;man.d14 = strock.d14;man.d15 = strock.d15;man.d16 = strock.d16;man.d17 = strock.d17;man.d18 = strock.d18;man.d19 = strock.d19;man.d20 = strock.d20;man.d21 = strock.d21;man.d22 = strock.d22;man.d23 = strock.d23;man.d24 = strock.d24;man.d25 = strock.d25;man.d26 = strock.d26;man.d27 = strock.d27;man.d28 = strock.d28;man.d29 = strock.d29;man.d30 = strock.d30;man.d31 = strock.d31;
@@ -266,7 +267,8 @@ export const TimeSheepPortal = () => {
                     man.index = i
                     i++
                 })
-                setListMans(listMan.data)
+                // setListMans(listMan.data)
+                plusToT13(listMan.data)
                 setT13(listMan.data)
             } else {
                 month = months[getMonth - 1];
@@ -278,7 +280,8 @@ export const TimeSheepPortal = () => {
                         man.index = i
                         i++
                     })
-                    setListMans(listMan.data)
+                    // setListMans(listMan.data)
+                    plusToT13(listMan.data)
                     setT13([])
                 } catch {
 
@@ -290,9 +293,35 @@ export const TimeSheepPortal = () => {
         }
     }
 
+    const plusToT13 = async list =>{
+        let month = months[+getMonth]
+        console.log(month)
+        let newList = list
+        try{
+            let i = list.length
+            const humanlist = await ManService.getHumanList()
+            humanlist.data.forEach(man => {
+                man.label = man.name + '  ' + man.developer
+                man.value = man.tn
+                man.index = i
+                man.month = month
+                man.inn = '8617014209'
+                i++
+            })
+            const lastList = humanlist.data
+            newList = [...newList, ...lastList]
+            console.log(newList)
+            setListMans(newList)
+        }catch(e){
+            console.log(e)
+        }
+    }
+
     const plusMan = async () => {
         const man = thisMans
+        console.log(man)
         man.month = months[+getMonth]
+        console.log(man)
         man.year = getYear
         man.shifr = getMyObj(getShifr, 'shifr')
         man.objid = getShifr
@@ -476,7 +505,7 @@ export const TimeSheepPortal = () => {
                             </div>
                             <div className="tab_tabel_tabelman_strock_calendar">
                                 <div className="tab_tabel_tabelman_strock_calendar_s">
-
+                                    {console.log(man)}
                                     <div className="tab_tabel_tabelman_strock_calendar_column_day" style={winread(1)}>
                                         <div className="tab_tabel_tabelman_s_c_c_day_title" style={(getDayWeek(1)?{backgroundColor: '#454545', color: '#FFF'}:{color: '#454545'})}>1</div>
                                         <select disabled={(man.d1 === '')?writed:true} className="tab_tabel_tabelman_s_c_c_day_content border-b border-b no-left-border_sel" onChange={(e)=>editDay('m1', e.target.value, man.id)}>

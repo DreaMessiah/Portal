@@ -147,6 +147,8 @@ class socialityController {
 
         try{
             const list = req.body
+            const tn = req.user.tn
+            list.maker = tn
             const make = await SocialityService.makeProtocol(list)
             return res.status(200).json(make)
         }catch (e){

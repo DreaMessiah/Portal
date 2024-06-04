@@ -179,7 +179,7 @@ class SocialityService{
             await ProtocolOfSoc.create({
                 num: num_protocol,
                 za: za.id,
-                user_tn: za.user_tn,
+                user_tn: list.maker,
                 sum: za.sum,
                 percent: 100,
                 status: za
