@@ -147,12 +147,25 @@ class socialityController {
 
         try{
             const list = req.body
+            const tn = req.user.tn
+            list.maker = tn
             const make = await SocialityService.makeProtocol(list)
             return res.status(200).json(make)
         }catch (e){
             next(e)
         }
     }
+
+    async getProtocols(req,res,next) {
+        try{
+            const {sort,direction} = req.body
+            const protocols = await SocialityService.getProtocols(sort,direction)
+            return res.status(200).json(protocols)
+        }catch (e){
+            next(e)
+        }
+    }
+
 
 }
 module.exports = new socialityController()

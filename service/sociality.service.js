@@ -22,7 +22,6 @@ class SocialityService{
             calculation: program.calculation
         })
     }
-
     async updateProgram(program){
 
 
@@ -96,7 +95,6 @@ class SocialityService{
         //
         return task
     }
-
     async replaceFile(file,za){
         console.log('THIS FOLDER --------------- ' + za)
         try {
@@ -122,18 +120,10 @@ class SocialityService{
         const listMans = await MyProgram.findAll({include: ['programofsoc', 'user' ]})
         return listMans
     }
-
-
     async reverStatus(st){
         console.log('--------------------------- ВОТ')
         const thisza = await MyProgram.findOne({where: {id: st.thisza.id}})
-
-
-
         const newcommission = []
-
-
-
         thisza.commission.forEach(man=>{
             const newman = man
             if(newman.user_tn === st.user){
@@ -155,7 +145,6 @@ class SocialityService{
         const thisza2 = await MyProgram.findOne({where: {id: st.thisza.id}})
         //console.log(thisza2.commission)
         return thisza2
-
         // const thisprogram = await ProgramOfSoc.findOne({where:{id:program.id}})
         // console.log(thisprogram)
         // thisprogram.name = program.name
@@ -169,7 +158,6 @@ class SocialityService{
         // await thisprogram.save();
         // return ''
     }
-
     async makeProtocol(list){
         console.log(list)
         const num_protocol = list.num
@@ -179,7 +167,7 @@ class SocialityService{
             await ProtocolOfSoc.create({
                 num: num_protocol,
                 za: za.id,
-                user_tn: za.user_tn,
+                user_tn: list.maker,
                 sum: za.sum,
                 percent: 100,
                 status: za
@@ -187,6 +175,28 @@ class SocialityService{
         }
         return ''
     }
+
+    async getProtocols(sort,direct){
+        const sortingOptions = {
+            'id': [['id', direct ? 'ASC' : 'DESC']],
+            'summ': [['id', direct ? 'ASC' : 'DESC']],
+            'status': [['status', direct ? 'ASC' : 'DESC']],
+            'date': [['createdAt', direct ? 'ASC' : 'DESC']]
+        }
+        const order = sortingOptions[sort] || [['id', direct ? 'ASC' : 'DESC']]
+        const protocols = await ProtocolOfSoc.findAll({attributes:[fn('DISTINCT',col('num'))],order})
+
+        const data = []
+
+        protocols.map(item => {
+            data[item.num].push(item)
+        })
+
+        console.log(data)
+
+        // return await Skills.findAll({order})
+    }
+
 
 }
 
