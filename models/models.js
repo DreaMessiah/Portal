@@ -942,27 +942,14 @@ const ProtocolOfSoc = sequelize.define('protocolofsoc',  {
     zas:{type: DataTypes.ARRAY(DataTypes.INTEGER)},
     user_tn:{type:DataTypes.STRING,ref:'t13full'},
     status:{type:DataTypes.INTEGER},
-    trash:{type:DataTypes.BOOLEAN},
+    trash:{type:DataTypes.BOOLEAN,defaultValue:false},
     check:{type:DataTypes.BOOLEAN,defaultValue:false},
     percent:{type:DataTypes.INTEGER}
 })
 
 // Промежуточная модель для связи многие-ко-многим
 const ProgramProtocol = sequelize.define('ProgramProtocol', {
-    ProgramOfSocId: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: ProgramOfSoc,
-            key: 'id'
-        }
-    },
-    ProtocolOfSocId: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: ProtocolOfSoc,
-            key: 'id'
-        }
-    }
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true }
 })
 
 const Documents = sequelize.define('documents',{

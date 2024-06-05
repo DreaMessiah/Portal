@@ -194,10 +194,18 @@ class UsersService{
     }
     async getUnphoto() {
         const unphoto = await User.findAll({where:{avatar:null}})
+        const t13 = await T13Bye.findAll()
+        const key = 'tn';
+        let set = []
+
         const data = unphoto.map( item => {
             return {...item.dataValues,value:item.dataValues.tn,label:item.dataValues.full_name}
         })
-        return data
+        data.map( item => {
+            const exists = t13.some(obj => obj[key] === item.value)
+            if(!exists) set.push(item)
+        })
+        return set
     }
     async setFixAva(worker,avatar){
         const user = await User.findByPk(worker.id)
