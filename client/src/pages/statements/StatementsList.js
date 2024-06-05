@@ -204,17 +204,13 @@ function StatementsList(){
 
     const makeProtocol = async () => {
         try{
-            let currentTimeMillis = Date.now();
-            let currentTimeSeconds = Math.floor(currentTimeMillis / 1000);
-            console.log(currentTimeSeconds);
             const goodlist = [...zalist]
             const newlist = []
             goodlist.forEach(za => {
-                za[1].user = {id: za[1].user.id, full_name: za[1].user.full_name, developer: za[1].user.developer}
-                newlist.push(za[1])
-                za[1].sum = za[1].programofsoc.sum
+                newlist.push(za.id)
             })
-            const protocol = await SocialService.makeProtocol({num: currentTimeSeconds, newlist})
+            console.log(newlist)
+            // const protocol = await SocialService.makeProtocol({user_tn: iam.tn, newlist})
             setMaker(false)
             message('Протокол сформирован, для формирования приказа необходимо перейти в раздел Протоколы')
         }catch(e){
