@@ -161,12 +161,15 @@ class SocialityService{
     }
     async makeProtocol(list){
         console.log(list)
-        await ProtocolOfSoc.create({
-            zas: list.newlist,
+        const protocol = await ProtocolOfSoc.create({
+            //zas: list.newlist,
             user_tn: list.maker,
             status: 0,
             percent: 100
-        });
+        })
+        list.newlist.map(item => {
+            protocol.addMyprogram(item)
+        })
         return ''
     }
 
