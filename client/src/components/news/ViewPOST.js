@@ -2,8 +2,6 @@ import "./style.scss"
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useContext, useEffect, useState} from "react";
 import PostService from "../../services/PostService";
-import formatDate from "../functions/formatDate";
-import {check} from "express-validator";
 import {useMessage} from "../../hooks/message.hook";
 import formatDateTime from "../functions/formatDateTime";
 import {Context} from "../../index";
