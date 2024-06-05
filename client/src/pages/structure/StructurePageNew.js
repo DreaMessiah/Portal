@@ -159,6 +159,8 @@ function StructurePageNew(){
         loadingHandler()
         const socket = getSocket()
         socket.emit('online', {data:'get online users'},(response) => {
+            console.log('!!!!!!!!!!!!!!!!!!!')
+            console.log(response)
             setOnline(response)
         })
 
@@ -216,7 +218,7 @@ function StructurePageNew(){
                             <div key={index} className="structure_new_forest_cuedo_card_center_content"
                                  style={(selected === start.id) ? {display: 'flex'} : {display: 'none'}}>
                                 <div className="structure_new_forest_cuedo_card_center_content_person">
-                                    <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url(/files/profile/${item.avatar ? item.avatar : 'face.png'})`}}>{online.includes(item.tn) ? <i className="online2 fa-solid fa-circle"></i> : null}</div>
+                                    <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url(/files/profile/${item.avatar ? item.avatar : 'face.png'})`}}>{online ? online.includes(item.tn) ? <i className="online2 fa-solid fa-circle"></i> : null : null}</div>
                                     <div onClick={() => onContactHandler(item)} className="structure_new_forest_cuedo_card_center_content_person_contact">Связаться</div>
                                     <div className="structure_new_forest_cuedo_card_center_content_person_disc">
                                         <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">{item.name}</div>
@@ -270,7 +272,7 @@ function StructurePageNew(){
                                 <div className="structure_new_forest_cuedo_card_center_content" style={(selected===branch.id)?{display:'flex'}:{display:'none'}}>
                                     { (branch.structusers && !branch.type) ? branch.structusers.map( (item,index) => (
                                         <div key={index} className="structure_new_forest_cuedo_card_center_content_person">
-                                            <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url(/files/profile/${item.avatar ? item.avatar : 'face.png'})`}}>{online.includes(item.tn) ? <i className="online2 fa-solid fa-circle"></i> : null}</div>
+                                            <div className="structure_new_forest_cuedo_card_center_content_person_photo" style={{backgroundImage: `url(/files/profile/${item.avatar ? item.avatar : 'face.png'})`}}>{online ? online.includes(item.tn) ? <i className="online2 fa-solid fa-circle"></i> : null : null}</div>
                                             <div className="structure_new_forest_cuedo_card_center_content_person_contact" onClick={() => onContactHandler(item)}>Связаться</div>
                                             <div className="structure_new_forest_cuedo_card_center_content_person_disc">
                                                 <div className="structure_new_forest_cuedo_card_center_content_person_disc_name">{item.name}</div>
