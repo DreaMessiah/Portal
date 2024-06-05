@@ -939,14 +939,30 @@ const MyProgram = sequelize.define('myprogram',  {
 
 const ProtocolOfSoc = sequelize.define('protocolofsoc',  {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
-    num:{type:DataTypes.INTEGER},
-    za:{type:DataTypes.INTEGER},
-    user_tn:{type:DataTypes.TEXT,ref:'t13uni'},
-    sum:{type:DataTypes.INTEGER},
-    percent:{type:DataTypes.INTEGER},
-    status:{type:DataTypes.JSON,default:null},
+    zas:{type: DataTypes.ARRAY(DataTypes.INTEGER)},
+    user_tn:{type:DataTypes.STRING,ref:'t13full'},
+    status:{type:DataTypes.INTEGER},
+    trash:{type:DataTypes.BOOLEAN},
     check:{type:DataTypes.BOOLEAN,defaultValue:false},
-    trash:{type:DataTypes.BOOLEAN,defaultValue:false}
+    percent:{type:DataTypes.INTEGER}
+})
+
+// Промежуточная модель для связи многие-ко-многим
+const ProgramProtocol = sequelize.define('ProgramProtocol', {
+    ProgramOfSocId: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: ProgramOfSoc,
+            key: 'id'
+        }
+    },
+    ProtocolOfSocId: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: ProtocolOfSoc,
+            key: 'id'
+        }
+    }
 })
 
 const Documents = sequelize.define('documents',{
@@ -1002,8 +1018,8 @@ ProgramOfSoc.hasMany(MyProgram, { foreignKey: 'program', sourceKey: 'id', as: 'm
 MyProgram.belongsTo(User, { foreignKey: 'user_tn', targetKey: 'tn', as: 'user' })
 User.hasMany(MyProgram, { foreignKey: 'user_tn', sourceKey: 'tn', as: 'program_id' })
 
-ProgramOfSoc.belongsTo(ProtocolOfSoc, { foreignKey: 'za', as: 'protocol', constraints: false  })
-ProtocolOfSoc.hasMany(ProgramOfSoc, { foreignKey: 'za', as: 'program', constraints: false  })
+ProgramOfSoc.belongsToMany(ProtocolOfSoc, { through: ProgramProtocol });
+ProtocolOfSoc.belongsToMany(ProgramOfSoc, { through: ProgramProtocol });
 
 T13Uni.hasMany(Commission, { foreignKey: 'user_tn', sourceKey: 'tn',constraints: false})
 T13Uni.hasMany(ProtocolOfSoc, { foreignKey: 'user_tn', sourceKey: 'tn',constraints: false})
@@ -1055,5 +1071,5 @@ TypesNotifications.hasMany(Notifications, { foreignKey: 'type_id' })
 Notifications.belongsTo(TypesNotifications, { foreignKey: 'type_id' })
 
 module.exports = {
-    Preregister,Notifications,TypesNotifications,ProgramOfSoc, MyProgram, T13Black,Commission,PositionOfSoc,Reports,Struct,StructUsers,Bye,PeopleCounter,T13Bye,T13Uni,CrewMans,ZaSv,TableZayavka,HumanList,KtuDoc,KtuList,MessageSv,ViewsWorkSv,CrewManlist,CrewDoclist,CrewBase,CrewSv,OgmPrice,WorkPrice,StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts,ProtocolOfSoc
+    ProgramProtocol,Preregister,Notifications,TypesNotifications,ProgramOfSoc, MyProgram, T13Black,Commission,PositionOfSoc,Reports,Struct,StructUsers,Bye,PeopleCounter,T13Bye,T13Uni,CrewMans,ZaSv,TableZayavka,HumanList,KtuDoc,KtuList,MessageSv,ViewsWorkSv,CrewManlist,CrewDoclist,CrewBase,CrewSv,OgmPrice,WorkPrice,StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts,ProtocolOfSoc
 }

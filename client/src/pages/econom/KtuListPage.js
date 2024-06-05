@@ -201,7 +201,7 @@ function KtuListPage(){
                         <input className={`ogmlist_list_line_group inputs leftborder ${empty[index*4+2] && 'red-solid-border'}`} onChange={(e) => changeContentHandler(e.target.value,index)} value={item.content ? item.content : ''}/>
                         <input className="ogmlist_list_line_group w150 inputs" onChange={(e) => changeSzfromHandler(e.target.value,index)} value={item.szfrom ? item.szfrom : ''}></input>
                         <KtuInput classes={`ogmlist_list_line_group w50 inputs`} setValue={changeKtuHandler} index={index} value={item.ktu!=null ? item.ktu : ''}/>
-                        <div className="ogmlist_list_line_price w50 borderrightnone">{item.ktu!==null ? item.ktu*100 : ''}</div>
+                        <div className="ogmlist_list_line_price w50 borderrightnone">{ item.ktu!==null ? (parseFloat(item.ktu) - 1).toFixed(2)*100 : ''}</div>
                         { (rule === 9 || store.user.account === 'superadmin') && <div onClick={() => deleteHandler(index)} className="ogmlist_list_line_del"><i className="fa-solid fa-xmark"></i></div>}
                     </div>
                 ))}
