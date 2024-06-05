@@ -939,7 +939,6 @@ const MyProgram = sequelize.define('myprogram',  {
 
 const ProtocolOfSoc = sequelize.define('protocolofsoc',  {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
-    zas:{type: DataTypes.ARRAY(DataTypes.INTEGER)},
     user_tn:{type:DataTypes.STRING,ref:'t13full'},
     status:{type:DataTypes.INTEGER},
     trash:{type:DataTypes.BOOLEAN},

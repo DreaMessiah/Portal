@@ -207,10 +207,10 @@ function StatementsList(){
             const goodlist = [...zalist]
             const newlist = []
             goodlist.forEach(za => {
-                newlist.push(za.id)
+                newlist.push(za[1].id)
             })
-            console.log(newlist)
-            // const protocol = await SocialService.makeProtocol({user_tn: iam.tn, newlist})
+            // console.log(goodlist)
+            const protocol = await SocialService.makeProtocol({user_tn: iam.tn, newlist})
             setMaker(false)
             message('Протокол сформирован, для формирования приказа необходимо перейти в раздел Протоколы')
         }catch(e){

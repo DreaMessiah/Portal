@@ -161,14 +161,12 @@ class SocialityService{
     }
     async makeProtocol(list){
         console.log(list)
-        // await ProtocolOfSoc.create({
-        //     num: num_protocol,
-        //     za: za.id,
-        //     user_tn: list.maker,
-        //     sum: za.sum,
-        //     percent: 100,
-        //     status: za
-        // });
+        await ProtocolOfSoc.create({
+            zas: list.newlist,
+            user_tn: list.maker,
+            status: 0,
+            percent: 100
+        });
         return ''
     }
 
