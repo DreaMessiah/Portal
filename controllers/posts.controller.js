@@ -117,7 +117,14 @@ class PostsController {
             next(e)
         }
     }
-
+    async setLike(req,res,next) {
+        try{
+            const islike = await PostsService.setLike(req.body.id,req.user.id)
+            return res.status(200).json(islike)
+        }catch (e){
+            next(e)
+        }
+    }
 
 }
 module.exports = new PostsController()

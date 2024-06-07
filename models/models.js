@@ -540,7 +540,7 @@ const Posts = sequelize.define('rss', {
     oncomment:{type:DataTypes.BOOLEAN,default:true},
     trash:{type:DataTypes.BOOLEAN,default:false},
     clicks:{type:DataTypes.INTEGER,default:0},
-    user_id_likes: {type: DataTypes.ARRAY(DataTypes.INTEGER)}
+    user_id_likes: {type: DataTypes.ARRAY(DataTypes.INTEGER),defaultValue:[]}
 })
 const BestBoard = sequelize.define('bestboard', {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},

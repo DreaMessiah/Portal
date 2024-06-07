@@ -17,4 +17,6 @@ router.post('/getcomments',authMiddlewere,PostsController.getComments)
 router.post('/changecomment',authMiddlewere,PostsController.changeComment)
 router.post('/deletecomment',authMiddlewere,PostsController.deleteComment)
 
+router.post('/setlike',authMiddlewere,PostsController.setLike)
+
 module.exports = router
