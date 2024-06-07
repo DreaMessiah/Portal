@@ -117,7 +117,7 @@ function SRTOlist(){
             <div>
                 <tbody>
                 <table style={{ borderCollapse: 'collapse' }}>
-                    <tr>
+                    <tr style={{position: 'sticky', top: '59px', backgroundColor: '#FFFFFF'}}>
                         <th style={{ border: '1px solid black' }}>П/П</th><th style={{ border: '1px solid black' }}>ФИО</th><th style={{ border: '1px solid black' }}>должность</th><th style={{ border: '1px solid black' }}>отдел</th>
                         {[...Array(31)].map((_, dayi) => (
                             <th style={{ border: '1px solid black' }} key={dayi}>{dayi + 1}</th>
@@ -127,18 +127,24 @@ function SRTOlist(){
                         const man = {}
                         for(let i = 1; i<=31; i++){
                             man[`m${i}`] = ''
+                            man[`sum${i}`] = 0
                         }
                         oldtabels.forEach(line => {
                             for(let i = 1; i<=31; i++){
-                                if(strock.tn === line.tn && man[`m${i}`] === '' && line[`m${i}`] !== '' && strock.branch !== 'механики'){man[`m${i}`] = line[`m${i}`]}
+                                let cost = 0
+                                if(strock.tn === line.tn && man[`m${i}`] === '' && line[`m${i}`] !== '' && strock.branch !== 'механики'){man[`m${i}`] = line[`m${i}`];if(line.transport.split('|')[1])man[`sum${i}`] = +line.transport.split('|')[1];}
                             }
                         })
                         oldtabels.forEach(line => {
                             for(let i = 1; i<=31; i++){
-                                if(strock.tn === line.tn && man[`m${i}`] === '' && line[`m${i}`] !== '' && strock.branch === 'механики'){man[`m${i}`] = line[`m${i}`]}
+                                if(strock.tn === line.tn && man[`m${i}`] === '' && line[`m${i}`] !== '' && strock.branch === 'механики'){man[`m${i}`] = line[`m${i}`];if(line.transport.split('|')[1])man[`sum${i}`] = +line.transport.split('|')[1];}
                             }
                         })
-
+                        let itogy = 0
+                        let fullcost = 0
+                        for(let i = 1; i<=31; i++){
+                            if(man[`m${i}`] !== ''){itogy++;fullcost=fullcost+man[`sum${i}`]}
+                        }
 
                         return(
                             <tr key={index}>
@@ -177,8 +183,8 @@ function SRTOlist(){
                                 <td style={{ border: '1px solid black' }}>{man.m29}</td>
                                 <td style={{ border: '1px solid black' }}>{man.m30}</td>
                                 <td style={{ border: '1px solid black' }}>{man.m31}</td>
-                                <td style={{ border: '1px solid black' }}>{strock.total}</td>
-                                <td style={{ border: '1px solid black' }}></td>
+                                <td style={{ border: '1px solid black' }}>{itogy}</td>
+                                <td style={(itogy>0 && fullcost === 0)?{ border: '1px solid black', backgroundColor: 'skyblue' }:{ border: '1px solid black' }}>{(itogy!==0)?Math.round(fullcost/itogy):0}</td>
                                 <td style={{ border: '1px solid black' }}>{strock.tn}</td>
                             </tr>
                         )
