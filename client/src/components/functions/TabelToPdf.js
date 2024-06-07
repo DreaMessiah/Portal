@@ -3,7 +3,7 @@ import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 import amiriFont from "../../assets/fonts/amirifont";
 const TabelToPdf = (data,object) => {
-    const doc = new jsPDF('landscape', 'mm',[297, 210]);
+    const doc = new jsPDF();//'landscape', 'mm',[297, 210]
 
     const tableColumn = [
         '№',

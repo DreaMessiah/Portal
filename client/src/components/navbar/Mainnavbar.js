@@ -76,6 +76,12 @@ export const Mainnavbar = () => {
                     <div className="navbar_block_menu_strock_icon" style={{display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#FFF', fontSize: '16pt'}}><i className="fa-brands fa-google-wallet"></i></div>
                     <div className="navbar_block_menu_strock_description">Расчётка</div>
                 </Link>
+                {store.user.account === 'superadmin' ?
+                <Link onClick={(e) => setSelectedMenu(9)} to="/openai" className={`navbar_block_menu_strock ${selectedMenu===9 && 'selected'}`}>
+                    <div className="navbar_block_menu_strock_icon" style={{display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#FFF', fontSize: '16pt'}}><div className={`icon_openai`}> </div></div>
+                    <div className="navbar_block_menu_strock_description">OpenAi</div>
+                </Link>
+                : null}
             </div>
             <div className={`navbar_block_dopmenu`}>
                 <div className={`navbar_block_dopmenu_list`}>

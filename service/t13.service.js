@@ -101,7 +101,7 @@ class T13Service {
             current.name = struct.name
             await StructUsers.destroy({ where: { structure_id: struct.id } });
             const peoples = struct.group.map(async item => {
-                await StructUsers.create({name:item.name,structure_id:struct.id,user_tn:item.tn})
+                await StructUsers.create({name:item.name,structure_id:struct.id,user_tn:item.user_tn})
             })
             current.set('factbranchs', struct.t13brs)
             await current.save()

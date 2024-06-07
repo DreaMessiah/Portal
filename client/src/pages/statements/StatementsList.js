@@ -47,6 +47,7 @@ function StatementsList(){
 
     const [list, setList] = useState([])
     const [zalist, setZAlist] = useState([])
+
     const chooseLine = (index, za) => {
         let newList = [...list]
         let newZAlist = [...zalist]

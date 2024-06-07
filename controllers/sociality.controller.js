@@ -165,6 +165,14 @@ class socialityController {
             next(e)
         }
     }
+    async getProtStatus(req,res,next) {
+        try{
+            const statuses = await SocialityService.getProtStatus()
+            return res.status(200).json(statuses)
+        }catch (e){
+            next(e)
+        }
+    }
 
 
 }

@@ -1,3 +1,21 @@
+.sort{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: -25px;
+  align-items: center;
+  .title{
+    font-size: 0.8rem;
+  }
+  .sortbtn{
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .sortbtn:hover{
+    text-decoration: none;
+  }
+}
+
 @media screen and (min-width: 700px){
   .soclist{
     width: 100%;
@@ -29,7 +47,12 @@
           border-right: 4px solid #CCC;
         }
         .statelist_list_line_cropname{
-          width: 250px;
+          width: 200px;
+        }
+        .statelist_list_line_icon{
+          width: 110px;
+          justify-content: center;
+          display: flex;
         }
         .statelist_list_line_del{
           display: flex;

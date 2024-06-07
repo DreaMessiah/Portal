@@ -7335,8 +7335,11 @@ export const DataProvider = ({ children }) => {
     const sizesWear = [{value:46,label:46},{value:47,label:47},{value:48,label:48},{value:50,label:50},{value:51,label:51},{value:52,label:52},{value:53,label:53},{value:54,label:54},{value:55,label:55},{value:56,label:56}]
     const sizesShoes = [{value:37,label:37},{value:38,label:38},{value:39,label:39},{value:40,label:40},{value:41,label:41},{value:42,label:42},{value:43,label:43},{value:44,label:44},{value:45,label:45},{value:46,label:46},{value:47,label:47}]
 
+    const emojis = ['😊', '😂', '👍', '❤️', '😢', '😎', '😍', '🤔', '🙄', '😇'];
+
     return (
         <DataContext.Provider value={{
+            emojis,
             sizesWear,
             sizesShoes,
             optionsYear,

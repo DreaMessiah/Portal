@@ -1,3 +1,46 @@
+
+.emoji-container {
+  position: relative;
+  display: inline-block;
+
+  .emoji-button {
+    position: absolute;
+    bottom: 80px;
+    right: 10px;
+    font-size: 15px;
+    padding: 5px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .emoji-picker {
+    position: absolute;
+    width: 120px;
+    bottom: 110px;
+    right: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .emoji {
+    font-size: 12px;
+    padding: 5px;
+    cursor: pointer;
+  }
+
+  .emoji:hover {
+    background-color: #f0f0f0;
+  }
+}
+
+
 @media screen and (min-width: 1400px){
   .news_block{
     width: calc(100% - 40px);

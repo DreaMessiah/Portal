@@ -69,6 +69,7 @@ import HrmPage from "./pages/survey/HrmPage";
 import AnalyticsRouter from "./pages/analytics/AnalyticsRouter";
 import Notifications from "./pages/message/Notifications";
 import FixersRouter from "./pages/fixers/fixersRouter";
+import OpenAiPage from "./pages/ai/OpenAiPage";
 
 
 function App() {
@@ -224,6 +225,7 @@ function App() {
                         {store.user.account === 'superadmin' || store.user.account === 'fixers' ? <Route path="/fixers" element={<FixersRouter page={1} />} /> : null }
                         {store.user.account === 'superadmin' || store.user.account === 'fixers' ? <Route path="/registration" element={<FixersRouter page={2} />} /> : null }
                         {store.user.account === 'superadmin' || store.user.account === 'fixers' ? <Route path="/changeava" element={<FixersRouter page={3} />} /> : null }
+                        {store.user.account === 'superadmin' || store.user.account === 'fixers' ? <Route path="/openai" element={<OpenAiPage />} /> : null }
 
                         {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/editor" element={<EditorRouter page={1} />} /> : null }
                         {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/peoplesstat" element={<EditorRouter page={2} />} /> : null }
