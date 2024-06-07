@@ -62,7 +62,7 @@ class PostsService{
         if(!post) throw ApiError.BadRequest('Новость не найденa в базе')
         post.clicks++
         await post.save()
-        const postDto = [{name:'main',title:post.title,image:post.image,content:post.text,oncomment:post.oncomment}]
+        const postDto = [{name:'main',title:post.title,image:post.image,content:post.text,oncomment:post.oncomment,views:post.clicks,likes:post.user_id_likes}]
         const data = JSON.parse(post.json_data)
         data.map( item => {
             postDto.push({name:item.name,content: item.content,image:item.images})
@@ -72,7 +72,8 @@ class PostsService{
     async getSinglePost(id) {
         const post = await Posts.findOne({where:{id:+id,trash:false}})
         if(!post) throw ApiError.BadRequest('Новость не найденa в базе')
-        return {id:post.id,title:post.title,image:post.image,content:post.text,clicks:post.clicks,createdAt:post.createdAt}
+        const comments = await PostComments.findAll({where: {post_id:+id,trash:false}})
+        return {id:post.id,title:post.title,image:post.image,content:post.text,clicks:post.clicks,createdAt:post.createdAt,likes:post.user_id_likes,comments:comments.length}
     }
     async saveBlocks(blocks){
         return blocks.map(async item => {
@@ -111,6 +112,28 @@ class PostsService{
         const post = await Posts.create({title,text,image,json_data,oncomment,trash,clicks:0})
         return {post}
     }
+    async setLike(id,user_id) {
+        const post = await Posts.findByPk(id)
+        console.log(post)
+        if(post){
+            if(post.user_id_likes === null) {
+                post.user_id_likes = []
+                await post.save()
+            }
+            if(post.user_id_likes.includes(user_id)){
+                post.set('user_id_likes', post.user_id_likes.filter(value => value !== user_id))
+                await post.save()
+                return false
+            }else{
+                post.set('user_id_likes', [...post.user_id_likes, user_id])
+                await post.save()
+                return true
+            }
+        }
+        return false
+    }
+
+
 }
 
 module.exports = new PostsService()

@@ -39,4 +39,7 @@ export default class PostService {
     static deleteComment(id) {
         return $api.post('/posts/deletecomment',{id})
     }
+    static setLike(id){
+        return $api.post('/posts/setlike',{id})
+    }
 }

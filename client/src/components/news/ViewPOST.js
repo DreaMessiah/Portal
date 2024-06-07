@@ -23,10 +23,10 @@ export const ViewPOST = observer( () => {
     const [showEmojis,setShowEmojis] = useState()
     const [deleteIndex,setDeleteIndex] = useState(-1)
     const [deleteActive,setDeleteActive] = useState(false)
-
+    const [loading,setLoading] = useState(false)
     const [changeComment,setChangeComment] = useState(-1)
     const [changeCommentText,setChangeCommentText] = useState('')
-
+    const [isLike,setIsLike] = useState(false)
     const [comment,setComment] = useState('')
     const [comments,setComments] = useState([])
     const [visibleCount,setVisibleCount] = useState(3)
@@ -38,7 +38,12 @@ export const ViewPOST = observer( () => {
             console.log(getPost)
             const response = await PostService.fetchPost(getPost)
             if(response.data){
+
                 setPost(response.data)
+                console.log(response.data)
+                if(response.data[0].likes !== null && response.data[0].likes.includes(store.user.id)) setIsLike(true)
+                else setIsLike(false)
+
                 const ids = await PostService.fetchList()
                 if(ids.data){
                     const newsIds = ids.data
@@ -138,6 +143,30 @@ export const ViewPOST = observer( () => {
         setDeleteIndex(-1)
     }
 
+    const setLike = async() => {
+        try {
+            setLoading(true)
+            const {data} = await PostService.setLike(viewId)
+            const newLikes = [...post]
+
+            if(!data && post[0].likes) {
+                const indexToRemove = newLikes[0].likes.indexOf(store.user.id);
+                if (indexToRemove > -1) {
+                    newLikes[0].likes.splice(indexToRemove, 1);
+                }
+            }else {
+                newLikes[0].likes.push(store.user.id)
+            }
+            setPost([...newLikes])
+
+            setIsLike(data)
+        }catch (e) {
+            console.log(e)
+        }finally {
+            setLoading(false)
+        }
+    }
+
     const addEmoji = (emoji) => {
         setComment(comment + emoji)
         setShowEmojis(false)
@@ -199,7 +228,16 @@ export const ViewPOST = observer( () => {
                                 }
                         </span>
                         ))}
-
+                        <span className={`news-status`}>
+                            <span className={`rigth-box`}>
+                                <span onClick={() => setLike()} className={`circle cliker `}>{!isLike ? <i className="fa-regular fa-heart"></i> : <i className="fa-solid fa-heart liked"></i>} {post[0].likes && post[0].likes.length ? post[0].likes.length : null}</span>
+                                {comments.length ? <span className={`circle`}><i className="fa-regular fa-comments"></i>{comments.length}</span> : null}
+                                {/*<div className={`circle`}><i className="fa-solid fa-share"></i></div>*/}
+                            </span>
+                            <span className={'left-box'}>
+                                <span className={`circle`}><i className="fa-solid fa-eye"></i> {' ' + post ? post[0].views:null}</span>
+                            </span>
+                        </span>
                     </div>
                     {post && post[0].oncomment ?
                     <div className={`history_messs`} >
