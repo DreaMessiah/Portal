@@ -189,8 +189,11 @@ function CmsStructure(){
             setLoading(true)
             if(!checkEmpty()){
                 const t13brs = brs1c.map(item => {return item.label})
+                console.log(group)
                 const newStructure = {id,name,onT13,group,toNext,onType,t13brs}
+                console.log(newStructure)
                 const {data} = await UserService.createStructure(newStructure)
+                console.log(data)
                 if(data){
                     cancelHandler()
                     loadingHandler()

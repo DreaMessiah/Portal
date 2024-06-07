@@ -28,7 +28,6 @@ app.use('/api', router)
 app.use(errorMiddlewere) //Обязательно последний!
 //*******************************************************\
 
-
 const server = createServer(app)
 const io = initializeSocket(server)
 const start = async () => {

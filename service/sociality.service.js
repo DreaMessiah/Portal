@@ -1,4 +1,6 @@
-const {ProgramOfSoc, t13uni, User, Commission, TaskConnections, Tasks, TaskChains, TaskDocs, MyProgram, ProtocolOfSoc} = require('../models/models')
+const {ProgramOfSoc, t13uni, User, Commission, TaskConnections, Tasks, TaskChains, TaskDocs, MyProgram, ProtocolOfSoc,
+    Statuses
+} = require('../models/models')
 const PATH = require("path");
 const config = require("config");
 const fs = require("fs");
@@ -181,25 +183,13 @@ class SocialityService{
             'date': [['createdAt', direct ? 'ASC' : 'DESC']]
         }
         const order = sortingOptions[sort] || [['id', direct ? 'ASC' : 'DESC']]
-        const protocols = await ProtocolOfSoc.findAll({order,include: 't13uni'})
 
-        const uniqueByNum = async (array) => {
-            const uniqueItems = {}
-            for (const item of array) {
-                if (!uniqueItems[item.num]) {
-                    const prs = await ProtocolOfSoc.findAll({ where: { num: item.num } })
-
-                    const totalSum = prs.reduce((accumulator, current) => accumulator + current.sum, 0)
-                    uniqueItems[item.num] = {num:item.num,all:prs.length,sum:totalSum,name:item.t13uni.dataValues.name}
-                }
-            }
-            return Object.values(uniqueItems)
-        }
-
-        return protocols//await uniqueByNum(protocols)
-
+        return await ProtocolOfSoc.findAll({order,include: ['t13uni',{model:MyProgram,include: ['programofsoc','user']}]})//,'t13uni'
     }
-
+    //{ model: MyProgram, as: 'myPrograms', include: [{model: ProgramOfSoc, as: 'programOfSoc'}]}
+    async getProtStatus(){
+        return await Statuses.findAll({where:{type:4},order:[['value', 'ASC']]})
+    }
 
 }
 

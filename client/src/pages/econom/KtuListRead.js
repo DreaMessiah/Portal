@@ -175,7 +175,6 @@ function KtuListRead(){
                     <th style={{border: '1px solid #000'}} className="ogmlist_list_line_price w50 title">№</th>
                     <th style={{border: '1px solid #000'}} className="ogmlist_list_line_price w150 title">ФИО</th>
                     <th style={{border: '1px solid #000'}} className="ogmlist_list_line_group w150 title">Должность</th>
-                    <th style={{border: '1px solid #000'}} className="ogmlist_list_line_group w150 title">Установил</th>
                     <th style={{border: '1px solid #000'}} className="ogmlist_list_line_group w100 title">Обьект</th>
                     <th style={{border: '1px solid #000'}} className="ogmlist_list_line_group w100 title">Дата</th>
                     <th style={{border: '1px solid #000'}} className="ogmlist_list_line_group title">Содержание</th>

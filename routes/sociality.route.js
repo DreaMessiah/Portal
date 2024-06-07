@@ -7,6 +7,7 @@ const authMiddlewere = require("../middleware/auth.middleware")
 router.get('/getmyza',authMiddlewere, socialityController.getMyZa)
 router.get('/getallza',authMiddlewere, socialityController.getAllZa)
 router.get('/getcommission',authMiddlewere, socialityController.getComission)
+router.get('/getprotacolstatuses',authMiddlewere, socialityController.getProtStatus)
 
 router.post('/createprogram',authMiddlewere, socialityController.createProgram)
 router.post('/getprogram',authMiddlewere, socialityController.getProgram)
@@ -19,5 +20,7 @@ router.post('/downloaddoc',authMiddlewere, socialityController.downloadDoc)
 router.post('/reverstatus',authMiddlewere, socialityController.reverStatus)
 router.post('/makeprotocol',authMiddlewere, socialityController.makeProtocol)
 router.post('/getprotocols',authMiddlewere, socialityController.getProtocols)
+
+
 
 module.exports = router

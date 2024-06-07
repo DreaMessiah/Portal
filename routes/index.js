@@ -1,6 +1,7 @@
 const Router = require('express')
 const router = new Router()
 
+const aiRouter = require('./ai.route')
 const authRouter = require('./users.route')
 const phonesRouter = require('./phones.route')
 const payslipRouter = require('./payslip.route')
@@ -19,6 +20,7 @@ const referenceRouter = require('./reference.route')
 const socialityRouter = require('./sociality.route')
 const notificationsRouter = require('./notifications.route')
 
+router.use('/ai',aiRouter)
 router.use('/auth',authRouter)
 router.use('/phones',phonesRouter)
 router.use('/objects',objsRouter)

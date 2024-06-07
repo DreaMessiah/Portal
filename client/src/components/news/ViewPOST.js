@@ -8,16 +8,19 @@ import {Context} from "../../index";
 import {observer} from "mobx-react-lite";
 import ModalFiles from "../modalwin/ModalFiles";
 import shortenText from "../functions/shortenText";
+import {DataContext} from "../../context/DataContext";
 
 
 export const ViewPOST = observer( () => {
     const location = useLocation();
     const {store} = useContext(Context)
+    const {emojis} = useContext(DataContext)
     const navigate = useNavigate()
     const [viewId,setViewId] = useState(0)
     const [post,setPost] = useState()
     const [next,setNext] = useState()
     const [prev,setPrev] = useState()
+    const [showEmojis,setShowEmojis] = useState()
     const [deleteIndex,setDeleteIndex] = useState(-1)
     const [deleteActive,setDeleteActive] = useState(false)
 
@@ -135,6 +138,11 @@ export const ViewPOST = observer( () => {
         setDeleteIndex(-1)
     }
 
+    const addEmoji = (emoji) => {
+        setComment(comment + emoji)
+        setShowEmojis(false)
+    }
+
     function Delete(){
         return(
             <div className={`delete-box`}>
@@ -198,6 +206,16 @@ export const ViewPOST = observer( () => {
                         <div className={`title`} onClick={(e) => console.log(post)}>Комментарии</div>
                         <div className="history_mess_pen" >
                             <textarea className="history_mess_pen_letter" id='textmess' value={comment} onChange={(e)=>commentWriteHandler(e.target.value)}/>
+                            <div className="emoji-container">
+                                <button className="emoji-button" onMouseEnter={() => setShowEmojis(true)} onMouseLeave={() => setShowEmojis(false)}>😀</button>
+                                {showEmojis && (
+                                    <div className="emoji-picker" onMouseEnter={() => setShowEmojis(true)} onMouseLeave={() => setShowEmojis(false)}>
+                                        {emojis.map((emoji, index) => (
+                                            <span key={index} onClick={() => addEmoji(emoji)} className="emoji">{emoji}</span>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
                             <div className="history_mess_pen_btn" onClick={() => sendCommentHandler()}>Отправить<i className="fa-regular fa-paper-plane"/></div>
                         </div>
 
@@ -226,7 +244,6 @@ export const ViewPOST = observer( () => {
                                                 <i onClick={(e) => deleteButtonHandler(index)} className="fa-solid fa-xmark"></i>
                                             </p>
                                             : null}
-
                                         </div>
                                         {changeComment!==index &&<div className="history_mess_list_block_content_message" >{mess.text}</div>}
                                         {changeComment===index && <textarea className={`change-text`} value={changeCommentText} onChange={(e) => setChangeCommentText(e.target.value)}/>}
