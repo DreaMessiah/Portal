@@ -991,6 +991,15 @@ const TypesNotifications = sequelize.define('typesnotifications',{
     img:{type:DataTypes.STRING},
 })
 
+const SrtoObjects = sequelize.define('srto',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    object:{type:DataTypes.INTEGER},
+    priory:{type:DataTypes.BOOLEAN,defaultValue:false}
+})
+
+SrtoObjects.belongsTo(Objects, { foreignKey: 'object', targetKey: 'id', as: 'objects'})
+Objects.hasMany(SrtoObjects, { foreignKey: 'object', sourceKey: 'id', as: 'srto'})
+
 //**************************************************** Связи для Пользователей ****************************************************/
 User.hasOne(T13Uni, { foreignKey: 'tn', sourceKey: 'tn' ,constraints: false})
 T13Uni.belongsTo(User, { foreignKey: 'tn', targetKey: 'tn' ,constraints: false})
@@ -1057,5 +1066,5 @@ TypesNotifications.hasMany(Notifications, { foreignKey: 'type_id' })
 Notifications.belongsTo(TypesNotifications, { foreignKey: 'type_id' })
 
 module.exports = {
-    MyprogramProtocol,Preregister,Notifications,TypesNotifications,ProgramOfSoc, MyProgram, T13Black,Commission,PositionOfSoc,Reports,Struct,StructUsers,Bye,PeopleCounter,T13Bye,T13Uni,CrewMans,ZaSv,TableZayavka,HumanList,KtuDoc,KtuList,MessageSv,ViewsWorkSv,CrewManlist,CrewDoclist,CrewBase,CrewSv,OgmPrice,WorkPrice,StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts,ProtocolOfSoc
+    SrtoObjects, MyprogramProtocol,Preregister,Notifications,TypesNotifications,ProgramOfSoc, MyProgram, T13Black,Commission,PositionOfSoc,Reports,Struct,StructUsers,Bye,PeopleCounter,T13Bye,T13Uni,CrewMans,ZaSv,TableZayavka,HumanList,KtuDoc,KtuList,MessageSv,ViewsWorkSv,CrewManlist,CrewDoclist,CrewBase,CrewSv,OgmPrice,WorkPrice,StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts,ProtocolOfSoc
 }

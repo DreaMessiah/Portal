@@ -166,5 +166,24 @@ class ObjsController {
             next(e)
         }
     }
+
+    async getPriory(req,res,next) {
+        try{
+            const list = await ObjsService.getPriory()
+            return res.status(200).json(list)
+        }catch (e){
+            next(e)
+        }
+    }
+
+    async getTabelSRTO(req,res,next) {
+        try{
+            const objs = req.body
+            const list = await ObjsService.getTabelSRTO(objs)
+            return res.status(200).json(list)
+        }catch (e){
+            next(e)
+        }
+    }
 }
 module.exports = new ObjsController()

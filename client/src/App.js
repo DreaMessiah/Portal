@@ -153,6 +153,7 @@ function App() {
                 <div className="App">
                     <Routes>
                         <Route path='/*' element={<NewstartPage/>}/>
+                        <Route path='/srto' element={<OgmPage page={8}/>}/>
                         <Route path='/loadpayslip' element={<OgmPage page={6}/>}/>
                         <Route path='/ktulist' element={<OgmPage page={5}/>}/>
                         <Route path='/kturead' element={<OgmPage page={7}/>}/>

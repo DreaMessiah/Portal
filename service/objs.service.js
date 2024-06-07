@@ -1,4 +1,4 @@
-const {Objects, NumberObjects, Ymshifr, T13, TableTabel, KtuList, User} = require('../models/models')
+const {Objects, NumberObjects, Ymshifr, T13, TableTabel, KtuList, User, SrtoObjects} = require('../models/models')
 const ObjsDto = require('../dtos/objsDto')
 const ApiError = require('../exceptions/api.error')
 const {DataTypes, Op, Sequelize} = require("sequelize");
@@ -266,6 +266,31 @@ class ObjsService{
     async dataOfObj(params){
         try{
             return await NumberObjects.findAll({where: {object_id: params.idobj}})
+        }catch(e){
+            console.log(e)
+        }
+    }
+
+    async getPriory(){
+        return await SrtoObjects.findAll({include: ['objects' ]})
+    }
+
+    async getTabelSRTO(objs){
+        try{
+            const result = await TableTabel.findAll({
+                where: {
+                    shifr: {
+                        [Op.in]: objs.nameobj
+                    },
+                    month: objs.selmonth.label,
+                    year: `${objs.selyear}`
+                },
+                order: [['name', 'ASC']]
+            });
+            result.forEach(line => {
+                if(line.name === 'Вороненко Александр Васильевич'){console.log(line)}
+            })
+            return result
         }catch(e){
             console.log(e)
         }
