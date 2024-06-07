@@ -11,6 +11,7 @@ export function Menu(){
             <Buttons text={'Итоговый табель'} icon={'fa-solid fa-table-list'} url={`/itogtabel`}/>
             <Buttons text={'Все табеля'} icon={'fa-solid fa-toilets-portable'} url={`/alltabels`}/>
             <Buttons text={'Расчетный лист'} icon={'fa-solid fa-file-invoice-dollar'} url={`/loadpayslip`}/>
+            <Buttons text={'СРТО'} icon={'fa-solid fa-filter-circle-dollar'} url={`/srto`}/>
         </div>
     )
 }

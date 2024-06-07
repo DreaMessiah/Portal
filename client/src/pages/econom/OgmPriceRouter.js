@@ -11,6 +11,7 @@ import KtuPage from "./KtuPage";
 import KtuListPage from "./KtuListPage";
 import LoadPayslip from "./LoadPayslip";
 import KtuListRead from "./KtuListRead";
+import SRTOlist from "./SRTOlist";
 
 export default function OgmPriceRouter({page= 1}){
     return (
@@ -25,6 +26,7 @@ export default function OgmPriceRouter({page= 1}){
                 {page === 5 && <WorkPage data={<KtuListPage />}/>}
                 {page === 6 && <WorkPage data={<LoadPayslip />}/>}
                 {page === 7 && <WorkPage data={<KtuListRead />}/>}
+                {page === 8 && <WorkPage data={<SRTOlist />}/>}
             </div>
         </div>
     )

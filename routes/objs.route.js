@@ -29,6 +29,10 @@ router.post('/delmantabel',authMiddlewere, objsController.delManTabel)
 router.get('/getuserslist',authMiddlewere, objsController.getUsersList)
 router.post('/passobj',authMiddlewere, objsController.passObj)
 router.post('/usersobjs',authMiddlewere, objsController.dataOfObj)
+router.get('/getpriory',authMiddlewere, objsController.getPriory)
+router.post('/getobjssrto',authMiddlewere, objsController.getTabelSRTO)
+
+
 
 
 

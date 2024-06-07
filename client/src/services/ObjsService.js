@@ -47,4 +47,10 @@ export default class ObjsService{
     static async dataOfObj(params){
         return $api.post(`/objects/usersobjs`, params)
     }
+    static async getPriory(){
+        return $api.get(`/objects/getpriory`)
+    }
+    static async getTabelSRTO(objs){
+        return $api.post(`/objects/getobjssrto`, objs)
+    }
 }
