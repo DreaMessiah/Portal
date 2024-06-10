@@ -150,7 +150,7 @@ export const ItogsTabelForm = () => {
                 {list.map((man, index)=>(
                     <tr key={index}>
                         <td>{man.shifr}</td>
-                        <td>{man.ras}</td>
+                        <td>{(man.ras==='')?man.shifr:man.ras}</td>
                         <td>{man.tn}</td>
                         <td>{man.name}</td>
                         <td>{man.developer}</td>

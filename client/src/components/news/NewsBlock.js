@@ -45,6 +45,7 @@ export const NewsBlock = () => {
                     </React.Fragment>
                 ))}
             </div>
+            <div></div>
         </div>
     )
 }
