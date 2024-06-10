@@ -5,6 +5,7 @@ import {SinglePost} from "./SinglePost";
 import React, {useContext, useEffect, useState} from "react";
 import PostService from "../../services/PostService";
 import {Context} from "../../index";
+import Offerpost from "../offerpost/Offerpost";
 
 export const NewsBlock = () => {
     const [blocks,setBlocks] = useState()
@@ -45,7 +46,10 @@ export const NewsBlock = () => {
                     </React.Fragment>
                 ))}
             </div>
-            <div></div>
+            <div className="news_block_titoffer" >
+                    <Link to="/settingmain" className="news_block_title_offer">Предложить новость</Link>
+                    <Offerpost />
+            </div>
         </div>
     )
 }
