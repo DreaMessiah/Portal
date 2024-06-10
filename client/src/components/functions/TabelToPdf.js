@@ -3,7 +3,8 @@ import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 import amiriFont from "../../assets/fonts/amirifont";
 const TabelToPdf = (data,object) => {
-    const doc = new jsPDF();//'landscape', 'mm',[297, 210]
+    // const doc = new jsPDF();//'landscape', 'mm',[297, 210]
+    const doc = new jsPDF('landscape', 'mm',[297, 210]);
 
     const tableColumn = [
         '№',
@@ -66,8 +67,8 @@ const TabelToPdf = (data,object) => {
         }
     })
     const finalY = doc.lastAutoTable.finalY || 20;
-    doc.text("Начальник отдела  ______________________________  ________________________  _____________________", 20, finalY + 20);
-    doc.text("Согласовано       ______________________________  ________________________  _____________________", 20, finalY + 35);
+    doc.text("Начальник отдела  ______________________________  ________________________  _____________________", 20, finalY + 10);
+    doc.text("Согласовано       ______________________________  ________________________  _____________________", 20, finalY + 25);
     // doc.autoPrint()
     doc.save(`tabel_${data[0].shifr}_${data[0].month}_${data[0].year}.pdf`)
 }
