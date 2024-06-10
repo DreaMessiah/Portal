@@ -10,6 +10,8 @@ export default function EditorMenu(){
             <Buttons text={'Отделы и обьекты'} icon={`fa-solid fa-code-branch`} url={`/userbranchs`}/>
             <Buttons text={'Редактирование структуры компании'} icon={`fa-solid fa-folder-tree`} url={`/cmsstructure`}/>
             <Buttons text={'Управление уведомлениями'} icon={`fa-solid fa-bell`} url={`/cmsnotifications`}/>
+            <Buttons text={'Результаты конкурса'} icon={`fa-solid fa-flag-checkered`} url={`/resultscontest`}/>
+
         </div>
     )
 }

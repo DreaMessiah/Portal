@@ -172,7 +172,14 @@ class PollsController {
             next(e)
         }
     }
-
+    async getRe(req,res,next){
+        try{
+            const results = await PollsService.getRe()
+            return res.status(200).json(results)
+        }catch (e) {
+            next(e)
+        }
+    }
 
 }
 module.exports = new PollsController()

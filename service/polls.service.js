@@ -1,4 +1,4 @@
-const {Survey,Question,Answer, Contest, Nominations,KidsAnswers} = require('../models/models')
+const {Survey,Question,Answer, Contest, Nominations,KidsAnswers, User} = require('../models/models')
 const ApiError = require('../exceptions/api.error')
 class PollsService{
     async get(user_id) {
@@ -123,7 +123,11 @@ class PollsService{
             return {message:'Ошибка голосования'}
         }
     }
-
+    async getRe(id){
+        const answers = await KidsAnswers.findAll({include: [Nominations,User]})
+        const nominations = await Nominations.findAll({include: [{model:KidsAnswers,include:User}]})
+        return {answers,nominations}
+    }
 
 }
 
