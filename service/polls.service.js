@@ -123,8 +123,8 @@ class PollsService{
             return {message:'Ошибка голосования'}
         }
     }
-    async getRe(id){
-        const answers = await KidsAnswers.findAll({include: [Nominations,User]})
+    async getRe(){
+        const answers = await KidsAnswers.findAll({include: [Nominations,User,Contest]})
         const nominations = await Nominations.findAll({include: [{model:KidsAnswers,include:User}]})
         return {answers,nominations}
     }

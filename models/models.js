@@ -1073,8 +1073,8 @@ Nominations.hasMany(KidsAnswers, { foreignKey: 'nomination_id', sourceKey: 'id' 
 KidsAnswers.belongsTo(Nominations, { foreignKey: 'nomination_id', targetKey: 'id' })            //*
 User.hasMany(Contest, { foreignKey: 'user_id', sourceKey: 'id' })                               //*
 Contest.belongsTo(User, { foreignKey: 'user_id', targetKey: 'id' })                             //*
-KidsAnswers.hasMany(Contest, { foreignKey: 'contest_id', sourceKey: 'id' })                     //*
-Contest.belongsTo(KidsAnswers, { foreignKey: 'contest_id', targetKey: 'id' })                   //*
+Contest.hasMany(KidsAnswers, { foreignKey: 'contest_id', sourceKey: 'id' })                     //*
+KidsAnswers.belongsTo(Contest, { foreignKey: 'contest_id', targetKey: 'id' })                   //*
 //*****************************************************************************************************//*
 
 module.exports = {
