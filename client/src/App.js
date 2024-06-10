@@ -235,7 +235,7 @@ function App() {
                         {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/userbranchs" element={<EditorRouter page={5} />} /> : null }
                         {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/cmsstructure" element={<EditorRouter page={6} />} /> : null }
                         {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/cmsnotifications" element={<EditorRouter page={7} />} /> : null }
-
+                        {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/resultscontest" element={<EditorRouter page={8} />} /> : null }
 
                         {store.user.unit === 100 || store.user.account === 'superadmin' ? <Route path="/statementsmenu" element={<StatementsRouter page={1} />} /> : null }
                         {store.user.unit === 100 || store.user.account === 'superadmin' ? <Route path="/statementslist" element={<StatementsRouter page={2} />} /> : null }

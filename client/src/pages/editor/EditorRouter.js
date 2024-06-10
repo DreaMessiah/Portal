@@ -12,6 +12,7 @@ import Sociality from "./Sociality";
 import Createsocial from "./Createsocial";
 import CmsStructure from "./CmsStructure";
 import CmsNotifications from './CmsNotifications'
+import ResultsKidsContest from "../kidscontest/ResultsKidsContest";
 export default function EditorRouter({page= 1}){
     return (
         <div className='new_container'>
@@ -25,6 +26,7 @@ export default function EditorRouter({page= 1}){
                 {page === 5 && <WorkPage data={<BranchUsers />}/>}
                 {page === 6 && <WorkPage data={<CmsStructure />}/>}
                 {page === 7 && <WorkPage data={<CmsNotifications />}/>}
+                {page === 8 && <WorkPage data={<ResultsKidsContest />}/>}
             </div>
         </div>
     )

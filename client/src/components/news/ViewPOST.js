@@ -1,5 +1,5 @@
 import "./style.scss"
-import {Link, useLocation, useNavigate} from "react-router-dom";
+import React,{Link, useLocation, useNavigate} from "react-router-dom";
 import {useContext, useEffect, useState} from "react";
 import PostService from "../../services/PostService";
 import {useMessage} from "../../hooks/message.hook";
@@ -9,6 +9,8 @@ import {observer} from "mobx-react-lite";
 import ModalFiles from "../modalwin/ModalFiles";
 import shortenText from "../functions/shortenText";
 import {DataContext} from "../../context/DataContext";
+import LoadingSpinner from "../loading/LoadingSpinner";
+
 
 
 export const ViewPOST = observer( () => {
@@ -35,15 +37,11 @@ export const ViewPOST = observer( () => {
     const loadingHandler = async (getPost) => {
         try {
             setViewId(getPost)
-            console.log(getPost)
             const response = await PostService.fetchPost(getPost)
             if(response.data){
-
                 setPost(response.data)
-                console.log(response.data)
                 if(response.data[0].likes !== null && response.data[0].likes.includes(store.user.id)) setIsLike(true)
                 else setIsLike(false)
-
                 const ids = await PostService.fetchList()
                 if(ids.data){
                     const newsIds = ids.data
@@ -120,7 +118,6 @@ export const ViewPOST = observer( () => {
     const deleteCommentHandler = async (index) => {
         try {
             const response = await PostService.deleteComment(comments[index].id)
-            console.log(response.data)
             if(response.data){
                 const newComments = [...comments]
                 newComments.splice(index, 1);
@@ -241,7 +238,7 @@ export const ViewPOST = observer( () => {
                     </div>
                     {post && post[0].oncomment ?
                     <div className={`history_messs`} >
-                        <div className={`title`} onClick={(e) => console.log(post)}>Комментарии</div>
+                        <div className={`title`}>Комментарии</div>
                         <div className="history_mess_pen" >
                             <textarea className="history_mess_pen_letter" id='textmess' value={comment} onChange={(e)=>commentWriteHandler(e.target.value)}/>
                             <div className="emoji-container">
@@ -260,7 +257,7 @@ export const ViewPOST = observer( () => {
                         <div className="history_mess_list">
                             {comments && comments.slice(0,visibleCount).map((mess, index) => (
                                 <div className="history_mess_list_block " key={index}>
-                                    <div className="history_mess_list_block_ava" onClick={() => console.log(mess)} style={mess.avatar ? {backgroundImage: `url("files/profile/${mess.avatar}")` } : {backgroundImage: `url("files/profile/face.png")` }}></div>
+                                    <div className="history_mess_list_block_ava" style={mess.avatar ? {backgroundImage: `url("files/profile/${mess.avatar}")` } : {backgroundImage: `url("files/profile/face.png")` }}></div>
                                     <div className="history_mess_list_block_content" >
                                         <div className="history_mess_list_block_content_name" >
                                             <p>{mess.full_name} {changeComment===index && '(Редактирование комментария)'}</p>
@@ -303,6 +300,7 @@ export const ViewPOST = observer( () => {
                     <ModalFiles data={<Delete />} active={deleteActive} setActive={setDeleteActive} />
                 </div>
             }
+            {loading ? (<LoadingSpinner/>) : null}
         </div>
     )
 })

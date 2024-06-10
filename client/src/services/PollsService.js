@@ -47,5 +47,7 @@ export default class PollsService {
     static getVotes(id){
         return $api.post('/polls/getvotes',{id})
     }
-
+    static getRe(){
+        return $api.get('/polls/getre')
+    }
 }

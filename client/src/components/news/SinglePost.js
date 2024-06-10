@@ -4,6 +4,7 @@ import formatDate from "../functions/formatDate";
 import {Link} from "react-router-dom";
 import PostService from "../../services/PostService";
 import {Context} from "../../index";
+import LoadingSpinner from "../loading/LoadingSpinner";
 
 export const SinglePost = ({id}) => {
     const {store} = useContext(Context)
@@ -85,6 +86,7 @@ export const SinglePost = ({id}) => {
 
                 </div>
             }
+            {loading ? (<LoadingSpinner/>) : null}
         </>
     )
 }
