@@ -1066,6 +1066,13 @@ Notifications.belongsTo(User, { foreignKey: 'user_tn', targetKey: 'tn' })
 TypesNotifications.hasMany(Notifications, { foreignKey: 'type_id' })
 Notifications.belongsTo(TypesNotifications, { foreignKey: 'type_id' })
 
+//*****КонкурсСЮрезами*********************************************************************************//*
+User.hasMany(KidsAnswers, { foreignKey: 'user_id', sourceKey: 'id' })                           //*
+KidsAnswers.belongsTo(User, { foreignKey: 'user_id', targetKey: 'id' })                         //*
+Nominations.hasMany(KidsAnswers, { foreignKey: 'nomination_id', sourceKey: 'id' });             //*
+KidsAnswers.belongsTo(Nominations, { foreignKey: 'nomination_id', targetKey: 'id' });           //*
+//*****************************************************************************************************//*
+
 module.exports = {
     SrtoObjects, MyprogramProtocol,Preregister,Notifications,TypesNotifications,ProgramOfSoc, MyProgram, T13Black,Commission,PositionOfSoc,Reports,Struct,StructUsers,Bye,PeopleCounter,T13Bye,T13Uni,CrewMans,ZaSv,TableZayavka,HumanList,KtuDoc,KtuList,MessageSv,ViewsWorkSv,CrewManlist,CrewDoclist,CrewBase,CrewSv,OgmPrice,WorkPrice,StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts,ProtocolOfSoc
 }
