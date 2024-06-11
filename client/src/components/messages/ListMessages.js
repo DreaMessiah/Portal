@@ -9,6 +9,7 @@ import FilesService from "../../services/FilesService";
 import MessagesService from "../../services/MessagesService";
 import shortenText from "../functions/shortenText";
 import {getSocket} from "../../http/socket";
+import VoiceRecorder from "../voice/VoiceRecoder";
 
 export const ListMessages = () => {
     const [newmess, setNewmess] = useState(false)
@@ -273,6 +274,14 @@ export const ListMessages = () => {
 
     }
 
+    const [record, setRecord] = useState(false);
+    const [audioURL, setAudioURL] = useState('');
+    const [openrec, setOpenRec] = useState(false)
+
+    const startRecording = () => {
+        setRecord(true);
+    };
+
     const backDate = fulldate => {
         const utcDate = new Date(fulldate);
         // const datetimearr = utcDate.split('T')
@@ -359,10 +368,11 @@ export const ListMessages = () => {
                         <textarea className="history_mess_pen_letter" id='textmess' value={textarea} onChange={(e)=>setTextarea(e.target.value)}>{textarea}</textarea>
                         <div className="history_mess_pen_btns">
                             <div className="srepbtn"><i className="fa-solid fa-paperclip"/></div>
-                            <div className="srepbtn"><i className="fa-solid fa-microphone-lines"/></div>
+                            <div className="srepbtn" onClick={() => {startRecording(); setOpenRec(!openrec)}}><i className="fa-solid fa-microphone-lines"/></div>
                             <div className="history_mess_pen_btn" onClick={()=>passMess()}>Отправить <i className="fa-regular fa-paper-plane"/></div>
                         </div>
                     </div>
+                    <VoiceRecorder openrec={openrec} setOpenRec={setOpenRec} record={record} setRecord={setRecord} audioURL={audioURL} setAudioURL={setAudioURL}/>
                     <div className="history_mess_list" >
                         {thismess.map((mess, index) => {
                             let statusmess

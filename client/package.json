@@ -20,6 +20,7 @@
     "peerjs": "^1.5.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-mic": "^12.4.6",
     "react-pdf": "^7.7.1",
     "react-router-dom": "^6.20.1",
     "react-scripts": "5.0.1",
@@ -33,6 +34,7 @@
     "socket.io-client": "^4.7.4",
     "vis-data": "^7.1.9",
     "vis-network": "^9.1.9",
+    "wavesurfer.js": "^7.7.15",
     "web-vitals": "^2.1.4",
     "xlsx": "^0.18.5",
     "xlsx-populate": "^1.21.0"
