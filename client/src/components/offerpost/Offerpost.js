@@ -24,6 +24,7 @@ export default function Offerpost({offer, setOffer}){
 
         }catch (e) {
             console.log(e)
+            messager('Что-то пошло не так')
         }finally {
             messager('Новость отправлена')
             setOffer(!offer)

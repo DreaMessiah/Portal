@@ -258,7 +258,33 @@
           .history_mess_pen_letter:focus{
             border: 1px solid #329DD9;
           }
+          .history_mess_pen_btns{
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+          }
+          .srepbtn{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: rgb(18, 19, 56);
+            color: #FFFFFF;
+            border-radius: 10px;
+            margin-top: 10px;
+            margin-right: 10px;
+            i{
+              font-size: 16pt;
+              //margin-left: 10px;
+            }
+          }
+          .srepbtn:hover{
+            opacity: 0.8;
+          }
           .history_mess_pen_btn{
+            display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 10px 30px;
             margin-top: 10px;
             background-color: rgb(18, 19, 56);
@@ -653,7 +679,33 @@
           .history_mess_pen_letter:focus{
             border: 1px solid #329DD9;
           }
+          .history_mess_pen_btns{
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+          }
+          .srepbtn{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: rgb(18, 19, 56);
+            color: #FFFFFF;
+            border-radius: 10px;
+            margin-top: 10px;
+            margin-right: 10px;
+            i{
+              font-size: 16pt;
+              //margin-left: 10px;
+            }
+          }
+          .srepbtn:hover{
+            opacity: 0.8;
+          }
           .history_mess_pen_btn{
+            display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 10px 30px;
             margin-top: 10px;
             background-color: rgb(18, 19, 56);
@@ -1050,7 +1102,33 @@
           .history_mess_pen_letter:focus{
             border: 1px solid #329DD9;
           }
+          .history_mess_pen_btns{
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+          }
+          .srepbtn{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 10px;
+            background-color: rgb(18, 19, 56);
+            color: #FFFFFF;
+            border-radius: 10px;
+            margin-top: 10px;
+            margin-right: 10px;
+            i{
+              font-size: 16pt;
+              //margin-left: 10px;
+            }
+          }
+          .srepbtn:hover{
+            opacity: 0.8;
+          }
           .history_mess_pen_btn{
+            display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 10px 30px;
             margin-top: 10px;
             background-color: rgb(18, 19, 56);

@@ -50,8 +50,9 @@ class MessagesController {
         try{
 
             const {content} = req.body
-            const user = req.user.id
-            const message = await MessagesService.offerPost({content, user})
+            const user_id = req.user.id
+            const user_tn = req.user.tn
+            const message = await MessagesService.offerPost({content, user_id, user_tn})
             return res.status(200).json(message)
         }catch (e){
             next(e)

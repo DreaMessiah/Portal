@@ -348,16 +348,8 @@ export const Messager = () => {
                             </div>
                         </div>
                     ))}
-
-
-
-
-
-
                     {/*----------------------------------------------------------------------*/}
-
                     <div className={`list_messages_col_title ${(openmess === true) ? 'activate' : ''}`}>
-
                         <div className="list_messages_col_title_left">
                             <div className="list_messages_col_title_left_sel">
                                 {(thisMans)&&thisMans.full_name}
@@ -372,7 +364,7 @@ export const Messager = () => {
                     <div className={`history_mess ${(openmess === true) ? 'activate' : ''}`} >
                         <div className="history_mess_pen" >
                             <textarea className="history_mess_pen_letter" id='textmess' value={textarea} onChange={(e)=>setTextarea(e.target.value)}>{textarea}</textarea>
-                            <div className="history_mess_pen_btn" onClick={()=>passMess()}>Отправить <i className="fa-regular fa-paper-plane"/></div>
+                            <div className="history_mess_pen_btns"><div className="srepbtn"><i className="fa-solid fa-paperclip"/>asdsa</div><div className="history_mess_pen_btn" onClick={()=>passMess()}>Отправить <i className="fa-regular fa-paper-plane"/></div></div>
                         </div>
                         <div className="history_mess_list" >
                             {thismess.map((mess, index) => (
