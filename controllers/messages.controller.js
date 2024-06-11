@@ -1,4 +1,5 @@
 const MessagesService = require('../service/messages.service')
+const T13Service = require("../service/t13.service");
 class MessagesController {
     async postMess(req,res,next) {
         try{
@@ -40,6 +41,17 @@ class MessagesController {
         try{
             const {tn,text} = req.body
             const message = await MessagesService.sendMessage(tn,req.user.tn,text)
+            return res.status(200).json(message)
+        }catch (e){
+            next(e)
+        }
+    }
+    async offerPost(req,res,next) {
+        try{
+
+            const {content} = req.body
+            const user = req.user.id
+            const message = await MessagesService.offerPost({content, user})
             return res.status(200).json(message)
         }catch (e){
             next(e)

@@ -70,5 +70,12 @@ class MessagesService {
     async searchMess(tn) {
         return await Messages.findAll({where: {tn_to: tn.tn, read: false}});
     }
+    async offerPost(content) {
+        console.log('THIS IS!!!')
+        console.log(content)
+        // return ''
+        return await Messages.create({tn_to: tn, tn_from: from,text})
+    }
+
 }
 module.exports = new MessagesService()

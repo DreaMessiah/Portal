@@ -19,5 +19,9 @@ export default class MessagesService{
         console.log(tn)
         return $api.post('/mess/sendmessage',{tn,text})
     }
+    static offerPost(content){
+        console.log(content)
+        return $api.post('/mess/offerpost',{content})
+    }
 
 }

@@ -10,6 +10,8 @@ import Offerpost from "../offerpost/Offerpost";
 export const NewsBlock = () => {
     const [blocks,setBlocks] = useState()
     const {store} = useContext(Context)
+    const [offer, setOffer] = useState(false)
+    const [checkOffer, setCheckOffer] = useState(false)
     const loadingHandler = async () => {
         try{
             const response = await PostService.fetchBlocks()
@@ -47,8 +49,8 @@ export const NewsBlock = () => {
                 ))}
             </div>
             <div className="news_block_titoffer" >
-                    <Link to="/settingmain" className="news_block_title_offer">Предложить новость</Link>
-                    <Offerpost />
+                    <div className="news_block_title_offer" style={(!offer)?{display: 'flex'}:{display: 'none'}} onClick={()=>setOffer(!offer)}>Предложить новость</div>
+                    <Offerpost offer={offer} setOffer={setOffer}/>
             </div>
         </div>
     )

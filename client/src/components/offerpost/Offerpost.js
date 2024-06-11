@@ -2,24 +2,31 @@ import React, {useEffect, useRef, useState} from "react"
 import LoadingSpinner from "../../components/loading/LoadingSpinner";
 import AiService from "../../services/AiService";
 import './chat.scss'
-export default function Offerpost(){
+import {useMessage} from "../../hooks/message.hook";
+import MessagesService from "../../services/MessagesService";
+export default function Offerpost({offer, setOffer}){
 
     const [message, setMessage] = useState('')
     const [response, setResponse] = useState('')
     const [loading, setLoading] = useState(false)
     const [height,setHeight] = useState('20px')
-
+    const messager = useMessage()
     const textareaRef = useRef(null);
 
     const handleChange = (e) => {
         setMessage(e.target.value)
     }
     const sendMessage = async () => {
+
         try {
             setLoading(true)
+            const response = await MessagesService.offerPost(message)
+
         }catch (e) {
             console.log(e)
         }finally {
+            messager('Новость отправлена')
+            setOffer(!offer)
             setLoading(false)
         }
     }
@@ -39,13 +46,14 @@ export default function Offerpost(){
 
     return (
 
-                    <div className={'chat-gpt'}>
+                    <div className={'chat-gpt'} style={(offer)?{display: 'flex'}:{display: 'none'}}>
                         {/*<h1>Open AI</h1>*/}
                         <div>
                             <p>{response}</p>
                         </div>
                         <div className={'text-box'}>
                             <textarea ref={textareaRef}  rows="1" cols="50" value={message} onChange={handleChange} placeholder="Опишите новость"/>
+
                             <div onClick={sendMessage} className={`left-box`}><div className={`circle`}>{!loading ? <i className="fa-solid fa-arrow-up"></i> : <i className="fa-solid fa-hourglass-half"></i>}</div></div>
                         </div>
                         {loading ? (<LoadingSpinner/>) : null}
