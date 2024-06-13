@@ -11,6 +11,40 @@
   height: 180px;
   filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.5));
   cursor: pointer;
+  .tit{
+    position: absolute;
+    bottom: 50px;
+  }
+  .reload{
+    position: absolute;
+    background-color: #131537 !important;
+    width: 162px;
+    height: 162px;
+    border-radius: 85px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFFFFF;
+    font-size: 36pt;
+    z-index: 1001;
+  }
+  .control{
+    position: absolute;
+    top: 200px;
+    audio{
+      width: 200px;
+    }
+    .history_mess_pen_btn{
+      width: 200px;
+      height: 55px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #131537 !important;
+      color: #FFFFFF;
+      border-radius: 28px;
+    }
+  }
 }
 .mic-container {
   max-width: 200px !important;

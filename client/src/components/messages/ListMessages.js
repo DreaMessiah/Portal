@@ -277,7 +277,7 @@ export const ListMessages = () => {
     const [record, setRecord] = useState(false);
     const [audioURL, setAudioURL] = useState('');
     const [openrec, setOpenRec] = useState(false)
-
+    const [reload, setReload] = useState(false)
     const startRecording = () => {
         setRecord(true);
     };
@@ -301,10 +301,14 @@ export const ListMessages = () => {
             listUsers()
             loadChatHandler(data.from)
         })
+
     }, [])
     useEffect(()=>{
         getChats()
     }, [users])
+    // useEffect(()=>{
+    //     console.log(thisMans)
+    // },[thisMans])
     return (
         <div className="list_mess">
         <div className="list_messages">
@@ -368,11 +372,11 @@ export const ListMessages = () => {
                         <textarea className="history_mess_pen_letter" id='textmess' value={textarea} onChange={(e)=>setTextarea(e.target.value)}>{textarea}</textarea>
                         <div className="history_mess_pen_btns">
                             <div className="srepbtn"><i className="fa-solid fa-paperclip"/></div>
-                            <div className="srepbtn" onClick={() => {startRecording(); setOpenRec(!openrec)}}><i className="fa-solid fa-microphone-lines"/></div>
+                            <div className="srepbtn" onClick={() => {startRecording(); setOpenRec(!openrec); setReload(false)}}><i className="fa-solid fa-microphone-lines"/></div>
                             <div className="history_mess_pen_btn" onClick={()=>passMess()}>Отправить <i className="fa-regular fa-paper-plane"/></div>
                         </div>
                     </div>
-                    <VoiceRecorder openrec={openrec} setOpenRec={setOpenRec} record={record} setRecord={setRecord} audioURL={audioURL} setAudioURL={setAudioURL}/>
+                    <VoiceRecorder thisMans={thisMans} reload={reload} setReload={setReload} openrec={openrec} setOpenRec={setOpenRec} record={record} setRecord={setRecord} audioURL={audioURL} setAudioURL={setAudioURL}/>
                     <div className="history_mess_list" >
                         {thismess.map((mess, index) => {
                             let statusmess
