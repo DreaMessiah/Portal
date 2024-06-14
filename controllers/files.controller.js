@@ -3,7 +3,8 @@ const {Files,User, DiskSpace, StatementsSimples} = require('../models/models')
 const fs = require('fs');
 const FileDto = require('../dtos/fileDto')
 const config = require('config')
-const PATH = require('path');
+const PATH = require('path')
+const HistoryService = require("../service/history.service")
 
 class FilesController {
     async getAllFiles(req, res, next) {
@@ -52,6 +53,7 @@ class FilesController {
                 await parentFile.save()
                 await newFile.update(file)
             }
+            await HistoryService.createAction(req.user.id,3,`Создание директории в файловом хранилище: ${file.path}`)
             return res.json(file)
         } catch (e) {
             next(e)
@@ -68,8 +70,14 @@ class FilesController {
             const parent = await Files.findOne({where:{user_id:user,id:par}})
             const sizes = await DiskSpace.findOne({where:{user_id:user}})
 
-            if(!sizes) return res.status(200).json({message: 'Ошибка файлового хранилища'})
-            if(+sizes.usedspace + file.size > sizes.diskspace) return res.status(400).json({message: 'Не достаточно места на диске'})
+            if(!sizes) {
+                await HistoryService.createAction(req.user.id,3,`Ошибка файлового хранилища`,1)
+                return res.status(200).json({message: 'Ошибка файлового хранилища'})
+            }
+            if(+sizes.usedspace + file.size > sizes.diskspace) {
+                await HistoryService.createAction(req.user.id,3,`Не достаточно места на диске`,1)
+                return res.status(400).json({message: 'Не достаточно места на диске'})
+            }
 
             let path
             if(parent){
@@ -90,6 +98,7 @@ class FilesController {
             sizes.usedspace = +sizes.usedspace + file.size
             sizes.save()
 
+            await HistoryService.createAction(req.user.id,3,`Загрузка файла в облачное хранилище: ${path}`)
             return res.status(200).json(newFile)
         } catch (e) {
             next(e)
@@ -102,7 +111,7 @@ class FilesController {
             const path = PATH.join(config.get('file_path'), 'temp', `${filename}`);
             await file.mv(path)
             const type = filename.split('.').pop()
-
+            await HistoryService.createAction(req.user.id,3,`Загрузка временного файла`,2)
             return res.status(200).json(file)
         } catch (e) {
             next(e)
@@ -135,6 +144,7 @@ class FilesController {
             }
             await file.mv(path)
             await FilesService.compressProportionalImage(path,80, 1280, 720)
+            await HistoryService.createAction(req.user.id,3,`Загрузка изображения для новостей или опросов`,2)
             return res.status(200).json({path:`${newname}.${type}`})
         }catch (e) {
             next(e)
@@ -142,7 +152,6 @@ class FilesController {
     }
     async loadAvatarImg(req, res, next){
         try {
-            console.log('321')
             const file = req.files.file
             const newname = FilesService.generateRandomFileName()
             const type = file.name.split('.').pop()
@@ -152,7 +161,7 @@ class FilesController {
             }
             await file.mv(path)
             const filepath = await FilesService.compressProportionalAvatar(path,80, 1280, 720)
-            console.log(filepath)
+            await HistoryService.createAction(req.user.id,3,`Загрузка аватарки`)
             return res.status(200).json({path:filepath})
         }catch (e) {
             next(e)
@@ -177,6 +186,7 @@ class FilesController {
 
             await FilesService.compressProportionalImage(path,80, 1280, 720)
 
+            await HistoryService.createAction(req.user.id,3,`Загрузка изображения для новостей или опросов`,2)
             return res.status(200).json({path:`${newname}.${type}`})
         }catch (e) {
             next(e)
@@ -217,6 +227,7 @@ class FilesController {
             if(!statement) return res.status(400).json({message: 'Файл не найден'})
             const path = PATH.join(`${config.get('public_path')}`,'statements',`${statement.file}`)
             if(fs.existsSync(path)){
+                await HistoryService.createAction(req.user.id,3,`Загрузка шаблона заявления ${statement.file}`,0)
                 return res.download(path,statement.file)
             }
             return res.status(400).json({message: 'Файл не найден'})
@@ -232,6 +243,7 @@ class FilesController {
             if(file.type !== 'dir'){
                 const path = PATH.join(`${config.get('public_path')}`,`${req.user.id}`,`${file.dataValues.name}`)
                 if(fs.existsSync(path)){
+                    await HistoryService.createAction(req.user.id,3,`Загрузка файла из облайного хранилица ${file.dataValues.name}`,0)
                     return res.download(path,file.dataValues.name)
                 }
             }

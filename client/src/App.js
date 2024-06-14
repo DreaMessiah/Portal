@@ -223,6 +223,9 @@ function App() {
                         {store.user.account === 'superadmin' ? <Route path="/hrmanalytics" element={<AnalyticsRouter page={2} />} /> : null }
                         {store.user.account === 'superadmin' ? <Route path="/byeanalytics" element={<AnalyticsRouter page={3} />} /> : null }
                         {store.user.account === 'superadmin' ? <Route path="/dashboard" element={<AnalyticsRouter page={4} />} /> : null }
+                        {store.user.account === 'superadmin' ? <Route path="/history" element={<AnalyticsRouter page={5} />} /> : null }
+                        {store.user.account === 'superadmin' ? <Route path="/analyticscms" element={<AnalyticsRouter page={6} />} /> : null }
+
 
                         {store.user.account === 'superadmin' || store.user.account === 'fixers' ? <Route path="/fixers" element={<FixersRouter page={1} />} /> : null }
                         {store.user.account === 'superadmin' || store.user.account === 'fixers' ? <Route path="/registration" element={<FixersRouter page={2} />} /> : null }

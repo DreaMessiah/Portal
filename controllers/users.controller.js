@@ -9,6 +9,7 @@ const {Avatar, T13, User} = require("../models/models");
 const sequelize = require("sequelize");
 const PATH = require("path");
 const authMiddlewere = require("../middleware/auth.middleware");
+const HistoryService = require("../service/history.service");
 
 class UsersController {
     async registration(req,res,next) {
@@ -31,6 +32,7 @@ class UsersController {
                 const {tn,full_name,login,password,developer} = req.body
                 const userData = await userService.createuser(tn,full_name,login,'new@new.ru',password,'8617014209',developer)
                 FilesService.createPathUser(userData.user.id)
+                await HistoryService.createAction(req.user.id,1,`Регистрация по табельному номеру ${tn} ${full_name}`)
                 return res.json(userData)
             }
         }catch (e){
@@ -42,6 +44,7 @@ class UsersController {
             const {login,password} = req.body
             const userData = await userService.login(login,password)
             res.cookie('refreshToken',userData.refreshToken,{maxAge:30*24*60*60*1000,httpOnly:true})
+            await HistoryService.createAction(req.user.id,9,`Успешний вход в систему`)
             return res.json(userData)
         }catch (e){
             next(e)
@@ -51,6 +54,7 @@ class UsersController {
         try{
             const {tn} = req.body
             const fz = await userService.setfz152(tn)
+            await HistoryService.createAction(req.user.id,1,`Соглашение ФЗ-152`)
             return res.json(fz)
         }catch (e) {
             next(e)
@@ -61,6 +65,7 @@ class UsersController {
             const refreshToken = req.cookies['refreshToken']
             const token = await userService.logout(refreshToken)
             res.clearCookie('refreshToken')
+            await HistoryService.createAction(req.user.id,2,`Выход из портала`)
             return res.json(token)
         }catch (e){
             next(e)
@@ -79,6 +84,7 @@ class UsersController {
         try{
             const {oldPass,newPass} = req.body
             const result = await userService.changePassword(req.user.id,oldPass,newPass)
+            await HistoryService.createAction(req.user.id,9,`Изменение пароля`)
             return res.status(200).json(result)
         }catch (e){
             next(e)
@@ -134,6 +140,7 @@ class UsersController {
             await FilesService.compressResizeAndSaveImage(path,80, 300, 400)
             const avatar = `${newname}.${type}`
             await User.update({ avatar: avatar }, { where: { id: req.user.id } });
+            await HistoryService.createAction(req.user.id,9,`Установка аватара`)
             return res.status(200).json({path:avatar})
         }catch (e){
             next(e)
@@ -172,6 +179,7 @@ class UsersController {
             console.log(req.user.id)
             const {sizes} = req.body
             const users = await userService.setSizes(sizes,req.user.id)
+            await HistoryService.createAction(req.user.id,9,`Изменение размера одежды`)
             return res.status(200).json(users)
         }catch (e){
             next(e)
@@ -181,6 +189,7 @@ class UsersController {
         try{
             const {user} = req.body
             const reg = await userService.createPreReg(user)
+            await HistoryService.createAction(req.user.id,9,`Заявка на регистрацию ${user.full_name} `)
             return res.status(200).json(reg)
         }catch (e){
             next(e)
@@ -217,6 +226,7 @@ class UsersController {
         try{
             const {full_name,login,email,password,phone,avatar} = req.body
             const user = await userService.FixRegister(full_name,login,email,password,phone,avatar)
+            await HistoryService.createAction(req.user.id,9,`Регистрация ${full_name} Администратором `)
             return res.status(200).json(user)
         }catch (e){
             next(e)
@@ -234,6 +244,7 @@ class UsersController {
         try{
             const {worker,avatar} = req.body
             const user = await userService.setFixAva(worker,avatar)
+            await HistoryService.createAction(req.user.id,9,`Установка Аватара Администратором ${worker}`)
             return res.status(200).json(user)
         }catch (e){
             next(e)

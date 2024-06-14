@@ -19,6 +19,7 @@ const manRouter = require('./mans.route')
 const referenceRouter = require('./reference.route')
 const socialityRouter = require('./sociality.route')
 const notificationsRouter = require('./notifications.route')
+const historyRouter = require('./history.route')
 
 router.use('/ai',aiRouter)
 router.use('/auth',authRouter)
@@ -38,5 +39,5 @@ router.use('/mans',manRouter)
 router.use('/reference',referenceRouter)
 router.use('/sociality',socialityRouter)
 router.use('/notifications',notificationsRouter)
-
+router.use('/history',historyRouter)
 module.exports = router

@@ -150,3 +150,76 @@
     }
   }
 }
+
+.analytics-cms{
+  .title{
+    h1{
+      font-size: 1.1rem;
+    }
+  }
+  .types-history{
+    margin-top: 20px;
+    h2{
+      font-size: 1rem;
+    }
+  }
+  .form-analytics{
+    .input{
+      width: calc(100% - 8px);
+      border: 1px solid #aaaaaa;
+      outline: none;
+      padding: 4px;
+    }
+    .button{
+      background-color: rgb(18, 19, 56);
+      color: white;
+      margin-top: 10px;
+      padding: 10px 16px 10px 10px;
+      width: calc(100% - 24px);
+      height: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      cursor: pointer;
+
+    }
+  }
+  .table{
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #888;
+    .row{
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding: 5px 5px 5px 5px;
+      margin: 0;
+      .column{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .s1{
+        width: 50px;
+        border-right: 2px solid #888;
+        font-weight: bold;
+      }
+      .s2{
+        width: 250px;
+      }
+    }
+
+    .header{
+      border-bottom: 2px solid #888;
+      font-weight: bold;
+    }
+  }
+}

@@ -2,6 +2,8 @@ const {validationResult} = require('express-validator')
 const ApiError = require('../exceptions/api.error')
 const ObjsService = require("../service/objs.service");
 const BestManService = require("../service/mainpage.service");
+const HistoryService = require("../service/history.service");
+const {logger} = require("sequelize/lib/utils/logger");
 
 class ObjsController {
     async thisObj(req,res,next) {
@@ -53,7 +55,7 @@ class ObjsController {
         try{
             const search = req.body
             const list = await ObjsService.getAllTabels(search)
-            return res.status(200).status(200).json(list)
+            return res.status(200).json(list)
         }catch (e){
             next(e)
         }
@@ -62,7 +64,7 @@ class ObjsController {
         try{
             const search = req.body
             const list = await ObjsService.getTabelsForAll(search)
-            return res.status(200).status(200).json(list)
+            return res.status(200).json(list)
         }catch (e){
             next(e)
         }
@@ -71,7 +73,9 @@ class ObjsController {
         try{
             const tabel = req.body
             const list = await ObjsService.createTabels(tabel)
-            return res.status(200).status(200).json(list)
+
+            await HistoryService.createAction(req.user.id,8,`Создание табеля для обьекта id:${tabel.getId} Месяц:${tabel.selMonth} year:${tabel.selYear}`)
+            return res.status(200).json(list)
 
         }catch (e){
             next(e)
@@ -89,7 +93,8 @@ class ObjsController {
         try{
             const {obj_id} = req.body
             const list = await ObjsService.insertObjects(obj_id,req.user.login,req.user.id,req.user.inn)
-            return res.status(200).status(200).json(list)
+            await HistoryService.createAction(req.user.id,8,`Добавление обьектов ${obj_id}`)
+            return res.status(200).json(list)
         }catch (e){
             next(e)
         }
@@ -125,6 +130,7 @@ class ObjsController {
         try{
             const params = req.body
             const list = await ObjsService.copyTab(params)
+            await HistoryService.createAction(req.user.id,8,`Копирование табеля ${params.shifrname} ${params.month} ${params.year}`)
             return res.status(200).json(list)
         }catch (e){
             next(e)
@@ -134,6 +140,7 @@ class ObjsController {
         try{
             const params = req.body
             const list = await ObjsService.delManTabel(params)
+            await HistoryService.createAction(req.user.id,8,`Удаление сотрудника из табеля - ${params.man}`)
             return res.status(200).json(list)
         }catch (e){
             next(e)
@@ -161,7 +168,7 @@ class ObjsController {
         try{
             const params = req.body
             const list = await ObjsService.dataOfObj(params)
-            return res.status(200).status(200).json(list)
+            return res.status(200).json(list)
         }catch (e){
             next(e)
         }
@@ -180,6 +187,7 @@ class ObjsController {
         try{
             const objs = req.body
             const list = await ObjsService.getTabelSRTO(objs)
+            await HistoryService.createAction(req.user.id,7,`Загрузка СРТО`)
             return res.status(200).json(list)
         }catch (e){
             next(e)

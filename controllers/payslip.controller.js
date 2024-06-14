@@ -1,5 +1,6 @@
 const PayslipService = require('../service/payslip.service')
 const T13Service = require('../service/t13.service')
+const HistoryService = require("../service/history.service");
 class PayslipController {
     async getDays(req,res,next) {
         try{
@@ -42,6 +43,7 @@ class PayslipController {
                     else days[i] = +DaysToPayslip[key]
                 }
             }
+            await HistoryService.createAction(req.user.id,4,`Загрузка расчетки ${month}|${year}`)
             return res.status(200).json({info,days,ktu})
         }catch (e) {
             next(e)

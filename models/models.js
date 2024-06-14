@@ -590,10 +590,11 @@ const Messages = sequelize.define('messages', {
     tn_from:{type:DataTypes.STRING,ref:'survey'},
     title:{type:DataTypes.TEXT},
     text:{type:DataTypes.TEXT},
-    files:{type: DataTypes.ARRAY(DataTypes.INTEGER)},
+    files:{type:DataTypes.TEXT},
     trash_to:{type:DataTypes.BOOLEAN,default:false},
     trash_from:{type:DataTypes.BOOLEAN,default:false},
-    read:{type:DataTypes.BOOLEAN,default:false}
+    read:{type:DataTypes.BOOLEAN,default:false},
+    voice: {type: DataTypes.TEXT}
 })
 const Chats = sequelize.define('chats', {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
@@ -1004,6 +1005,18 @@ const OfferPosts = sequelize.define('offerrss',{
     content:{type:DataTypes.TEXT},
 })
 
+const History = sequelize.define('history',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    user_id:{type:DataTypes.INTEGER},
+    type_id:{type:DataTypes.INTEGER},
+    marker:{type:DataTypes.INTEGER,defaultValue:0}, //0-действие 1-системная ошибка
+    action:{type:DataTypes.TEXT}
+})
+const HistoryTypes = sequelize.define('historytypes',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    name:{type:DataTypes.TEXT},
+})
+
 OfferPosts.belongsTo(User, { foreignKey: 'user_id', targetKey: 'id', as: 'user' })
 User.hasMany(OfferPosts, { foreignKey: 'user_id', sourceKey: 'id', as: 'content' })
 
@@ -1086,6 +1099,14 @@ Contest.hasMany(KidsAnswers, { foreignKey: 'contest_id', sourceKey: 'id' })     
 KidsAnswers.belongsTo(Contest, { foreignKey: 'contest_id', targetKey: 'id' })                   //*
 //*****************************************************************************************************//*
 
+//******************************************************************************************************
+History.belongsTo(User, { foreignKey: 'user_id' })
+History.belongsTo(HistoryTypes, { foreignKey: 'type_id' })
+
+User.hasMany(History, { foreignKey: 'user_id' })
+HistoryTypes.hasMany(History, { foreignKey: 'type_id' })
+//******************************************************************************************************
+
 module.exports = {
-    OfferPosts, SrtoObjects, MyprogramProtocol,Preregister,Notifications,TypesNotifications,ProgramOfSoc, MyProgram, T13Black,Commission,PositionOfSoc,Reports,Struct,StructUsers,Bye,PeopleCounter,T13Bye,T13Uni,CrewMans,ZaSv,TableZayavka,HumanList,KtuDoc,KtuList,MessageSv,ViewsWorkSv,CrewManlist,CrewDoclist,CrewBase,CrewSv,OgmPrice,WorkPrice,StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts,ProtocolOfSoc
+    History,HistoryTypes,OfferPosts, SrtoObjects, MyprogramProtocol,Preregister,Notifications,TypesNotifications,ProgramOfSoc, MyProgram, T13Black,Commission,PositionOfSoc,Reports,Struct,StructUsers,Bye,PeopleCounter,T13Bye,T13Uni,CrewMans,ZaSv,TableZayavka,HumanList,KtuDoc,KtuList,MessageSv,ViewsWorkSv,CrewManlist,CrewDoclist,CrewBase,CrewSv,OgmPrice,WorkPrice,StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts,ProtocolOfSoc
 }
