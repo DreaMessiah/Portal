@@ -8,6 +8,7 @@ import '../economist/econom.scss'
 import AnalyticsMenu from "./AnalyticsMenu";
 import HrmAnalyticsPage from "./HrmAnalyticsPage";
 import AnalyticsBye from "./AnalyticsBye";
+import Dashboard from "./Dashboard";
 export default function AnalyticsRouter({page= 1}){
     return (
         <div className='new_container'>
@@ -17,6 +18,7 @@ export default function AnalyticsRouter({page= 1}){
                 {page === 1 && <WorkPage data={<AnalyticsMenu />}/>}
                 {page === 2 && <WorkPage data={<HrmAnalyticsPage />}/>}
                 {page === 3 && <WorkPage data={<AnalyticsBye />}/>}
+                {page === 4 && <WorkPage data={<Dashboard />}/>}
             </div>
         </div>
 

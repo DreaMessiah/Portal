@@ -126,7 +126,8 @@ class PollsService{
     async getRe(){
         const answers = await KidsAnswers.findAll({include: [Nominations,User,Contest]})
         const nominations = await Nominations.findAll({include: [{model:KidsAnswers,include:User}]})
-        return {answers,nominations}
+        const contests = await Contest.findAll({include: [User,KidsAnswers]})
+        return {answers,nominations,contests}
     }
 
 }

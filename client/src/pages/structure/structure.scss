@@ -4962,6 +4962,7 @@
               border-radius: 60px;
               border: none;
               background-size: cover;
+              background-position: center;
             }
             .glass_list_persons_man_name{
               width: 300px;
@@ -5740,6 +5741,7 @@
 
 .glass_list_persons_man_photo{
   position: relative;
+  background-position: center !important;
 }
 
 .online1{

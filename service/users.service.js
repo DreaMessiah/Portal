@@ -163,14 +163,12 @@ class UsersService{
         if(t13) reg.tn = t13.tn
         return reg
     }
-
     async removeZa(id) {
         const za = await Preregister.findByPk(id)
         if(!za) throw ApiError.BadRequest('Ошибка удаления заявки')
         await za.destroy()
         return true
     }
-
     async getPrereg() {
         const list = await Preregister.findAll()
         return await Promise.all( list.map( async item => {
@@ -178,13 +176,14 @@ class UsersService{
             return t13 ? {...item.dataValues,tn:t13.tn} : item
         }))
     }
-
     async FixRegister(full_name,login,email,password,phone,avatar) {
         const t13 = await T13Uni.findOne({where:{name:full_name}})
         if(!t13) throw ApiError.BadRequest('Ошибка регистрации - пользователь не найден(Поиск по имени)')
         const candidate = await User.findOne({where: {login:login}})
         if(candidate) throw ApiError.BadRequest(`Пользователь с логином ${login} уже существует`)
         const hashPassword = await bcrypt.hash(password,15)
+        console.log(password)
+        console.log(hashPassword)
         const newuser = await User.create({tn:t13.tn,full_name,login,email,password:hashPassword,inn:8617014209,unit:0,phone,avatar,developer:t13.developer})
         if(newuser) {//full_name,login,email,password,phone,avatar
             const reg = await Preregister.findOne({where:{name:full_name}})

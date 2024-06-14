@@ -114,8 +114,8 @@ export default class UserService {
     static getPrereg(){
         return $api.get('/auth/getreg')
     }
-    static async register(full_name,login,email,password,phone,avatar){
-        return $api.post('/auth/fixregister',{full_name,login,email,password,phone,avatar})
+    static async register(full_name,login,password,email,phone,avatar){
+        return $api.post('/auth/fixregister',{full_name,login,password,email,phone,avatar})
     }
     static getUnphotoWorkers(){
         return $api.get('/auth/getunphoto')

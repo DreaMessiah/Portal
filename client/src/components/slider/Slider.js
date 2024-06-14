@@ -31,7 +31,7 @@ export const Slider = () => {
                     <p style={{backgroundColor: 'rgba(255,255,255,0.7)', padding: '0 5px'}} className='big'>"Я рисую мою Россию"</p></div>
                     <Link style={{backgroundColor: 'rgba(255,255,255,0.7)', padding: '0 5px'}} className={`small-link`} to={'/viewpost?post=35'}> условия конкурса </Link>
                 {/*{!checkContest ? <Link to={'/load-contest'} className={`button`}>подать заявку</Link> : null}*/}
-                {!checkAnswers ? <Link to={'/kids-contest'} className={`button`}>Проголосовать</Link> : <Link to={'/kids-contest'} className={`button`}>Посмотреть работы</Link>}
+                <Link to={'/kids-contest'} className={`button`}>Посмотреть работы</Link>
             </div>
             <div className={`overlay`}></div>
         </div>

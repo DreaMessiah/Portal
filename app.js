@@ -14,6 +14,8 @@ const initializeSocket = require('./socket')
 const AutomakerService = require('./service/automaker.service')
 const cron = require('node-cron')
 
+/***********************************************************************/
+
 app.use(fileUpload({}))
 app.use(cors({
     origin: config.get('client_url'),

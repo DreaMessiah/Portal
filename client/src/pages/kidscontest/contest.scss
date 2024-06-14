@@ -1457,3 +1457,62 @@
 
   }
 }
+
+.results-contest{
+  width: 100%;
+  .granpri{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    h2{
+      margin-bottom: 20px;
+    }
+    h3{
+      display: flex;
+      text-align: center;
+    }
+    i{
+      margin-top: 10px;
+      font-size: 3rem;
+      color:rgba(225,195,0,1);
+
+    }
+  }
+  .work{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 40px;
+    .name{
+      font-size: 1rem;
+      font-weight: 600;
+      margin-top: 10px;
+      text-align: center;
+    }
+    .kidwork{
+      margin-top: 10px;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      width: 330px;
+      height: 220px;
+      border-radius: 20px;
+    }
+  }
+}
+.win-nomi{
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  i{
+    color:rgba(225,195,0,1);
+    margin-top: 10px;
+    font-size: 3rem;
+  }
+}

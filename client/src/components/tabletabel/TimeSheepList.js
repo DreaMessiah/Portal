@@ -111,6 +111,9 @@ export const TimeSheepList = () => {
                                     <option>8</option>
                                     <option>7</option>
                                     <option>4</option>
+                                    <option>С</option>
+                                    <option>Р</option>
+                                    <option>ТО</option>
                                 </select>
                                 {/*<Select styles={stylesday} options={options} value={man.m1} placeholder=''/>*/}
                                 {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b no-left-border" onChange={irr} defaultValue={man.m1}></input>*/}
@@ -126,6 +129,9 @@ export const TimeSheepList = () => {
                                     <option>8</option>
                                     <option>7</option>
                                     <option>4</option>
+                                    <option>С</option>
+                                    <option>Р</option>
+                                    <option>ТО</option>
                                 </select>
                             </div>
 
@@ -141,6 +147,9 @@ export const TimeSheepList = () => {
                                     <option>8</option>
                                     <option>7</option>
                                     <option>4</option>
+                                    <option>С</option>
+                                    <option>Р</option>
+                                    <option>ТО</option>
                                 </select>
                                 {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m2}></input>*/}
                             </div>
@@ -154,6 +163,9 @@ export const TimeSheepList = () => {
                                     <option>8</option>
                                     <option>7</option>
                                     <option>4</option>
+                                    <option>С</option>
+                                    <option>Р</option>
+                                    <option>ТО</option>
                                 </select>
                                 {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m17}></input>*/}
                             </div>
@@ -169,6 +181,9 @@ export const TimeSheepList = () => {
                                     <option>8</option>
                                     <option>7</option>
                                     <option>4</option>
+                                    <option>С</option>
+                                    <option>Р</option>
+                                    <option>ТО</option>
                                 </select>
                                 {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m3}></input>*/}
                             </div>
@@ -182,6 +197,9 @@ export const TimeSheepList = () => {
                                     <option>8</option>
                                     <option>7</option>
                                     <option>4</option>
+                                    <option>С</option>
+                                    <option>Р</option>
+                                    <option>ТО</option>
                                 </select>
                                 {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m18}></input>*/}
                             </div>
@@ -198,6 +216,9 @@ export const TimeSheepList = () => {
                                     <option>8</option>
                                     <option>7</option>
                                     <option>4</option>
+                                    <option>С</option>
+                                    <option>Р</option>
+                                    <option>ТО</option>
                                 </select>
                                 {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m4}></input>*/}
                             </div>
@@ -212,6 +233,9 @@ export const TimeSheepList = () => {
                                     <option>8</option>
                                     <option>7</option>
                                     <option>4</option>
+                                    <option>С</option>
+                                    <option>Р</option>
+                                    <option>ТО</option>
                                 </select>
                                 {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m19}></input>*/}
                             </div>
@@ -228,6 +252,9 @@ export const TimeSheepList = () => {
                                     <option>8</option>
                                     <option>7</option>
                                     <option>4</option>
+                                    <option>С</option>
+                                    <option>Р</option>
+                                    <option>ТО</option>
                                 </select>
                                 {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m5}></input>*/}
                             </div>
@@ -242,6 +269,9 @@ export const TimeSheepList = () => {
                                     <option>8</option>
                                     <option>7</option>
                                     <option>4</option>
+                                    <option>С</option>
+                                    <option>Р</option>
+                                    <option>ТО</option>
                                 </select>
                                 {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m20}></input>*/}
                             </div>
@@ -258,6 +288,9 @@ export const TimeSheepList = () => {
                                     <option>8</option>
                                     <option>7</option>
                                     <option>4</option>
+                                    <option>С</option>
+                                    <option>Р</option>
+                                    <option>ТО</option>
                                 </select>
                                 {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m6}></input>*/}
                             </div>
@@ -272,6 +305,9 @@ export const TimeSheepList = () => {
                                     <option>8</option>
                                     <option>7</option>
                                     <option>4</option>
+                                    <option>С</option>
+                                    <option>Р</option>
+                                    <option>ТО</option>
                                 </select>
                                 {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m21}></input>*/}
                             </div>
@@ -288,6 +324,9 @@ export const TimeSheepList = () => {
                                     <option>8</option>
                                     <option>7</option>
                                     <option>4</option>
+                                    <option>С</option>
+                                    <option>Р</option>
+                                    <option>ТО</option>
                                 </select>
                                 {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m7}></input>*/}
                             </div>
@@ -302,6 +341,9 @@ export const TimeSheepList = () => {
                                     <option>8</option>
                                     <option>7</option>
                                     <option>4</option>
+                                    <option>С</option>
+                                    <option>Р</option>
+                                    <option>ТО</option>
                                 </select>
                                 {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m22}></input>*/}
                             </div>
@@ -318,6 +360,9 @@ export const TimeSheepList = () => {
                                     <option>8</option>
                                     <option>7</option>
                                     <option>4</option>
+                                    <option>С</option>
+                                    <option>Р</option>
+                                    <option>ТО</option>
                                 </select>
                                 {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m8}></input>*/}
                             </div>
@@ -332,6 +377,9 @@ export const TimeSheepList = () => {
                                     <option>8</option>
                                     <option>7</option>
                                     <option>4</option>
+                                    <option>С</option>
+                                    <option>Р</option>
+                                    <option>ТО</option>
                                 </select>
                                 {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m23}></input>*/}
                             </div>
@@ -348,6 +396,9 @@ export const TimeSheepList = () => {
                                     <option>8</option>
                                     <option>7</option>
                                     <option>4</option>
+                                    <option>С</option>
+                                    <option>Р</option>
+                                    <option>ТО</option>
                                 </select>
                                 {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m9}></input>*/}
                             </div>
@@ -362,6 +413,9 @@ export const TimeSheepList = () => {
                                     <option>8</option>
                                     <option>7</option>
                                     <option>4</option>
+                                    <option>С</option>
+                                    <option>Р</option>
+                                    <option>ТО</option>
                                 </select>
                                 {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m24}></input>*/}
                             </div>
@@ -378,6 +432,9 @@ export const TimeSheepList = () => {
                                     <option>8</option>
                                     <option>7</option>
                                     <option>4</option>
+                                    <option>С</option>
+                                    <option>Р</option>
+                                    <option>ТО</option>
                                 </select>
                                 {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m10}></input>*/}
                             </div>
@@ -392,6 +449,9 @@ export const TimeSheepList = () => {
                                     <option>8</option>
                                     <option>7</option>
                                     <option>4</option>
+                                    <option>С</option>
+                                    <option>Р</option>
+                                    <option>ТО</option>
                                 </select>
                                 {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m25}></input>*/}
                             </div>
@@ -408,6 +468,9 @@ export const TimeSheepList = () => {
                                     <option>8</option>
                                     <option>7</option>
                                     <option>4</option>
+                                    <option>С</option>
+                                    <option>Р</option>
+                                    <option>ТО</option>
                                 </select>
                                 {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m11}></input>*/}
                             </div>
@@ -422,6 +485,9 @@ export const TimeSheepList = () => {
                                     <option>8</option>
                                     <option>7</option>
                                     <option>4</option>
+                                    <option>С</option>
+                                    <option>Р</option>
+                                    <option>ТО</option>
                                 </select>
                                 {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m26}></input>*/}
                             </div>
@@ -438,6 +504,9 @@ export const TimeSheepList = () => {
                                     <option>8</option>
                                     <option>7</option>
                                     <option>4</option>
+                                    <option>С</option>
+                                    <option>Р</option>
+                                    <option>ТО</option>
                                 </select>
                                 {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m12}></input>*/}
                             </div>
@@ -452,6 +521,9 @@ export const TimeSheepList = () => {
                                     <option>8</option>
                                     <option>7</option>
                                     <option>4</option>
+                                    <option>С</option>
+                                    <option>Р</option>
+                                    <option>ТО</option>
                                 </select>
                                 {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m27}></input>*/}
                             </div>
@@ -468,6 +540,9 @@ export const TimeSheepList = () => {
                                     <option>8</option>
                                     <option>7</option>
                                     <option>4</option>
+                                    <option>С</option>
+                                    <option>Р</option>
+                                    <option>ТО</option>
                                 </select>
                                 {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m13}></input>*/}
                             </div>
@@ -482,6 +557,9 @@ export const TimeSheepList = () => {
                                     <option>8</option>
                                     <option>7</option>
                                     <option>4</option>
+                                    <option>С</option>
+                                    <option>Р</option>
+                                    <option>ТО</option>
                                 </select>
                                 {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m28}></input>*/}
                             </div>
@@ -498,6 +576,9 @@ export const TimeSheepList = () => {
                                     <option>8</option>
                                     <option>7</option>
                                     <option>4</option>
+                                    <option>С</option>
+                                    <option>Р</option>
+                                    <option>ТО</option>
                                 </select>
                                 {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m14}></input>*/}
                             </div>
@@ -512,6 +593,9 @@ export const TimeSheepList = () => {
                                     <option>8</option>
                                     <option>7</option>
                                     <option>4</option>
+                                    <option>С</option>
+                                    <option>Р</option>
+                                    <option>ТО</option>
                                 </select>
                                 {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m29}></input>*/}
                             </div>
@@ -528,6 +612,9 @@ export const TimeSheepList = () => {
                                     <option>8</option>
                                     <option>7</option>
                                     <option>4</option>
+                                    <option>С</option>
+                                    <option>Р</option>
+                                    <option>ТО</option>
                                 </select>
                                 {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m15}></input>*/}
                             </div>
@@ -542,6 +629,9 @@ export const TimeSheepList = () => {
                                     <option>8</option>
                                     <option>7</option>
                                     <option>4</option>
+                                    <option>С</option>
+                                    <option>Р</option>
+                                    <option>ТО</option>
                                 </select>
                                 {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m30}></input>*/}
                             </div>
@@ -562,6 +652,9 @@ export const TimeSheepList = () => {
                                     <option>8</option>
                                     <option>7</option>
                                     <option>4</option>
+                                    <option>С</option>
+                                    <option>Р</option>
+                                    <option>ТО</option>
                                 </select>
                                 {/*<input type='number' className="tab_tabel_tabelman_s_c_c_day_content border-b" onChange={irr} defaultValue={man.m31}></input>*/}
                             </div>

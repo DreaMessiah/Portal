@@ -178,7 +178,7 @@ function ListContest(){
                                     <hr/>
                                     <div className={`answers`}><i className={`fa-heart fa-regular`}></i>{works[currentImageIndex].votes} <i className="fa-regular fa-calendar"></i><span>{formatDate(works[currentImageIndex].createdAt)}</span></div>
                                     <hr/>
-                                    {nominations && !isVote ?
+{/*                                    {nominations && !isVote ?
                                         <div className={`nominations radio-button-container`}>
                                             {works[currentImageIndex].nomi === null ?
                                                 <>
@@ -203,11 +203,11 @@ function ListContest(){
                                             }
                                         </div> : null
                                     }
-                                    {isVote && <div className={`small-text`}>Вы уже проголосовали</div>}
-                                    {/*<div className={`small-text`}>Голосование будет доступно с 03 по 11 июня 2024 года</div>*/}
+                                    {isVote && <div className={`small-text`}>Вы уже проголосовали</div>}*/}
+                                    <div style={{textAlign:'center'}} className={`small-text`}>Голосование завершено!<br/> 14 июня – подведение итогов и определение победителей.</div>
                                 </div>
                                 <>
-                                    {!isVote &&
+{/*                                    {!isVote &&
                                     <div className='buttons'>
                                         <hr/>
                                         {works[currentImageIndex].nomi === null ?
@@ -220,7 +220,7 @@ function ListContest(){
                                             </>
                                             :<div onClick={(e) => unselectNomination(currentImageIndex)} className={`button`}>Отменить</div>}
                                     </div>
-                                    }
+                                    }*/}
                                 </>
 
 
