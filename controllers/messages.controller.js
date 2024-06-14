@@ -60,8 +60,8 @@ class MessagesController {
     }
     async messVoice(req,res,next) {
         try{
-            console.log(req)
-
+            console.log(req.body)
+            console.log(req.files)
             //const file = req.body.file[0]
             //console.log(file)
             // const {tn,text} = req.body
