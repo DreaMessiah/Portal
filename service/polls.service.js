@@ -1,5 +1,6 @@
 const {Survey,Question,Answer, Contest, Nominations,KidsAnswers, User} = require('../models/models')
 const ApiError = require('../exceptions/api.error')
+const HistoryService = require("./history.service");
 class PollsService{
     async get(user_id) {
         const surveys = await Survey.findAll({ where: { trash: false} })
@@ -87,6 +88,7 @@ class PollsService{
         let answer = await Answer.findAll({where:{user_id:+user_id,survey_id:+survey_id}})
         if(answer.length) throw ApiError.BadRequest('Вы уже проголосовали')
         answer = await Answer.create({question_id:question_id,user_id:user_id,survey_id:survey_id})
+        await HistoryService.createAction(+user_id,6,`Ответ на опрос ${survey_id}`)
         return {answer}
     }
     async getContests() {

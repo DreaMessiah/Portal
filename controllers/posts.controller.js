@@ -1,4 +1,5 @@
 const PostsService = require('../service/posts.service')
+const HistoryService = require("../service/history.service");
 
 class PostsController {
     async get(req,res,next) {
@@ -56,6 +57,7 @@ class PostsController {
         try{
             const {id} = req.body
             const post = await PostsService.getSinglePost(id)
+            await HistoryService.createAction(req.user.id,6,`Вход в новость id-${id}`)
             return res.status(200).json(post)
         }catch (e){
             next(e)
@@ -76,6 +78,7 @@ class PostsController {
         try{
             const {id,title,text,image,json_data,oncomment} = req.body
             const post = await PostsService.updatePost(id,title,text,image,json_data,oncomment)
+            await HistoryService.createAction(req.user.id,6,`Добавление/Обновление новости id-${id}`)
             return res.status(200).json(post)
         }catch (e){
             next(e)
@@ -85,6 +88,7 @@ class PostsController {
         try{
             const {post_id,text} = req.body
             const post = await PostsService.addComment(req.user.tn,post_id,text)
+            await HistoryService.createAction(req.user.id,6,`Коментарий на новость ${text}`)
             return res.status(200).json(post)
         }catch (e){
             next(e)

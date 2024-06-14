@@ -594,7 +594,7 @@ const Messages = sequelize.define('messages', {
     trash_to:{type:DataTypes.BOOLEAN,default:false},
     trash_from:{type:DataTypes.BOOLEAN,default:false},
     read:{type:DataTypes.BOOLEAN,default:false},
-    voice:{type:DataTypes.TEXT}
+    voice: {type: DataTypes.TEXT}
 })
 const Chats = sequelize.define('chats', {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
@@ -1009,7 +1009,7 @@ const History = sequelize.define('history',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     user_id:{type:DataTypes.INTEGER},
     type_id:{type:DataTypes.INTEGER},
-    marker:{type:DataTypes.INTEGER,defaultValue:0},
+    marker:{type:DataTypes.INTEGER,defaultValue:0}, //0-действие 1-системная ошибка 2-temps
     action:{type:DataTypes.TEXT}
 })
 const HistoryTypes = sequelize.define('historytypes',{

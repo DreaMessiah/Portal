@@ -9,6 +9,9 @@ import AnalyticsMenu from "./AnalyticsMenu";
 import HrmAnalyticsPage from "./HrmAnalyticsPage";
 import AnalyticsBye from "./AnalyticsBye";
 import Dashboard from "./Dashboard";
+import History from "./History";
+import AnalyticsCms from "./AnalyticsCms";
+
 export default function AnalyticsRouter({page= 1}){
     return (
         <div className='new_container'>
@@ -19,6 +22,9 @@ export default function AnalyticsRouter({page= 1}){
                 {page === 2 && <WorkPage data={<HrmAnalyticsPage />}/>}
                 {page === 3 && <WorkPage data={<AnalyticsBye />}/>}
                 {page === 4 && <WorkPage data={<Dashboard />}/>}
+                {page === 5 && <WorkPage data={<History />}/>}
+                {page === 6 && <WorkPage data={<AnalyticsCms />}/>}
+
             </div>
         </div>
 

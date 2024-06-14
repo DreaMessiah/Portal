@@ -1,6 +1,7 @@
 const ReferenceService = require('../service/reference.service')
 const UserService = require("../service/users.service");
 const {WorkPrice} = require("../models/models");
+const HistoryService = require("../service/history.service");
 class ReferenceController {
     async getWorks(req,res,next) {
         try{
@@ -27,6 +28,7 @@ class ReferenceController {
                 await ReferenceService.saveWorksPrice(item)
             })
             const price = await ReferenceService.getWorks(req.user.inn)
+            await HistoryService.createAction(req.user.id,7,`Обновление Тарифов для рабочих`)
             return res.status(200).json(price)
         }catch (e){
             next(e)
@@ -48,6 +50,7 @@ class ReferenceController {
         try{
             const {work} = req.body
             const newPrice = ReferenceService.createWork(work)
+            await HistoryService.createAction(req.user.id,7,`Создание тарифов для рабочих`)
             return res.status(200).json(newPrice)
         }catch (e){
             next(e)
@@ -57,6 +60,7 @@ class ReferenceController {
         try{
             const {ogm} = req.body
             const newOgm = ReferenceService.createOgm(ogm)
+            await HistoryService.createAction(req.user.id,7,`Создание ОГМ`)
             return res.status(200).json(newOgm)
         }catch (e){
             next(e)
@@ -95,6 +99,7 @@ class ReferenceController {
         try{
             const {ogms} = req.body
             const ogmsData = await ReferenceService.loadOgms(ogms,req.user.inn)
+            await HistoryService.createAction(req.user.id,7,`Загрузка/Обновление ОГМ`)
             return res.status(200).json(ogmsData)
         }catch (e){
             next(e)
@@ -104,6 +109,7 @@ class ReferenceController {
         try{
             const {t13} = req.body
             const data = await ReferenceService.changeMonthT13(t13,req.user.inn)
+            await HistoryService.createAction(req.user.id,7,`Загрузка/Обновление Т13`)
             return res.status(200).json(data)
         }catch (e){
             next(e)
@@ -113,6 +119,7 @@ class ReferenceController {
         try{
             const {payslip} = req.body
             const data = await ReferenceService.changeMonthPayslip(payslip,req.user.inn)
+            await HistoryService.createAction(req.user.id,7,`Загрузка/Обновление Расчетного листа`)
             return res.status(200).json(data)
         }catch (e){
             next(e)
@@ -144,6 +151,7 @@ class ReferenceController {
         try{
             const {month,year,comment} = req.body
             const data = await ReferenceService.newKtuDoc(month,year,req.user.tn,req.user.inn,comment)
+            await HistoryService.createAction(req.user.id,7,`Загрузка/Обновление документа КТУ`)
             return res.status(200).json(data)
         }catch (e){
             next(e)
@@ -169,6 +177,7 @@ class ReferenceController {
         try{
             const {id,ktus} = req.body
             const data = await ReferenceService.saveKtus(id,ktus)
+            await HistoryService.createAction(req.user.id,7,`Загрузка/Обновление листа КТУ`)
             return res.status(200).json(data)
         }catch (e){
             next(e)

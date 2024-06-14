@@ -2,12 +2,14 @@ const PhonesService = require('../service/phones.service')
 const {validationResult} = require('express-validator')
 const mailService = require('../service/mail.service')
 const ApiError = require('../exceptions/api.error')
+const HistoryService = require("../service/history.service");
 class PhonesController {
     async get(req,res,next) {
         try{
             const errors = validationResult(req)
             if(!errors.isEmpty()) next(ApiError.BadRequest('Ошибка при чтении адресной книги',errors.array()))
             const phonesData = await PhonesService.get()
+            await HistoryService.createAction(req.user.id,5,`Просмотр телефонной книги`)
             return res.status(200).json(phonesData)
         }catch (e){
             next(e)
@@ -38,6 +40,7 @@ class PhonesController {
     async sendmail(req,res,next) {
         try{
             const {to,title,text,tn} = req.body
+            await HistoryService.createAction(req.user.id,5,`Обращение с главной страницы с поддержку`)
             const result = await mailService.sendQuestionToManager(to,title,text,req.user,tn)
             console.log(result)
             return res.status(200).json({message:'Сообщение отправлено'})
