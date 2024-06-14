@@ -1,4 +1,4 @@
-const {Messages, User} = require('../models/models')
+const {Messages, User, OfferPosts} = require('../models/models')
 const { Op } = require('sequelize');
 
 class MessagesService {
@@ -70,5 +70,14 @@ class MessagesService {
     async searchMess(tn) {
         return await Messages.findAll({where: {tn_to: tn.tn, read: false}});
     }
+    async offerPost(content) {
+        const response = await OfferPosts.create({user_id: content.user_id, content: content.content})
+        const mans = ['0000000130', '2140012136', '00ЗП-00352', '00ЗП-00450', '999999999']
+        mans.forEach(man => {
+            Messages.create({tn_to: man, tn_from: content.user_tn, title: 'Предложение новости', text: content.content, files: null, trash_to: false, trash_from: false, read: false})
+        })
+        return response
+    }
+
 }
 module.exports = new MessagesService()

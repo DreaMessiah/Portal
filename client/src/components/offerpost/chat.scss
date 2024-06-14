@@ -1,0 +1,48 @@
+.chat-gpt{
+  .text-box{
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 30px;
+    display: flex;
+    background-color: #FFFFFF;
+    flex-direction: row;
+    align-items: flex-end;
+    .circle{
+      cursor: pointer;
+      background-color: #333333;
+      width: 40px;
+      height: 40px;
+      border-radius: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      i{
+        font-size: 1.2rem;
+        color: #FFFFFF;
+      }
+    }
+    .unactive{
+      background-color: #999;
+    }
+    .rigth-box{
+
+    }
+    .left-box{
+
+    }
+    textarea{
+      min-height: 22px;
+      height: 22px;
+      font-size: 1.1rem;
+      max-height: 200px;
+      width: calc(100% - 40px);
+      resize: none;
+      border: none;
+      padding: 10px 20px;
+      outline: none;
+    }
+  }
+
+
+}

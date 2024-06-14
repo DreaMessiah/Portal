@@ -1,4 +1,5 @@
 const MessagesService = require('../service/messages.service')
+const T13Service = require("../service/t13.service");
 class MessagesController {
     async postMess(req,res,next) {
         try{
@@ -41,6 +42,31 @@ class MessagesController {
             const {tn,text} = req.body
             const message = await MessagesService.sendMessage(tn,req.user.tn,text)
             return res.status(200).json(message)
+        }catch (e){
+            next(e)
+        }
+    }
+    async offerPost(req,res,next) {
+        try{
+
+            const {content} = req.body
+            const user_id = req.user.id
+            const user_tn = req.user.tn
+            const message = await MessagesService.offerPost({content, user_id, user_tn})
+            return res.status(200).json(message)
+        }catch (e){
+            next(e)
+        }
+    }
+    async messVoice(req,res,next) {
+        try{
+            console.log(req)
+
+            //const file = req.body.file[0]
+            //console.log(file)
+            // const {tn,text} = req.body
+            // const message = await MessagesService.sendMessage(tn,req.user.tn,text)
+            return res.status(200).json('')
         }catch (e){
             next(e)
         }

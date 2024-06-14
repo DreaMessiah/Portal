@@ -79,6 +79,36 @@
         transition: 0.2s;
       }
     }
+    .news_block_titoffer{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      //justify-content: flex-start;
+      //align-items: flex-end;
+      .news_block_title_offer{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        font-size: 14pt;
+        padding: 15px 0px;
+        margin: 10px 0 0 0px;
+        border: 1px solid #CCC;
+        border-radius: 8px;
+        color: rgb(18, 19, 56);
+        cursor: pointer;
+        transition: 0.2s;
+        background-color: #FFFFFF;
+      }
+
+      .news_block_title_offer:hover{
+        border: 1px solid #454545;
+        color: #454545;
+        transition: 0.2s;
+      }
+      .chat-gpt{
+        margin-top: 10px;
+      }
+    }
 
     .news_block_list{
       width: 100%;
@@ -849,6 +879,33 @@
         transition: 0.2s;
       }
     }
+    .news_block_titoffer{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      //justify-content: flex-start;
+      //align-items: flex-end;
+      .news_block_title_offer{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        font-size: 14pt;
+        padding: 15px 0px;
+        margin: 10px 0 0 0px;
+        border: 1px solid #CCC;
+        border-radius: 8px;
+        color: rgb(18, 19, 56);
+        cursor: pointer;
+        transition: 0.2s;
+        background-color: #FFFFFF;
+      }
+      .news_block_title_offer:hover{
+        border: 1px solid #454545;
+        color: #454545;
+        transition: 0.2s;
+      }
+    }
+
 
     .news_block_list{
       width: 100%;
@@ -1596,6 +1653,32 @@
         display: none;
       }
       .news_block_title_create:hover{
+        border: 1px solid #454545;
+        color: #454545;
+        transition: 0.2s;
+      }
+    }
+    .news_block_titoffer{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      //justify-content: flex-start;
+      //align-items: flex-end;
+      .news_block_title_offer{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        font-size: 14pt;
+        padding: 15px 0px;
+        margin: 10px 0 0 0px;
+        border: 1px solid #CCC;
+        border-radius: 8px;
+        color: rgb(18, 19, 56);
+        cursor: pointer;
+        transition: 0.2s;
+        background-color: #FFFFFF;
+      }
+      .news_block_title_offer:hover{
         border: 1px solid #454545;
         color: #454545;
         transition: 0.2s;
