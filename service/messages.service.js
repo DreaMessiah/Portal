@@ -78,6 +78,20 @@ class MessagesService {
         })
         return response
     }
+    async messVoice(mess) {
+        console.log(mess.voice.blob)
+        await Messages.create({tn_to: mess.tn_to, tn_from: mess.tn_from, title: 'voice_voice', text: '', voice: mess.voice.blob.data})
+        const listMess = await Messages.findAll({
+            where: {
+                [Op.or]: [
+                    { tn_to: mess.tn_to, tn_from: mess.tn_from },
+                    { tn_to: mess.tn_from, tn_from: mess.tn_to }
+                ]
+            },
+            order: [['createdAt', 'DESC']]
+        })
+        return listMess
+    }
 
 }
 module.exports = new MessagesService()

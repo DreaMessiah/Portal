@@ -60,13 +60,16 @@ class MessagesController {
     }
     async messVoice(req,res,next) {
         try{
-            console.log(req.body)
-            console.log(req.files)
+            // console.log(req.body)
+            // console.log(req.files)
+            const tn_to = req.body.tn_to
+            const tn_from = req.body.tn_from
+            const voice = req.files
             //const file = req.body.file[0]
             //console.log(file)
             // const {tn,text} = req.body
-            // const message = await MessagesService.sendMessage(tn,req.user.tn,text)
-            return res.status(200).json('')
+            const message = await MessagesService.messVoice({tn_to,tn_from,voice})
+            return res.status(200).json(message)
         }catch (e){
             next(e)
         }
