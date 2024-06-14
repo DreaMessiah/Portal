@@ -3,7 +3,7 @@ const { Op } = require('sequelize');
 
 class MessagesService {
     async pushMess(mess) {
-        await Messages.create({tn_to: mess.tn_to, tn_from: mess.tn_from, title: mess.title, text: mess.message, files: mess.files, trash_to: mess.trash,trash_from: mess.trash_from,read: mess.read})
+        await Messages.create({tn_to: mess.tn_to, tn_from: mess.tn_from, title: mess.title, text: mess.message, files: '', trash_to: mess.trash,trash_from: mess.trash_from,read: mess.read})
         const listMess = await Messages.findAll({
             where: {
                 [Op.or]: [
@@ -79,8 +79,7 @@ class MessagesService {
         return response
     }
     async messVoice(mess) {
-        console.log(mess.voice.blob)
-        await Messages.create({tn_to: mess.tn_to, tn_from: mess.tn_from, title: 'voice_voice', text: '', voice: mess.voice.blob.data})
+        await Messages.create({tn_to: mess.tn_to, tn_from: mess.tn_from, title: 'voice_voice', text: '', voice: mess.namevoice})
         const listMess = await Messages.findAll({
             where: {
                 [Op.or]: [

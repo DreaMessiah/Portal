@@ -16,11 +16,9 @@ export default class MessagesService{
         return $api.post('/mess/searchmess',{tn})
     }
     static sendMessage(tn,text){
-        console.log(tn)
         return $api.post('/mess/sendmessage',{tn,text})
     }
     static offerPost(content){
-        console.log(content)
         return $api.post('/mess/offerpost',{content})
     }
     // static messVoice(url){
@@ -29,8 +27,7 @@ export default class MessagesService{
     //     return ''
     // }
 
-    static messVoice(thisvoice,my_tn,friend_tn){ //,
-        console.log(thisvoice.blob)
+    static messVoice(thisvoice,my_tn,friend_tn){
 
         if(thisvoice){
                 const formData = new FormData()

@@ -1,5 +1,14 @@
+const fs = require('fs');
+const config = require('config')
 const MessagesService = require('../service/messages.service')
 const T13Service = require("../service/t13.service");
+const ApiError = require("../exceptions/api.error");
+const {Sequelize,Op} = require('sequelize')
+const sharp = require("sharp");
+const PATH = require('path');
+const Jimp = require('jimp')
+const FileDto = require('../dtos/fileDto')
+
 class MessagesController {
     async postMess(req,res,next) {
         try{
@@ -64,12 +73,29 @@ class MessagesController {
             // console.log(req.files)
             const tn_to = req.body.tn_to
             const tn_from = req.body.tn_from
-            const voice = req.files
-            //const file = req.body.file[0]
-            //console.log(file)
-            // const {tn,text} = req.body
-            const message = await MessagesService.messVoice({tn_to,tn_from,voice})
-            return res.status(200).json(message)
+            const voice = req.files.blob
+            let nametime = new Date()
+            nametime = nametime.getTime();
+            const namevoice = tn_from+'_'+nametime
+            if(voice.size > 1000000000){
+                return {err: 'Большой размер файла'}
+            }else{
+                // if(voice){
+                let path = PATH.join(config.get('file_path'),`voice`,`${namevoice}.mp3`);
+                // }
+                if(fs.existsSync(path)){
+                    return res.status(400).json({message: 'Файл с таким именем уже существует'})
+                }
+                await voice.mv(path)
+                //const file = req.body.file[0]
+                //console.log(file)
+                // const {tn,text} = req.body
+                const message = await MessagesService.messVoice({tn_to,tn_from,namevoice})
+
+
+                return res.status(200).json(message)
+            }
+
         }catch (e){
             next(e)
         }

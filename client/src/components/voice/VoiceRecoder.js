@@ -4,13 +4,15 @@ import './voiceRecorder.scss';
 import MessagesService from "../../services/MessagesService";
 import {useContext} from "react";
 import {Context} from "../../index";
-const VoiceRecorder = ({thisMans, reload, setReload, openrec, setOpenRec, record,setRecord,audioURL,setAudioURL}) => {
+import {useMessage} from "../../hooks/message.hook";
+const VoiceRecorder = ({users, thismess, setThismess, thisMans, reload, setReload, openrec, setOpenRec, record,setRecord,audioURL,setAudioURL}) => {
 
     const [thisvoice, setThisvoice] = useState({})
     const {store} = useContext(Context)
     const userstore = store.user
     const my_tn = store.user.tn
     const [friend_tn, setFriend_tn] = useState('999999999')
+    const message = useMessage()
 
     const searchMans = () => {
         const randommess = thisMans
@@ -62,7 +64,28 @@ const VoiceRecorder = ({thisMans, reload, setReload, openrec, setOpenRec, record
             if (thisvoice.blobURL) {
                 console.log(thisvoice)
                 const { data } = await MessagesService.messVoice(thisvoice, my_tn, friend_tn)
-                console.log(data)
+                if(data.err){
+                    message('Аудио не записалось, попробуйте позже')
+                }else{
+                    data.forEach(mess => {
+                        let avatar = ''
+                        let full_name = ''
+                        users.forEach(man => {
+                            if(mess.tn_from === man.tn){
+                                avatar = man.avatar
+                                full_name = man.full_name
+                            }
+                        })
+                        if(avatar == '' || avatar === null || avatar === undefined){
+                            mess.avatar = 'face.png'
+                        } else {
+                            mess.avatar = avatar
+                        }
+
+                        mess.full_name = full_name
+                    })
+                    setThismess([...data])
+                }
                 setThisvoice({})
             } else {
                 console.log("The file is not an audio file.");

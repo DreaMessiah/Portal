@@ -590,11 +590,11 @@ const Messages = sequelize.define('messages', {
     tn_from:{type:DataTypes.STRING,ref:'survey'},
     title:{type:DataTypes.TEXT},
     text:{type:DataTypes.TEXT},
-    files:{type: DataTypes.ARRAY(DataTypes.INTEGER)},
+    files:{type:DataTypes.TEXT},
     trash_to:{type:DataTypes.BOOLEAN,default:false},
     trash_from:{type:DataTypes.BOOLEAN,default:false},
     read:{type:DataTypes.BOOLEAN,default:false},
-    voice: { type: DataTypes.BLOB('long') }
+    voice:{type:DataTypes.TEXT}
 })
 const Chats = sequelize.define('chats', {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
@@ -1009,11 +1009,12 @@ const History = sequelize.define('history',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     user_id:{type:DataTypes.INTEGER},
     type_id:{type:DataTypes.INTEGER},
+    marker:{type:DataTypes.INTEGER,defaultValue:0},
     action:{type:DataTypes.TEXT}
 })
 const HistoryTypes = sequelize.define('historytypes',{
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
-    name:{type:DataTypes.INTEGER},
+    name:{type:DataTypes.TEXT},
 })
 
 OfferPosts.belongsTo(User, { foreignKey: 'user_id', targetKey: 'id', as: 'user' })

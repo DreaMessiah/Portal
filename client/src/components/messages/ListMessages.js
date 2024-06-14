@@ -117,7 +117,7 @@ export const ListMessages = () => {
             thisMans.message = textarea
             thisMans.tn_from = userstore.tn
             thisMans.title = ''
-            thisMans.files = []
+            thisMans.files = ''
             thisMans.trash = false
             thisMans.read = false
             const mess = {}
@@ -291,6 +291,11 @@ export const ListMessages = () => {
 
         return date + ' ' + time
     }
+
+    const plusDocs = () => {
+        message('Функция в разработке')
+    }
+
     useEffect(()=>{
         listUsers()
         const socket = getSocket()
@@ -371,12 +376,12 @@ export const ListMessages = () => {
                     <div className="history_mess_pen" >
                         <textarea className="history_mess_pen_letter" id='textmess' value={textarea} onChange={(e)=>setTextarea(e.target.value)}>{textarea}</textarea>
                         <div className="history_mess_pen_btns">
-                            <div className="srepbtn"><i className="fa-solid fa-paperclip"/></div>
+                            <div className="srepbtn" onClick={()=>plusDocs()}><i className="fa-solid fa-paperclip"/></div>
                             <div className="srepbtn" onClick={() => {startRecording(); setOpenRec(!openrec); setReload(false)}}><i className="fa-solid fa-microphone-lines"/></div>
                             <div className="history_mess_pen_btn" onClick={()=>passMess()}>Отправить <i className="fa-regular fa-paper-plane"/></div>
                         </div>
                     </div>
-                    <VoiceRecorder thisMans={thisMans} reload={reload} setReload={setReload} openrec={openrec} setOpenRec={setOpenRec} record={record} setRecord={setRecord} audioURL={audioURL} setAudioURL={setAudioURL}/>
+                    <VoiceRecorder users={users} thismess={thismess} setThismess={setThismess} thisMans={thisMans} reload={reload} setReload={setReload} openrec={openrec} setOpenRec={setOpenRec} record={record} setRecord={setRecord} audioURL={audioURL} setAudioURL={setAudioURL}/>
                     <div className="history_mess_list" >
                         {thismess.map((mess, index) => {
                             let statusmess
@@ -394,7 +399,9 @@ export const ListMessages = () => {
                                 <div className="history_mess_list_block_ava" style={{backgroundImage: `url("files/profile/${mess.avatar}")` }}>{ (mess.tn_from === my_tn) ? <i className="online1 fa-solid fa-circle"></i> : online.includes(mess.tn_from) ? <i className="online1 fa-solid fa-circle"></i> : null}</div>
                                 <div className="history_mess_list_block_content" >
                                     <div className="history_mess_list_block_content_name" >{mess.full_name}</div>
-                                    <div className="history_mess_list_block_content_message" >{mess.text}</div>
+                                    <div className="history_mess_list_block_content_message" >{
+                                        (mess.title === 'voice_voice')?<audio src={`/files/voice/${mess.voice}.mp3`} controls />:mess.text
+                                    }</div>
                                     <div className="history_mess_list_block_content_dateandstatus" >
                                         <div className="history_mess_list_block_content_date" >{backDate(mess.createdAt)}</div>
                                         <div className="history_mess_list_block_content_status" >

@@ -877,6 +877,7 @@
         border-radius: 15px 15px 0 0;
         background-color: #FFFFFF;
         z-index: 10;
+        margin-top: -30px;
 
         .new_mess{
           position: absolute;
@@ -1070,6 +1071,7 @@
         border-radius: 0 0 15px 15px;
         background-color: #FFFFFF;
         z-index: 0;
+        margin-bottom: -20px;
       }
       .history_mess{
         display: none;
@@ -1092,7 +1094,7 @@
           position: relative;
           .history_mess_pen_letter{
             width: calc(100% - 20px);
-            height: 100px;
+            height: 70px;
             border-radius: 10px;
             border: 1px solid #CCC;
             resize: none;
@@ -1177,6 +1179,10 @@
               .history_mess_list_block_content_message{
                 margin: 10px;
                 font-size: 10pt;
+                audio{
+                  width: 280px;
+                  margin-left: -30px;
+                }
               }
               .history_mess_list_block_content_dateandstatus{
                 width: 100%;
