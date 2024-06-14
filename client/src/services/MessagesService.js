@@ -36,7 +36,6 @@ export default class MessagesService{
                 const formData = new FormData()
                 formData.append('blob', thisvoice.blob)
                 formData.append('test', 'test')
-                formData.append('filename', thisvoice[0].name)
                 formData.append('tn_to', friend_tn)
                 formData.append('tn_from', my_tn)
                 return $api.post('/mess/pullvoice',formData)
