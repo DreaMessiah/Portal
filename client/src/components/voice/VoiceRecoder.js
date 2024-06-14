@@ -57,21 +57,10 @@ const VoiceRecorder = ({thisMans, reload, setReload, openrec, setOpenRec, record
         setOpenRec(false)
         setRecord(false)
     }
-    const sendRecord = async () => {
-        setOpenRec(false)
-        setRecord(false)
-        // messVoice();
-        setAudioURL('')
-        messVoice()
-    }
-    const isAudio = (fileName) => {
-        const audioExtensions = ['.mp3', '.wav', '.ogg', '.m4a', '.flac'];
-        const lowerCaseFileName = fileName.toLowerCase();
-        return audioExtensions.some(extension => lowerCaseFileName.endsWith(extension));
-    }
     const messVoice = async () =>{
         try{
             if (thisvoice.blobURL) {
+                console.log(thisvoice)
                 const { data } = await MessagesService.messVoice(thisvoice, my_tn, friend_tn)
                 console.log(data)
                 setThisvoice({})
@@ -82,6 +71,19 @@ const VoiceRecorder = ({thisMans, reload, setReload, openrec, setOpenRec, record
             console.log(e)
         }
     }
+    const sendRecord = async () => {
+        setOpenRec(false)
+        setRecord(false)
+        // messVoice();
+        setAudioURL('')
+        await messVoice()
+    }
+    const isAudio = (fileName) => {
+        const audioExtensions = ['.mp3', '.wav', '.ogg', '.m4a', '.flac'];
+        const lowerCaseFileName = fileName.toLowerCase();
+        return audioExtensions.some(extension => lowerCaseFileName.endsWith(extension));
+    }
+
 
     useEffect(() => {
         console.log(reload)

@@ -30,13 +30,14 @@ export default class MessagesService{
     // }
 
     static messVoice(thisvoice,my_tn,friend_tn){ //,
+        console.log(thisvoice)
         if(thisvoice){
                 const formData = new FormData()
                 formData.append('file', thisvoice)
-                formData.append('filename', thisvoice.name)
+/*                formData.append('filename', thisvoice[0].name)
                 formData.append('tn_to', friend_tn)
-                formData.append('tn_from', my_tn)
-                return $api.post('/files/pullvoice',formData)
+                formData.append('tn_from', my_tn)*/
+                return $api.post('/mess/pullvoice',formData)
 
         }else{
             return {err:false,message:'Файл не выбран'}

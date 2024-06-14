@@ -58,6 +58,19 @@ class MessagesController {
             next(e)
         }
     }
+    async messVoice(req,res,next) {
+        try{
+            console.log(req)
+
+            //const file = req.body.file[0]
+            //console.log(file)
+            // const {tn,text} = req.body
+            // const message = await MessagesService.sendMessage(tn,req.user.tn,text)
+            return res.status(200).json('')
+        }catch (e){
+            next(e)
+        }
+    }
 
 }
 module.exports = new MessagesController()
