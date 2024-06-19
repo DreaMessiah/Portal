@@ -79,6 +79,7 @@ class MessagesService {
         return response
     }
     async messVoice(mess) {
+        console.log(mess)
         await Messages.create({tn_to: mess.tn_to, tn_from: mess.tn_from, title: 'voice_voice', text: '', voice: mess.namevoice})
         const listMess = await Messages.findAll({
             where: {

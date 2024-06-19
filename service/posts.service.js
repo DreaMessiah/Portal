@@ -1,5 +1,6 @@
 const {Posts, MainBlocks, PostComments, User} = require('../models/models')
 const ApiError = require('../exceptions/api.error')
+const HistoryService = require("./history.service");
 
 class PostsService{
     async get() {
@@ -57,10 +58,11 @@ class PostsService{
         return post
     }
 
-    async getPost(id) {
+    async getPost(id,user_id) {
         const post = await Posts.findOne({where:{id:+id,trash:false}})
         if(!post) throw ApiError.BadRequest('Новость не найденa в базе')
         post.clicks++
+        await HistoryService.createAction(user_id,6,`Вход в новость id-${id}`)
         await post.save()
         const postDto = [{name:'main',title:post.title,image:post.image,content:post.text,oncomment:post.oncomment,views:post.clicks,likes:post.user_id_likes}]
         const data = JSON.parse(post.json_data)

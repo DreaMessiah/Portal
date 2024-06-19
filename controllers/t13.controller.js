@@ -48,6 +48,16 @@ class T13Controller {
             next(e)
         }
     }
+    async getAllPeoples(req,res,next){
+        try{
+            const workers = await T13Service.getAllPeoples()
+            return res.status(200).json(workers)
+        }catch (e){
+            next(e)
+        }
+    }
+
+
     async getBranchs(req,res,next){
         try{
             const branchs = await T13Service.getBranchs()
@@ -68,6 +78,7 @@ class T13Controller {
     async createStructure(req,res,next){
         try{
             const {struct} = req.body
+            console.log(struct)
             const structure = await T13Service.createStructure(struct)
             return res.status(200).json(structure)
         }catch (e){

@@ -47,7 +47,7 @@ class PostsController {
     async getPost(req,res,next) {
         try{
             const {id} = req.body
-            const post = await PostsService.getPost(id)
+            const post = await PostsService.getPost(id,req.user.id)
             return res.status(200).json(post)
         }catch (e){
             next(e)
@@ -57,7 +57,6 @@ class PostsController {
         try{
             const {id} = req.body
             const post = await PostsService.getSinglePost(id)
-            await HistoryService.createAction(req.user.id,6,`Вход в новость id-${id}`)
             return res.status(200).json(post)
         }catch (e){
             next(e)

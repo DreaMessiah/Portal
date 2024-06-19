@@ -7,6 +7,7 @@ const T13Service = require('../service/t13.service')
 const ApiError = require('../exceptions/api.error')
 const sequelize = require("sequelize");
 const {where} = require("sequelize");
+const HistoryService = require("./history.service");
 class UsersService{
     async registration(tn,full_name,login,email,password,inn) {
         const candidate = await User.findOne({where: {login:login}})
@@ -30,9 +31,15 @@ class UsersService{
     }
     async login(login,password) {
         const user = await User.findOne({ where:{login:login} })
-        if(!user) throw ApiError.BadRequest('Пользователя с таким именем не существует')
+        if(!user){
+            await HistoryService.createAction(-1,1,`Попытка входа. Пользователя с таким именем не существует ${login}`,1)
+            throw ApiError.BadRequest('Пользователя с таким именем не существует')
+        }
         const isPassEquals = await bcrypt.compare(password,user.password)
-        if(!isPassEquals) throw ApiError.BadRequest('Неверный пароль')
+        if(!isPassEquals){
+            await HistoryService.createAction(user.id,1,`Неверный пароль`,1)
+            throw ApiError.BadRequest('Неверный пароль')
+        }
         const userDto = new UserDto(user)
         const tokens = tokenService.generateTokens({...userDto})
         await tokenService.saveToken(userDto.id, tokens.refreshToken)
@@ -42,6 +49,7 @@ class UsersService{
         }
         userDto.diskspace = sizes.diskspace
         userDto.usedspace = sizes.usedspace
+        await HistoryService.createAction(user.id,1,`Успешная авторизация`,0)
         return {...tokens,user: userDto}
     }
     async setfz152(tn) {
@@ -49,13 +57,20 @@ class UsersService{
         if(!user) throw ApiError.BadRequest('Ошибка сервера, пройдите регистрацию снова')
         user.checked = true
         await user.save()
+        await HistoryService.createAction(user.id,1,`Согласие с ФЗ-152`,0)
         return {user:new UserDto(user)}
     }
     async tnenter(tn) {
         const user = await User.findOne({ where:{tn:tn} })
-        if(user) throw ApiError.BadRequest('Пользователь с таким табельным номером уже существует')
+        if(user){
+            await HistoryService.createAction(-1,1,`Пользователь с таким табельным номером уже существует ${tn}`,1)
+            throw ApiError.BadRequest('Пользователь с таким табельным номером уже существует')
+        }
         const uni = await T13Uni.findOne({ where:{tn:tn} })
-        if(!uni) throw ApiError.BadRequest('Табельный номер не зарегестрирован в системе')
+        if(!uni){
+            await HistoryService.createAction(-1,1,`Табельный номер не зарегестрирован в системе ${tn}`,1)
+            throw ApiError.BadRequest('Табельный номер не зарегестрирован в системе')
+        }
         const t13UniDto = new T13UniDto(uni)
         return {uni: t13UniDto}
     }
@@ -66,6 +81,7 @@ class UsersService{
         if(!isPassEquals) return {err:true,message:'Неверный пароль'}
         user.password = await bcrypt.hash(newPass,15)
         await user.save()
+        await HistoryService.createAction(id,1,`Изменение пароля`,0)
         return {err:false,message:'Пароль успешно изменен'}
     }
     async logout(refreshToken){
@@ -96,8 +112,11 @@ class UsersService{
     }
     async get() {
         //const users = await User.findAll({order: [['id', 'ASC']], limit: 30})
-        const users = await User.findAll({order: [['full_name', 'ASC']]})
-        if(!users) throw ApiError.BadRequest('Ошибка получения списка пользователей')
+        const Users = await User.findAll({order: [['full_name', 'ASC']]})
+        if(!Users) throw ApiError.BadRequest('Ошибка получения списка пользователей')
+        const users = Users.map( item => {
+            return {...item.dataValues,value:item.dataValues.id,label:item.dataValues.full_name}
+        })
         return {users}
     }
     async bye(termText,selected,tn) {

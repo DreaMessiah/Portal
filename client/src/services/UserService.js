@@ -124,4 +124,8 @@ export default class UserService {
         return $api.post('/auth/setfixava',{worker,avatar})
     }
 
+    static getAllPeoples(){
+        return $api.get('/t13/getallpeoples')
+    }
+
 }

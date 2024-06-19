@@ -44,7 +44,7 @@ class UsersController {
             const {login,password} = req.body
             const userData = await userService.login(login,password)
             res.cookie('refreshToken',userData.refreshToken,{maxAge:30*24*60*60*1000,httpOnly:true})
-            await HistoryService.createAction(req.user.id,9,`Успешний вход в систему`)
+            //await HistoryService.createAction(,9,`Успешний вход в систему`)
             return res.json(userData)
         }catch (e){
             next(e)
@@ -54,7 +54,7 @@ class UsersController {
         try{
             const {tn} = req.body
             const fz = await userService.setfz152(tn)
-            await HistoryService.createAction(req.user.id,1,`Соглашение ФЗ-152`)
+
             return res.json(fz)
         }catch (e) {
             next(e)
@@ -65,7 +65,6 @@ class UsersController {
             const refreshToken = req.cookies['refreshToken']
             const token = await userService.logout(refreshToken)
             res.clearCookie('refreshToken')
-            await HistoryService.createAction(req.user.id,2,`Выход из портала`)
             return res.json(token)
         }catch (e){
             next(e)

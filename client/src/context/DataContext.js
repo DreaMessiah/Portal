@@ -7336,9 +7336,15 @@ export const DataProvider = ({ children }) => {
     const sizesShoes = [{value:37,label:37},{value:38,label:38},{value:39,label:39},{value:40,label:40},{value:41,label:41},{value:42,label:42},{value:43,label:43},{value:44,label:44},{value:45,label:45},{value:46,label:46},{value:47,label:47}]
 
     const emojis = ['😊', '😂', '👍', '❤️', '😢', '😎', '😍', '🤔', '🙄', '😇'];
+    const hourlyLabels = ['0:00','1:00','2:00','3:00','4:00','5:00','6:00','7:00','8:00','9:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00','00:00'];
+    const weeklyLabels = ['понедельник','вторник','среда','четверг','пятница','суббота','воскресенье'];
+    const monthlyLabels = ['01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'];
 
     return (
         <DataContext.Provider value={{
+            weeklyLabels,
+            monthlyLabels,
+            hourlyLabels,
             emojis,
             sizesWear,
             sizesShoes,

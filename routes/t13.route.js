@@ -24,7 +24,7 @@ router.get('/gethrmanswers',authMiddlewere,T13Controller.getHrmAnswers)
 
 router.post('/changeblack',authMiddlewere,T13Controller.changeBlack)
 router.get('/getblack',authMiddlewere,T13Controller.getBlack)
-
+router.get('/getallpeoples',authMiddlewere,T13Controller.getAllPeoples)
 
 router.get('/getbyeanswers',authMiddlewere,T13Controller.getByeAnswers)
 router.get('/getterm',authMiddlewere,T13Controller.getTerm)

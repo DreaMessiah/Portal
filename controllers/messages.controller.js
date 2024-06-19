@@ -8,12 +8,14 @@ const sharp = require("sharp");
 const PATH = require('path');
 const Jimp = require('jimp')
 const FileDto = require('../dtos/fileDto')
+const HistoryService = require("../service/history.service");
 
 class MessagesController {
     async postMess(req,res,next) {
         try{
             const {mess} = req.body
             const messData = await MessagesService.pushMess(mess)
+            await HistoryService.createAction(req.user.id,10,`Отправлено сообщение пользователю ${mess.name_to}`)
             return res.status(200).json(messData)
         }catch (e){
             next(e)
@@ -50,6 +52,7 @@ class MessagesController {
         try{
             const {tn,text} = req.body
             const message = await MessagesService.sendMessage(tn,req.user.tn,text)
+            await HistoryService.createAction(req.user.id,10,`Отправлено сообщение пользователю ${tn}`)
             return res.status(200).json(message)
         }catch (e){
             next(e)
@@ -57,7 +60,6 @@ class MessagesController {
     }
     async offerPost(req,res,next) {
         try{
-
             const {content} = req.body
             const user_id = req.user.id
             const user_tn = req.user.tn

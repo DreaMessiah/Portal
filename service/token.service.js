@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken')
 const config = require('config')
 const {Token} = require('../models/models')
+const HistoryService = require("./history.service")
 
 class TokenService{
     generateTokens(payload){
@@ -22,7 +23,11 @@ class TokenService{
         return await Token.create({user_id:userId,device_token:deviceToken,refresh_token:refreshToken})
     }
     async removeToken(refreshToken){
-        return await Token.destroy({ where: {refresh_token: refreshToken} })
+        const token =  await Token.findOne({ where: {refresh_token: refreshToken} })
+        if(token){
+            await HistoryService.createAction(token.user_id,2,`Выход из портала`)
+        }
+        return await token.destroy()
     }
     async findToken(refreshToken){
         return await Token.findOne({ where: {refresh_token: refreshToken} })

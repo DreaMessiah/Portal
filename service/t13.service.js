@@ -26,8 +26,12 @@ class T13Service {
         return T13forSelect
     }
     async getWorkers(inn){
-        const t13 = await T13Uni.findAll({where:{inn:inn}})
+        const blacklistedTns = await T13Black.findAll({attributes: ['tn']})
+        const blacklistedTnValues = blacklistedTns.map(record => record.tn);
+
+        const t13 = await T13Uni.findAll({where:{inn:inn,tn: {[Op.notIn]: blacklistedTnValues }}})
         const hu = await HumanList.findAll()
+
         const workers = [...t13,...hu]
         return workers.map(item => {
             return {...item.dataValues,value:item.dataValues.tn,label:item.dataValues.name}
@@ -54,6 +58,14 @@ class T13Service {
 
     async getUni(inn) {
         return await T13Uni.findAll({where:{inn:inn}})
+    }
+    async getAllPeoples() {
+        const uni = await T13Uni.findAll({where:{term:''}})
+        const bye = await T13Bye.findAll()
+        const peoples = [...uni,...bye]
+        return peoples.map( item => {
+            return {...item.dataValues,value:item.dataValues.tn,label:item.dataValues.name}
+        })
     }
     async getBranchs() {
         const branches = await T13Uni.findAll({
@@ -101,11 +113,11 @@ class T13Service {
             current.name = struct.name
             await StructUsers.destroy({ where: { structure_id: struct.id } });
             const peoples = struct.group.map(async item => {
-                await StructUsers.create({name:item.name,structure_id:struct.id,user_tn:item.user_tn})
+                await StructUsers.create({name:item.name,structure_id:struct.id,user_tn:item.value})
             })
             current.set('factbranchs', struct.t13brs)
             await current.save()
-            return {current,peoples,}
+            return {current,peoples}
         }else{
             const allIn = await Struct.findByPk(struct.toNext.id)
             const newStruct = await Struct.create({...struct,level:struct.toNext.level+1,position:allIn.next.length+1,type:struct.onType ? 1 : 0,ont13:struct.onT13})

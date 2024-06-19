@@ -16,13 +16,15 @@ const VoiceRecorder = ({users, thismess, setThismess, thisMans, reload, setReloa
 
     const searchMans = () => {
         const randommess = thisMans
+        console.log(thisMans)
         if(randommess){
-            console.log(randommess)
+            randommess.tn ? setFriend_tn(randommess.tn) : setFriend_tn(randommess.tn_to)
+/*            console.log(randommess)
             if(randommess.tn_to === my_tn){
                 setFriend_tn(randommess.tn_from)
             }else{
                 setFriend_tn(randommess.tn_to)
-            }
+            }*/
         }
     }
 
@@ -62,7 +64,7 @@ const VoiceRecorder = ({users, thismess, setThismess, thisMans, reload, setReloa
     const messVoice = async () =>{
         try{
             if (thisvoice.blobURL) {
-                console.log(thisvoice)
+                console.log(thisvoice, my_tn, friend_tn)
                 const { data } = await MessagesService.messVoice(thisvoice, my_tn, friend_tn)
                 if(data.err){
                     message('Аудио не записалось, попробуйте позже')
@@ -107,11 +109,6 @@ const VoiceRecorder = ({users, thismess, setThismess, thisMans, reload, setReloa
         return audioExtensions.some(extension => lowerCaseFileName.endsWith(extension));
     }
 
-
-    useEffect(() => {
-        console.log(reload)
-    },[reload])
-
     useEffect(()=>{
         searchMans()
     },[thisMans])
@@ -127,7 +124,6 @@ const VoiceRecorder = ({users, thismess, setThismess, thisMans, reload, setReloa
                     onData={onData}
                     strokeColor="rgb(18, 19, 56)"
                     backgroundColor="#F1F1F1"
-
                 />
                 </div>
 
@@ -145,7 +141,7 @@ const VoiceRecorder = ({users, thismess, setThismess, thisMans, reload, setReloa
 
 
         </div>
-    );
-};
+    )
+}
 
-export default VoiceRecorder;
+export default VoiceRecorder

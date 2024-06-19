@@ -1,6 +1,7 @@
 const nodemailer = require('nodemailer')
 const config = require('config')
 const {Messages, User} = require("../models/models");
+const HistoryService = require("./history.service");
 
 class MailService{
     constructor() {
@@ -36,7 +37,7 @@ class MailService{
         const searchTabNum = await User.findOne({where: {tn: tn}})
         const thistn = searchTabNum.dataValues.tn
         await Messages.create({tn_to: thistn, tn_from: user.tn, title: '', text: title+' / '+text, files: null, trash_to: false,trash_from: false,read: false})
-
+        await HistoryService.createAction(user.id,10,`Обращение в поддержку ${title}`)
         await this.transporter.sendMail({
             from: config.get('smtp_user'),
             to,
@@ -47,7 +48,7 @@ class MailService{
                     <div>
                         <h1>Вам поступил вопрос от пользователя Корпоративного портала</h1>
                         <h3>Пользователь ${user.full_name}</h3>
-                        <p>${text}</p>                        
+                        <p>{text}</p>                        
                     </div>
                 `
         })

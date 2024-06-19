@@ -1017,6 +1017,13 @@ const HistoryTypes = sequelize.define('historytypes',{
     name:{type:DataTypes.TEXT},
 })
 
+const SocketActions = sequelize.define('socketactions',{
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    user_id:{type:DataTypes.INTEGER},
+    socket:{type:DataTypes.TEXT},
+    action:{type:DataTypes.TEXT},
+})
+
 OfferPosts.belongsTo(User, { foreignKey: 'user_id', targetKey: 'id', as: 'user' })
 User.hasMany(OfferPosts, { foreignKey: 'user_id', sourceKey: 'id', as: 'content' })
 
@@ -1106,7 +1113,9 @@ History.belongsTo(HistoryTypes, { foreignKey: 'type_id' })
 User.hasMany(History, { foreignKey: 'user_id' })
 HistoryTypes.hasMany(History, { foreignKey: 'type_id' })
 //******************************************************************************************************
+SocketActions.belongsTo(User, { foreignKey: 'user_id' })
+User.hasMany(SocketActions, { foreignKey: 'user_id' })
 
 module.exports = {
-    History,HistoryTypes,OfferPosts, SrtoObjects, MyprogramProtocol,Preregister,Notifications,TypesNotifications,ProgramOfSoc, MyProgram, T13Black,Commission,PositionOfSoc,Reports,Struct,StructUsers,Bye,PeopleCounter,T13Bye,T13Uni,CrewMans,ZaSv,TableZayavka,HumanList,KtuDoc,KtuList,MessageSv,ViewsWorkSv,CrewManlist,CrewDoclist,CrewBase,CrewSv,OgmPrice,WorkPrice,StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts,ProtocolOfSoc
+    SocketActions,History,HistoryTypes,OfferPosts, SrtoObjects, MyprogramProtocol,Preregister,Notifications,TypesNotifications,ProgramOfSoc, MyProgram, T13Black,Commission,PositionOfSoc,Reports,Struct,StructUsers,Bye,PeopleCounter,T13Bye,T13Uni,CrewMans,ZaSv,TableZayavka,HumanList,KtuDoc,KtuList,MessageSv,ViewsWorkSv,CrewManlist,CrewDoclist,CrewBase,CrewSv,OgmPrice,WorkPrice,StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts,ProtocolOfSoc
 }
