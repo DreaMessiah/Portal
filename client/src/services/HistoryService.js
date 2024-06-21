@@ -16,5 +16,11 @@ export default class HistoryService{
     static async getMonthHistory(month){
         return $api.post('/history/getmonthhistory',{month})
     }
+    static async getSocketHistory(id=null){
+        return $api.post('/history/getsockethistory',{id})
+    }
+    static async getPeoplesToday(){
+        return $api.get('/history/getpeoplestoday')
+    }
 
 }

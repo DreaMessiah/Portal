@@ -52,5 +52,24 @@ class HistoryController {
             next(e)
         }
     }
+    async getSocketHistory(req,res,next) {
+        try{
+            const {id} = req.body
+            const sh = await HistoryService.getSocketActions(id)
+            return res.status(200).json(sh)
+        }catch (e){
+            next(e)
+        }
+    }
+    async getPeoplesToday(req,res,next) {
+        try{
+            const onlineToday = await HistoryService.getSocketActionsToday()
+            return res.status(200).json(onlineToday)
+        }catch (e){
+            next(e)
+        }
+    }
+
+
 }
 module.exports = new HistoryController()

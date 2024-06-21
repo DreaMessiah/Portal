@@ -12,6 +12,8 @@ import {getSocket} from "../../http/socket";
 import {Context} from "../../index";
 import {observer} from "mobx-react-lite";
 import CmsSelect from "../../components/inputs/CmsSelect";
+import HistoryService from "../../services/HistoryService";
+import getOnlineStatus from "../../components/functions/getOnlineStatus";
 
 function StructurePageNew(){
     const [branchs,setBranchs] = useState([])
@@ -44,10 +46,15 @@ function StructurePageNew(){
             const res_login = await UserService.getStatUsers()
             const res_users = await UserService.getWorkers()
             const res_contacts = await PhonesService.fetchPhones()
+            const res_socket = await HistoryService.getSocketHistory()
+
+
 
             const logindata = res_login.data.users
             const usersdata = res_users.data
             const contactsdata = res_contacts.data
+            const statusdata = res_socket.data
+            console.log(statusdata)
             const tree = buildTree(data)
 
             const addDataToTree = (node, usersdata, contactsdata, logindata) => {
@@ -78,7 +85,11 @@ function StructurePageNew(){
             const userlist = res_users.data.map(item => {
                 const contactsData = contactsdata.find(u => u.name === item.name)
                 const loginData = logindata.find(u => u.tn === item.tn)
-                return {...item,label: item.name + ' | ' + item.developer + ' | ' + item.branch,ats:contactsData ? contactsData.ats : null,avatar:loginData && loginData.avatar ? loginData.avatar : 'face.png',registered:!!loginData}
+                const statusData = statusdata.find(u => u.name === item.name)
+
+                const status = getOnlineStatus(item.gender,statusData ? statusData.maxCreatedAt : null)
+
+                return {...item,label: item.name + ' | ' + item.developer + ' | ' + item.branch,ats:contactsData ? contactsData.ats : null,avatar:loginData && loginData.avatar ? loginData.avatar : 'face.png',registered:!!loginData, status: status}
             })
 
             setSearchList(userlist)
@@ -159,11 +170,8 @@ function StructurePageNew(){
         loadingHandler()
         const socket = getSocket()
         socket.emit('online', {data:'get online users'},(response) => {
-            console.log('!!!!!!!!!!!!!!!!!!!')
-            console.log(response)
             setOnline(response)
         })
-
     },[])
 
     function buildTree(data, parentId = 5,node=[]) {
@@ -382,7 +390,7 @@ function StructurePageNew(){
             {searching ? <>
                     <div className={`searching-card`}>
                         <div className="person">
-                            <div className="photo" style={{backgroundImage: `url(/files/profile/${searching.avatar})`}}></div>
+                            <div className="photo" style={{backgroundImage: `url(/files/profile/${searching.avatar})`}}>{online.includes(searching.tn) ?<i className="online1 fa-solid fa-circle"></i> : <div className={`online-status`}>{searching.status}</div>} </div>
                             <div className="text">{searching.name}</div>
                             <div className="text">{searching.developer}</div>
                             <div className="text">{searching.branch}</div>

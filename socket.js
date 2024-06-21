@@ -2,6 +2,7 @@ const { Server } = require('socket.io');
 const jwt = require('jsonwebtoken');
 const tokeService = require("./service/token.service");
 const ApiError = require("./exceptions/api.error");
+const HistoryService = require("./service/history.service");
 
 function initializeSocket(server) {
     const io = new Server(server, {
@@ -23,6 +24,7 @@ function initializeSocket(server) {
         socket.user ? console.log(socket.user.full_name + '- socket connected') : console.log('user connected')
         const userTn = socket.user ? socket.user.tn : null
         if (userTn) {
+            HistoryService.createSocketAction(socket.user.id,socket.id,'connection')
             if (connectedClients[userTn]) {
                 io.to(connectedClients[userTn]).emit('forceDisconnect');
             }
@@ -49,7 +51,10 @@ function initializeSocket(server) {
         })
 
         socket.on('disconnect', () => {
-            if (userTn) delete connectedClients[userTn]
+            if (userTn){
+                HistoryService.createSocketAction(socket.user.id,socket.id,'disconnection')
+                delete connectedClients[userTn]
+            }
             console.log('user disconnected')
         })
     })

@@ -22,6 +22,11 @@ export const ListMessages = () => {
     const [allchats, setAllChats] = useState([])
     const [openingChat,setOpeningChat] = useState(false)
 
+    const [record, setRecord] = useState(false)
+    const [audioURL, setAudioURL] = useState('')
+    const [openrec, setOpenRec] = useState(false)
+    const [reload, setReload] = useState(false)
+
     const [online,setOnline] = useState([])
     const audioRef = useRef(null)
     const message = useMessage()
@@ -37,7 +42,6 @@ export const ListMessages = () => {
             })
         }
     }
-
     const getChats = async () => {
         try {
             const response = await MessagesService.getMyChats(my_tn)
@@ -107,11 +111,6 @@ export const ListMessages = () => {
         }
 
     }
-
-    const openChat = () => {
-
-    }
-
     const passMess = async () => {
         if(textarea !== '' && thisMans){
             thisMans.message = textarea
@@ -159,7 +158,6 @@ export const ListMessages = () => {
             message('Нельзя отправить пустое сообщение')
         }
     }
-
     const listUsers = async () => {
         const list = await AuthServise.getusers()
         const newList = [];
@@ -170,14 +168,12 @@ export const ListMessages = () => {
         })
         setUsers([... newList])
     }
-
     const formatOptionLabel = ({ full_name, tn }) => (
         <div style={{ display: 'flex', alignItems: 'center' }}>
             {full_name}
             {online.includes(tn) && <i className="fa-solid fa-circle" style={{position:'absolute',marginLeft: 8,color:'rgba(75,179,75,1)',right:'10px'}}></i>}
         </div>
     );
-
     const downSett = () => {
         setOpenmess(false)
         setNewmess(false)
@@ -273,15 +269,9 @@ export const ListMessages = () => {
         }
 
     }
-
-    const [record, setRecord] = useState(false);
-    const [audioURL, setAudioURL] = useState('');
-    const [openrec, setOpenRec] = useState(false)
-    const [reload, setReload] = useState(false)
     const startRecording = () => {
         setRecord(true);
     };
-
     const backDate = fulldate => {
         const utcDate = new Date(fulldate);
         // const datetimearr = utcDate.split('T')
@@ -291,7 +281,6 @@ export const ListMessages = () => {
 
         return date + ' ' + time
     }
-
     const plusDocs = () => {
         message('Функция в разработке')
     }
@@ -311,9 +300,7 @@ export const ListMessages = () => {
     useEffect(()=>{
         getChats()
     }, [users])
-    // useEffect(()=>{
-    //     console.log(thisMans)
-    // },[thisMans])
+
     return (
         <div className="list_mess">
         <div className="list_messages">
@@ -417,14 +404,15 @@ export const ListMessages = () => {
                 <div className="list_messages_col_bottom" ></div>
             </div>
         </div>
+
             <audio ref={audioRef} src="/audio/zvuk2.mp3" preload="auto" />
-        {/*    <div className="menu_mess">*/}
-        {/*    <div className="menu_mess_list">*/}
-        {/*        <div className="menu_mess_list_btn">Все чаты</div>*/}
-        {/*        <div className="menu_mess_list_btn">Непрочитанные</div>*/}
-        {/*        <div className="menu_mess_list_btn">Архив</div>*/}
-        {/*    </div>*/}
-        {/*</div>*/}
+            <div className="menu_mess">
+            <div className="menu_mess_list">
+                <div className="menu_mess_list_btn">Все чаты</div>
+                <div className="menu_mess_list_btn">Непрочитанные</div>
+                <div className="menu_mess_list_btn">Архив</div>
+            </div>
+        </div>
         </div>
     )
 }

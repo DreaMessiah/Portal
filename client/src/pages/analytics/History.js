@@ -17,6 +17,7 @@ function History(){
 
     const [history,setHistory] = useState([])
     const [length,setLength] = useState(0)
+    const [peoplesToday,setPeoplesToday] = useState([])
 
     const [sorti,setSorti] = useState('abc')
     const [selectedPage,setSelectedPage] = useState(0)
@@ -31,7 +32,6 @@ function History(){
         try {
             setLoading(true)
             const {data} = await HistoryService.getHistory(sort,direction,page,selectedType,selectedDate,selectedUser)
-            console.log(data)
             if(data){
                 setHistory(data.history)
                 setLength(data.length)
@@ -41,6 +41,9 @@ function History(){
                 }
                 setSteps(pagination)
             }
+            const peoples = await HistoryService.getPeoplesToday()
+            setPeoplesToday(peoples.data)
+            console.log(peoples.data)
         }catch (e) {
             console.log(e)
         }finally {
@@ -92,6 +95,7 @@ function History(){
         <>
             <div>
                 <h1>История событий</h1>
+                <h4 style={{margin:"10px 0"}}>Всего сегодня: {peoplesToday ? peoplesToday.length : '-'}</h4>
                 <div className={`sort-selects`}>
                     <CmsSelect value={selectedType} placeholder={'Выберите тип'} onChange={setSelectedType} options={types} />
                     <CmsSelect value={selectedUser} placeholder={'Выберите сотрудника'} onChange={setSelectedUser} options={peoples} />

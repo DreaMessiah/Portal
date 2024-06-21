@@ -126,8 +126,8 @@ function SurveyPage({flag=false,id,onLand=false}){
                         </>
                         : null}
                     <div className='next'>
-                        {!answer ? <div onClick={(e) => voteHandler()} className='button'>Проголосовать</div> : <div className='text'>Вы уже проголосовали</div>}
-
+                        {!answer ? <div onClick={(e) => voteHandler()} className='button'>Проголосовать</div> : <><div className='text'>Вы уже проголосовали </div></>}
+                        {flag && answer ? <Link to={`/polls?survey=${id}`}><i className="fa-solid fa-arrow-up-right-from-square"></i></Link> : null}
                     </div>
                     {answer && !flag && survey.onanswer?
                         <div className='statistics'>

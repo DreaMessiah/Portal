@@ -1,7 +1,7 @@
 const ApiError = require('../exceptions/api.error')
 const sequelize = require("sequelize");
-const {HistoryTypes,History, Messages, ProtocolOfSoc, MyProgram, User} = require("../models/models");
-const {Op, literal, fn, col} = require("sequelize");
+const {HistoryTypes,History, Messages, ProtocolOfSoc, MyProgram, User, SocketActions, T13Uni, T13Black} = require("../models/models");
+const {Op, literal, fn, col, Sequelize} = require("sequelize");
 const moment = require('moment-timezone')
 
 require('moment/locale/ru')
@@ -196,6 +196,75 @@ class HistoryService {
             return await History.create({user_id,type_id,marker,action})
         }
     }
+    async createSocketAction(user_id,socket,action) {
+        if( user_id !== 2216) {
+            return await SocketActions.create({user_id, socket, action})
+        }
+    }
+    async getSocketActions(user_id=null) {
+        const subQuery = await SocketActions.findAll({
+            attributes: [
+                'user_id',
+                [Sequelize.fn('MAX', Sequelize.col('socketactions.createdAt')), 'maxCreatedAt'],
+                'user.full_name',
+            ],
+            where: {
+                action: 'disconnection',
+                ...(user_id && { user_id })
+            },
+            include: [{
+                model: User,
+                attributes: ['id','full_name'] // Укажите нужные поля из таблицы User
+            }],
+            group: ['socketactions.user_id', 'user.id'],
+            order: [['user_id', 'ASC']],
+        })
+        const formattedResults = subQuery.map(entry => ({
+            user_id: entry.user_id,
+            maxCreatedAt: entry.get('maxCreatedAt'),
+            name: entry.user.full_name,
+        }));
+        // return await Promise.all( subQuery.map( async item => {
+        //     const user = await User.findByPk(item.dataValues.user_id)
+        //     return {...item.dataValues,name:user.full_name}
+        // }))
+        return formattedResults
+    }
+    async getSocketActionsToday() {
+        const timezone = 'Asia/Yekaterinburg';
+        const startDate = moment().tz(timezone).startOf('day').toDate();
+        const endDate = moment().tz(timezone).endOf('day').toDate();
 
+        const subQuery = await SocketActions.findAll({
+            attributes: [
+                'user_id',
+                [Sequelize.fn('MAX', Sequelize.col(`socketactions.createdAt`)), 'maxCreatedAt'],
+                'user.full_name',
+                'user.developer'
+            ],
+            //'Asia/Yekaterinburg'
+            where: {
+                action: 'connection',
+                createdAt: {
+                    [Op.between]: [startDate, endDate]
+                },
+            },
+            include: [{
+                model: User,
+                attributes: ['id', 'full_name','developer'] // Укажите нужные поля из таблицы User
+            }],
+            group: ['socketactions.user_id', 'user.id'],
+            order: [['maxCreatedAt', 'ASC']]
+        });
+
+        const formattedResults = subQuery.map(entry => ({
+            user_id: entry.user_id,
+            maxCreatedAt:moment(entry.get('maxCreatedAt')).tz(timezone).format('YYYY-MM-DD HH:mm:ss'),
+            full_name: entry.user.full_name,
+            developer:entry.user.developer
+        }));
+
+        return formattedResults
+    }
 }
 module.exports = new HistoryService()

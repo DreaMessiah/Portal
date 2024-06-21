@@ -311,8 +311,8 @@ export const Messager = () => {
                 <div className="grayfon"></div>
                 <div className="list_messages_col">
 
-                    <div className={`list_messages_col_title ${(openmess === false) ? 'activate' : ''}`}>
-                        <div className={`new_mess ${(newmess === true) ? 'new_mess_active' : ''}`} >
+                    <div className={`list_messages_col_title ${openmess ? '' : 'activate'}`}>
+                        <div className={`new_mess ${newmess ? 'new_mess_active' : ''}`} >
                             <div className="new_mess_title">
                                 <div className="new_mess_title_createname">Выберите кому написать</div>
                                 <div className="new_mess_title_close" onClick={()=>downSett()}><i className="fa-solid fa-xmark"/></div>
@@ -348,7 +348,6 @@ export const Messager = () => {
                             </div>
                         </div>
                     ))}
-                    {/*----------------------------------------------------------------------*/}
                     <div className={`list_messages_col_title ${(openmess === true) ? 'activate' : ''}`}>
                         <div className="list_messages_col_title_left">
                             <div className="list_messages_col_title_left_sel">
@@ -360,7 +359,6 @@ export const Messager = () => {
                         </div>
                     </div>
 
-                    {/*autorch*/}
                     <div className={`history_mess ${(openmess === true) ? 'activate' : ''}`} >
                         <div className="history_mess_pen" >
                             <textarea className="history_mess_pen_letter" id='textmess' value={textarea} onChange={(e)=>setTextarea(e.target.value)}>{textarea}</textarea>

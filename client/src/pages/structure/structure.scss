@@ -5770,7 +5770,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: left;
     width: 100%;
     flex-wrap: wrap;
     .photo{
@@ -5780,7 +5780,9 @@
       border: none;
       background-size: cover;
       background-position: center;
+      position: relative;
     }
+
     .name,.dev,.branch,.phone{
       margin: 0 10px;
     }
@@ -5824,4 +5826,12 @@
   .structure_new_forest_cuedo_card_center_content_person_disc_dev{
     font-size: 0.7rem !important;
   }
+}
+.online-status{
+  position: absolute;
+  font-size: 0.6rem;
+  bottom: 8px;
+  right: -160px;
+  width: 150px;
+  color: #aaaaaa;
 }
