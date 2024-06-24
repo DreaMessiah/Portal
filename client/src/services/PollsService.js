@@ -50,4 +50,9 @@ export default class PollsService {
     static getRe(){
         return $api.get('/polls/getre')
     }
+
+    static getStatWork(){
+        return $api.get('/polls/getstatwork')
+    }
+
 }

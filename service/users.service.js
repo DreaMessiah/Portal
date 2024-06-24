@@ -6,7 +6,7 @@ const tokenService = require('../service/token.service')
 const T13Service = require('../service/t13.service')
 const ApiError = require('../exceptions/api.error')
 const sequelize = require("sequelize");
-const {where} = require("sequelize");
+const {where, Op} = require("sequelize");
 const HistoryService = require("./history.service");
 class UsersService{
     async registration(tn,full_name,login,email,password,inn) {
@@ -232,6 +232,23 @@ class UsersService{
         return user
     }
 
+    async getUsers(excludedId=1){
+        const users = await User.findAll({where: {
+            id: {
+                [Op.not]: excludedId
+            }
+        }})
+
+        const t13 = await T13Service.getAllPeoples()
+        const online = await HistoryService.getSocketActions()
+
+        return users.map( item => {
+            const status = online.find(u => u.user_id === item.dataValues.id)
+            const data = t13.find(u => u.tn === item.dataValues.tn)
+
+            return {...item.dataValues,value:item.dataValues.developer,label:item.dataValues.full_name,online:status ? status.maxCreatedAt : null,gender: data ? data.gender : null}
+        })
+    }
 
 
 }

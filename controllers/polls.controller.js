@@ -105,6 +105,14 @@ class PollsController {
         }
     }
 
+    async getStatWork(req,res,next) {
+        try{
+            const stat = await PollsService.getStatWork()
+            return res.status(200).json(stat)
+        }catch (e){
+            next(e)
+        }
+    }
     async getKids(req,res,next) {
         try{
             const contests = await PollsService.getContests()

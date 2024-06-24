@@ -132,6 +132,23 @@ class PollsService{
         return {answers,nominations,contests}
     }
 
+    async getStatWork() {
+        const contests = await Contest.findAll({ where: { trash: false}, order: [['createdAt', 'ASC']] })
+        if(!contests) throw ApiError.BadRequest('База пуста')
+
+        const stat = await Promise.all(contests.map(async item => {
+            const golosa = await KidsAnswers.findAll({where:{contest_id:item.dataValues.id}})
+
+            const stats = await Promise.all(golosa.map(async rows => {
+                const hozayin = await User.findByPk(rows.dataValues.user_id)
+                const nomina = await Nominations.findByPk(rows.dataValues.nomination_id)
+                return {...rows.dataValues,full_name:hozayin.dataValues.full_name,nominame:nomina.dataValues.name}
+            }))
+            return {...item.dataValues,stat:stats}
+        }))
+        return stat
+    }
+
 }
 
 

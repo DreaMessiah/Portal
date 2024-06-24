@@ -203,8 +203,8 @@ export const ListMessages = () => {
         if(thisMans && chatman === undefined){
             setOpenmess(bull)
             setTextarea('')
-                thisMans.tn_from = userstore.tn
-                thisMans.tn_to = thisMans.tn
+            thisMans.tn_from = userstore.tn
+            thisMans.tn_to = thisMans.tn
             try{
                 const response = await MessagesService.getMess(thisMans)
                 const result = response.data
@@ -303,116 +303,116 @@ export const ListMessages = () => {
 
     return (
         <div className="list_mess">
-        <div className="list_messages">
-            <div className="grayfon"></div>
-            <div className="list_messages_col">
+            <div className="list_messages">
+                <div className="grayfon"></div>
+                <div className="list_messages_col">
 
-                <div className={`list_messages_col_title ${(openmess === false) ? 'activate' : ''}`}>
-                    <div className={`new_mess ${(newmess === true) ? 'new_mess_active' : ''}`} >
-                        <div className="new_mess_title">
-                            <div className="new_mess_title_createname">Выберите кому написать</div>
-                            <div className="new_mess_title_close" onClick={()=>downSett()}><i className="fa-solid fa-xmark"/></div>
-                        </div>
-                        <div className="new_mess_create">
-                            <div className="new_mess_create_select">
-                            <Select getOptionLabel={option => option.full_name} formatOptionLabel={formatOptionLabel} classNamePrefix='custom-select' placeholder="Выбрать получателя" onChange={e=>setThisMans(e)} value={thisMans} options={users}/>
+                    <div className={`list_messages_col_title ${(openmess === false) ? 'activate' : ''}`}>
+                        <div className={`new_mess ${(newmess === true) ? 'new_mess_active' : ''}`} >
+                            <div className="new_mess_title">
+                                <div className="new_mess_title_createname">Выберите кому написать</div>
+                                <div className="new_mess_title_close" onClick={()=>downSett()}><i className="fa-solid fa-xmark"/></div>
                             </div>
-                            <div className="new_mess_create_btn" onClick={()=>makeLetter(true)}><i className="fa-solid fa-magnifying-glass"/><div className="name-btns">Написать</div></div>
-                        </div>
-                    </div>
-                    <div className="list_messages_col_title_left">
-                        <div className="list_messages_col_title_left_sel">
-                            {/*<Select classNamePrefix='custom-select' placeholder="Поиск"/>*/}
-                        </div>
-                    </div>
-                    <div className="list_messages_col_title_right">
-                        <div className="list_messages_col_title_right_new" onClick={()=>setNewmess(true)}><i className="fa-regular fa-pen-to-square"/></div>
-                        <div className="list_messages_col_title_right_sett"><i className="fa-solid fa-ellipsis"/></div>
-                    </div>
-                </div>
-
-                {allchats.map((chat, index)=>(
-                    <div key={index} className="list_messages_col_str" onClick={()=>{ makeLetter(true, chat)}} style={(openmess === false) ? {display:'flex'} : {display:'none'}}>
-                        <div className="list_messages_col_str_ava" style={(chat.ava_to)?{backgroundImage: `url("/files/profile/${chat.ava_to}")`}:{}}>{online.includes(chat.tn_to) ?<i className="online1 fa-solid fa-circle"></i> : null}</div>
-                        <div className="list_messages_col_str_mess">
-                            <div className="list_messages_col_str_mess_left">
-                                <div className="list_messages_col_str_mess_left_name">{chat.name_to}</div>
-                                <div className="list_messages_col_str_mess_left_text" style={{fontSize: '10pt'}}>автор: - {chat.name_from}</div>
-                                <div className="list_messages_col_str_mess_left_text">{shortenText(chat.text, 7)} . . .</div>
+                            <div className="new_mess_create">
+                                <div className="new_mess_create_select">
+                                    <Select getOptionLabel={option => option.full_name} formatOptionLabel={formatOptionLabel} classNamePrefix='custom-select' placeholder="Выбрать получателя" onChange={e=>setThisMans(e)} value={thisMans} options={users}/>
+                                </div>
+                                <div className="new_mess_create_btn" onClick={()=>makeLetter(true)}><i className="fa-solid fa-magnifying-glass"/><div className="name-btns">Написать</div></div>
                             </div>
-                            <div className="list_messages_col_str_mess_right"><div className="list_messages_col_str_mess_right_date">{backDate(chat.createdAt)}</div></div>
-
+                        </div>
+                        <div className="list_messages_col_title_left">
+                            <div className="list_messages_col_title_left_sel">
+                                {/*<Select classNamePrefix='custom-select' placeholder="Поиск"/>*/}
+                            </div>
+                        </div>
+                        <div className="list_messages_col_title_right">
+                            <div className="list_messages_col_title_right_new" onClick={()=>setNewmess(true)}><i className="fa-regular fa-pen-to-square"/></div>
+                            <div className="list_messages_col_title_right_sett"><i className="fa-solid fa-ellipsis"/></div>
                         </div>
                     </div>
-                ))}
 
-                {/*----------------------------------------------------------------------*/}
-                <div className={`list_messages_col_title ${(openmess === true) ? 'activate' : ''}`}>
+                    {allchats.map((chat, index)=>(
+                        <div key={index} className="list_messages_col_str" onClick={()=>{ makeLetter(true, chat)}} style={(openmess === false) ? {display:'flex'} : {display:'none'}}>
+                            <div className="list_messages_col_str_ava" style={(chat.ava_to)?{backgroundImage: `url("/files/profile/${chat.ava_to}")`}:{}}>{online.includes(chat.tn_to) ?<i className="online1 fa-solid fa-circle"></i> : null}</div>
+                            <div className="list_messages_col_str_mess">
+                                <div className="list_messages_col_str_mess_left">
+                                    <div className="list_messages_col_str_mess_left_name">{chat.name_to}</div>
+                                    <div className="list_messages_col_str_mess_left_text" style={{fontSize: '10pt'}}>автор: - {chat.name_from}</div>
+                                    <div className="list_messages_col_str_mess_left_text">{shortenText(chat.text, 7)} . . .</div>
+                                </div>
+                                <div className="list_messages_col_str_mess_right"><div className="list_messages_col_str_mess_right_date">{backDate(chat.createdAt)}</div></div>
 
-                    <div className="list_messages_col_title_left">
-                        <div className="list_messages_col_title_left_sel">
-                            {(thisMans)&&thisMans.full_name}
+                            </div>
+                        </div>
+                    ))}
+
+                    {/*----------------------------------------------------------------------*/}
+                    <div className={`list_messages_col_title ${(openmess === true) ? 'activate' : ''}`}>
+
+                        <div className="list_messages_col_title_left">
+                            <div className="list_messages_col_title_left_sel">
+                                {(thisMans)&&thisMans.full_name}
+                            </div>
+                        </div>
+                        <div className="list_messages_col_title_right">
+                            <div className="list_messages_col_title_right_new" onClick={()=>downSett()}><i className="fa-solid fa-xmark"/></div>
                         </div>
                     </div>
-                    <div className="list_messages_col_title_right">
-                        <div className="list_messages_col_title_right_new" onClick={()=>downSett()}><i className="fa-solid fa-xmark"/></div>
-                    </div>
-                </div>
-                {/*autorch*/}
-                <div className={`history_mess ${(openmess === true) ? 'activate' : ''}`} >
-                    <div className="history_mess_pen" >
-                        <textarea className="history_mess_pen_letter" id='textmess' value={textarea} onChange={(e)=>setTextarea(e.target.value)}>{textarea}</textarea>
-                        <div className="history_mess_pen_btns">
-                            <div className="srepbtn" onClick={()=>plusDocs()}><i className="fa-solid fa-paperclip"/></div>
-                            <div className="srepbtn" onClick={() => {startRecording(); setOpenRec(!openrec); setReload(false)}}><i className="fa-solid fa-microphone-lines"/></div>
-                            <div className="history_mess_pen_btn" onClick={()=>passMess()}>Отправить <i className="fa-regular fa-paper-plane"/></div>
+                    {/*autorch*/}
+                    <div className={`history_mess ${(openmess === true) ? 'activate' : ''}`} >
+                        <div className="history_mess_pen" >
+                            <textarea className="history_mess_pen_letter" id='textmess' value={textarea} onChange={(e)=>setTextarea(e.target.value)}>{textarea}</textarea>
+                            <div className="history_mess_pen_btns">
+                                <div className="srepbtn" onClick={()=>plusDocs()}><i className="fa-solid fa-paperclip"/></div>
+                                <div className="srepbtn" onClick={() => {startRecording(); setOpenRec(!openrec); setReload(false)}}><i className="fa-solid fa-microphone-lines"/></div>
+                                <div className="history_mess_pen_btn" onClick={()=>passMess()}>Отправить <i className="fa-regular fa-paper-plane"/></div>
+                            </div>
                         </div>
-                    </div>
-                    <VoiceRecorder users={users} thismess={thismess} setThismess={setThismess} thisMans={thisMans} reload={reload} setReload={setReload} openrec={openrec} setOpenRec={setOpenRec} record={record} setRecord={setRecord} audioURL={audioURL} setAudioURL={setAudioURL}/>
-                    <div className="history_mess_list" >
-                        {thismess.map((mess, index) => {
-                            let statusmess
-                            if(mess.tn_from === my_tn && !mess.read){
-                                statusmess = 'Отправлено'
-                            } else if(mess.tn_from === my_tn && mess.read){
-                                statusmess = 'Прочитано'
-                            } else if(mess.tn_to === my_tn && !mess.read){
-                                statusmess = 'Новое________'
-                            } else if(mess.tn_to === my_tn && mess.read){
-                                statusmess = 'Прочитано'
-                            }
-                            return(
-                            <div className="history_mess_list_block " key={index}>
-                                <div className="history_mess_list_block_ava" style={{backgroundImage: `url("files/profile/${mess.avatar}")` }}>{ (mess.tn_from === my_tn) ? <i className="online1 fa-solid fa-circle"></i> : online.includes(mess.tn_from) ? <i className="online1 fa-solid fa-circle"></i> : null}</div>
-                                <div className="history_mess_list_block_content" >
-                                    <div className="history_mess_list_block_content_name" >{mess.full_name}</div>
-                                    <div className="history_mess_list_block_content_message" >{
-                                        (mess.title === 'voice_voice')?<audio src={`/files/voice/${mess.voice}.mp3`} controls />:mess.text
-                                    }</div>
-                                    <div className="history_mess_list_block_content_dateandstatus" >
-                                        <div className="history_mess_list_block_content_date" >{backDate(mess.createdAt)}</div>
-                                        <div className="history_mess_list_block_content_status" >
-                                            {statusmess}
+                        <VoiceRecorder users={users} thismess={thismess} setThismess={setThismess} thisMans={thisMans} reload={reload} setReload={setReload} openrec={openrec} setOpenRec={setOpenRec} record={record} setRecord={setRecord} audioURL={audioURL} setAudioURL={setAudioURL}/>
+                        <div className="history_mess_list" >
+                            {thismess.map((mess, index) => {
+                                let statusmess
+                                if(mess.tn_from === my_tn && !mess.read){
+                                    statusmess = 'Отправлено'
+                                } else if(mess.tn_from === my_tn && mess.read){
+                                    statusmess = 'Прочитано'
+                                } else if(mess.tn_to === my_tn && !mess.read){
+                                    statusmess = 'Новое________'
+                                } else if(mess.tn_to === my_tn && mess.read){
+                                    statusmess = 'Прочитано'
+                                }
+                                return(
+                                    <div className="history_mess_list_block " key={index}>
+                                        <div className="history_mess_list_block_ava" style={{backgroundImage: `url("files/profile/${mess.avatar}")` }}>{ (mess.tn_from === my_tn) ? <i className="online1 fa-solid fa-circle"></i> : online.includes(mess.tn_from) ? <i className="online1 fa-solid fa-circle"></i> : null}</div>
+                                        <div className="history_mess_list_block_content" >
+                                            <div className="history_mess_list_block_content_name" >{mess.full_name}</div>
+                                            <div className="history_mess_list_block_content_message" >{
+                                                (mess.title === 'voice_voice')?<audio src={`/files/voice/${mess.voice}.mp3`} controls />:mess.text
+                                            }</div>
+                                            <div className="history_mess_list_block_content_dateandstatus" >
+                                                <div className="history_mess_list_block_content_date" >{backDate(mess.createdAt)}</div>
+                                                <div className="history_mess_list_block_content_status" >
+                                                    {statusmess}
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        )})}
+                                )})}
+                        </div>
                     </div>
+                    {/*-------------------------------------------------------------------------------*/}
+                    <div className="list_messages_col_bottom" ></div>
                 </div>
-                {/*-------------------------------------------------------------------------------*/}
-                <div className="list_messages_col_bottom" ></div>
             </div>
-        </div>
 
             <audio ref={audioRef} src="/audio/zvuk2.mp3" preload="auto" />
             <div className="menu_mess">
-            <div className="menu_mess_list">
-                <div className="menu_mess_list_btn">Все чаты</div>
-                <div className="menu_mess_list_btn">Непрочитанные</div>
-                <div className="menu_mess_list_btn">Архив</div>
+                <div className="menu_mess_list">
+                    <div className="menu_mess_list_btn">Все чаты</div>
+                    <div className="menu_mess_list_btn">Непрочитанные</div>
+                    <div className="menu_mess_list_btn">Архив</div>
+                </div>
             </div>
-        </div>
         </div>
     )
 }

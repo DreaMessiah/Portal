@@ -127,5 +127,10 @@ export default class UserService {
     static getAllPeoples(){
         return $api.get('/t13/getallpeoples')
     }
+    static getUsers(){
+        return $api.get('/auth/getusers')
+    }
+
+
 
 }

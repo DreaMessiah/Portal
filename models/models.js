@@ -596,12 +596,6 @@ const Messages = sequelize.define('messages', {
     read:{type:DataTypes.BOOLEAN,default:false},
     voice: {type: DataTypes.TEXT}
 })
-const Chats = sequelize.define('chats', {
-    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
-    tn_creator:{type:DataTypes.STRING,ref:'question'},
-    tn_direction:{type:DataTypes.STRING,ref:'survey'},
-    trash:{type:DataTypes.BOOLEAN,default:false}
-})
 const PostComments = sequelize.define('postcomments', {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     creator_tn:{type:DataTypes.STRING,ref:'users'},
@@ -906,7 +900,6 @@ const Commission = sequelize.define('commission',  {
     status:{type:DataTypes.INTEGER,defaultValue:1},
     trash:{type:DataTypes.BOOLEAN,defaultValue:false}
 })
-
 const PositionOfSoc = sequelize.define('positionsoc',  {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     from:{type:DataTypes.INTEGER},
@@ -914,7 +907,6 @@ const PositionOfSoc = sequelize.define('positionsoc',  {
     percent:{type:DataTypes.INTEGER},
     trash:{type:DataTypes.BOOLEAN,defaultValue:false}
 })
-
 const ProgramOfSoc = sequelize.define('programofsoc',  {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     name:{type:DataTypes.TEXT},
@@ -927,7 +919,6 @@ const ProgramOfSoc = sequelize.define('programofsoc',  {
     calculation:{type:DataTypes.BOOLEAN,defaultValue:false},
     trash:{type:DataTypes.BOOLEAN,defaultValue:false}
 })
-
 const MyProgram = sequelize.define('myprogram',  {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     user_tn:{type:DataTypes.TEXT,ref:'t13uni'},
@@ -1024,6 +1015,7 @@ const SocketActions = sequelize.define('socketactions',{
     action:{type:DataTypes.TEXT},
 })
 
+
 OfferPosts.belongsTo(User, { foreignKey: 'user_id', targetKey: 'id', as: 'user' })
 User.hasMany(OfferPosts, { foreignKey: 'user_id', sourceKey: 'id', as: 'content' })
 
@@ -1116,6 +1108,43 @@ HistoryTypes.hasMany(History, { foreignKey: 'type_id' })
 SocketActions.belongsTo(User, { foreignKey: 'user_id' })
 User.hasMany(SocketActions, { foreignKey: 'user_id' })
 
+/***********************************************************************/
+const Message = sequelize.define('cmessage', {
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    author_id:{type:DataTypes.INTEGER, allowNull: false, references: { model: 'users', key: 'id' } },
+    text:{type:DataTypes.TEXT},
+    voice: {type: DataTypes.TEXT},
+    trash_creator:{type:DataTypes.BOOLEAN,defaultValue:false},
+    trash_all:{type:DataTypes.BOOLEAN,defaultValue:false},
+    sees: {type: DataTypes.ARRAY(DataTypes.INTEGER),defaultValue: []},
+    onchange:{type:DataTypes.BOOLEAN,defaultValue:false},
+    forwarded:{type:DataTypes.BOOLEAN,defaultValue:false}
+})
+const Chat = sequelize.define('chat', {
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    ongroup:{type:DataTypes.BOOLEAN,defaultValue:false},
+    trash_creator:{type:DataTypes.BOOLEAN,defaultValue:false},
+    trash_all:{type:DataTypes.BOOLEAN,defaultValue:false},
+})
+const MessageFiles = sequelize.define('messagefiles', {
+    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    message_id: { type: DataTypes.INTEGER, references: { model: Message, key: 'id' } },
+    name:{type:DataTypes.TEXT, unique: true }
+})
+const ChatMessage = sequelize.define('ChatMessage', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true }
+})
+const ChatUser = sequelize.define('ChatUser', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true }
+})
+Chat.belongsToMany(Message, { through: ChatMessage })
+Chat.belongsToMany(User, { through: ChatUser })
+Message.belongsToMany(Chat, { through: ChatMessage })
+User.belongsToMany(Chat, { through: ChatUser })
+Message.hasMany(MessageFiles, { foreignKey: 'message_id' })
+MessageFiles.belongsTo(Message, { foreignKey: 'message_id' })
+/***********************************************************************/
+
 module.exports = {
-    SocketActions,History,HistoryTypes,OfferPosts, SrtoObjects, MyprogramProtocol,Preregister,Notifications,TypesNotifications,ProgramOfSoc, MyProgram, T13Black,Commission,PositionOfSoc,Reports,Struct,StructUsers,Bye,PeopleCounter,T13Bye,T13Uni,CrewMans,ZaSv,TableZayavka,HumanList,KtuDoc,KtuList,MessageSv,ViewsWorkSv,CrewManlist,CrewDoclist,CrewBase,CrewSv,OgmPrice,WorkPrice,StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Chats,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts,ProtocolOfSoc
+    ChatUser,ChatMessage,MessageFiles,Chat,Message,SocketActions,History,HistoryTypes,OfferPosts, SrtoObjects, MyprogramProtocol,Preregister,Notifications,TypesNotifications,ProgramOfSoc, MyProgram, T13Black,Commission,PositionOfSoc,Reports,Struct,StructUsers,Bye,PeopleCounter,T13Bye,T13Uni,CrewMans,ZaSv,TableZayavka,HumanList,KtuDoc,KtuList,MessageSv,ViewsWorkSv,CrewManlist,CrewDoclist,CrewBase,CrewSv,OgmPrice,WorkPrice,StatementsSimples,TaskGroups,Priority,Tasks,TaskConnections,TaskDocs,TaskResults,TaskChains,Statuses,PostComments,Messages,Managers,MainBlocks,Contest,Nominations,KidsAnswers,User,T13,Company,TableTabel,TabelSv,YmSvarka,Days,NumberObjects,Objects,ObjectsSV,Token,Phonebook,Jobs,Payslip,Ymshifr,Files,DiskSpace,Survey,Question,Answer,BestBoard,Posts,ProtocolOfSoc
 }

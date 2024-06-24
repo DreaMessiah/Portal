@@ -48,9 +48,14 @@ router.post('/setsizes',authMiddlewere,usersController.setSizes)
 router.post('/createreg',authMiddlewere,usersController.createPreReg)
 router.post('/changeza',authMiddlewere,usersController.changeZa)
 
+
+router.get('/getusers',authMiddlewere,usersController.getUsers)
+
 router.get('/getreg',authMiddlewere,usersController.getPrereg)
 router.get('/getunphoto',authMiddlewere,usersController.getUnphoto)
 router.post('/setfixava',authMiddlewere,usersController.setFixAva)
+
+
 
 router.post('/removeza',authMiddlewere,usersController.removeZa)
 

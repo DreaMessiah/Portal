@@ -70,6 +70,8 @@ import AnalyticsRouter from "./pages/analytics/AnalyticsRouter";
 import Notifications from "./pages/message/Notifications";
 import FixersRouter from "./pages/fixers/fixersRouter";
 import OpenAiPage from "./pages/ai/OpenAiPage";
+import Messager from "./pages/message/MessagerLanding";
+import ContestStat from "./pages/kidscontest/ContestStat";
 
 
 function App() {
@@ -226,12 +228,15 @@ function App() {
                         {store.user.account === 'superadmin' ? <Route path="/history" element={<AnalyticsRouter page={5} />} /> : null }
                         {store.user.account === 'superadmin' ? <Route path="/analyticscms" element={<AnalyticsRouter page={6} />} /> : null }
 
+                        {store.user.account === 'superadmin' ? <Route path="/messager" element={<Messager />} /> : null }
+
 
                         {store.user.account === 'superadmin' || store.user.account === 'fixers' ? <Route path="/fixers" element={<FixersRouter page={1} />} /> : null }
                         {store.user.account === 'superadmin' || store.user.account === 'fixers' ? <Route path="/registration" element={<FixersRouter page={2} />} /> : null }
                         {store.user.account === 'superadmin' || store.user.account === 'fixers' ? <Route path="/changeava" element={<FixersRouter page={3} />} /> : null }
                         {store.user.account === 'superadmin' || store.user.account === 'fixers' ? <Route path="/openai" element={<OpenAiPage />} /> : null }
 
+                        {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/conteststat" element={<ContestStat />} /> : null }
                         {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/editor" element={<EditorRouter page={1} />} /> : null }
                         {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/peoplesstat" element={<EditorRouter page={2} />} /> : null }
                         {store.user.unit === 99 || store.user.account === 'superadmin' ? <Route path="/sociality" element={<EditorRouter page={3} />} /> : null }
