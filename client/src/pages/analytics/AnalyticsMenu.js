@@ -9,6 +9,7 @@ export default function AnalyticsMenu(){
             <Buttons text={'Графики активности'} icon={`fa-solid fa-chart-simple`} url={`/dashboard`}/>
             <Buttons text={'История'} icon={`fa-solid fa-book-atlas`} url={`/history`}/>
             <Buttons text={'Настройки'} icon={`fa-solid fa-gear`} url={`/analyticscms`}/>
+            <Buttons text={'Опросы'} icon={`fa-solid fa-headset`} url={`/analyticsopenai`}/>
         </div>
     )
 }

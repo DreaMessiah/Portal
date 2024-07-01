@@ -28,11 +28,14 @@ function SurveyPage({flag=false,id,onLand=false}){
                 setQuestions(response.data.questions)
                 setAnswer(response.data.answers)
                 if(response.data.surveys.image) setImage(response.data.surveys.image)
+
             }
             const statres = await PollsService.fetchStat(id)
             if(statres.data){
                 setStat(statres.data)
             }
+
+            console.log(response.data.AN)
         }catch (e){
             console.log(e.message+': Проблема загрузки опроса')
         }

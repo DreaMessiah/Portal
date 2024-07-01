@@ -18,7 +18,18 @@ class PollsService{
         const questions = await Question.findAll({where:{survey_id:+id}})
         if(!questions) throw ApiError.BadRequest('Нет ответов в базе')
         const answers = await Answer.findOne({where:{survey_id:+id,user_id:+user_id}})
-        return {surveys,questions,answers}
+        const allAns = await Answer.findAll({where:{survey_id:+id}})
+
+        //console.log(allAns)
+        const AN = await Promise.all(allAns.map( async item => {
+                const user = await User.findByPk(item.user_id)
+                const ques = await Question.findByPk(item.question_id)
+                if(user && ques){
+                    return {...item.dataValues,full_name:user.dataValues.full_name,developer:user.dataValues.developer,ans:ques.dataValues.text}
+                }
+        }))
+
+        return {surveys,questions,answers,AN}
     }
     async getStat(id) {
         const questions = await Question.findAll({where:{survey_id:+id}})
@@ -127,7 +138,7 @@ class PollsService{
     }
     async getRe(){
         const answers = await KidsAnswers.findAll({include: [Nominations,User,Contest]})
-        const nominations = await Nominations.findAll({include: [{model:KidsAnswers,include:User}]})
+        const nominations = await Nominations.findAll({include: [{model:KidsAnswers,include:User}],order: [['id', 'ASC']]})
         const contests = await Contest.findAll({include: [User,KidsAnswers]})
         return {answers,nominations,contests}
     }
@@ -142,7 +153,7 @@ class PollsService{
             const stats = await Promise.all(golosa.map(async rows => {
                 const hozayin = await User.findByPk(rows.dataValues.user_id)
                 const nomina = await Nominations.findByPk(rows.dataValues.nomination_id)
-                return {...rows.dataValues,full_name:hozayin.dataValues.full_name,nominame:nomina.dataValues.name}
+                return {...rows.dataValues,full_name:hozayin.dataValues.full_name,hozdev:hozayin.dataValues.developer,nominame:nomina.dataValues.name}
             }))
             return {...item.dataValues,stat:stats}
         }))

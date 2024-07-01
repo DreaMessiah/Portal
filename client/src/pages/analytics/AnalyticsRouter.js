@@ -11,6 +11,7 @@ import AnalyticsBye from "./AnalyticsBye";
 import Dashboard from "./Dashboard";
 import History from "./History";
 import AnalyticsCms from "./AnalyticsCms";
+import Survey73 from "./Survey73";
 
 export default function AnalyticsRouter({page= 1}){
     return (
@@ -24,7 +25,7 @@ export default function AnalyticsRouter({page= 1}){
                 {page === 4 && <WorkPage data={<Dashboard />}/>}
                 {page === 5 && <WorkPage data={<History />}/>}
                 {page === 6 && <WorkPage data={<AnalyticsCms />}/>}
-
+                {page === 7 && <WorkPage data={<Survey73 />}/>}
             </div>
         </div>
 

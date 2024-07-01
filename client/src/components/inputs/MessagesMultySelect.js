@@ -9,19 +9,22 @@ const CustomOption = (props) => {
                     alt={props.data.label}
                     style={{ width: 50, height: 50, marginRight: 10,borderRadius:50,backgroundImage:`url('/files/profile/${props.data.avatar ? props.data.avatar : 'face.png' }')`,backgroundRepeat:'no-repeat',backgroundSize:"cover",backgroundPosition:'center' }}
                 />
+                {props.data.socket ? <span className={`green-circle1`}></span> : null}
                 {props.data.label}
             </div>
         </components.Option>
     )
 }
-export default function MessagesMultySelect({values=[],options,setOptions,disable = false,empty=false,heigth='auto',radius='0',placeholder='Выберете людей...'}){
+export default function MessagesMultySelect({values=[],options,online=[],setOptions,disable = false,empty=false,heigth='auto',radius='0',placeholder='Выберете людей...'}){
+    const updatedOptions = options ? options.map(option => ({ ...option, key: option.tn, socket: online ? online.includes(option.tn) : null })) : null
+
     return (
         <>
             <Select
                 isMulti
                 onChange={(e) => setOptions(e)}
                 value={values}
-                options={options}
+                options={updatedOptions}
                 placeholder={placeholder}
                 className={`basic-multi-select ${empty && 'red-solid-select-border'} ${disable && 'disable-select'}`}
                 classNamePrefix="select"

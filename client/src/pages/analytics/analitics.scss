@@ -318,3 +318,24 @@
   margin: 5px;
   cursor: pointer;
 }
+
+.flex-table {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: 1px solid #ccc;
+}
+
+.flex-row {
+  display: flex;
+  &:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+}
+
+.flex-cell {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: center;
+}

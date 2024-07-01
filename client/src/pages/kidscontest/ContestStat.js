@@ -11,6 +11,7 @@ import {MainHeader} from "../../components/header/Mainheader";
 import {Mainnavbar} from "../../components/navbar/Mainnavbar";
 import {WorkPage} from "../../components/workpage/WorkPage";
 import ListContest from "./ListContest";
+import LoadingSpinner from "../../components/loading/LoadingSpinner";
 
 function ContestStat(){
     const navigate = useNavigate()
@@ -24,6 +25,7 @@ function ContestStat(){
     const message = useMessage()
     const [isVote,setIsVote] = useState(true)
     const [used,setUsed] = useState(0)
+    const [loading,setLoading] = useState(false)
 
     const [stat,setStat] = useState([])
 
@@ -43,9 +45,13 @@ function ContestStat(){
     const loadingHandler = async () => {
         try{
             const contests = await PollsService.getKids()
+            setLoading(true)
             if (contests.data) {
                 const ctst = [...contests.data]
                 const users = await AuthService.getusers()
+
+                const {data} = await PollsService.getStatWork()
+                setStat(data)
 
                 if(users){
                     ctst.map(rows => {
@@ -59,7 +65,10 @@ function ContestStat(){
                                 rows.votes = votes.data
                             }
                         })
+                        const statistics = data.find(u => u.id === rows.id)
+                        rows.statistics = statistics.stat
                     })
+                    console.log(ctst)
                     setWorks(ctst)
                 }
             }
@@ -83,17 +92,10 @@ function ContestStat(){
                 }
             }
 
-
-            const {data} = await PollsService.getStatWork()
-            setStat(data)
-
-            works.map( item => {
-                console.log(item.name)
-            })
-
-            console.log(data)
         }catch (e) {
             console.log(e?.message)
+        }finally {
+            setLoading(false)
         }
     }
 
@@ -152,6 +154,16 @@ function ContestStat(){
                                                 <hr/>
                                                 <div className={`answers`}><i className={`fa-heart fa-regular`}></i>{works[currentImageIndex].votes} <i className="fa-regular fa-calendar"></i><span>{formatDate(works[currentImageIndex].createdAt)}</span></div>
                                                 <hr/>
+                                                <div className={'results'}>
+                                                    {works[currentImageIndex].statistics.map( (item,index) => (
+                                                        <div key={index} className={`border-golos`}>
+                                                            <div className={``}>{item.full_name}</div>
+                                                            <div className={``}>{item.nominame}</div>
+                                                            <div className={``}>{item.hozdev}</div>
+                                                            <div className={``}>{formatDate(item.createdAt)}</div>
+                                                        </div>
+                                                    ))}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -163,6 +175,7 @@ function ContestStat(){
                     </div>
                 </div>
             </div>
+            {loading ? (<LoadingSpinner/>) : null}
         </div>
 
 

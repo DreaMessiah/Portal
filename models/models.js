@@ -1113,18 +1113,22 @@ const Message = sequelize.define('cmessage', {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     author_id:{type:DataTypes.INTEGER, allowNull: false, references: { model: 'users', key: 'id' } },
     text:{type:DataTypes.TEXT},
-    voice: {type: DataTypes.TEXT},
-    trash_creator:{type:DataTypes.BOOLEAN,defaultValue:false},
-    trash_all:{type:DataTypes.BOOLEAN,defaultValue:false},
-    sees: {type: DataTypes.ARRAY(DataTypes.INTEGER),defaultValue: []},
+    voice:{type: DataTypes.TEXT},
+    sees:{type: DataTypes.ARRAY(DataTypes.INTEGER),defaultValue: []},
+    important:{type: DataTypes.ARRAY(DataTypes.INTEGER),defaultValue: []},
+    trash:{type: DataTypes.ARRAY(DataTypes.INTEGER),defaultValue: []},
     onchange:{type:DataTypes.BOOLEAN,defaultValue:false},
-    forwarded:{type:DataTypes.BOOLEAN,defaultValue:false}
+    forwarded:{type:DataTypes.BOOLEAN,defaultValue:false},
+    service:{type:DataTypes.BOOLEAN,defaultValue:false}
 })
 const Chat = sequelize.define('chat', {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    name:{type:DataTypes.TEXT,defaultValue: ''},
+    image:{type:DataTypes.TEXT,defaultValue: ''},
+    creator_id:{type:DataTypes.INTEGER},
     ongroup:{type:DataTypes.BOOLEAN,defaultValue:false},
-    trash_creator:{type:DataTypes.BOOLEAN,defaultValue:false},
-    trash_all:{type:DataTypes.BOOLEAN,defaultValue:false},
+    trash:{type: DataTypes.ARRAY(DataTypes.INTEGER),defaultValue: []},
+    archive:{type: DataTypes.ARRAY(DataTypes.INTEGER),defaultValue: []},
 })
 const MessageFiles = sequelize.define('messagefiles', {
     id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
@@ -1143,6 +1147,15 @@ Message.belongsToMany(Chat, { through: ChatMessage })
 User.belongsToMany(Chat, { through: ChatUser })
 Message.hasMany(MessageFiles, { foreignKey: 'message_id' })
 MessageFiles.belongsTo(Message, { foreignKey: 'message_id' })
+
+Chat.belongsTo(User, { foreignKey: 'creator_id' })
+User.hasMany(Chat, { foreignKey: 'creator_id' })
+Message.belongsTo(User, { foreignKey: 'author_id' })
+User.hasMany(Message, { foreignKey: 'author_id' })
+
+ChatUser.belongsTo(User, { foreignKey: 'userId' })
+User.hasMany(ChatUser, { foreignKey: 'userId' })
+
 /***********************************************************************/
 
 module.exports = {

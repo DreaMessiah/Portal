@@ -59,8 +59,16 @@ export default function ResultsKidsContest(){
                     if(!UzheEst.includes(answer.contest_id)) acc[answer.nomination_id][answer.contest_id] += 1;
                     return acc
                 }, {})
-                console.log(groupedAnswers)
+                let temp = JSON.parse(JSON.stringify(groupedAnswers));
 
+                contests.map(item => {
+                    for(let i = 1;i<6;i++){
+                        temp[i][item.id] = `${groupedAnswers[i][item.id] ? groupedAnswers[i][item.id] : 0} ${item.name}`
+                    }
+                })
+
+                console.log(temp)
+                console.log(groupedAnswers)
 
 /*                const winners = nominations.map(nomination => {
                     const answers = groupedAnswers[nomination.id];

@@ -37,9 +37,9 @@ class PollsController {
     async getSurvey(req,res,next) {
         try{
             const {id} = req.body
-            const {surveys,questions,answers} = await PollsService.getSurvey(id,req.user.id)
+            const {surveys,questions,answers,AN} = await PollsService.getSurvey(id,req.user.id)
             //await HistoryService.createAction(req.user.id,6,`Просмотр опроса ${surveys.text}`)
-            return res.status(200).json({surveys,questions,answers})
+            return res.status(200).json({surveys,questions,answers,AN})
         }catch (e){
             next(e)
         }

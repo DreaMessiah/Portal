@@ -3,30 +3,23 @@ const ObjsDto = require('../dtos/objsDto')
 const ApiError = require('../exceptions/api.error')
 const {DataTypes, Op, Sequelize} = require("sequelize");
 class ObjsService{
-
     async thisObj(object_id){
         return await Objects.findAll({where: {id:+object_id.object_id}})
     }
-
     async getObjects(inn){
         return await Objects.findAll({where: {inn:inn}, order: [['shifr', 'ASC']]})
     }
-
     async getAllTabels(search){
         return await Ymshifr.findAll({where: {object_id:search.getId, inn:search.inn,[Op.or]: [{ trash: null },{ trash: false }]}, order: [['year', 'DESC']]})
     }
-
     async getTabelsForAll(search){
         return await Ymshifr.findAll({where: {year: search.year, inn:search.inn,[Op.or]: [{ trash: null },{ trash: false }]}, order: [['year', 'DESC']]})
     }
-
     async createTabels(tabel){
         const idobj = parseInt(tabel.getId)
         await Ymshifr.create({object_id:idobj, shifr:idobj, month:tabel.selMonth, year:tabel.selYear, inn:tabel.inn})
         return await Ymshifr.findAll({where: {object_id:tabel.getId, inn:tabel.inn}, order: [['year', 'DESC']]})
-
     }
-
     async showObjects(user){
         const newList = []
         const listObjs = await NumberObjects.findAll({where: {inn:user.inn, user_id:user.user_id}, order: [['id', 'DESC']]})

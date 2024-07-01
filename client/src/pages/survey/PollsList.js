@@ -14,6 +14,7 @@ export default function PollsList(){
             if(response.data){
                 setSurveys(response.data)
             }
+
         }catch (e){
             console.log(e.message+': Проблема загрузки списка опросов')
         }
